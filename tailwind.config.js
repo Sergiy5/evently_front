@@ -1,10 +1,14 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
-  mode: "jit",
-  purge: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./src/**/*.html",
+    "./src/**/*.js",
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+  ],
   theme: {
     extend: {},
   },
-  variants: {},
   plugins: [],
 };
