@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "outDir": "./dist", // Output directory for compiled JS files
+    "rootDir": "./", // The root directory of your source files
     "composite": true,
     "target": "ES2022",
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
@@ -9,7 +11,6 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "jsx": "react-jsx",
-    "noEmit": true,
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -22,15 +23,51 @@
       "components/*": ["src/components/*"],
       "types/*": ["src/@types/*"],
       "public/*": ["public/*"]
-    }
+    },
+    "declaration": true, // Emit .d.ts declaration files
+    "declarationDir": "./dist/types", // Directory for .d.ts files
+    "emitDeclarationOnly": true, // Only emit .d.ts files, not .js
+    "sourceMap": true // Optional: Emit source maps
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts"],
-  "exclude": ["node_modules", "build", "dist"],
-  "references": [
-    { "path": "./tsconfig.node.json" },
-    { "path": "./tsconfig.app.json" }
-  ]
+  "exclude": ["node_modules", "build", "dist"]
 }
+
+// {
+//   "compilerOptions": {
+//     "composite": true,
+//     "target": "ES2022",
+//     "lib": ["ES2023", "DOM", "DOM.Iterable"],
+//     "module": "ESNext",
+//     "moduleResolution": "bundler",
+//     "allowImportingTsExtensions": false,
+//     "isolatedModules": true,
+//     "moduleDetection": "force",
+//     "jsx": "react-jsx",
+//     "noEmit": true,
+//     "strict": true,
+//     "noUnusedLocals": true,
+//     "noUnusedParameters": true,
+//     "noFallthroughCasesInSwitch": true,
+//     "skipLibCheck": true,
+//     "baseUrl": ".",
+//     "paths": {
+//       "@/*": ["./src/*"],
+//       "pages/*": ["src/pages/*"],
+//       "components/*": ["src/components/*"],
+//       "types/*": ["src/@types/*"],
+//       "public/*": ["public/*"]
+//     },
+//     "outDir": "./dist"
+//   },
+//   "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts"],
+//   "exclude": ["node_modules", "build", "dist"],
+//   "references": [
+//     { "path": "./tsconfig.node.json" },
+//     { "path": "./tsconfig.app.json" }
+//   ]
+// }
+// ==================================================================
 // {
 //   "compilerOptions": {
 //     "noEmit": true,
@@ -48,5 +85,6 @@
 //   "include": ["src/**/*.ts", "src/**/*.tsx"],
 //   "exclude": ["node_modules", "build"],
 //   "references": [{ "path": "./tsconfig.node.json" }]
+
 
 // }
