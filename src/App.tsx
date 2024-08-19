@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layaout';
 import NotFoundPage from './pages/notFoundPage';
 
-const Home = React.lazy(() => import('./pages/Home'));
+const Home = React.lazy(() => import('./pages/home'));
 
 const App: React.FC = () => {
   return (
