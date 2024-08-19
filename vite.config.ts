@@ -17,14 +17,4 @@ export default defineConfig({
       types: `${path.resolve(__dirname, './src/@types')}`,
     },
   },
-  // It was maded when page notFoundPage
-  // build: {
-  //   sourcemap: true,
-  //   rollupOptions: {
-  //     input: {
-  //       // main: 'src/App.tsx',
-  //       '404': 'src/pages/notFoundPage.tsx',
-  //     },
-  //   },
-  // },
 });
