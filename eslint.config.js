@@ -21,6 +21,10 @@ export default [
       parser: typescriptEslintParser,
       sourceType: 'module',
     },
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
     plugins: {
       react: react,
       'react-hooks': reactHooks,
