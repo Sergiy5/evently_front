@@ -14,6 +14,7 @@ export default defineConfig({
       },
     },
   },
+  base: '/evently_front/',
   plugins: [react()],
   resolve: {
     alias: {
