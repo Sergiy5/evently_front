@@ -13,6 +13,7 @@
       "public/*": ["public/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "build"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
