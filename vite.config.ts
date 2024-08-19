@@ -18,13 +18,13 @@ export default defineConfig({
     },
   },
   // It was maded when page notFoundPage
-  build: {
-    sourcemap: true,
-    rollupOptions: {
-      input: {
-        // main: 'src/App.tsx',
-        '404': 'src/pages/notFoundPage.tsx',
-      },
-    },
-  },
+  // build: {
+  //   sourcemap: true,
+  //   rollupOptions: {
+  //     input: {
+  //       // main: 'src/App.tsx',
+  //       '404': 'src/pages/notFoundPage.tsx',
+  //     },
+  //   },
+  // },
 });
