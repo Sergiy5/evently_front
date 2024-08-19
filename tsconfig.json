@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./dist", // Output directory for compiled JS files
+    "outDir": "./build", // Output directory for compiled JS files
     "rootDir": "./", // The root directory of your source files
     "composite": true,
     "target": "ES2022",

@@ -4,7 +4,7 @@ import path from 'path';
 
 export default defineConfig({
   build: {
-    outDir: 'dist', // Ensure Vite outputs to the `dist` folder
+    outDir: 'build', // Ensure Vite outputs to the `dist` folder
     sourcemap: true, // Optional: Generate source maps for debugging
     rollupOptions: {
       input: path.resolve(__dirname, 'src/index.tsx'), // Specify the main entry point
