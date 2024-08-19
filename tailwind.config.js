@@ -9,7 +9,7 @@ module.exports = {
     './src/**/*.tsx',
   ],
   theme: {
-    // Change colors here...
+    // Change colors here... For using only these colors
     colors: {
       primary: '#3498db',
       secondary: '#f1c40f',
@@ -19,12 +19,12 @@ module.exports = {
       dark: '#333',
       light: '#f9f9f9',
     },
-    spacing: {
-      sm: '8px',
-      md: '16px',
-      lg: '24px',
-      xl: '32px',
-    },
+    // spacing: {
+    //   sm: '8px',
+    //   md: '16px',
+    //   lg: '24px',
+    //   xl: '32px',
+    // },
     typography: {
       fontFamily: {
         sans: ['Open Sans', 'sans-serif'],
@@ -39,11 +39,11 @@ module.exports = {
       },
     },
   },
-  variants: {
-    // Expample of using tailwindcss dark mode
-    extend: {
-      backgroundColor: ['dark'],
-    },
-  },
+  // variants: {
+  //   // Expample of using tailwindcss dark mode
+  //   // extend: {
+  //   //   backgroundColor: ['dark'],
+  //   // },
+  // },
   plugins: [],
 };
