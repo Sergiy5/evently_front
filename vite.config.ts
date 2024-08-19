@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-// import { resolve } from "path";
 import path from 'path';
 
 export default defineConfig({
@@ -16,6 +15,16 @@ export default defineConfig({
       public: `${path.resolve(__dirname, './public/')}`,
       pages: path.resolve(__dirname, './src/pages'),
       types: `${path.resolve(__dirname, './src/@types')}`,
+    },
+  },
+  // It was maded when page notFoundPage
+  build: {
+    sourcemap: true,
+    rollupOptions: {
+      input: {
+        // main: 'src/App.tsx',
+        '404': 'src/pages/notFoundPage.tsx',
+      },
     },
   },
 });
