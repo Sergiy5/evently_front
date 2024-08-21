@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { SharedInput } from './ui';
 import { validateEmail, validatePassword } from '@/utils';
 import { toast } from 'react-toastify';
+
 // import { useAppDispatch } from '@/hooks/hooks';
 // import { register } from '@/redux/auth/operations';
 // import {register} from '@/redux/auth/operations';
@@ -74,7 +75,7 @@ export const Auth: React.FC = () => {
   //     }
   //   };
   //   regUser(userData);
-  // }, [setIsLoading, userData]);
+  // }, [ userData]);
 
   return (
     <form
