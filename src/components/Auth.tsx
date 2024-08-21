@@ -2,23 +2,22 @@ import { useState } from 'react';
 import { SharedInput } from './ui';
 import { validateEmail, validatePassword } from '@/utils';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
-import { useAppDispatch } from '@/hooks/hooks';
-import { register } from '@/redux/auth/operations';
+// import { useAppDispatch } from '@/hooks/hooks';
+// import { register } from '@/redux/auth/operations';
 // import {register} from '@/redux/auth/operations';
 
-interface UserData {
-  email: string;
-  password: string;
-  name: string;
-  'confirm password': string;
-}
+// interface UserData {
+//   email: string;
+//   password: string;
+//   name: string;
+//   'confirm password': string;
+// }
 export const Auth: React.FC = () => {
-  const [userData, setUserData] = useState<UserData | {}>();
+  // const [userData, setUserData] = useState<UserData | {}>();
   const [isValidData, setIsValidData] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,7 +30,7 @@ export const Auth: React.FC = () => {
 
     const data = Object.fromEntries(formData);
 
-    const { email, password, name, 'confirm password': confirmPassword } = data;
+    const { email, password, 'confirm password': confirmPassword } = data;
 
     const emptyFields = Object.keys(data).filter(key => data[key] === '');
 
@@ -52,7 +51,7 @@ export const Auth: React.FC = () => {
     } else if (password !== confirmPassword) {
       return toast.error('Passwords do not match');
     } else {
-      setUserData({ name, email, password });
+      // setUserData({ name, email, password });
     }
   };
   // useEffect(() => {
