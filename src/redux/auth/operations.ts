@@ -15,15 +15,13 @@ const clearAuthToken = () => {
 export const register = createAsyncThunk(
   'auth/register',
   async (user: UserInterface | {}, thunkAPI) => {
-    console.log("USER_IN REGISTER", user)
-    // try {
-    //   const response = await axios.post('users/register', user);
-    //   setAuthToken(response.data.token);
-    //   return response.data;
-    // } catch (error: unknown) {
-    //   return thunkAPI.rejectWithValue((error as Error).message);
-    // }
-    return user
+    try {
+      const response = await axios.post('users/register', user);
+      setAuthToken(response.data.token);
+      return response.data;
+    } catch (error: unknown) {
+      return thunkAPI.rejectWithValue((error as Error).message);
+    }
   }
 );
 

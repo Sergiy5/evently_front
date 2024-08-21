@@ -20,7 +20,7 @@ export const Header: React.FC<HeaderProps> = () => {
         className="bg-blue-500 hover:bg-blue-700 focus:outline-none text-white font-bold py-2 px-4 rounded"
         onClick={handleToggleModal}
       >
-        Login
+        Register
       </button>
       <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
         <Auth onCloseModal={handleToggleModal} />

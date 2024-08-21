@@ -18,7 +18,7 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
   const [userData, setUserData] = useState<UserInterface | {}>();
   const [isValidData, setIsValidData] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-console.log('userData', userData);
+  
   const dispatch = useAppDispatch();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -49,9 +49,9 @@ console.log('userData', userData);
         'Password must be at least 8 characters, with uppercase, lowercase, digit, and special character.'
       );
     } else if (password !== confirmPassword) {
+
       return toast.error('Passwords do not match');
     } else if (data && data.email && data.password && data.name) {
-      console.log('ON_SET_DATA', name, email, password);
       setUserData({ name, email, password });
     }
   };
@@ -59,7 +59,6 @@ console.log('userData', userData);
 
   
   useEffect(() => {
-    console.log("DATA_USEEFFECT", userData)
     if (!userData) return;
 
     const regUser = async (credentials: UserInterface | {}) => {
@@ -69,7 +68,6 @@ console.log('userData', userData);
 
         if (response) {
           onCloseModal();
-          console.log("RESPONSE_USER", response)
           return toast.success(
             `User ${response} registered successfully`
           );
