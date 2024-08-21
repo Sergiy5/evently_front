@@ -8,6 +8,16 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 
 export default [
   {
+    'no-restricted-imports': 'off',
+    '@typescript-eslint/no-restricted-imports': [
+      'warn',
+      {
+        name: 'react-redux',
+        importNames: ['useSelector', 'useDispatch'],
+        message:
+          'Use typed hooks `useAppDispatch` and `useAppSelector` instead.',
+      },
+    ],
     files: ['**/*.{ts,tsx}', 'tailwind.config.js'],
     ignores: ['dist', 'build'],
     languageOptions: {

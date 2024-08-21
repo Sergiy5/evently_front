@@ -2,8 +2,7 @@
   "compilerOptions": {
     "composite": true,
     "target": "ES2022",
-    "useDefineForClassFields": true,
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": ["ES2023"],
     "module": "ESNext",
     "skipLibCheck": true,
 
@@ -12,8 +11,7 @@
     "allowImportingTsExtensions": false,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "noEmit": false,
-    "jsx": "react-jsx", //Doesn't require React to be instlled
+    "noEmit": true,
 
     /* Linting */
     "strict": true,
@@ -21,5 +19,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": []
+  "include": ["vite.config.ts"],
+  "references": [{ "path": "./tsconfig.app.json" }]
 }
