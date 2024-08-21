@@ -13,7 +13,10 @@ import { toast } from 'react-toastify';
 //   name: string;
 //   'confirm password': string;
 // }
-export const Auth: React.FC = () => {
+interface AuthProps {
+  onCloseModal: () => void;
+}
+export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
   // const [userData, setUserData] = useState<UserData | {}>();
   const [isValidData, setIsValidData] = useState(true);
   // const [isLoading, setIsLoading] = useState(false);
@@ -53,6 +56,8 @@ export const Auth: React.FC = () => {
       return toast.error('Passwords do not match');
     } else {
       // setUserData({ name, email, password });
+onCloseModal();
+      
     }
   };
   // useEffect(() => {

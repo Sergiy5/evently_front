@@ -56,7 +56,7 @@ export const SharedInput: React.FC<CustomInputProps> = ({
         onFocus={handleFocus}
         onBlur={handleBlur}
         className={clsx(
-          `flex-grow w-full font-light h-10 text-light text-xl text-textColor bg-inputColor
+          `flex-grow w-full font-medium h-10 text-xl text-primary bg-inputColor
            rounded-[18px] px-5  focus:outline-none transition-all duration-200 ease-in-out
             outline-none border-[1px] border-transparent focus:border-accentColor hover:border-accentColor`,
           {

@@ -8,6 +8,11 @@ interface ModalProps {
 }
 
 export const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
+  const handleClose = () => {
+    if (onClose) {
+      onClose();
+    }
+  }
 
   useEffect(() => {
     if (isOpen) {
@@ -41,14 +46,14 @@ export const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
-console.log(isOpen)
+
   const modalRoot = document.getElementById('portal-root');
 
   if (!modalRoot) return null;
 
   return createPortal(
     <div
-      onClick={onClose}
+      // onClick={onClose}
       className="fixed inset-0 z-50 bg-black bg-opacity-50"
     >
       <div
@@ -56,7 +61,6 @@ console.log(isOpen)
         role="dialog"
         aria-modal="true"
       >
-        {onClose && (
           <button
             onClick={onClose}
             className="absolute top-2 right-2 bg-transparent rounded-full px-2 active:outline-none border-gray-600 border-solid text-gray-600 hover:text-primary"
@@ -67,7 +71,6 @@ console.log(isOpen)
                          transition duration-300 hover:stroke-accentColor`}
             /> */}
           </button>
-        )}
         {children}
       </div>
     </div>,

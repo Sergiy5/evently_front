@@ -7,10 +7,10 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleLoginClick = () => {
-    setIsOpen(true);
+  const handleToggleModal = () => {
+    setIsModalOpen(!isModalOpen);
   };
 
   return (
@@ -18,12 +18,12 @@ export const Header: React.FC<HeaderProps> = () => {
       <h1 className="text-2xl font-bold">Evently</h1>
       <button
         className="bg-blue-500 hover:bg-blue-700 focus:outline-none text-white font-bold py-2 px-4 rounded"
-        onClick={handleLoginClick}
+        onClick={handleToggleModal}
       >
         Login
       </button>
-      <Modal isOpen={isOpen}>
-        <Auth />
+      <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
+        <Auth onCloseModal={handleToggleModal} />
       </Modal>
     </header>
   );
