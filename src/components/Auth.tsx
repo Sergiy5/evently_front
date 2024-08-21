@@ -1,31 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SharedInput } from './ui';
 import { validateEmail, validatePassword } from '@/utils';
 import { toast } from 'react-toastify';
+import { useAppDispatch } from '@/hooks/hooks';
+import { register } from '@/redux/auth/operations';
 
-// import { useAppDispatch } from '@/hooks/hooks';
-// import { register } from '@/redux/auth/operations';
-// import {register} from '@/redux/auth/operations';
-
-// interface UserData {
-//   email: string;
-//   password: string;
-//   name: string;
-//   'confirm password': string;
-// }
+ 
+export interface UserInterface {
+  email: string;
+  password: string;
+  name: string;
+}
 interface AuthProps {
   onCloseModal: () => void;
 }
 export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
-  // const [userData, setUserData] = useState<UserData | {}>();
+  const [userData, setUserData] = useState<UserInterface | {}>();
   const [isValidData, setIsValidData] = useState(true);
-  // const [isLoading, setIsLoading] = useState(false);
-
-  // const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+console.log('userData', userData);
+  const dispatch = useAppDispatch();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     const formData = new FormData(event.currentTarget);
 
     formData.forEach((value, key) => {
@@ -33,8 +30,7 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
     });
 
     const data = Object.fromEntries(formData);
-
-    const { email, password, 'confirm password': confirmPassword } = data;
+    const { email, password, name, 'confirm password': confirmPassword } = data;
 
     const emptyFields = Object.keys(data).filter(key => data[key] === '');
 
@@ -54,63 +50,71 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
       );
     } else if (password !== confirmPassword) {
       return toast.error('Passwords do not match');
-    } else {
-      // setUserData({ name, email, password });
-onCloseModal();
-      
+    } else if (data && data.email && data.password && data.name) {
+      console.log('ON_SET_DATA', name, email, password);
+      setUserData({ name, email, password });
     }
   };
-  // useEffect(() => {
-  //   if (!userData) return;
 
-  //   const regUser = async () => {
-  //     setIsLoading(true);
-  //     try {
-  //       const response = await await dispatch(register(userData));
 
-  //       if (response) {
-  //         return toast.success(
-  //           `User ${response.user.name} registered successfully`
-  //         );
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   regUser(userData);
-  // }, [ userData]);
+  
+  useEffect(() => {
+    console.log("DATA_USEEFFECT", userData)
+    if (!userData) return;
 
+    const regUser = async (credentials: UserInterface | {}) => {
+      setIsLoading(true);
+      try {
+        const response = await dispatch(register(credentials));
+
+        if (response) {
+          onCloseModal();
+          console.log("RESPONSE_USER", response)
+          return toast.success(
+            `User ${response} registered successfully`
+          );
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    regUser(userData);
+  }, [userData]);
+  
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col rounded-lg p-6 gap-8 bg-gray-50 w-[480px]"
-    >
-      <SharedInput id="name" label="name" name="name" />
-      <SharedInput
-        id="email"
-        label="email"
-        name="email"
-        isValid={isValidData}
-      />
-      <SharedInput
-        id="password"
-        label="password"
-        name="password"
-        isValid={isValidData}
-      />
-      <SharedInput
-        id="repeat password"
-        label="repeat password"
-        name="repeat password"
-      />
-      <button
-        type="submit"
-        className={`text-light bg-secondary rounded-lg py-2 hover:bg-warning focus:outline-none`}
+    <div>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col rounded-lg p-6 gap-8 bg-gray-50 w-[480px]"
       >
-        Submit
-      </button>
-    </form>
+        <SharedInput id="name" label="name" name="name" />
+        <SharedInput
+          id="email"
+          label="email"
+          name="email"
+          isValid={isValidData}
+        />
+        <SharedInput
+          id="password"
+          label="password"
+          name="password"
+          isValid={isValidData}
+        />
+        <SharedInput
+          id="confirm password"
+          label="confirm password"
+          name="confirm password"
+        />
+        <button
+          type="submit"
+          className={`text-light bg-secondary rounded-lg py-2 hover:bg-warning focus:outline-none`}
+        >
+          Submit
+        </button>
+      </form>
+      {isLoading && <div>LOADING...</div>}
+    </div>
   );
 };

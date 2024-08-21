@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { UserInterface } from '@/components/Auth';
 // import { RootState } from '@reduxjs/toolkit/query';
 
 axios.defaults.baseURL = 'https://goose-track-06-backend.onrender.com/api/';
@@ -13,14 +14,16 @@ const clearAuthToken = () => {
 
 export const register = createAsyncThunk(
   'auth/register',
-  async (user, thunkAPI) => {
-    try {
-      const response = await axios.post('users/register', user);
-      setAuthToken(response.data.token);
-      return response.data;
-    } catch (error: unknown) {
-      return thunkAPI.rejectWithValue((error as Error).message);
-    }
+  async (user: UserInterface | {}, thunkAPI) => {
+    console.log("USER_IN REGISTER", user)
+    // try {
+    //   const response = await axios.post('users/register', user);
+    //   setAuthToken(response.data.token);
+    //   return response.data;
+    // } catch (error: unknown) {
+    //   return thunkAPI.rejectWithValue((error as Error).message);
+    // }
+    return user
   }
 );
 
