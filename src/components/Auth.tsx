@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SharedInput } from './ui';
 import { validateEmail, validatePassword } from '@/utils';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
-import { useAppDispatch } from '@/hooks/hooks';
-import { register } from '@/redux/auth/operations';
+// import { useDispatch } from 'react-redux';
+// import { useAppDispatch } from '@/hooks/hooks';
+// import { register } from '@/redux/auth/operations';
 // import {register} from '@/redux/auth/operations';
 
 interface UserData {
@@ -16,9 +16,9 @@ interface UserData {
 export const Auth: React.FC = () => {
   const [userData, setUserData] = useState<UserData | {}>();
   const [isValidData, setIsValidData] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -55,8 +55,8 @@ export const Auth: React.FC = () => {
       setUserData({ name, email, password });
     }
   };
-  // useEffect(() => {
-  //   if (!userData) return;
+  useEffect(() => {
+    if (!userData) return;
 
   //   const regUser = async () => {
   //     setIsLoading(true);
@@ -75,7 +75,7 @@ export const Auth: React.FC = () => {
   //     }
   //   };
   //   regUser(userData);
-  // }, [setIsLoading, userData]);
+  }, [ userData]);
 
   return (
     <form
