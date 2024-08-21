@@ -8,11 +8,7 @@ interface ModalProps {
 }
 
 export const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
-  const handleClose = () => {
-    if (onClose) {
-      onClose();
-    }
-  }
+
 
   useEffect(() => {
     if (isOpen) {
@@ -53,7 +49,6 @@ export const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
 
   return createPortal(
     <div
-      // onClick={onClose}
       className="fixed inset-0 z-50 bg-black bg-opacity-50"
     >
       <div
