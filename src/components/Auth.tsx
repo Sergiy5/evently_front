@@ -80,13 +80,32 @@ export const Auth: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col rounded-lg p-4 bg-gray-50"
+      className="flex flex-col rounded-lg p-6 gap-8 bg-gray-50 w-[480px]"
     >
       <SharedInput id="name" label="name" name="name" />
-      <SharedInput id="email" label="email" name="email" isValid={isValidData} />
-      <SharedInput id="password" label="password" name="password" isValid={isValidData} />
-      <SharedInput id="repeat password" label="repeat password" name="repeat password" />
-      <button type="submit">Submit</button>
+      <SharedInput
+        id="email"
+        label="email"
+        name="email"
+        isValid={isValidData}
+      />
+      <SharedInput
+        id="password"
+        label="password"
+        name="password"
+        isValid={isValidData}
+      />
+      <SharedInput
+        id="repeat password"
+        label="repeat password"
+        name="repeat password"
+      />
+      <button
+        type="submit"
+        className={`text-light bg-secondary rounded-lg py-2 hover:bg-warning focus:outline-none`}
+      >
+        Submit
+      </button>
     </form>
   );
 };

@@ -22,7 +22,7 @@ export const Header: React.FC<HeaderProps> = () => {
       >
         Login
       </button>
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+      <Modal isOpen={isOpen}>
         <Auth />
       </Modal>
     </header>

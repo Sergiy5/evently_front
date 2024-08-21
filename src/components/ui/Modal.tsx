@@ -8,6 +8,7 @@ interface ModalProps {
 }
 
 export const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -40,9 +41,8 @@ export const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
-
+console.log(isOpen)
   const modalRoot = document.getElementById('portal-root');
-  console.log(modalRoot)
 
   if (!modalRoot) return null;
 
