@@ -97,6 +97,7 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
           id="password"
           label="password"
           name="password"
+          autocomplete='password'
           isValid={isValidData}
           type='password'
         />
@@ -104,7 +105,7 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
           id="confirm password"
           label="confirm password"
           name="confirm password"
-          type='password'
+          autocomplete='confirm password'
         />
         <button
           type="submit"

@@ -9,13 +9,15 @@ interface CustomInputProps {
   name?: string;
   isValid?: boolean;
   defaultValue?: string;
+  autocomplete?: string;
 }
 
 export const SharedInput: React.FC<CustomInputProps> = ({
   label,
   id,
   name,
-  type,
+  type = id,
+  autocomplete,
   defaultValue,
   isValid,
   ...props
@@ -67,8 +69,9 @@ export const SharedInput: React.FC<CustomInputProps> = ({
         onInput={handleInputChange}
         id={id}
         type={type}
-        defaultValue={defaultValue ?? ""}
+        defaultValue={defaultValue ?? ''}
         name={name}
+        autoComplete={autocomplete ?? "off"}
         onFocus={handleFocus}
         onBlur={handleBlur}
         className={clsx(
@@ -76,7 +79,7 @@ export const SharedInput: React.FC<CustomInputProps> = ({
            rounded-[18px] px-5  focus:outline-none transition-all duration-200 ease-in-out
             outline-none border-[1px] border-transparent focus:border-accentColor hover:border-accentColor`,
           {
-            "border-red-400 focus:border-red-400 hover:border-red-400 ":
+            'border-red-400 focus:border-red-400 hover:border-red-400 ':
               !isValidData,
           }
         )}
@@ -85,16 +88,18 @@ export const SharedInput: React.FC<CustomInputProps> = ({
       <label
         htmlFor={id}
         className={clsx(
-          "absolute bg-transparent left-5 text-accentColor transition-all duration-200 ease-in-out",
-          isFocused || hasValue ? "-top-6" : " top-2"
+          'absolute bg-transparent left-5 text-accentColor transition-all duration-200 ease-in-out',
+          isFocused || hasValue ? '-top-6' : ' top-2'
         )}
       >
         {label}
       </label>
-      {id === "password" && <label>
-  <input type="checkbox" id="show-password"/>
-  Show password
-</label>}
+      {label === 'password' && (
+        <label>
+          <input type="checkbox" id="show-password" />
+          Show password
+        </label>
+      )}
     </div>
   );
 };
