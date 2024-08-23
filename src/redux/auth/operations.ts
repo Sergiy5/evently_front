@@ -2,8 +2,18 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { UserInterface } from '@/components/Auth';
 // import { RootState } from '@reduxjs/toolkit/query';
+// import.meta.env.VITE_MOCK_API_USER_URL;
+interface ImportMeta {
+  env: {
+    VITE_MOCK_API_USER_URL: string;
+  };
+}
+// console.log(import.meta.env.VITE_MOCK_API_USER_URL);
 
-axios.defaults.baseURL = 'https://goose-track-06-backend.onrender.com/api/';
+// const env = await import.meta.env;
+console.log("MOCK_URL", URL)
+
+axios.defaults.baseURL = `${URL}`;
 
 const setAuthToken = (token: string) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;

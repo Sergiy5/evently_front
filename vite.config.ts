@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 export default defineConfig({
+  // Need to check if it part is need ===========
   build: {
     outDir: 'build', // Ensure Vite outputs to the `dist` folder
     sourcemap: true, // Optional: Generate source maps for debugging
@@ -14,6 +15,7 @@ export default defineConfig({
       },
     },
   },
+  //==========
   base: '/evently_front/',
   plugins: [react()],
   resolve: {
