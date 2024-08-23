@@ -2,16 +2,8 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { UserInterface } from '@/components/Auth';
 // import { RootState } from '@reduxjs/toolkit/query';
-// import.meta.env.VITE_MOCK_API_USER_URL;
-interface ImportMeta {
-  env: {
-    VITE_MOCK_API_USER_URL: string;
-  };
-}
-// console.log(import.meta.env.VITE_MOCK_API_USER_URL);
 
-// const env = await import.meta.env;
-console.log("MOCK_URL", URL)
+const URL = import.meta.env.VITE_MOCK_API_USER_URL;
 
 axios.defaults.baseURL = `${URL}`;
 
@@ -27,7 +19,8 @@ export const register = createAsyncThunk(
   async (user: UserInterface | {}, thunkAPI) => {
     try {
       const response = await axios.post('users/register', user);
-      setAuthToken(response.data.token);
+console.log("RESPONSE_MOCK_API", response)
+      // setAuthToken(response.data.token);
       return response.data;
     } catch (error: unknown) {
       return thunkAPI.rejectWithValue((error as Error).message);

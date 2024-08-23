@@ -67,9 +67,10 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
         const response = await dispatch(register(credentials));
 
         if (response) {
+          console.log("RESPONSE_IN_AUTH",response)
           onCloseModal();
           return toast.success(
-            `User ${response} registered successfully`
+            `User ${response.payload.name} registered successfully`
           );
         }
       } catch (error) {
