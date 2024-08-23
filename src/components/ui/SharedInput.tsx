@@ -14,8 +14,8 @@ interface CustomInputProps {
 export const SharedInput: React.FC<CustomInputProps> = ({
   label,
   id,
-  type = "text",
   name,
+  type,
   defaultValue,
   isValid,
   ...props
@@ -44,6 +44,22 @@ export const SharedInput: React.FC<CustomInputProps> = ({
       }
     }
   };
+
+  const passwordInput = document.getElementById('password') as HTMLInputElement;
+  // const confirmPasswordInput = document.getElementById(
+  //   'confirm-password'
+  // )
+  const showPasswordCheckbox = document.getElementById(
+    'show-password'
+  ) as HTMLInputElement;
+
+   showPasswordCheckbox?.addEventListener('change', () => {
+     if ((showPasswordCheckbox as HTMLInputElement).checked) {
+       passwordInput.type = 'text';
+     } else {
+       passwordInput.type = 'password';
+     }
+   });
 
   return (
     <div className="relative">
@@ -75,6 +91,10 @@ export const SharedInput: React.FC<CustomInputProps> = ({
       >
         {label}
       </label>
+      {id === "password" && <label>
+  <input type="checkbox" id="show-password"/>
+  Show password
+</label>}
     </div>
   );
 };

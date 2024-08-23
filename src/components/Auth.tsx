@@ -55,9 +55,7 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
       setUserData({ name, email, password });
     }
   };
-
-
-  
+ 
   useEffect(() => {
     if (!userData) return;
 
@@ -100,11 +98,13 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
           label="password"
           name="password"
           isValid={isValidData}
+          type='password'
         />
         <SharedInput
           id="confirm password"
           label="confirm password"
           name="confirm password"
+          type='password'
         />
         <button
           type="submit"
