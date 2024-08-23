@@ -4,17 +4,17 @@ import path from 'path';
 
 export default defineConfig({
   // Need to check if it part is need ===========
-  build: {
-    outDir: 'build', // Ensure Vite outputs to the `dist` folder
-    sourcemap: true, // Optional: Generate source maps for debugging
-    rollupOptions: {
-      input: path.resolve(__dirname, './index.html'), // Specify the main entry point
-      output: {
-        dir: 'dist', // Make sure all output files go to `dist`
-        format: 'es', // ES module format
-      },
-    },
-  },
+  // build: {
+  //   outDir: 'build', // Ensure Vite outputs to the `dist` folder
+  //   sourcemap: true, // Optional: Generate source maps for debugging
+  //   rollupOptions: {
+  //     input: path.resolve(__dirname, './index.html'), // Specify the main entry point
+  //     output: {
+  //       dir: 'dist', // Make sure all output files go to `dist`
+  //       format: 'es', // ES module format
+  //     },
+  //   },
+  // },
   //==========
   base: '/evently_front/',
   plugins: [react()],
@@ -28,48 +28,3 @@ export default defineConfig({
     },
   },
 });
-
-
-// export default defineConfig({
-//   build: {
-//     outDir: 'build', // Adjust to your output directory
-//   },
-//   plugins: [react()],
-//   css: {
-//     postcss: './postcss.config.js',
-//   },
-//   base: '/evently_front/',
-//   resolve: {
-//     alias: {
-//       '@': path.resolve(__dirname, './src/'),
-//       'components': path.resolve(__dirname, './src/components/'),
-//       'public': path.resolve(__dirname, './public/'),
-//       'pages': path.resolve(__dirname, './src/pages'),
-//       'types': path.resolve(__dirname, './src/@types'),
-//     },
-//   },
-// });
-
-// import { defineConfig } from 'vite';
-// import react from '@vitejs/plugin-react';
-// import path from 'path';
-
-// export default defineConfig({
-//   build: {
-//     outDir: 'build',
-//   },
-//   plugins: [react()],
-//   css: {
-//     postcss: './postcss.config.js',
-//   },
-//   base: '/evently_front/',
-//   resolve: {
-//     alias: {
-//       '@': path.resolve(__dirname, './src/'),
-//       components: `${path.resolve(__dirname, './src/components/')}`,
-//       public: `${path.resolve(__dirname, './public/')}`,
-//       pages: path.resolve(__dirname, './src/pages'),
-//       types: `${path.resolve(__dirname, './src/@types')}`,
-//     },
-//   },
-// });
