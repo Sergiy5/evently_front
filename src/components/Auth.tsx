@@ -16,15 +16,16 @@ interface AuthProps {
 }
 export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
   const [userData, setUserData] = useState<UserInterface | {}>();
-  const [isValidData, setIsValidData] = useState(true);
+  const [isValidData, setIsValidData] = useState<boolean>(true);
+  const [isValidEmail, setIsValidEmail] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  
+  console.log("first", isValidData);
   const dispatch = useAppDispatch();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-
+    
     formData.forEach((value, key) => {
       formData.set(key, String(value).trim());
     });
@@ -34,24 +35,32 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
 
     const emptyFields = Object.keys(data).filter(key => data[key] === '');
 
-    if (emptyFields.length > 0) {
-      emptyFields.forEach(field => {
-        return toast.error(`${field} is required`);
-      });
-    } else if (!validateEmail(email as string)) {
-      setIsValidData(false);
+    if (emptyFields.length === 0) {
 
-      return toast.error('Invalid email');
-    } else if (!validatePassword(password as string)) {
+      emptyFields.forEach(field => {
+
+        toast.error(`${field} is required`);
+      });
+    }
+
+    console.log("EMAIL",email)
+    if (!validateEmail(email as string)) {
+      setIsValidEmail(false);
+
+      toast.error('Invalid email');
+    }
+    if (!validatePassword(password as string)) {
       setIsValidData(true);
 
-      return toast.error(
+       toast.error(
         'Password must be at least 8 characters, with uppercase, lowercase, digit, and special character.'
       );
-    } else if (password !== confirmPassword) {
+    }
+    if (password !== confirmPassword) {
 
-      return toast.error('Passwords do not match');
-    } else if (data && data.email && data.password && data.name) {
+       toast.error('Passwords do not match');
+    }
+    if (data && data.email && data.password && data.name) {
       setUserData({ name, email, password });
     }
   };
@@ -86,26 +95,27 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
         onSubmit={handleSubmit}
         className="flex flex-col rounded-lg p-6 gap-8 bg-gray-50 w-[480px]"
       >
-        <SharedInput id="name" label="name" name="name" />
+        <SharedInput id="name" label="name" name="name" isValid={isValidData} />
         <SharedInput
           id="email"
           label="email"
           name="email"
-          isValid={isValidData}
+          isValid={isValidEmail}
         />
         <SharedInput
           id="password"
           label="password"
           name="password"
-          autocomplete='password'
+          autocomplete="password"
           isValid={isValidData}
-          type='password'
+          type="password"
         />
         <SharedInput
           id="confirm password"
           label="confirm password"
           name="confirm password"
-          autocomplete='confirm password'
+          isValid={isValidData}
+          autocomplete="confirm password"
         />
         <button
           type="submit"

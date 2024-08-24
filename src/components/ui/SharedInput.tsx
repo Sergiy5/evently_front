@@ -31,13 +31,13 @@ export const SharedInput: React.FC<CustomInputProps> = ({
     setIsFocused(false);
     setHasValue(e.target.value !== "");
   };
-
+console.log('isValidData', isValidData);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!isValid && isValid !== undefined) {
       if (e.target.name === "email") {
         validateEmail(e.target.value)
-          ? setIsValidData(true)
-          : setIsValidData(false);
+          ? setIsValidData(false)
+          : setIsValidData(true);
       }
       if (e.target.name === "password") {
         validatePassword(e.target.value)
