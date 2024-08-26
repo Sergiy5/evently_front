@@ -19,12 +19,9 @@ export const Register: React.FC<AuthProps> = ({ onCloseModal }) => {
   const [isValidPassword, setIsValidPassword] = useState<boolean | null>(null);
   const [onInputChangePassword, setOnInputChangePassword] =
     useState<string>('');
-  const [isPasswordMatch, setIsPasswordMatch] = useState<boolean>(true);
   const [onInputChangeConfirmPassword, setOnInputChangeConfirmPassword] =
     useState<string>('');
-  const [isConfirmPasswordMatch, setIsConfirmPasswordMatch] = useState<
-    boolean | null
-  >(null);
+  const [isPasswordMatch, setIsPasswordMatch] = useState<boolean | null>(null);
   const [userData, setUserData] = useState<UserInterface | {}>();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -90,17 +87,18 @@ export const Register: React.FC<AuthProps> = ({ onCloseModal }) => {
     }
   }, [onInputChangePassword]);
 
-  // Check confirm password =======================================================
+  // Check if password matches =======================================================
   useEffect(() => {
-    if (isConfirmPasswordMatch === null) return;
+    if (isPasswordMatch === null) return;
 
     if (onInputChangePassword !== onInputChangeConfirmPassword) {
-      setIsConfirmPasswordMatch(false);
+      setIsPasswordMatch(false);
     } else {
-      setIsConfirmPasswordMatch(true);
+      setIsPasswordMatch(true);
     }
   }, [onInputChangeConfirmPassword, onInputChangePassword]);
 
+  // Register user ================================================================
   useEffect(() => {
     if (!userData) return;
 
@@ -161,7 +159,7 @@ export const Register: React.FC<AuthProps> = ({ onCloseModal }) => {
           name="confirm password"
           onInput={setOnInputChangeConfirmPassword}
           autocomplete="on"
-          isValid={isConfirmPasswordMatch}
+          isValid={isPasswordMatch}
         />
         <button
           type="submit"
