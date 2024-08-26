@@ -1,15 +1,15 @@
 import { useState } from "react";
 import clsx from "clsx";
-import { validateEmail, validatePassword } from "@/utils";
 
 interface CustomInputProps {
   label: string;
   type?: string;
   id: string;
   name?: string;
-  isValid?: boolean;
+  isValid?: boolean | null;
   defaultValue?: string;
   autocomplete?: string;
+  onInput?:(value: string) => void | undefined;
 }
 
 export const SharedInput: React.FC<CustomInputProps> = ({
@@ -19,32 +19,20 @@ export const SharedInput: React.FC<CustomInputProps> = ({
   type = id,
   autocomplete,
   defaultValue,
+  onInput,
   isValid,
   ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [hasValue, setHasValue] = useState(() => (defaultValue ? true : false));
-  const [isValidData, setIsValidData] = useState(true);
 
   const handleFocus = () => setIsFocused(true);
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(false);
     setHasValue(e.target.value !== "");
   };
-console.log('isValidData', isValidData);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!isValid && isValid !== undefined) {
-      if (e.target.name === "email") {
-        validateEmail(e.target.value)
-          ? setIsValidData(false)
-          : setIsValidData(true);
-      }
-      if (e.target.name === "password") {
-        validatePassword(e.target.value)
-          ? setIsValidData(true)
-          : setIsValidData(false);
-      }
-    }
+if (e.target.value && onInput) onInput(e.target.value);
   };
 
   const passwordInput = document.getElementById('password') as HTMLInputElement;
@@ -71,16 +59,17 @@ console.log('isValidData', isValidData);
         type={type}
         defaultValue={defaultValue ?? ''}
         name={name}
-        autoComplete={autocomplete ?? "off"}
+        autoComplete={autocomplete ?? 'off'}
         onFocus={handleFocus}
         onBlur={handleBlur}
         className={clsx(
           `flex-grow w-full font-medium h-10 text-xl text-primary bg-inputColor
-           rounded-[18px] px-5  focus:outline-none transition-all duration-200 ease-in-out
-            outline-none border-[1px] border-transparent focus:border-accentColor hover:border-accentColor`,
+           rounded-[18px] px-5 focus:outline-none transition-all duration-200 ease-in-out
+            outline-none border-2`,
           {
-            'border-red-400 focus:border-red-400 hover:border-red-400 ':
-              !isValidData,
+            'border-red-400 ':
+              !isValid && isValid !== null,
+            'border-success': isValid
           }
         )}
         {...props}
