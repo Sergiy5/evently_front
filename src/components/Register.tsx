@@ -37,6 +37,7 @@ export const Register: React.FC<AuthProps> = ({ onCloseModal }) => {
     useState<string>('');
 
   const dispatch = useAppDispatch();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -134,27 +135,11 @@ export const Register: React.FC<AuthProps> = ({ onCloseModal }) => {
     };
     regUser(userData);
   }, [userData]);
-
-  // // Show password =================================================================
-  // const passwordInput = document.getElementById('password') as HTMLInputElement;
-  // const confirmPasswordInput = document.getElementById(
-  //   'confirm-password'
-  // ) as HTMLInputElement;
-  // const showPasswordCheckbox = document.getElementById('show-password');
-
-  // showPasswordCheckbox?.addEventListener('change', () => {
-  //    if (passwordInput.type === 'password') {
-  //      passwordInput.type = 'text';
-  //    } else {
-  //      passwordInput.type = 'password';
-  //    }
-  //   // const isChecked = (showPasswordCheckbox as HTMLInputElement).checked;
-  //   // passwordInput.type = isChecked ? 'text' : 'password';
-  //   // if (confirmPasswordInput) {
-  //   //   confirmPasswordInput.type = isChecked ? 'text' : 'password';
-  //   // }
-  // });
-
+console.log(
+  Object.values(isValid).some(value =>
+    value === null || value === false ? true : false
+  )
+);
   return (
     <div>
       <form
@@ -200,7 +185,9 @@ export const Register: React.FC<AuthProps> = ({ onCloseModal }) => {
         />
         <button
           type="submit"
-          // disabled={true} Need to disabled button
+          // disabled={Object.values(isValid).some(value =>
+          //   value === null || value === false ? true : false
+          // )} //Need to disabled button
           className={`text-light bg-secondary rounded-lg py-2 hover:bg-warning focus:outline-none`}
         >
           Submit

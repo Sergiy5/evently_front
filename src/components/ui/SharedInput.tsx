@@ -46,14 +46,7 @@ export const SharedInput: React.FC<CustomInputProps> = ({
 
    const togglePasswordVisibility = () => {
      setPasswordVisible(!passwordVisible);
-     
-    //  if (id === 'password') {
-    //   passwordInput.type = passwordVisible ? 'text' : 'password';
-    // } 
-    //  if (id === "confirm-password") {
-    //   confirmPasswordInput.type = passwordVisible ? 'text' : 'password';
-    //  }
-    };
+     };
 
   useEffect(() => {
     if (id === 'password' && passwordInput) {
