@@ -1,22 +1,24 @@
-import { useState } from "react";
-import clsx from "clsx";
+import { useEffect, useState } from 'react';
+import clsx from 'clsx';
+import { VscEye } from 'react-icons/vsc';
+import { VscEyeClosed } from 'react-icons/vsc';
 
 interface CustomInputProps {
   label: string;
   type?: string;
   id: string;
   name?: string;
-  isValid?: boolean | null;
+  isValid?: boolean | null | string;
   defaultValue?: string;
   autocomplete?: string;
-  onInput?:(value: string) => void | undefined;
+  onInput?: (value: string) => void | undefined;
 }
 
 export const SharedInput: React.FC<CustomInputProps> = ({
   label,
   id,
   name,
-  type = id,
+  type,
   autocomplete,
   defaultValue,
   onInput,
@@ -25,31 +27,42 @@ export const SharedInput: React.FC<CustomInputProps> = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [hasValue, setHasValue] = useState(() => (defaultValue ? true : false));
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleFocus = () => setIsFocused(true);
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(false);
-    setHasValue(e.target.value !== "");
+    setHasValue(e.target.value !== '');
   };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-if (e.target.value && onInput) onInput(e.target.value);
+    if (e.target.value && onInput) onInput(e.target.value);
   };
 
+  // Show password =================================================================
   const passwordInput = document.getElementById('password') as HTMLInputElement;
-  // const confirmPasswordInput = document.getElementById(
-  //   'confirm-password'
-  // )
-  const showPasswordCheckbox = document.getElementById(
-    'show-password'
+  const confirmPasswordInput = document.getElementById(
+    'confirm-password'
   ) as HTMLInputElement;
 
-   showPasswordCheckbox?.addEventListener('change', () => {
-     if ((showPasswordCheckbox as HTMLInputElement).checked) {
-       passwordInput.type = 'text';
-     } else {
-       passwordInput.type = 'password';
-     }
-   });
+   const togglePasswordVisibility = () => {
+     setPasswordVisible(!passwordVisible);
+     
+    //  if (id === 'password') {
+    //   passwordInput.type = passwordVisible ? 'text' : 'password';
+    // } 
+    //  if (id === "confirm-password") {
+    //   confirmPasswordInput.type = passwordVisible ? 'text' : 'password';
+    //  }
+    };
+
+  useEffect(() => {
+    if (id === 'password' && passwordInput) {
+      passwordInput.type = passwordVisible ? 'text' : 'password';
+    }
+    if (id === 'confirm-password' && confirmPasswordInput) {
+      confirmPasswordInput.type = passwordVisible ? 'text' : 'password';
+    }
+  }, [passwordVisible]);
 
   return (
     <div className="relative">
@@ -67,13 +80,25 @@ if (e.target.value && onInput) onInput(e.target.value);
            rounded-[18px] px-5 focus:outline-none transition-all duration-200 ease-in-out
             outline-none border-2`,
           {
-            'border-red-400 ':
-              !isValid && isValid !== null,
-            'border-success': isValid
+            'border-red-400 ': !isValid && isValid !== null,
+            'border-success': isValid,
           }
         )}
         {...props}
       />
+      {['password', 'confirm-password'].includes(id) && (
+        <span
+          id="show-password"
+          className="absolute right-5 top-3 cursor-pointer"
+        >
+          {passwordInput?.type === 'password' ||
+          confirmPasswordInput?.type === 'password' ? (
+            <VscEyeClosed onClick={togglePasswordVisibility} />
+          ) : (
+            <VscEye onClick={togglePasswordVisibility} />
+          )}
+        </span>
+      )}
       <label
         htmlFor={id}
         className={clsx(
@@ -83,12 +108,6 @@ if (e.target.value && onInput) onInput(e.target.value);
       >
         {label}
       </label>
-      {label === 'password' && (
-        <label>
-          <input type="checkbox" id="show-password" />
-          Show password
-        </label>
-      )}
     </div>
   );
 };

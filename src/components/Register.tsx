@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SharedInput } from './ui';
+import { Modal, SharedInput } from './ui';
 import { validateEmail, validatePassword } from '@/utils';
 import { toast } from 'react-toastify';
 import { useAppDispatch } from '@/hooks/hooks';
@@ -13,17 +13,28 @@ export interface UserInterface {
 interface AuthProps {
   onCloseModal: () => void;
 }
+
+export interface IsValidInterface {
+  email: boolean | null;
+  password: boolean | null;
+  passwordMatch: boolean | null;
+}
 export const Register: React.FC<AuthProps> = ({ onCloseModal }) => {
-  const [isValidEmail, setIsValidEmail] = useState<boolean | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [userData, setUserData] = useState<UserInterface | {}>();
+  const [isValid, setIsValid] = useState<IsValidInterface>({
+    email: null,
+    password: null,
+    passwordMatch: null,
+  });
+  const [onInputChangeName, setOnInputChangeName] = useState<string | null>(
+    null
+  );
   const [onInputChangeEmail, setOnInputChangeEmail] = useState<string>('');
-  const [isValidPassword, setIsValidPassword] = useState<boolean | null>(null);
   const [onInputChangePassword, setOnInputChangePassword] =
     useState<string>('');
   const [onInputChangeConfirmPassword, setOnInputChangeConfirmPassword] =
     useState<string>('');
-  const [isPasswordMatch, setIsPasswordMatch] = useState<boolean | null>(null);
-  const [userData, setUserData] = useState<UserInterface | {}>();
-  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useAppDispatch();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -38,65 +49,66 @@ export const Register: React.FC<AuthProps> = ({ onCloseModal }) => {
     const { email, password, name, 'confirm password': confirmPassword } = data;
 
     // Chek if all fields are filled
-    Object.keys(data).forEach(key => {
-      if (data[key] === '') {
-        return toast.error(`${key} is required`);
-      }
+    // Object.keys(data).forEach(key => {
+    //   if (data[key] === '') {
+    //     return toast.error(`${key} is required`);
+    //   }
+    // });
+
+    // Validate fields
+    const emailIsValid = validateEmail(email as string);
+    const passwordIsValid = validatePassword(password as string);
+    const passwordsMatch = password === confirmPassword && password !== '';
+
+    if (!emailIsValid) toast.error('Invalid email');
+    if (!passwordIsValid) toast.error('Password is invalid');
+    if (!passwordsMatch) toast.error('Passwords do not match');
+    if (typeof name === 'string' && name.length < 2) {
+      toast.error('Name must be at least 2 characters');
+    }
+
+    // Set validation states
+    setIsValid({
+      email: emailIsValid,
+      password: passwordIsValid,
+      passwordMatch: passwordsMatch,
     });
 
-    if (!validateEmail(email as string)) {
-      setIsValidEmail(false);
-
-      return toast.error('Invalid email');
-    }
-    if (!validatePassword(password as string)) {
-      setIsValidPassword(false);
-
-      return toast.error(
-        'Password must be at least 8 characters, with uppercase, lowercase, digit, and special character.'
-      );
-    }
-    if (password !== confirmPassword && isValidPassword) {
-      return toast.error('Passwords do not match');
-    }
-    if (onInputChangeEmail && isValidPassword && data.name) {
-      console.log('SET_USER_DATA');
+    if (emailIsValid && passwordIsValid && passwordsMatch && data.name) {
       setUserData({ name, email, password });
     }
   };
 
-  // Check valid email =======================================================
+  // Validate email
   useEffect(() => {
-    if (isValidEmail === null) return;
-
-    if (!validateEmail(onInputChangeEmail)) {
-      setIsValidEmail(false);
-    } else {
-      setIsValidEmail(true);
+    if (isValid.email !== null) {
+      setIsValid({
+        ...isValid,
+        email: validateEmail(onInputChangeEmail),
+      });
     }
   }, [onInputChangeEmail]);
 
-  // Check valid password =======================================================
+  // Validate password
   useEffect(() => {
-    if (isValidPassword === null) return;
-
-    if (!validatePassword(onInputChangePassword)) {
-      setIsValidPassword(false);
-    } else {
-      setIsValidPassword(true);
+    if (isValid.password !== null) {
+      setIsValid({
+        ...isValid,
+        password: validatePassword(onInputChangePassword),
+      });
     }
   }, [onInputChangePassword]);
 
-  // Check if password matches =======================================================
+  // // Check if password matches
   useEffect(() => {
-    if (isPasswordMatch === null) return;
-
-    if (onInputChangePassword !== onInputChangeConfirmPassword) {
-      setIsPasswordMatch(false);
-    } else {
-      setIsPasswordMatch(true);
+    if (isValid.passwordMatch !== null) {
+      setIsValid({
+        ...isValid,
+        passwordMatch:
+          onInputChangePassword === onInputChangeConfirmPassword ?? false,
+      });
     }
-  }, [onInputChangeConfirmPassword, onInputChangePassword]);
+  }, [onInputChangeConfirmPassword]);
 
   // Register user ================================================================
   useEffect(() => {
@@ -123,6 +135,26 @@ export const Register: React.FC<AuthProps> = ({ onCloseModal }) => {
     regUser(userData);
   }, [userData]);
 
+  // // Show password =================================================================
+  // const passwordInput = document.getElementById('password') as HTMLInputElement;
+  // const confirmPasswordInput = document.getElementById(
+  //   'confirm-password'
+  // ) as HTMLInputElement;
+  // const showPasswordCheckbox = document.getElementById('show-password');
+
+  // showPasswordCheckbox?.addEventListener('change', () => {
+  //    if (passwordInput.type === 'password') {
+  //      passwordInput.type = 'text';
+  //    } else {
+  //      passwordInput.type = 'password';
+  //    }
+  //   // const isChecked = (showPasswordCheckbox as HTMLInputElement).checked;
+  //   // passwordInput.type = isChecked ? 'text' : 'password';
+  //   // if (confirmPasswordInput) {
+  //   //   confirmPasswordInput.type = isChecked ? 'text' : 'password';
+  //   // }
+  // });
+
   return (
     <div>
       <form
@@ -134,32 +166,37 @@ export const Register: React.FC<AuthProps> = ({ onCloseModal }) => {
           id="name"
           label="name"
           name="name"
-          // autocomplete="on"
-          isValid={true}
+          onInput={setOnInputChangeName}
+          autocomplete="on"
+          isValid={onInputChangeName ?? null}
+          type="text"
         />
         <SharedInput
           id="email"
           label="email"
           name="email"
           autocomplete="on"
-          isValid={isValidEmail}
+          isValid={isValid.email}
           onInput={setOnInputChangeEmail}
+          type="email"
         />
         <SharedInput
           id="password"
           label="password"
           name="password"
           onInput={setOnInputChangePassword}
-          isValid={isValidPassword}
+          isValid={isValid.password}
           autocomplete="on"
+          type="password"
         />
         <SharedInput
-          id="confirm password"
+          id="confirm-password"
           label="confirm password"
           name="confirm password"
           onInput={setOnInputChangeConfirmPassword}
           autocomplete="on"
-          isValid={isPasswordMatch}
+          isValid={isValid.passwordMatch}
+          type="password"
         />
         <button
           type="submit"
@@ -169,7 +206,15 @@ export const Register: React.FC<AuthProps> = ({ onCloseModal }) => {
           Submit
         </button>
       </form>
-      {isLoading && <div>LOADING...</div>}
+      {isLoading && (
+        <Modal isOpen={isLoading}>
+          <div
+            className={`flex items-center justify-center w-full h-full text-primary text-3xl`}
+          >
+            LOADING...
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };
