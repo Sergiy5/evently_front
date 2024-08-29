@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal } from './ui';
-import { Register } from './Register';
+import { RegisterForm } from './RegisterForm';
+// import { Register } from './Register';
 
 interface HeaderProps {
   // Add any props you need for the header
@@ -23,7 +24,7 @@ export const Header: React.FC<HeaderProps> = () => {
         Register
       </button>
       <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
-        <Register onCloseModal={handleToggleModal} />
+        <RegisterForm onCloseModal={handleToggleModal} />
       </Modal>
     </header>
   );

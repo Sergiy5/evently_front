@@ -1,106 +1,102 @@
-import { useEffect, useState } from 'react';
 import clsx from 'clsx';
-import { VscEye } from 'react-icons/vsc';
-import { VscEyeClosed } from 'react-icons/vsc';
+import React, { useEffect, useState } from 'react';
+import { UseFormReturn } from 'react-hook-form';
+import { VscEye, VscEyeClosed } from 'react-icons/vsc';
 
-interface CustomInputProps {
+interface SharedInputProps {
   label: string;
-  type?: string;
-  id: string;
-  name?: string;
-  isValid?: boolean | null | string;
-  defaultValue?: string;
   autocomplete?: string;
-  onInput?: (value: string) => void | undefined;
+  id: string;
+  type: string;
+  defaultValue?: string;
+  register: UseFormReturn<any, any>['register'];
+  errors: UseFormReturn<any, any>['formState']['errors'];
+  validation?: {
+    required?: boolean;
+    validate?: (value: string) => string | boolean;
+  };
 }
 
-export const SharedInput: React.FC<CustomInputProps> = ({
+export const SharedInput: React.FC<SharedInputProps> = ({
   label,
   id,
-  name,
   type,
+  register,
+  errors,
+  validation,
   autocomplete,
   defaultValue,
-  onInput,
-  isValid,
-  ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [hasValue, setHasValue] = useState(() => (defaultValue ? true : false));
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const handleFocus = () => setIsFocused(true);
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    setIsFocused(false);
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    setIsFocused(prev => !prev);
     setHasValue(e.target.value !== '');
-  };
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value && onInput) onInput(e.target.value);
   };
 
   // Show password =================================================================
   const passwordInput = document.getElementById('password') as HTMLInputElement;
   const confirmPasswordInput = document.getElementById(
-    'confirm-password'
+    'confirmPassword'
   ) as HTMLInputElement;
 
-   const togglePasswordVisibility = () => {
-     setPasswordVisible(!passwordVisible);
-     };
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
 
   useEffect(() => {
     if (id === 'password' && passwordInput) {
       passwordInput.type = passwordVisible ? 'text' : 'password';
     }
-    if (id === 'confirm-password' && confirmPasswordInput) {
+    if (id === 'confirmPassword' && confirmPasswordInput) {
       confirmPasswordInput.type = passwordVisible ? 'text' : 'password';
     }
   }, [passwordVisible]);
 
   return (
     <div className="relative">
+      <label
+        className={clsx(
+          'absolute bg-transparent left-5 text-accentColor transition-all duration-200 ease-in-out',
+          isFocused || hasValue ? '-top-6' : ' top-2'
+        )}
+        htmlFor={id}
+      >
+        {label}
+      </label>
       <input
-        onInput={handleInputChange}
         id={id}
         type={type}
-        defaultValue={defaultValue ?? ''}
-        name={name}
-        autoComplete={autocomplete ?? 'off'}
+        autoComplete={autocomplete}
         onFocus={handleFocus}
-        onBlur={handleBlur}
+        {...register(id, { ...validation, onBlur: handleFocus })}
         className={clsx(
           `flex-grow w-full font-medium h-10 text-xl text-primary bg-inputColor
            rounded-[18px] px-5 focus:outline-none transition-all duration-200 ease-in-out
             outline-none border-2`,
           {
-            'border-red-400 ': !isValid && isValid !== null,
-            'border-success': isValid,
+            'border-red-400 ': errors[id],
+            'border-success': !errors[id] && !validation,
           }
         )}
-        {...props}
       />
-      {['password', 'confirm-password'].includes(id) && (
+      {['password', 'confirmPassword'].includes(id) && (
         <span
           id="show-password"
           className="absolute right-5 top-3 cursor-pointer"
         >
-          {passwordInput?.type === 'password' ||
-          confirmPasswordInput?.type === 'password' ? (
-            <VscEyeClosed onClick={togglePasswordVisibility} />
-          ) : (
+          {passwordVisible ? (
             <VscEye onClick={togglePasswordVisibility} />
+          ) : (
+            <VscEyeClosed onClick={togglePasswordVisibility} />
           )}
         </span>
       )}
-      <label
-        htmlFor={id}
-        className={clsx(
-          'absolute bg-transparent left-5 text-accentColor transition-all duration-200 ease-in-out',
-          isFocused || hasValue ? '-top-6' : ' top-2'
-        )}
-      >
-        {label}
-      </label>
+      {errors[id] && (
+        <p className="text-red-500 text-xs">{String(errors[id].message)}</p>
+      )}
     </div>
   );
 };
