@@ -3,7 +3,14 @@ import { validateEmail, validatePassword } from '@/utils';
 import { SharedInput } from './ui';
 import {register as registerUser} from '@/redux/auth/operations';
 import { toast } from 'react-toastify';
+import { useState } from 'react';
 
+
+export interface RegisterUserInterface {
+  name: string;
+  email: string;
+  password: string;
+}
 interface RegisterFormInputs {
   name: string;
   email: string;
@@ -15,7 +22,9 @@ export const RegisterForm = ({
   onCloseModal,
 }: {
   onCloseModal: () => void;
-}) => {
+  }) => {
+  const[isLoading, setIsLoading] = useState(false);
+  
   const {
     register,
     handleSubmit,
@@ -26,22 +35,26 @@ export const RegisterForm = ({
   });
 
   const onSubmit = async (data: RegisterFormInputs) => {
+      setIsLoading(true);
+
     const userData = Object.fromEntries(
       Object.entries(data).filter(([key]) => key !== 'confirmPassword')
     );
     // Submit data to API or perform other actions
     try {
-      const response = await registerUser(userData);
-      console.log(response)
-      if(response) toast.success('User registered successfully');
+     await registerUser(userData as RegisterUserInterface);
+      
+       toast.success('User registered successfully');
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
     onCloseModal();
-    console.log(userData);
   };
 
   return (
+    <div>
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col rounded-lg p-6 gap-8 bg-gray-50 w-[480px]"
@@ -93,5 +106,7 @@ export const RegisterForm = ({
         Register
       </button>
     </form>
+        {isLoading && <div>LOADING...</div>}
+    </div>
   );
 };
