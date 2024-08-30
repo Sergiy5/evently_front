@@ -1,17 +1,22 @@
 import React from 'react';
-import { useLoaderData } from 'react-router';
-import axios from 'axios';
+import { useLoaderData, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import { eventType } from './types';
+import { getEvents } from './http';
 
 const Events: React.FC = () => {
   const events = useLoaderData() as eventType[];
+  const navigate = useNavigate();
+
+  const handleCreateEvent = () => {
+    navigate('new/edit');
+  };
 
   return (
     <>
       <div>
-        <button>Create event</button>
+        <button onClick={handleCreateEvent}>Create event</button>
       </div>
       <ul>
         {events.map(event => (
@@ -24,12 +29,8 @@ const Events: React.FC = () => {
   );
 };
 
-export default Events
+export default Events;
 
 export const loader = async (): Promise<eventType[]> => {
-  const response = await axios(
-    'https://66ceec99901aab24842029e0.mockapi.io/events'
-  );
-  const resData: eventType[] = response.data;
-  return resData;
+  return await getEvents();
 };
