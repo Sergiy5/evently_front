@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Modal } from './ui';
 import { RegisterForm } from './RegisterForm';
 import { LoginForm } from './LoginForm';
-// import { Register } from './Register';
 
 interface HeaderProps {
   // Add any props you need for the header
