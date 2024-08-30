@@ -71,6 +71,7 @@ export const SharedInput: React.FC<SharedInputProps> = ({
         type={type}
         autoComplete={autocomplete}
         onFocus={handleFocus}
+        defaultValue={defaultValue}
         {...register(id, { ...validation, onBlur: handleFocus })}
         className={clsx(
           `flex-grow w-full font-medium h-10 text-xl text-primary bg-inputColor
