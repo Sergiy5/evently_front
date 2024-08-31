@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { eventType } from './types';
+import { eventType } from '../components/events/types';
 
 export const deleteEvent = async (id: number) => {
   try {
