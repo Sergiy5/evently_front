@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLoaderData, useNavigate } from 'react-router';
 
-import EventsList from '@/components/events/eventsList';
+import EventsList from '@/components/events/EventsList';
 
 import { eventType } from '../../components/events/types';
 import { getEvents } from '../../utils/eventsHttp';
