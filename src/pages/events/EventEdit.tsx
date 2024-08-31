@@ -1,7 +1,10 @@
 import React from 'react';
-import { redirect } from 'react-router';
-import { createEvent, editEvent } from '../../utils/eventsHttp';
-import EventForm from '../../components/events/EventForm';
+import { redirect, useLoaderData } from 'react-router';
+import { eventType } from './types';
+import { SharedInput } from '@/components/ui';
+import { Form } from 'react-router-dom';
+import { createEvent, editEvent } from './http';
+import { useForm } from 'react-hook-form';
 
 const EventEdit: React.FC = () => {
   const event = useLoaderData() as eventType;
