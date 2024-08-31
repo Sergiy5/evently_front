@@ -1,10 +1,9 @@
 import React from 'react';
 import { useLoaderData, useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
-import EventsList from '@/components/events/eventsList';
-
-import { eventType } from '../../components/events/types';
-import { getEvents } from '../../utils/eventsHttp';
+import { eventType } from './types';
+import { getEvents } from './http';
 
 const Events: React.FC = () => {
   const events = useLoaderData() as eventType[];
@@ -19,7 +18,13 @@ const Events: React.FC = () => {
       <div>
         <button onClick={handleCreateEvent}>Create event</button>
       </div>
-      <EventsList events={events} />
+      <ul>
+        {events.map(event => (
+          <li key={event.id}>
+            <Link to={`${event.id}`}>{event.name}</Link>
+          </li>
+        ))}
+      </ul>
     </>
   );
 };

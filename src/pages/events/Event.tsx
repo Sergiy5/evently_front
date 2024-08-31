@@ -2,8 +2,8 @@ import React from 'react';
 import { useLoaderData, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import { eventType } from '../../components/events/types';
-import { deleteEvent, getEvent } from '../../utils/eventsHttp';
+import { eventType } from './types';
+import { deleteEvent, getEvent } from './http';
 
 const Event: React.FC = () => {
   const event = useLoaderData() as eventType;
@@ -19,7 +19,7 @@ const Event: React.FC = () => {
   };
 
   return (
-    <div>
+    <>
       <div>
         <button onClick={handleEditEvent}>Edit</button>
         <button onClick={handleDeleteEdit}>Delet</button>
@@ -28,7 +28,7 @@ const Event: React.FC = () => {
       <p>Event name: {event.name}</p>
 
       <Link to="/evently_front/events" className='bg-green-500'>Close</Link>
-    </div>
+    </>
   );
 };
 
