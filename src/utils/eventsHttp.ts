@@ -42,6 +42,7 @@ export const editEvent = async (formData: eventType, id?: string) => {
   try {
     const response = await axios.put(`${URL}/events/${id}`, {
       ...formData,
+      countSeats: formData.countSeats || 'Необмежено',
     });
     const resData = response.data;
     return resData;
