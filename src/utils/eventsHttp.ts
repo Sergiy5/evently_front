@@ -46,13 +46,10 @@ export const editEvent = async (formData: any, id?: string) => {
   console.log(formData);
 
   try {
-    const response = await axios.put(
-      `https://66ceec99901aab24842029e0.mockapi.io/events/${id}`,
-      {
-        id: id,
-        name: formData.title,
-      }
-    );
+    const response = await axios.put(`${URL}/events/${id}`, {
+      ...formData,
+      countSeats: formData.countSeats || 'Необмежено',
+    });
     const resData = response.data;
     return resData;
   } catch (error) {
