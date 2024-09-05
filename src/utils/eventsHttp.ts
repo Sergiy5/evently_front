@@ -2,11 +2,11 @@ import axios from 'axios';
 
 import { eventType } from '../components/events/types';
 
+const URL = 'https://66ceec99901aab24842029e0.mockapi.io';
+
 export const deleteEvent = async (id: number) => {
   try {
-    const response = await axios.delete(
-      `https://66ceec99901aab24842029e0.mockapi.io/events/${id}`
-    );
+    const response = await axios.delete(`${URL}/events/${id}`);
     return response.data;
   } catch (error) {
     throw new Error('Failed to delete event');
@@ -15,13 +15,11 @@ export const deleteEvent = async (id: number) => {
 
 export const getEvent = async (id?: string) => {
   if (id === 'new') {
-    return { id: 0, name: '' };
+    return {};
   }
 
   try {
-    const response = await axios(
-      `https://66ceec99901aab24842029e0.mockapi.io/events/${id}`
-    );
+    const response = await axios(`${URL}/events/${id}`);
     const resData: eventType = response.data;
 
     return resData;
@@ -32,9 +30,7 @@ export const getEvent = async (id?: string) => {
 
 export const getEvents = async () => {
   try {
-    const response = await axios(
-      'https://66ceec99901aab24842029e0.mockapi.io/events'
-    );
+    const response = await axios(`${URL}/events`);
     const resData: eventType[] = response.data;
     return resData;
   } catch (error) {
@@ -42,17 +38,12 @@ export const getEvents = async () => {
   }
 };
 
-export const editEvent = async (formData: any, id?: string) => {
-  console.log(formData);
-
+export const editEvent = async (formData: eventType, id?: string) => {
   try {
-    const response = await axios.put(
-      `https://66ceec99901aab24842029e0.mockapi.io/events/${id}`,
-      {
-        id: id,
-        name: formData.title,
-      }
-    );
+    const response = await axios.put(`${URL}/events/${id}`, {
+      ...formData,
+      countSeats: formData.countSeats || 'Необмежено',
+    });
     const resData = response.data;
     return resData;
   } catch (error) {
@@ -60,12 +51,13 @@ export const editEvent = async (formData: any, id?: string) => {
   }
 };
 
-export const createEvent = async (formData: any) => {
+export const createEvent = async (formData: eventType) => {
   try {
     const response = await axios.post(
       `https://66ceec99901aab24842029e0.mockapi.io/events/`,
       {
-        name: formData.title,
+        ...formData,
+        countSeats: formData.countSeats || 'Необмежено',
       }
     );
     const resData = response.data;
