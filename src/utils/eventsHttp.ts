@@ -57,7 +57,7 @@ export const createEvent = async (formData: eventType) => {
       `https://66ceec99901aab24842029e0.mockapi.io/events/`,
       {
         ...formData,
-        countSeats: formData.countSeats || 'Необмежено',
+        countSeats: formData.countSeats || 'Необмежено' ,
       }
     );
     const resData = response.data;
