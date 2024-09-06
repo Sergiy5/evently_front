@@ -26,14 +26,17 @@ const Event: React.FC = () => {
       </div>
       <p>Event {event.id}</p>
       <p>Event name: {event.name}</p>
+      <p>Description: {event.desc || 'Опису не має'}</p>
 
-      <Link to="/evently_front/events" className='bg-green-500'>Close</Link>
+      <Link to="/evently_front/events" className="bg-green-500">
+        Close
+      </Link>
     </div>
   );
 };
 
 export default Event;
 
-export const loader = async (id?: string): Promise<eventType> => {
+export const loader = async (id?: string): Promise<eventType | {}> => {
   return await getEvent(id);
 };

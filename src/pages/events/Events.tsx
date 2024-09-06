@@ -3,8 +3,8 @@ import { useLoaderData, useNavigate } from 'react-router';
 
 import EventsList from '@/components/events/EventsList';
 
-import { eventType } from '../../components/events/types';
-import { getEvents } from '../../utils/eventsHttp';
+import { eventType } from '@/components/events/types';
+import { getEvents } from '@/utils/eventsHttp';
 
 const Events: React.FC = () => {
   const events = useLoaderData() as eventType[];
