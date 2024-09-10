@@ -5,7 +5,8 @@ import { VscEye, VscEyeClosed } from 'react-icons/vsc';
 
 interface SharedInputProps {
   label?: string;
-  placeholder?: string
+  onInput?: (value: string) => void;
+  placeholder?: string;
   autocomplete?: string;
   id: string;
   type: string;
@@ -27,7 +28,8 @@ export const SharedInput: React.FC<SharedInputProps> = ({
   validation,
   autocomplete,
   defaultValue,
-  placeholder
+  placeholder,
+  onInput,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [hasValue, setHasValue] = useState(() => (defaultValue ? true : false));
@@ -47,6 +49,10 @@ export const SharedInput: React.FC<SharedInputProps> = ({
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
+
+const onInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  onInput && onInput(e.target.value);
+}
 
   useEffect(() => {
     if (id === 'password' && passwordInput) {
@@ -71,6 +77,7 @@ export const SharedInput: React.FC<SharedInputProps> = ({
       <input
         id={id}
         type={type}
+        onInput={onInputHandler}
         placeholder={placeholder}
         autoComplete={autocomplete}
         onFocus={handleFocus}
@@ -89,7 +96,7 @@ export const SharedInput: React.FC<SharedInputProps> = ({
       {['password', 'confirmPassword'].includes(id) && (
         <span
           id="show-password"
-          className="absolute right-5 top-3 cursor-pointer"
+          className="absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer"
         >
           {passwordVisible ? (
             <VscEye onClick={togglePasswordVisibility} />
@@ -98,9 +105,9 @@ export const SharedInput: React.FC<SharedInputProps> = ({
           )}
         </span>
       )}
-      {errors[id] && (
+      {/* {errors[id] && (
         <p className="text-red-500 text-xs">{String(errors[id].message)}</p>
-      )}
+      )} */}
     </div>
   );
 };

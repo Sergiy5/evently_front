@@ -1,10 +1,12 @@
+import { useEffect, useState } from 'react';
+import { Link} from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useAppDispatch } from '@/hooks/hooks';
+import { FcGoogle } from 'react-icons/fc';
 import { validateEmail, validatePassword } from '@/utils';
 import { SharedInput } from './ui';
-import { logIn as loginUser } from '@/redux/auth/operations';
-import { toast } from 'react-toastify';
-import { FcGoogle } from 'react-icons/fc';
-import { Link, NavLink } from 'react-router-dom';
+import { logIn } from '@/redux/auth/operations';
+// import { toast } from 'react-toastify';
 import { SharedBtn } from './ui/SharedBtn';
 
 export interface LoginUserInterface {
@@ -21,26 +23,44 @@ export const Login: React.FC<LoginProps> = ({
   onCloseModal,
   setStatusAuth,
 }) => {
-
+  const [userData, setUserData] = useState({ email: '', password: '' })
+  
+  const dispatch = useAppDispatch();
+  
   const {
     register,
     handleSubmit,
-    // watch,
     formState: { isValid, errors },
   } = useForm<LoginUserInterface>({
     mode: 'onChange',
   });
-
+  
   const onSubmit = async (data: LoginUserInterface) => {
-    try {
-      await loginUser(data as LoginUserInterface);
-      toast.success('User logged in successfully');
-    } catch (error) {
-      console.error(error);
-    } finally {
-    }
-    onCloseModal();
+
+    const email = data.email;
+    const password = data.password;
+    setUserData({email, password})
   };
+
+  useEffect(() => {
+    if(!userData.email.length && !userData.password.length) return
+    const loginUser = async () => {
+      try {
+        const result = await dispatch(logIn(userData));
+
+        console.log(result);
+        // !result?.error
+        //   ? toast.success('Welcome!')
+        //   : toast.error('You are not logged in');
+      } catch (error) {
+        console.error(error);
+      } finally {
+        onCloseModal();
+      
+      }
+    };
+    loginUser();
+  }, [userData]);
 
   return (
     <>

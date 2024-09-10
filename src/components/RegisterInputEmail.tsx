@@ -1,8 +1,7 @@
 import { useForm } from 'react-hook-form';
-import { validateEmail, validatePassword } from '@/utils';
+import { validateEmail} from '@/utils';
 import { SharedInput } from './ui';
-import { register as registerUser } from '@/redux/auth/operations';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import { SharedBtn } from './ui/SharedBtn';
 import { FcGoogle } from 'react-icons/fc';
 
@@ -12,18 +11,21 @@ export interface RegisterUserInterface {
   password: string;
 }
 interface RegisterFormInputs {
-  name: string;
   email: string;
   password: string;
   confirmPassword: string;
 }
 
-export const Register = ({
-  onCloseModal,
-}: {
-  onCloseModal: () => void;
-}) => {
+export interface RegisterInputEmailProps {
+  onCloseModal?: () => void;
+  handleUserEmail: (email: string) => void;
+  setStatusAuth: (status: 'register' |'register_password') => void;
+}
 
+export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
+setStatusAuth,
+  handleUserEmail
+}) => {
   const {
     register,
     handleSubmit,
@@ -33,20 +35,12 @@ export const Register = ({
   });
 
   const onSubmit = async (data: RegisterFormInputs) => {
-
-    const userData = Object.fromEntries(
-      Object.entries(data).filter(([key]) => key !== 'confirmPassword')
-    );
-    // Submit data to API or perform other actions
-    try {
-      await registerUser(userData as RegisterUserInterface);
-
-      toast.success('User registered successfully');
-    } catch (error) {
-      console.error(error);
-    } finally {
-    }
-    onCloseModal();
+    if (!data) return
+console.log("SUPMIT_EMAIL_>>>>>>>>>>",data)
+    const userData = Object.fromEntries(Object.entries(data));
+    const email = userData.email;
+    handleUserEmail(email);
+    setStatusAuth('register_password');
   };
 
   return (
