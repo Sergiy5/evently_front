@@ -1,3 +1,3 @@
-export { Register as Auth } from './RegisterOld';
+export { Auth } from './Auth';
 export { Header } from './Header';
 export { Modal } from './ui';
