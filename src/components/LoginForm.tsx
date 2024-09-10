@@ -38,6 +38,7 @@ export const LoginForm = ({ onCloseModal }: { onCloseModal: () => void }) => {
 
   return (
     <div>
+      <h2>Увійти в акаунт</h2>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col rounded-lg p-6 gap-8 bg-gray-50 w-[480px]"

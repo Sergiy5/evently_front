@@ -2,7 +2,7 @@ import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
 import Home from '@/pages/Home';
-import Layout from '@/components/Layaout';
+import {Layout} from '@/components';
 import { loader as eventsLoader } from '../pages/events/Events';
 import { loader as eventLoader } from '../pages/events/Event';
 import { action as editEventAction } from '@/pages/events/EventEdit';

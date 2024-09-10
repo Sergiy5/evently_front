@@ -2,7 +2,8 @@ import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
 import { Header } from './Header';
 
- const Layout = () => {
+export const Layout = () => {
+  
   return (
     <>
       <Header />
@@ -16,4 +17,4 @@ import { Header } from './Header';
   );
 };
 
-export default Layout;
+

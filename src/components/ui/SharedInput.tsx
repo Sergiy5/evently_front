@@ -4,7 +4,8 @@ import { UseFormReturn } from 'react-hook-form';
 import { VscEye, VscEyeClosed } from 'react-icons/vsc';
 
 interface SharedInputProps {
-  label: string;
+  label?: string;
+  placeholder?: string
   autocomplete?: string;
   id: string;
   type: string;
@@ -26,6 +27,7 @@ export const SharedInput: React.FC<SharedInputProps> = ({
   validation,
   autocomplete,
   defaultValue,
+  placeholder
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [hasValue, setHasValue] = useState(() => (defaultValue ? true : false));
@@ -69,13 +71,14 @@ export const SharedInput: React.FC<SharedInputProps> = ({
       <input
         id={id}
         type={type}
+        placeholder={placeholder}
         autoComplete={autocomplete}
         onFocus={handleFocus}
         defaultValue={defaultValue}
         {...register(id, { ...validation, onBlur: handleFocus })}
         className={clsx(
-          `flex-grow w-full font-medium h-10 text-xl text-primary bg-inputColor
-           rounded-[18px] px-5 focus:outline-none transition-all duration-200 ease-in-out
+          `flex-grow w-full font-medium h-[70px] text-xl text-primary bg-bgColor
+           rounded-[20px] px-5 py-6 focus:outline-none transition-all duration-200 ease-in-out
             outline-none border-2`,
           {
             'border-red-400 ': errors[id],

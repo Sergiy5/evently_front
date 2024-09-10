@@ -1,5 +1,6 @@
 import React, { useEffect, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+import { RxCross2 } from 'react-icons/rx';
 
 interface ModalProps {
   children: ReactNode;
@@ -48,24 +49,19 @@ export const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
   if (!modalRoot) return null;
 
   return createPortal(
-    <div
-      className="fixed inset-0 z-50 bg-black bg-opacity-50"
-    >
+    <div className="fixed flex items-center justify-center inset-0 z-50 bg-black bg-opacity-50">
       <div
-        className="relative flex items-center justify-center py-6 px-12 rounded shadow-lg"
+        className="relative rounded shadow-lg"
         role="dialog"
         aria-modal="true"
       >
-          <button
-            onClick={onClose}
-            className="absolute top-2 right-2 bg-transparent rounded-full px-2 active:outline-none border-gray-600 border-solid text-gray-600 hover:text-primary"
-            aria-label="Close Modal"
-          >X
-            {/* <CrossIcon
-              className={` w-[30px] h-[30px] lg:w-[38px] lg:h-[42px] stroke-textColor
-                         transition duration-300 hover:stroke-accentColor`}
-            /> */}
-          </button>
+        <button
+          onClick={onClose}
+          className="absolute z-10 top-3 right-4 translate-y-3 px-2 active:outline-none bg-transparent text-black hover:text-primary"
+          aria-label="Close Modal"
+        >
+          <RxCross2 className="w-8 h-8" />
+        </button>
         {children}
       </div>
     </div>,

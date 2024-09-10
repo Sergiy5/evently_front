@@ -20,6 +20,13 @@ export default {
         warning: '#f7dc6f',
         dark: '#333',
         light: '#f9f9f9',
+        borderColor: '#E8EAEC',
+        formBgColor: '#E2DEFF',
+        buttonColor: '#9B8FF3',
+        bgColor: '#F8FBFF',
+        textColor: '#062341',
+
+
       },
       // spacing: {
       //   sm: '8px',

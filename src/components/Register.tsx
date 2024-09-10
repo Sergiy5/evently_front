@@ -3,7 +3,6 @@ import { validateEmail, validatePassword } from '@/utils';
 import { SharedInput } from './ui';
 import { register as registerUser } from '@/redux/auth/operations';
 import { toast } from 'react-toastify';
-import { useState } from 'react';
 
 export interface RegisterUserInterface {
   name: string;
@@ -17,12 +16,11 @@ interface RegisterFormInputs {
   confirmPassword: string;
 }
 
-export const RegisterForm = ({
+export const Register = ({
   onCloseModal,
 }: {
   onCloseModal: () => void;
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -34,7 +32,6 @@ export const RegisterForm = ({
   });
 
   const onSubmit = async (data: RegisterFormInputs) => {
-    setIsLoading(true);
 
     const userData = Object.fromEntries(
       Object.entries(data).filter(([key]) => key !== 'confirmPassword')
@@ -47,15 +44,12 @@ export const RegisterForm = ({
     } catch (error) {
       console.error(error);
     } finally {
-      setIsLoading(false);
     }
     onCloseModal();
   };
 
   return (
-    <div
-      className={` flex gap-12 flex-row-reverse overflow-hidden bg-formBgColor border-collapse border border-borderColor rounded-[20px]`}
-    >
+    <>
       <div className={`flex flex-col p-9`}>
         <h1>Увійти в акаунт</h1>
         <form
@@ -64,6 +58,7 @@ export const RegisterForm = ({
         >
           <SharedInput
             label="Name"
+            placeholder="Ваше імʼя"
             id="name"
             autocomplete="name"
             type="text"
@@ -104,14 +99,12 @@ export const RegisterForm = ({
           <button
             type="submit"
             disabled={!isValid}
-            className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${!isValid ? 'opacity-50' : ''}`}
+            className={`bg-buttonColor hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${!isValid ? 'opacity-50' : ''}`}
           >
             Register
           </button>
         </form>
       </div>
-      <img src="public/images/auth-form.webp" alt="colage_posters" />
-      {isLoading && <div>LOADING...</div>}
-    </div>
+    </>
   );
 };

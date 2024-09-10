@@ -1,49 +1,36 @@
 import React, { useState } from 'react';
-import { Modal } from './ui';
-import { RegisterForm } from './RegisterForm';
-import { LoginForm } from './LoginForm';
+import { Register } from './Register';
+import { Login } from './Login';
 
-interface HeaderProps {
-  // Add any props you need for the header
+interface AuthProps {
+ 
+  onCloseModal: () => void;
+
 }
 
-export const Auth: React.FC<HeaderProps> = () => {
-  const [register, setRegister] = useState(false);
-  const [login, setLogin] = useState(false);
+export const Auth: React.FC<AuthProps> = ({ onCloseModal}) => {
+  const [statusAuth, setStatusAuth] = useState<
+    'login' | 'register' | 'register_password'
+  >('login');
+    const [isLoading, setIsLoading] = useState(false);
 
-  const registerUser = () => {
-    setRegister(!register);
-  };
-  const loginUser = () => {
-    setLogin(true);
-  };
-  const handleToggleModal = () => {
-    setRegister(false);
-    setLogin(false);
-  };
+
+
+    const handleToggleModal = () => {
+      onCloseModal();
+    };
+    
   return (
-    <header className="flex justify-between items-center p-4 bg-gray-100">
-      <h1 className="text-2xl font-bold">Evently</h1>
-      <button
-        id="register"
-        className="bg-blue-500 hover:bg-blue-700 focus:outline-none text-white font-bold py-2 px-4 rounded"
-        onClick={registerUser}
-      >
-        Register
-      </button>
-      <button
-        id="login"
-        className="bg-blue-500 hover:bg-blue-700 focus:outline-none text-white font-bold py-2 px-4 rounded"
-        onClick={loginUser}
-      >
-        LogIn
-      </button>
-      <Modal isOpen={login} onClose={handleToggleModal}>
-        <LoginForm onCloseModal={handleToggleModal} />
-      </Modal>
-      <Modal isOpen={register} onClose={handleToggleModal}>
-        <RegisterForm onCloseModal={handleToggleModal} />
-      </Modal>
-    </header>
+    <div
+      className={` flex gap-12 flex-row-reverse overflow-hidden bg-formBgColor border-collapse border border-borderColor rounded-[20px]`}
+    >
+      {statusAuth === 'login' && <Login onCloseModal={handleToggleModal} />}
+      {statusAuth === 'register' && (
+        <Register onCloseModal={handleToggleModal} />
+      )}
+      {statusAuth === 'register_password' && <div />}
+      <img src="public/images/auth-form.webp" alt="colage_posters" />
+      {isLoading && <div>LOADING...</div>}
+    </div>
   );
 };
