@@ -1,9 +1,12 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { LoginUserInterface } from '@/components/LoginForm';
 import { RegisterUserInterface } from '@/components/RegisterForm';
 // import { RootState } from '@reduxjs/toolkit/query';
 
+export interface LoginUserInterface {
+  email: string;
+  password: string;
+}
 
 const URL = import.meta.env.VITE_MOCK_API_USER_URL;
 

@@ -3,6 +3,8 @@ import { validateEmail, validatePassword } from '@/utils';
 import { SharedInput } from './ui';
 import { register as registerUser } from '@/redux/auth/operations';
 import { toast } from 'react-toastify';
+import { SharedBtn } from './ui/SharedBtn';
+import { FcGoogle } from 'react-icons/fc';
 
 export interface RegisterUserInterface {
   name: string;
@@ -25,7 +27,6 @@ export const Register = ({
   const {
     register,
     handleSubmit,
-    watch,
     formState: { isValid, errors },
   } = useForm<RegisterFormInputs>({
     mode: 'onChange',
@@ -51,58 +52,34 @@ export const Register = ({
   return (
     <>
       <div className={`flex flex-col p-9`}>
-        <h1>Увійти в акаунт</h1>
+        <h1 className="mb-6">Створити акаунт</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col rounded-lg gap-8 w-[500px]"
         >
           <SharedInput
-            label="Name"
-            placeholder="Ваше імʼя"
-            id="name"
-            autocomplete="name"
-            type="text"
-            register={register}
-            validation={{ required: true }}
-            errors={errors}
-          />
-          <SharedInput
-            label="Email"
             id="email"
+            placeholder="Електронна пошта "
             autocomplete="email"
             type="email"
             register={register}
             validation={{ required: true, validate: validateEmail }}
             errors={errors}
           />
-          <SharedInput
-            label="Password"
-            id="password"
-            autocomplete="current-password"
-            type="password"
-            register={register}
-            validation={{ required: true, validate: validatePassword }}
-            errors={errors}
-          />
-          <SharedInput
-            label="Confirm Password"
-            id="confirmPassword"
-            autocomplete="new-password"
-            type="password"
-            register={register}
-            validation={{
-              required: true,
-              validate: value => value === watch('password'),
-            }}
-            errors={errors}
-          />
+          <span className="text-base ml-auto mr-auto">або</span>
           <button
+            type="button"
+            className={`flex gap-2.5 items-center justify-center w-[500px] h-[70px] bg-bgColor rounded-[20px]`}
+          >
+            <FcGoogle className="w-12 h-12" />
+            Продовжити через Google
+          </button>
+
+          <SharedBtn
             type="submit"
             disabled={!isValid}
-            className={`bg-buttonColor hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${!isValid ? 'opacity-50' : ''}`}
-          >
-            Register
-          </button>
+            text="Продовжити"
+          ></SharedBtn>
         </form>
       </div>
     </>

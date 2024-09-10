@@ -5,13 +5,23 @@ import { logIn as loginUser } from '@/redux/auth/operations';
 import { toast } from 'react-toastify';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, NavLink } from 'react-router-dom';
+import { SharedBtn } from './ui/SharedBtn';
 
 export interface LoginUserInterface {
   email: string;
   password: string;
 }
 
-export const Login = ({ onCloseModal }: { onCloseModal: () => void }) => {
+export interface LoginProps {
+  onCloseModal: () => void;
+  setStatusAuth: (status: 'login' | 'register') => void;
+}
+
+export const Login: React.FC<LoginProps> = ({
+  onCloseModal,
+  setStatusAuth,
+}) => {
+
   const {
     register,
     handleSubmit,
@@ -77,17 +87,19 @@ export const Login = ({ onCloseModal }: { onCloseModal: () => void }) => {
           </button>
           <div className={`flex gap-2.5`}>
             <span> У акаунту вас немає акаунту?</span>
-            <button className={`text-buttonColor`}>Створити</button>
+            <button
+              type="button"
+              onClick={() => setStatusAuth('register')}
+              className={`text-buttonColor`}
+            >
+              Створити
+            </button>
           </div>
-          <button
+          <SharedBtn
             type="submit"
             disabled={!isValid}
-            className={`bg-buttonColor rounded-tl-[71px] rounded-tr-lg rounded-br-[71px] rounded-bl-lg
-                 h-[70px] text-white font-bold py-2 px-4 cursor-pointer
-                 ${!isValid ? 'opacity-50 cursor-default' : ''}`}
-          >
-            Login
-          </button>
+            text="Увійти"
+          ></SharedBtn>
         </form>
       </div>
     </>

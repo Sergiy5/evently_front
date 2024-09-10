@@ -25,6 +25,7 @@ export default {
         buttonColor: '#9B8FF3',
         bgColor: '#F8FBFF',
         textColor: '#062341',
+        placeholderColor: '#D0D5D8'
 
 
       },
