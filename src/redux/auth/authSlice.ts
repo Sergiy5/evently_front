@@ -1,4 +1,4 @@
-import {createSlice, isAnyOf } from '@reduxjs/toolkit';
+import {createSlice, PayloadAction, isAnyOf } from '@reduxjs/toolkit';
 import { UnknownAction } from 'redux';
 import {
   register,
@@ -7,6 +7,17 @@ import {
   updateUser,
   refreshUser,
 } from '@/redux/auth/operations';
+
+export interface GoogleLoginResponse {
+  name: string | null;
+  email: string | null;
+  token: string | null;
+}
+
+export interface User {
+  name: string | null;
+  email: string | null;
+}
 
 const STATUS = {
   FULFILLED: 'fulfilled',
@@ -22,15 +33,8 @@ const getActionGeneratorsWithType: (status: string) => any[] = status =>
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    user: {
-      name: null,
-      email: null,
-      birthday: null,
-      phone: null,
-      skype: null,
-      avatarURL: null,
-    },
-    token: null,
+     user: {} as User,
+    token: null as null | string,
     // theme: 'light',
     currentDate: Date.now(),
     isLoggedIn: false,
@@ -44,6 +48,13 @@ const authSlice = createSlice({
     // },
     setCurrentDate(state, action) {
       state.currentDate = action.payload;
+    },
+    googleLogin(state, action: PayloadAction<GoogleLoginResponse>) {
+      const { name, email, token } = action.payload;
+      state.user = { name, email };
+      state.token = token;
+      state.isLoggedIn = true;
+      state.error = null;
     },
   },
 
@@ -116,5 +127,5 @@ function handleUserRejected(state: State, action: any): void {
 
 export const {
   // setTheme,
-  setCurrentDate } = authSlice.actions;
+  setCurrentDate, googleLogin } = authSlice.actions;
 export const authReducer = authSlice.reducer;

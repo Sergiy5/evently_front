@@ -1,9 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { validateEmail} from '@/utils';
-import { SharedInput } from './ui';
+import { GoogleLoginButton, SharedInput } from './ui';
 // import { toast } from 'react-toastify';
 import { SharedBtn } from './ui/SharedBtn';
-import { FcGoogle } from 'react-icons/fc';
 
 export interface RegisterUserInterface {
   name: string;
@@ -61,13 +60,8 @@ console.log("SUPMIT_EMAIL_>>>>>>>>>>",data)
             errors={errors}
           />
           <span className="text-base ml-auto mr-auto">або</span>
-          <button
-            type="button"
-            className={`flex gap-2.5 items-center justify-center w-[500px] h-[70px] bg-bgColor rounded-[20px]`}
-          >
-            <FcGoogle className="w-12 h-12" />
-            Продовжити через Google
-          </button>
+
+          <GoogleLoginButton />
 
           <SharedBtn
             type="submit"

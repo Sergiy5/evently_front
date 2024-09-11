@@ -84,7 +84,7 @@ const onInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         defaultValue={defaultValue}
         {...register(id, { ...validation, onBlur: handleFocus })}
         className={clsx(
-          `flex-grow w-full font-medium h-[70px] text-xl text-primary bg-bgColor placeholder:text-placeholderColor
+          `flex-grow w-full font-medium h-[70px] text-xl text-textDark bg-bgColor placeholder:text-placeholderColor
            rounded-[20px] px-5 py-6 focus:outline-none transition-all duration-200 ease-in-out
             outline-none border-2`,
           {

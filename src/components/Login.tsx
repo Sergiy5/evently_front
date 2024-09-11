@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { Link} from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '@/hooks/hooks';
-import { FcGoogle } from 'react-icons/fc';
+// import { FcGoogle } from 'react-icons/fc';
 import { validateEmail, validatePassword } from '@/utils';
-import { SharedInput } from './ui';
+import { GoogleLoginButton, SharedInput } from './ui';
 import { logIn } from '@/redux/auth/operations';
 // import { toast } from 'react-toastify';
 import { SharedBtn } from './ui/SharedBtn';
@@ -98,13 +98,13 @@ export const Login: React.FC<LoginProps> = ({
             </Link>
           </div>
           <span className="text-base ml-auto mr-auto">або</span>
-          <button
-            type="button"
+          <div
             className={`flex gap-2.5 items-center justify-center w-[500px] h-[70px] bg-bgColor rounded-[20px]`}
           >
-            <FcGoogle className="w-12 h-12" />
-            Продовжити через Google
-          </button>
+            
+            <GoogleLoginButton />
+
+          </div>
           <div className={`flex gap-2.5`}>
             <span> У акаунту вас немає акаунту?</span>
             <button
