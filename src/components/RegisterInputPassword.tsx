@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useAppDispatch } from '@/hooks/hooks';
-// import { toast } from 'react-toastify';
 import { statusPassword, validatePassword } from '@/utils';
 import {
   PrivacyAgreement,
@@ -9,7 +7,6 @@ import {
   SharedInput,
   StatusBarPassword,
 } from './ui';
-import { register as registerUser } from '@/redux/auth/operations';
 
 export interface RegisterUserInterface {
   name: string;
@@ -23,8 +20,8 @@ interface RegisterFormInputs {
 }
 
 export interface RegisterInputPasswordProps {
-  onCloseModal: () => void;
-  email: string;
+  setStatusAuth: (status: 'confirm_email') => void;
+  setUserData: React.Dispatch<React.SetStateAction<RegisterUserInterface>>;
 }
 
 interface RequiredPasswordInterface {
@@ -35,14 +32,10 @@ interface RequiredPasswordInterface {
 }
 
 export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
-  onCloseModal,
-  email,
+  setStatusAuth,
+  setUserData,
 }) => {
-  const [userData, setUserData] = useState({
-    name: '',
-    email: email,
-    password: '',
-  });
+  
   const [onInputPassword, setOnInputPassword] = useState('');
   const [requiredPassword, setRequiredPassword] =
     useState<RequiredPasswordInterface>({
@@ -51,8 +44,6 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
       hasNumber: false,
       hasSpecialChar: false,
     });
-
-  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -67,37 +58,15 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
     const { name, password } = data;
 
     setUserData(prev => ({ ...prev, password, name }));
-    // Submit data to API or perform other actions
+    setStatusAuth('confirm_email');
   };
-  
+
   useEffect(() => {
     setRequiredPassword(prev => ({
       ...prev,
       ...statusPassword(onInputPassword),
     }));
   }, [onInputPassword]);
-
-  useEffect(() => {
-    if (!userData.email || !userData.password || !userData.name) return;
-
-    const onRegisterUser = async () => {
-      try {
-        const result = await dispatch(
-          registerUser(userData as RegisterUserInterface)
-        );
-
-        console.log(result);
-        // !result?.error
-        //   ? toast.success('Welcome!')
-        //   : toast.error('You are not logged in');
-      } catch (error) {
-        console.error(error);
-      } finally {
-        onCloseModal();
-      }
-    };
-    onRegisterUser();
-  }, [userData.password]);
 
   return (
     <>
@@ -153,7 +122,7 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
             text="Створити акаунт"
           ></SharedBtn>
         </form>
-        <PrivacyAgreement className="mt-12 h-[38px]"/>
+        <PrivacyAgreement className="mt-12 h-[38px]" />
       </div>
     </>
   );

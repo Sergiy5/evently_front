@@ -3,27 +3,20 @@ import { validateEmail} from '@/utils';
 import { GoogleLoginButton, SharedInput } from './ui';
 // import { toast } from 'react-toastify';
 import { SharedBtn } from './ui/SharedBtn';
+import { RegisterUserInterface } from './RegisterInputPassword';
 
-export interface RegisterUserInterface {
-  name: string;
-  email: string;
-  password: string;
-}
 interface RegisterFormInputs {
   email: string;
-  password: string;
-  confirmPassword: string;
 }
 
 export interface RegisterInputEmailProps {
-  onCloseModal?: () => void;
-  handleUserEmail: (email: string) => void;
-  setStatusAuth: (status: 'register' |'register_password') => void;
+  setUserData: React.Dispatch<React.SetStateAction<RegisterUserInterface>>;
+  setStatusAuth: (status: 'register_email' | 'register_password') => void;
 }
 
 export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
 setStatusAuth,
-  handleUserEmail
+  setUserData
 }) => {
   const {
     register,
@@ -35,10 +28,12 @@ setStatusAuth,
 
   const onSubmit = async (data: RegisterFormInputs) => {
     if (!data) return
-console.log("SUPMIT_EMAIL_>>>>>>>>>>",data)
+    
     const userData = Object.fromEntries(Object.entries(data));
     const email = userData.email;
-    handleUserEmail(email);
+
+    setUserData(prev => ({ ...prev, email }));
+    
     setStatusAuth('register_password');
   };
 

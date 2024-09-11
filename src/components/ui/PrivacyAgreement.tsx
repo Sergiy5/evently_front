@@ -6,7 +6,7 @@ interface PrivacyAgreementProps {
 export const PrivacyAgreement: React.FC<PrivacyAgreementProps> = ({ className }) => {
   return (
     <p
-      className={`text-center text-base font-normal w-[520px] opacity-50 ${className} `}
+      className={`text-center text-base font-normal w-[500px] opacity-50 ${className} `}
     >
       Натискаючи кнопку "Зареєструватися" я погоджуюся з{' '}
       <Link to="/privacy-policy" className='underline' >Політикою конфіденційності</Link> та{' '}

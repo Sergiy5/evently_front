@@ -14,7 +14,7 @@ export interface LoginUserInterface {
 
 export interface LoginProps {
   onCloseModal: () => void;
-  setStatusAuth: (status: 'login' | 'register') => void;
+  setStatusAuth: (status: 'login' | 'register_email') => void;
 }
 
 export const Login: React.FC<LoginProps> = ({
@@ -105,7 +105,7 @@ export const Login: React.FC<LoginProps> = ({
             <span> У вас немає акаунту?</span>
             <button
               type="button"
-              onClick={() => setStatusAuth('register')}
+              onClick={() => setStatusAuth('register_email')}
               className={`text-buttonPurple`}
             >
               Створити
