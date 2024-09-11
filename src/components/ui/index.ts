@@ -1,3 +1,6 @@
-export { Modal } from './Modal'
+export { Modal } from './Modal';
 export { SharedInput } from './SharedInput';
-export { SharedStatusBarPassword } from './sharedStatusBarPassword';
+export { SharedItemStatusBarPassword } from './sharedItemStatusBarPassword';
+export { SharedBtn } from './SharedBtn';
+export { GoogleLoginButton } from './GoogleLoginButton';
+export { StatusBarPassword } from './StatusBarPassword';

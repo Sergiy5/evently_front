@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { statusPassword, validatePassword } from '@/utils';
-import { SharedInput, SharedStatusBarPassword } from './ui';
-import { register as registerUser } from '@/redux/auth/operations';
-// import { toast } from 'react-toastify';
 import { useAppDispatch } from '@/hooks/hooks';
-import { SharedBtn } from './ui/SharedBtn';
+// import { toast } from 'react-toastify';
+import { statusPassword, validatePassword } from '@/utils';
+import { SharedBtn, SharedInput, StatusBarPassword } from './ui';
+import { register as registerUser } from '@/redux/auth/operations';
 
 
 export interface RegisterUserInterface {
@@ -45,9 +44,7 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
         hasSpecialChar: false,
       });
 
-
   const dispatch = useAppDispatch();
-
 
   const {
     register,
@@ -123,7 +120,8 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
             validation={{ required: true, validate: validatePassword }}
             errors={errors}
           />
-          <ul className="flex">
+          <StatusBarPassword requiredPassword={requiredPassword} />
+          {/* <ul className="flex">
             <li className={``}>
               <SharedStatusBarPassword
                 text="Мінімум 8 символів"
@@ -148,7 +146,7 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
                 valid={requiredPassword.hasSpecialChar}
               />
             </li>
-          </ul>
+          </ul> */}
           <SharedInput
             placeholder="Підтвердіть пароль"
             id="confirmPassword"
