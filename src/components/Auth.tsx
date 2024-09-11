@@ -22,10 +22,10 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
   ) => {
     setStatusAuth(status);
   };
-console.log('userEmail_IN_Auth_>>>>>>>>>', userEmail);
+
   return (
     <div
-      className={` flex gap-12 flex-row-reverse overflow-hidden bg-formBgColor border-collapse border border-borderColor rounded-[20px]`}
+      className={` flex gap-12 flex-row-reverse overflow-hidden bg-lightPurple border-collapse border border-borderColor rounded-[20px]`}
     >
       {statusAuth === 'login' && (
         <Login

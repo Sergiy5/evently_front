@@ -2,11 +2,9 @@ import { useEffect, useState } from 'react';
 import { Link} from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '@/hooks/hooks';
-// import { FcGoogle } from 'react-icons/fc';
 import { validateEmail, validatePassword } from '@/utils';
 import { GoogleLoginButton, SharedInput } from './ui';
 import { logIn } from '@/redux/auth/operations';
-// import { toast } from 'react-toastify';
 import { SharedBtn } from './ui/SharedBtn';
 
 export interface LoginUserInterface {

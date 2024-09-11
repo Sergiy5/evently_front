@@ -35,9 +35,8 @@ export const SharedInput: React.FC<SharedInputProps> = ({
   const [hasValue, setHasValue] = useState(() => (defaultValue ? true : false));
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleFocus = () => {
     setIsFocused(prev => !prev);
-    setHasValue(e.target.value !== '');
   };
 
   // Show password =================================================================
@@ -50,9 +49,12 @@ export const SharedInput: React.FC<SharedInputProps> = ({
     setPasswordVisible(!passwordVisible);
   };
 
-const onInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-  onInput && onInput(e.target.value);
-}
+  const onInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onInput && onInput(e.target.value);
+
+    if (e.target.value.length > 1) setHasValue(true);
+    else setHasValue(false);
+  };
 
   useEffect(() => {
     if (id === 'password' && passwordInput) {
@@ -84,12 +86,13 @@ const onInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         defaultValue={defaultValue}
         {...register(id, { ...validation, onBlur: handleFocus })}
         className={clsx(
-          `flex-grow w-full font-medium h-[70px] text-base text-textDark bg-bgColor placeholder:text-darkGray
+          `flex-grow w-full font-medium h-[70px] text-base text-textDark bg-background placeholder:text-darkGray
            rounded-[20px] px-5 py-6 focus:outline-none transition-all duration-200 ease-in-out
-            outline-none border-2`,
+            outline-none border`,
           {
+            'border-transparent': !errors[id] && !hasValue,
             'border-error ': errors[id],
-            'border-success': !errors[id] && !validation,
+            'border-success': !errors[id] && hasValue,
           }
         )}
       />
