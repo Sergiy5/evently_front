@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '@/hooks/hooks';
 // import { toast } from 'react-toastify';
 import { statusPassword, validatePassword } from '@/utils';
-import { SharedBtn, SharedInput, StatusBarPassword } from './ui';
+import { PrivacyAgreement, SharedBtn, SharedInput, StatusBarPassword } from './ui';
 import { register as registerUser } from '@/redux/auth/operations';
 
 
@@ -92,11 +92,11 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
 
   return (
     <>
-      <div className={`flex flex-col p-9`}>
-        <h1>Увійти в акаунт</h1>
+      <div className={`flex flex-col p-9 w-[500px]`}>
+        <h1>Створити акаунт</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col rounded-lg gap-8 w-[500px]"
+          className="flex flex-col rounded-lg gap-8 "
         >
           <SharedInput
             placeholder="Ім'я"
@@ -120,33 +120,9 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
             validation={{ required: true, validate: validatePassword }}
             errors={errors}
           />
+
           <StatusBarPassword requiredPassword={requiredPassword} />
-          {/* <ul className="flex">
-            <li className={``}>
-              <SharedStatusBarPassword
-                text="Мінімум 8 символів"
-                valid={requiredPassword.hasMinLength}
-              />
-            </li>
-            <li className={``}>
-              <SharedStatusBarPassword
-                text="Велика літера"
-                valid={requiredPassword.hasUppercase}
-              />
-            </li>
-            <li className={``}>
-              <SharedStatusBarPassword
-                text="Цифра"
-                valid={requiredPassword.hasNumber}
-              />
-            </li>
-            <li className={``}>
-              <SharedStatusBarPassword
-                text="Спеціальний символ"
-                valid={requiredPassword.hasSpecialChar}
-              />
-            </li>
-          </ul> */}
+
           <SharedInput
             placeholder="Підтвердіть пароль"
             id="confirmPassword"
@@ -165,8 +141,9 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
             text="Створити акаунт"
           ></SharedBtn>
         </form>
+        <PrivacyAgreement />
       </div>
-      <img src="public/images/auth-form.webp" alt="colage_posters" />
+      {/* <img src="public/images/auth-form.webp" alt="colage_posters" /> */}
     </>
   );
 };

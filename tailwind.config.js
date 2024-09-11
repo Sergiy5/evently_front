@@ -13,10 +13,9 @@ export default {
     extend: {
       // Change variables for colors here...
       colors: {
-        primary: '#3498db',
         secondary: '#f1c40f',
-        success: '#2ecc71',
-        error: '#e74c3c',
+        success: '#3BE660',
+        error: '#FF0F00',
         warning: '#f7dc6f',
         dark: '#333',
         light: '#f9f9f9',
@@ -25,9 +24,7 @@ export default {
         buttonColor: '#9B8FF3',
         bgColor: '#F8FBFF',
         textDark: '#062341',
-        placeholderColor: '#D0D5D8'
-
-
+        darkGray: '#D0D5D8',
       },
       // spacing: {
       //   sm: '8px',

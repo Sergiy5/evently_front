@@ -1,4 +1,5 @@
 import { RxCross2 } from 'react-icons/rx';
+import { MdDone } from 'react-icons/md';
 
 interface StatusBarPasswordProps {
   text: string;
@@ -10,7 +11,11 @@ export const SharedItemStatusBarPassword: React.FC<StatusBarPasswordProps> = ({
 }) => {
   return (
     <div className={`flex items-center  gap-2`}>
-      {valid ? <RxCross2 className="w-4 h-4" /> : <div>Y</div>}
+      {valid ? (
+        <MdDone className="w-4 h-4 text-success" />
+      ) : (
+        <RxCross2 className="w-4 h-4 text-error" />
+      )}
       <span className="font-normal text-xs text-textDark">{text}</span>
     </div>
   );

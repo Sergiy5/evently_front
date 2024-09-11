@@ -2,7 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@font-face {
+  font-family: 'OswaldRegular';
+  src: url('./assets/fonts/Oswald-Regular.woff2') format('woff2'),
+    url('./assets/fonts/Oswald-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LoraRegular';
+  src: url('./assets/fonts/Lora-Regular.woff2') format('woff2'),
+      url('./assets/fonts/Lora-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LatoRegular';
+  src: url('./assets/fonts/Lato-Regular.woff2') format('woff2'),
+    url('./assets/fonts/Lato-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
+  font-family: sans-serif, 'LatoRegular';
   margin: 0;
   place-items: center;
   min-width: 320px;
@@ -18,15 +44,20 @@ main {
   text-align: center;
 }
 
-a {
-  text-decoration: none;
+h1{
+  font-size: 64px;
+  line-height: 95px;
+  color: theme("colors.textDark");
 }
 
-h1{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+  font-family: 'OswaldRegular';
   font-weight: 400;
-  font-size: 64px;
-  line-height: calc(64px * 1.5);
-  color: #1a1a1a;
 }
 
 button {
