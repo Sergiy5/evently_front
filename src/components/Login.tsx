@@ -62,7 +62,7 @@ export const Login: React.FC<LoginProps> = ({
 
   return (
     <>
-      <div className={`flex flex-col p-9`}>
+      <div className={`flex flex-col mt-12 mx-9`}>
         <h1 className="mb-6">Увійти в акаунт</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -99,16 +99,14 @@ export const Login: React.FC<LoginProps> = ({
           <div
             className={`flex gap-2.5 items-center justify-center w-[500px] h-[70px] bg-bgColor rounded-[20px]`}
           >
-            
             <GoogleLoginButton />
-
           </div>
           <div className={`flex gap-2.5`}>
-            <span> У акаунту вас немає акаунту?</span>
+            <span> У вас немає акаунту?</span>
             <button
               type="button"
               onClick={() => setStatusAuth('register')}
-              className={`text-buttonColor`}
+              className={`text-buttonPurple`}
             >
               Створити
             </button>

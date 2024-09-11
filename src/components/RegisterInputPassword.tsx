@@ -3,9 +3,13 @@ import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '@/hooks/hooks';
 // import { toast } from 'react-toastify';
 import { statusPassword, validatePassword } from '@/utils';
-import { PrivacyAgreement, SharedBtn, SharedInput, StatusBarPassword } from './ui';
+import {
+  PrivacyAgreement,
+  SharedBtn,
+  SharedInput,
+  StatusBarPassword,
+} from './ui';
 import { register as registerUser } from '@/redux/auth/operations';
-
 
 export interface RegisterUserInterface {
   name: string;
@@ -34,15 +38,19 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
   onCloseModal,
   email,
 }) => {
-    const [userData, setUserData] = useState({ name: '', email: email, password: '' });
-    const [onInputPassword, setOnInputPassword] = useState('')
-    const [requiredPassword, setRequiredPassword] =
-      useState<RequiredPasswordInterface>({
-        hasMinLength: false,
-        hasUppercase: false,
-        hasNumber: false,
-        hasSpecialChar: false,
-      });
+  const [userData, setUserData] = useState({
+    name: '',
+    email: email,
+    password: '',
+  });
+  const [onInputPassword, setOnInputPassword] = useState('');
+  const [requiredPassword, setRequiredPassword] =
+    useState<RequiredPasswordInterface>({
+      hasMinLength: false,
+      hasUppercase: false,
+      hasNumber: false,
+      hasSpecialChar: false,
+    });
 
   const dispatch = useAppDispatch();
 
@@ -56,47 +64,48 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
   });
 
   const onSubmit = async (data: RegisterFormInputs) => {
-      const { name, password } = data;
+    const { name, password } = data;
 
-    setUserData(prev=>({ ...prev, password, name}));
+    setUserData(prev => ({ ...prev, password, name }));
     // Submit data to API or perform other actions
-    
+  };
+  
+  useEffect(() => {
+    setRequiredPassword(prev => ({
+      ...prev,
+      ...statusPassword(onInputPassword),
+    }));
+  }, [onInputPassword]);
+
+  useEffect(() => {
+    if (!userData.email || !userData.password || !userData.name) return;
+
+    const onRegisterUser = async () => {
+      try {
+        const result = await dispatch(
+          registerUser(userData as RegisterUserInterface)
+        );
+
+        console.log(result);
+        // !result?.error
+        //   ? toast.success('Welcome!')
+        //   : toast.error('You are not logged in');
+      } catch (error) {
+        console.error(error);
+      } finally {
+        onCloseModal();
+      }
     };
-    useEffect(() => {
-        const requiredPassword = setRequiredPassword(prev=>({...prev, ...statusPassword(onInputPassword)})); 
-        console.log('requiredPassword_>>>>>>>>>>', requiredPassword);
-        
-    }, [onInputPassword]);
-
-      useEffect(() => {
-          if (!userData.email || !userData.password || !userData.name) return;
-        
-        const onRegisterUser = async () => {
-            try {
-            const result = await dispatch(
-              registerUser(userData as RegisterUserInterface)
-            );
-
-            console.log(result);
-            // !result?.error
-            //   ? toast.success('Welcome!')
-            //   : toast.error('You are not logged in');
-          } catch (error) {
-            console.error(error);
-          } finally {
-            onCloseModal();
-          }
-        };
-        onRegisterUser();
-      }, [userData.password]);
+    onRegisterUser();
+  }, [userData.password]);
 
   return (
     <>
-      <div className={`flex flex-col p-9 w-[500px]`}>
+      <div className={`flex flex-col gap-8 mt-12 mb-6 mx-9 w-[500px]`}>
         <h1>Створити акаунт</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col rounded-lg gap-8 "
+          className="flex flex-col rounded-lg gap-8"
         >
           <SharedInput
             placeholder="Ім'я"
@@ -121,7 +130,10 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
             errors={errors}
           />
 
-          <StatusBarPassword requiredPassword={requiredPassword} />
+          <StatusBarPassword
+            requiredPassword={requiredPassword}
+            className="-my-4"
+          />
 
           <SharedInput
             placeholder="Підтвердіть пароль"
@@ -141,9 +153,8 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
             text="Створити акаунт"
           ></SharedBtn>
         </form>
-        <PrivacyAgreement />
+        <PrivacyAgreement className="mt-12 h-[38px]"/>
       </div>
-      {/* <img src="public/images/auth-form.webp" alt="colage_posters" /> */}
     </>
   );
 };

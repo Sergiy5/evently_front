@@ -25,7 +25,7 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
 
   return (
     <div
-      className={` flex gap-12 flex-row-reverse overflow-hidden bg-lightPurple border-collapse border border-borderColor rounded-[20px]`}
+      className={` flex gap-12 flex-row-reverse overflow-hidden bg-lightPurple border-collapse border border-gray rounded-[20px]`}
     >
       {statusAuth === 'login' && (
         <Login

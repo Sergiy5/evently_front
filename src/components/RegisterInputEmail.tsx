@@ -44,7 +44,7 @@ console.log("SUPMIT_EMAIL_>>>>>>>>>>",data)
 
   return (
     <>
-      <div className={`flex flex-col p-9`}>
+      <div className={`flex flex-col mt-12 mx-9`}>
         <h1 className="mb-6">Створити акаунт</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}

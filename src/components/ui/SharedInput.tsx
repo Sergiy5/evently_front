@@ -86,12 +86,12 @@ export const SharedInput: React.FC<SharedInputProps> = ({
         defaultValue={defaultValue}
         {...register(id, { ...validation, onBlur: handleFocus })}
         className={clsx(
-          `flex-grow w-full font-medium h-[70px] text-base text-textDark bg-background placeholder:text-darkGray
+          `flex-grow w-full font-medium h-[70px] text-base bg-background placeholder:text-darkGray
            rounded-[20px] px-5 py-6 focus:outline-none transition-all duration-200 ease-in-out
             outline-none border`,
           {
             'border-transparent': !errors[id] && !hasValue,
-            'border-error ': errors[id],
+            'border-error  text-error': errors[id],
             'border-success': !errors[id] && hasValue,
           }
         )}

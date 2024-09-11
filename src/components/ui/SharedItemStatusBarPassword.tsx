@@ -10,13 +10,13 @@ export const SharedItemStatusBarPassword: React.FC<StatusBarPasswordProps> = ({
   valid,
 }) => {
   return (
-    <div className={`flex items-center  gap-2`}>
+    <div className={`flex flex-row items-center h-4 gap-2`}>
       {valid ? (
         <MdDone className="w-4 h-4 text-success" />
       ) : (
         <RxCross2 className="w-4 h-4 text-error" />
       )}
-      <span className="font-normal text-xs text-textDark">{text}</span>
+      <span className="font-normal w-full text-textDark">{text}</span>
     </div>
   );
 };

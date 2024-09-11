@@ -8,13 +8,15 @@ interface RequiredPasswordInterface {
     hasSpecialChar: boolean 
 }
 interface StatusBarPasswordProps {
-    requiredPassword: RequiredPasswordInterface
+  requiredPassword: RequiredPasswordInterface;
+  className: string;
 }
 export const StatusBarPassword: React.FC<StatusBarPasswordProps> = ({
   requiredPassword,
+  className,
 }) => {
   return (
-    <ul className="flex w-full justify-between ">
+    <ul className={`flex w-full text-xs justify-between ${className}`}>
       <li className={``}>
         <SharedItemStatusBarPassword
           text="Мінімум 8 символів"
