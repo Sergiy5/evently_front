@@ -3,8 +3,8 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 export default defineConfig({
-  base: '/evently_front/',
   plugins: [react()],
+  base: '/evently_front/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src/'), // Set up path alias for `@` to `./src/`

@@ -82,7 +82,7 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
         <RegisterConirmEmail setStatusAuth={handleStatusAuth} />
       )}
       {/* {isLoading && <div>LOADING...</div>} */}
-      <img src="public/images/auth-form.webp" alt="colage_posters" />
+      <img src="/images/auth-form.webp" alt="colage_posters" />
     </div>
   );
 };

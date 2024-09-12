@@ -17,7 +17,6 @@ export const GoogleLoginButton: React.FC = () => {
 
   const login = useGoogleLogin({
     onSuccess: (response: any) => {
-      console.log('RESPONSE_credential_TOKEN_>>>>>>>>', response.access_token);
 
       const fetchUserInfo = async (accessToken: string) => {
         try {
