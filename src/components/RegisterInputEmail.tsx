@@ -1,39 +1,37 @@
 import { useForm } from 'react-hook-form';
-import { validateEmail} from '@/utils';
+import { validateEmail } from '@/utils';
 import { GoogleLoginButton, SharedInput } from './ui';
 // import { toast } from 'react-toastify';
 import { SharedBtn } from './ui/SharedBtn';
-import { RegisterUserInterface } from './RegisterInputPassword';
+import { RegisterFormInputEmail, RegisterUserInterface } from '@/types';
 
-interface RegisterFormInputs {
+interface RegisterInputEmailProps {
+  setUserData: React.Dispatch<React.SetStateAction<RegisterUserInterface>>;
+  setStatusAuth: (status: 'register_email' | 'register_password') => void;
   email: string;
 }
 
-export interface RegisterInputEmailProps {
-  setUserData: React.Dispatch<React.SetStateAction<RegisterUserInterface>>;
-  setStatusAuth: (status: 'register_email' | 'register_password') => void;
-}
-
 export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
-setStatusAuth,
-  setUserData
+  setStatusAuth,
+  setUserData,
+  email,
 }) => {
   const {
     register,
     handleSubmit,
     formState: { isValid, errors },
-  } = useForm<RegisterFormInputs>({
+  } = useForm<RegisterFormInputEmail>({
     mode: 'onChange',
   });
 
-  const onSubmit = async (data: RegisterFormInputs) => {
-    if (!data) return
-    
+  const onSubmit = async (data: RegisterFormInputEmail) => {
+    if (!data) return;
+
     const userData = Object.fromEntries(Object.entries(data));
     const email = userData.email;
 
     setUserData(prev => ({ ...prev, email }));
-    
+
     setStatusAuth('register_password');
   };
 
@@ -47,6 +45,7 @@ setStatusAuth,
         >
           <SharedInput
             id="email"
+            defaultValue={email}
             placeholder="Електронна пошта "
             autocomplete="email"
             type="email"
@@ -58,11 +57,9 @@ setStatusAuth,
 
           <GoogleLoginButton />
 
-          <SharedBtn
-            type="submit"
-            disabled={!isValid}
-            text="Продовжити"
-          ></SharedBtn>
+          <SharedBtn type="submit" disabled={!isValid} className="mt-8">
+            Продовжити
+          </SharedBtn>
         </form>
       </div>
     </>

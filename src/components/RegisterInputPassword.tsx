@@ -7,35 +7,23 @@ import {
   SharedInput,
   StatusBarPassword,
 } from './ui';
+import {
+  RegisterFormInputsPassword,
+  RegisterUserInterface,
+  RequiredPasswordInterface,
+} from '@/types';
 
-export interface RegisterUserInterface {
-  name: string;
-  email: string;
-  password: string;
-}
-interface RegisterFormInputs {
-  name: string;
-  password: string;
-  confirmPassword: string;
-}
-
-export interface RegisterInputPasswordProps {
+interface RegisterInputPasswordProps {
   setStatusAuth: (status: 'confirm_email') => void;
   setUserData: React.Dispatch<React.SetStateAction<RegisterUserInterface>>;
-}
-
-interface RequiredPasswordInterface {
-  hasMinLength: boolean;
-  hasUppercase: boolean;
-  hasNumber: boolean;
-  hasSpecialChar: boolean;
+  name: string;
 }
 
 export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
   setStatusAuth,
   setUserData,
+  name
 }) => {
-  
   const [onInputPassword, setOnInputPassword] = useState('');
   const [requiredPassword, setRequiredPassword] =
     useState<RequiredPasswordInterface>({
@@ -50,11 +38,11 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
     handleSubmit,
     watch,
     formState: { isValid, errors },
-  } = useForm<RegisterFormInputs>({
+  } = useForm<RegisterFormInputsPassword>({
     mode: 'onChange',
   });
 
-  const onSubmit = async (data: RegisterFormInputs) => {
+  const onSubmit = async (data: RegisterFormInputsPassword) => {
     const { name, password } = data;
 
     setUserData(prev => ({ ...prev, password, name }));
@@ -77,8 +65,9 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
           className="flex flex-col rounded-lg gap-8"
         >
           <SharedInput
-            placeholder="Ім'я"
             id="name"
+            defaultValue={name}
+            placeholder="Ім'я"
             autocomplete="name"
             type="text"
             register={register}
@@ -116,11 +105,9 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
             }}
             errors={errors}
           />
-          <SharedBtn
-            type="submit"
-            disabled={!isValid}
-            text="Створити акаунт"
-          ></SharedBtn>
+          <SharedBtn type="submit" disabled={!isValid}>
+            Створити акаунт
+          </SharedBtn>
         </form>
         <PrivacyAgreement className="mt-12 h-[38px]" />
       </div>

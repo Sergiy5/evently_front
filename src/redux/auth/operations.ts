@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { RegisterUserInterface } from '@/components/RegisterForm';
+import { RegisterUserInterface } from '@/types';
 // import { RootState } from '@reduxjs/toolkit/query';
 
 export interface LoginUserInterface {

@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { RegisterInputEmail } from './RegisterInputEmail';
 import { Login } from './Login';
-import { RegisterInputPassword, RegisterUserInterface } from './RegisterInputPassword';
+import { RegisterInputPassword } from './RegisterInputPassword';
 import { RegisterConirmEmail } from './RegisterConfirmEmail';
 import { useAppDispatch } from '@/hooks/hooks';
 import { register as registerUser } from '@/redux/auth/operations';
-
+import { RegisterUserInterface } from '@/types';
 
 interface AuthProps {
   onCloseModal: () => void;
 }
 
 export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
-    // const [isLoading, setIsLoading] = useState(false);
-  const [userData, setUserData] = useState({email:'',password:'', name: ''});
+  // const [isLoading, setIsLoading] = useState(false);
+  const [userData, setUserData] = useState({
+    email: '',
+    password: '',
+    name: '',
+  });
 
   const [statusAuth, setStatusAuth] = useState<
     'login' | 'register_email' | 'register_password' | 'confirm_email'
-    >('login');
-  
+  >('login');
+
   const dispatch = useAppDispatch();
-  
+
   const handleCloseModal = () => {
     onCloseModal();
   };
@@ -38,7 +42,7 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
           registerUser(userData as RegisterUserInterface)
         );
 
-        console.log(result);
+        console.log("REGISTER_RESULT_IN_AUTH_>>>>>>>>",result);
         // !result?.error
         //   ? toast.success('Welcome!')
         //   : toast.error('You are not logged in');
@@ -49,8 +53,8 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
     };
     onRegisterUser();
   }, [userData.password]);
-  
-  console.log('userData_>>>>>>>>>>>>>', userData);
+
+  console.log('userData_IN_Auth_>>>>>>>>>>>>>', userData);
   return (
     <div
       className={` flex gap-12 flex-row-reverse overflow-hidden bg-lightPurple border-collapse border border-gray rounded-[20px]`}
@@ -64,11 +68,16 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
       {statusAuth === 'register_email' && (
         <RegisterInputEmail
           setUserData={setUserData}
+          email={userData.email}
           setStatusAuth={handleStatusAuth}
         />
       )}
       {statusAuth === 'register_password' && (
-        <RegisterInputPassword setUserData={setUserData} setStatusAuth={handleStatusAuth} />
+        <RegisterInputPassword
+          setUserData={setUserData}
+          setStatusAuth={handleStatusAuth}
+          name={userData.name}
+        />
       )}
       {statusAuth === 'confirm_email' && (
         <RegisterConirmEmail setStatusAuth={handleStatusAuth} />

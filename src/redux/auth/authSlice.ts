@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction, isAnyOf } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, isAnyOf } from '@reduxjs/toolkit';
 import { UnknownAction } from 'redux';
 import {
   register,
@@ -18,6 +18,10 @@ export interface User {
   name: string | null;
   email: string | null;
 }
+export interface UserLoggingFulfilled {
+  user: User;
+  token: null | string;
+}
 
 const STATUS = {
   FULFILLED: 'fulfilled',
@@ -33,7 +37,7 @@ const getActionGeneratorsWithType: (status: string) => any[] = status =>
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-     user: {} as User,
+    user: {} as User,
     token: null as null | string,
     // theme: 'light',
     currentDate: Date.now(),
@@ -79,7 +83,10 @@ const authSlice = createSlice({
   },
 });
 
-function handleUserLoggingFulfilled(state: any, action: any): void {
+function handleUserLoggingFulfilled(
+  state: any,
+  action: any
+): void {
   state.user = action.payload.user;
   state.token = action.payload.token;
   state.isLoggedIn = true;
@@ -95,9 +102,6 @@ function handleLogOut(state: any): void {
   state.user = {
     name: null,
     email: null,
-    birthday: null,
-    phone: null,
-    skype: null,
     avatarURL: null,
   };
   state.token = null;
@@ -127,5 +131,7 @@ function handleUserRejected(state: State, action: any): void {
 
 export const {
   // setTheme,
-  setCurrentDate, googleLogin } = authSlice.actions;
+  setCurrentDate,
+  googleLogin,
+} = authSlice.actions;
 export const authReducer = authSlice.reducer;

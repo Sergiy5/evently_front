@@ -9,7 +9,7 @@ import './main.css';
 import App from './App';
 import { store, persistor } from './redux/store';
 
-const clientId = 'VITE_GOOGLE_CLIENT_ID' // import.meta.env.VITE_GOOGLE_CLIENT_ID;
+const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

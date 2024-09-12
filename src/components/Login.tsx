@@ -6,11 +6,7 @@ import { validateEmail, validatePassword } from '@/utils';
 import { GoogleLoginButton, SharedInput } from './ui';
 import { logIn } from '@/redux/auth/operations';
 import { SharedBtn } from './ui/SharedBtn';
-
-export interface LoginUserInterface {
-  email: string;
-  password: string;
-}
+import { LoginUserInterface } from '@/types';
 
 export interface LoginProps {
   onCloseModal: () => void;
@@ -101,7 +97,7 @@ export const Login: React.FC<LoginProps> = ({
           >
             <GoogleLoginButton />
           </div>
-          <div className={`flex gap-2.5`}>
+          <div className={`flex gap-2.5 -mt-4 mb-4`}>
             <span> У вас немає акаунту?</span>
             <button
               type="button"
@@ -111,11 +107,9 @@ export const Login: React.FC<LoginProps> = ({
               Створити
             </button>
           </div>
-          <SharedBtn
-            type="submit"
-            disabled={!isValid}
-            text="Увійти"
-          ></SharedBtn>
+          <SharedBtn type="submit" disabled={!isValid}>
+            Увійти
+          </SharedBtn>
         </form>
       </div>
     </>
