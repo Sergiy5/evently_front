@@ -7,6 +7,7 @@ import { GoogleLoginButton, SharedInput } from './ui';
 import { logIn } from '@/redux/auth/operations';
 import { SharedBtn } from './ui/SharedBtn';
 import { LoginUserInterface } from '@/types';
+import { toast } from 'react-toastify';
 
 export interface LoginProps {
   onCloseModal: () => void;
@@ -42,12 +43,11 @@ export const Login: React.FC<LoginProps> = ({
       try {
         const result = await dispatch(logIn(userData));
 
-        console.log(result);
-        // !result?.error
-        //   ? toast.success('Welcome!')
-        //   : toast.error('You are not logged in');
+        toast.success(`Welcome ${result.payload.name}!`);
+      
       } catch (error) {
         console.error(error);
+        toast.error(`You are not logged in ${error}`);
       } finally {
         onCloseModal();
       

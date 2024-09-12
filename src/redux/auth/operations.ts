@@ -1,12 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { RegisterUserInterface } from '@/types';
+import { LoginUserInterface, RegisterUserInterface } from '@/types';
 // import { RootState } from '@reduxjs/toolkit/query';
-
-export interface LoginUserInterface {
-  email: string;
-  password: string;
-}
 
 const URL = import.meta.env.VITE_MOCK_API_USER_URL;
 
@@ -25,7 +20,7 @@ export const register = createAsyncThunk(
     try {
       const response = await axios.post('users/register', user);
       console.log('RESPONSE_MOCK_API', response);
-      // setAuthToken(response.data.token);
+      setAuthToken(response.data.token);
       return response.data;
     } catch (error: unknown) {
       return thunkAPI.rejectWithValue((error as Error).message);
@@ -80,6 +75,7 @@ export const refreshUser = createAsyncThunk(
     try {
       setAuthToken(persistedToken);
       const response = await axios.get('users/current');
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue((error as Error).message);

@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useAppDispatch } from '@/hooks/hooks';
 // import { googleLogin } from '@/redux/auth/authSlice';
 // import { jwtDecode } from 'jwt-decode'; // To decode the Google JWT token
 import { FcGoogle } from 'react-icons/fc';
-import { logIn } from '@/redux/auth/operations';
 import { toast } from 'react-toastify';
 
 interface GoogleUser {
@@ -18,10 +17,8 @@ export const GoogleLoginButton: React.FC = () => {
 
   const login = useGoogleLogin({
     onSuccess: (response: any) => {
-      console.log('RESPONSE_credential', response);
+      console.log('RESPONSE_credential_TOKEN_>>>>>>>>', response.access_token);
 
-      // const decoded: GoogleUser = jwtDecode(response);
-      // console.log("decoded_credentials", decoded);
       const fetchUserInfo = async (accessToken: string) => {
         try {
           const res = await fetch(
@@ -34,8 +31,8 @@ export const GoogleLoginButton: React.FC = () => {
           );
           const userInfo = await res.json();
           toast.success(`Welcome ${userInfo.name}!`);
-          console.log("userInfo", userInfo);
-          // setUser(userInfo);
+
+          // console.log('userInfo', userInfo);
         } catch (error) {
           console.error('Error fetching user info:', error);
         }
@@ -43,7 +40,8 @@ export const GoogleLoginButton: React.FC = () => {
       fetchUserInfo(response.access_token);
 
       // dispatch(
-      //   logIn({
+      //   googleLogin({
+      //     name: 'name',
       //     email: email,
       //     token: response.access_token, // Google JWT token
       //   })

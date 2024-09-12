@@ -6,6 +6,7 @@ import { RegisterConirmEmail } from './RegisterConfirmEmail';
 import { useAppDispatch } from '@/hooks/hooks';
 import { register as registerUser } from '@/redux/auth/operations';
 import { RegisterUserInterface } from '@/types';
+import { toast } from 'react-toastify';
 
 interface AuthProps {
   onCloseModal: () => void;
@@ -41,12 +42,11 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
         const result = await dispatch(
           registerUser(userData as RegisterUserInterface)
         );
-
-        console.log("REGISTER_RESULT_IN_AUTH_>>>>>>>>",result);
-        // !result?.error
-        //   ? toast.success('Welcome!')
-        //   : toast.error('You are not logged in');
+        toast.success('Welcome!');
+        console.log('REGISTER_RESULT_IN_AUTH_>>>>>>>>', result);
+      
       } catch (error) {
+        toast.error('You are not registered!');
         console.error(error);
       } finally {
       }
@@ -54,7 +54,6 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
     onRegisterUser();
   }, [userData.password]);
 
-  console.log('userData_IN_Auth_>>>>>>>>>>>>>', userData);
   return (
     <div
       className={` flex gap-12 flex-row-reverse overflow-hidden bg-lightPurple border-collapse border border-gray rounded-[20px]`}
