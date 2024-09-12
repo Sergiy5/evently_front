@@ -32,7 +32,6 @@ export const GoogleLoginButton: React.FC = () => {
           const userInfo = await res.json();
           toast.success(`Welcome ${userInfo.name}!`);
 
-          // console.log('userInfo', userInfo);
         } catch (error) {
           console.error('Error fetching user info:', error);
         }
