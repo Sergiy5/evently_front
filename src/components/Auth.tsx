@@ -7,6 +7,7 @@ import { useAppDispatch } from '@/hooks/hooks';
 import { register as registerUser } from '@/redux/auth/operations';
 import { RegisterUserInterface } from '@/types';
 import { toast } from 'react-toastify';
+import authImg from '../../public/images/auth-form.webp';
 
 interface AuthProps {
   onCloseModal: () => void;
@@ -82,7 +83,7 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
         <RegisterConirmEmail setStatusAuth={handleStatusAuth} />
       )}
       {/* {isLoading && <div>LOADING...</div>} */}
-      <img src="/images/auth-form.webp" alt="colage_posters" />
+      <img src={authImg} alt="colage_posters" />
     </div>
   );
 };
