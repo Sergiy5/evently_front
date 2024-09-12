@@ -31,6 +31,7 @@ export const GoogleLoginButton: React.FC<GoogleLoginProps> = ({ onCloseModal }) 
             }
           );
           const userInfo = await res.json();
+          console.log('userInfo', userInfo);
           toast.success(`Welcome ${userInfo.name}!`);
           onCloseModal();
         } catch (error) {
