@@ -95,7 +95,7 @@ export const Login: React.FC<LoginProps> = ({
           <div
             className={`flex gap-2.5 items-center justify-center w-[500px] h-[70px] bg-bgColor rounded-[20px]`}
           >
-            <GoogleLoginButton />
+            <GoogleLoginButton onCloseModal={onCloseModal} />
           </div>
           <div className={`flex gap-2.5 -mt-4 mb-4`}>
             <span> У вас немає акаунту?</span>

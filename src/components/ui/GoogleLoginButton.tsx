@@ -11,13 +11,15 @@ interface GoogleUser {
   email: string;
   picture: string;
 }
+interface GoogleLoginProps {
+  onCloseModal: () => void;
+}
 
-export const GoogleLoginButton: React.FC = () => {
+export const GoogleLoginButton: React.FC<GoogleLoginProps> = ({ onCloseModal }) => {
   const dispatch = useAppDispatch();
 
   const login = useGoogleLogin({
     onSuccess: (response: any) => {
-
       const fetchUserInfo = async (accessToken: string) => {
         try {
           const res = await fetch(
@@ -30,7 +32,7 @@ export const GoogleLoginButton: React.FC = () => {
           );
           const userInfo = await res.json();
           toast.success(`Welcome ${userInfo.name}!`);
-
+          onCloseModal();
         } catch (error) {
           console.error('Error fetching user info:', error);
         }
