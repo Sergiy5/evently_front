@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    
     "composite": true,
     "target": "ES2022",
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
@@ -7,6 +9,7 @@
     "moduleResolution": "bundler",
     "skipLibCheck": true,
     "strict": true,
+    "noEmit": true,
     "useDefineForClassFields": true,
     "isolatedModules": true,
     "moduleDetection": "force",
@@ -30,6 +33,10 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts", "vite-env.d.ts"],
-  "exclude": ["node_modules", "build", "dist"]
+  "rules": {
+    "@typescript-eslint/ban-ts-comment": ["off", { "ts-ignore": true }] // Was add on fix image import error
+  },
+  "skipLibCheck": true, // Was add on fix image import error
+  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts", "vite-env.d.ts", "custom.d.ts"],
+  "exclude": ["node_modules", "build", "dist", "public"]
 }

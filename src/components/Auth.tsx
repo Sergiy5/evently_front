@@ -7,6 +7,7 @@ import { useAppDispatch } from '@/hooks/hooks';
 import { register as registerUser } from '@/redux/auth/operations';
 import { RegisterUserInterface } from '@/types';
 import { toast } from 'react-toastify';
+
 import authImg from '../../public/images/auth-form.webp';
 
 interface AuthProps {
