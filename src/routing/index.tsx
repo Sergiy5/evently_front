@@ -2,11 +2,14 @@ import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
 import Home from '@/pages/Home';
-import {Layout} from '@/components';
+import { Layout } from '@/components';
 import { loader as eventsLoader } from '../pages/events/Events';
 import { loader as eventLoader } from '../pages/events/Event';
 import { action as editEventAction } from '@/pages/events/EventEdit';
 import EventEdit from '@/pages/events/EventEdit';
+import AdminUsers, {
+  loader as AdminUserLoader,
+} from '@/pages/admin/AdminUsers';
 
 const NotFound = React.lazy(() => import('../pages/NotFoundPage'));
 const Events = React.lazy(() => import('../pages/events/Events'));
@@ -30,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'events/new/edit',
-        element: <EventEdit/>,
+        element: <EventEdit />,
         loader: () => eventLoader('new'),
         action: ({ request }) => editEventAction(request, 'new'),
       },
@@ -41,6 +44,16 @@ const router = createBrowserRouter([
         action: ({ request, params }) =>
           editEventAction(request, params.idEvent),
       },
+
+      // Later add privat router
+      {
+        path: 'admin',
+        children: [
+          { path: 'users', element: <AdminUsers />, loader: AdminUserLoader },
+          { path: 'events' },
+        ],
+      },
+
       { path: '*', element: <NotFound /> },
     ],
   },
