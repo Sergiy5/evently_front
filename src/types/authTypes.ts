@@ -1,24 +1,25 @@
-export interface LoginUserInterface {
+export interface ILoginUser {
   email: string;
   password: string;
+  rememberMe: boolean;
 }
 
-export interface RegisterFormInputEmail {
+export interface IRegisterFormInputEmail {
   email: string;
 }
 
-export interface RegisterUserInterface {
+export interface IRegisterUser {
   name: string;
   email: string;
   password: string;
 }
-export interface RegisterFormInputsPassword {
+export interface IRegisterFormInputsPassword {
   name: string;
   password: string;
   confirmPassword: string;
 }
 
-export interface RequiredPasswordInterface {
+export interface IRequiredPassword {
   hasMinLength: boolean;
   hasUppercase: boolean;
   hasNumber: boolean;

@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
+import clsx from 'clsx';
 import { UseFormReturn } from 'react-hook-form';
 import { VscEye, VscEyeClosed } from 'react-icons/vsc';
 
@@ -40,23 +40,23 @@ export const SharedInput: React.FC<SharedInputProps> = ({
   };
 
   // Show password =================================================================
-  const passwordInput = document.getElementById('password') as HTMLInputElement;
-  const confirmPasswordInput = document.getElementById(
-    'confirmPassword'
-  ) as HTMLInputElement;
-
+  
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
-
+  
   const onInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     onInput && onInput(e.target.value);
-
+    
     if (e.target.value.length > 1) setHasValue(true);
     else setHasValue(false);
   };
-
+  
   useEffect(() => {
+    const passwordInput = document.getElementById('password') as HTMLInputElement;
+    const confirmPasswordInput = document.getElementById(
+      'confirmPassword'
+    ) as HTMLInputElement;
     if (id === 'password' && passwordInput) {
       passwordInput.type = passwordVisible ? 'text' : 'password';
     }

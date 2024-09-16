@@ -1,3 +1,45 @@
+ # Server URL "https://rendereventapp.onrender.com"
+ POST https://rendereventapp.onrender.com/api/v1/authorize/registration
+Request JSON
+{
+        "name": "Bynamee",
+"email": "sergiomail34568@gmail.com",
+"password": "Asdfghjkl1",
+"confirmPassword": "Asdfghjkl1"
+}
+Respons
+{
+    "timestamp": "2024-09-15 06:09:13PM",
+    "message": "User registered successfully",
+    "status_code": 201
+} (edited) 
+
+React
+
+Reply
+
+8:14
+POST https://rendereventapp.onrender.com/api/v1/authorize/login
+Request JSON
+{
+"email": "sergiomail4568@gmail.com",
+"password": "Asdfghjkl1"
+}
+Respons
+{
+    "timestamp": "2024-09-15 06:12:09PM",
+    "statusCode": 400,
+    "message": "Confirm your email (sergiomail4568@gmail.com)"
+}
+або
+{
+    "timestamp": "2024-09-15 06:13:33PM",
+    "userId": "66e7206835bf8724efddf298",
+    "accessToken": "eyJhbGcMiJ9.eyJzdWIiOiJhbm9ueW1vdXNVc2VyIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzI2NDI0MDEzLCJleHAiOjE3MjY0NjAwMTN9.IWnkBX_DdYez2zQbh1mI1vyh5nQ9J0irMnvVQIrKHSZ5CJU9g6s2mtfnmbWvcrXGQ689jU-HuByL3LYHAlwHZQ",
+    "refreshToken": null
+}
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

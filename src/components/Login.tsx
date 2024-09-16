@@ -1,13 +1,16 @@
-import { useEffect, useState } from 'react';
-import { Link} from 'react-router-dom';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '@/hooks/hooks';
 import { validateEmail, validatePassword } from '@/utils';
-import { GoogleLoginButton, SharedInput } from './ui';
+import { GoogleLoginButton, SharedInput, SharedItemStatusBarPassword } from './ui';
 import { logIn } from '@/redux/auth/operations';
 import { SharedBtn } from './ui/SharedBtn';
-import { LoginUserInterface } from '@/types';
+import { ILoginUser } from '@/types';
 import { toast } from 'react-toastify';
+import { CustomCheckbox } from './ui/CustomCheckBox';
+import { RxCross2 } from 'react-icons/rx';
+
 
 export interface LoginProps {
   onCloseModal: () => void;
@@ -18,51 +21,52 @@ export const Login: React.FC<LoginProps> = ({
   onCloseModal,
   setStatusAuth,
 }) => {
-  const [userData, setUserData] = useState({ email: '', password: '' })
-  
+  const [userData, setUserData] = useState({
+    email: '',
+    password: '',
+    rememberMe: false,
+  });
+
   const dispatch = useAppDispatch();
-  
+
   const {
     register,
     handleSubmit,
     formState: { isValid, errors },
-  } = useForm<LoginUserInterface>({
+  } = useForm<ILoginUser>({
     mode: 'onChange',
   });
-  
-  const onSubmit = async (data: LoginUserInterface) => {
 
-    const email = data.email;
-    const password = data.password;
-    setUserData({email, password})
+  const onSubmit = async (data: ILoginUser) => {
+    const { email, password, rememberMe } = data;
+    try {
+      const result = await dispatch(logIn({ email, password, rememberMe }));
+
+      toast.success(`Welcome ${result.payload.name}!`);
+    } catch (error) {
+      console.error(error);
+      toast.error(`You are not logged in ${error}`);
+    } finally {
+      onCloseModal();
+    }
   };
 
-  useEffect(() => {
-    if(!userData.email.length && !userData.password.length) return
-    const loginUser = async () => {
-      try {
-        const result = await dispatch(logIn(userData));
+  const handleRememberMeChange = () => {
+    setUserData(prevState => ({
+      ...prevState,
+      rememberMe: !prevState.rememberMe,
+    }));
+  };
 
-        toast.success(`Welcome ${result.payload.name}!`);
-      
-      } catch (error) {
-        console.error(error);
-        toast.error(`You are not logged in ${error}`);
-      } finally {
-        onCloseModal();
-      
-      }
-    };
-    loginUser();
-  }, [userData]);
+console.log('errors', errors?.password?.message);
 
   return (
     <>
-      <div className={`flex flex-col mt-12 mx-9`}>
+      <div className={`flex flex-col mt-12 mx-[57px]`}>
         <h1 className="mb-6">Увійти в акаунт</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="relative flex flex-col  rounded-lg gap-8 w-[500px]"
+          className="relative flex flex-col rounded-lg gap-6 w-[500px]"
         >
           <SharedInput
             id="email"
@@ -82,8 +86,23 @@ export const Login: React.FC<LoginProps> = ({
             validation={{ required: true, validate: validatePassword }}
             errors={errors}
           />
-          <div className={`absolute top-[180px] right-0`}>
-            {' '}
+          <div
+            className={`absolute flex flex-row justify-between w-full top-[180px] right-0`}
+          >
+            {errors.password ? (
+              <SharedItemStatusBarPassword
+                valid={false}
+                text={`${errors?.password?.message}`}
+                sizeIcon={`w-6 h-6`}
+              />
+            ) : (
+              <CustomCheckbox
+                checked={userData.rememberMe}
+                onChange={handleRememberMeChange}
+                label="Запам'ятати мене"
+                className={``}
+              />
+            )}
             <Link
               to={'/forgot-password'}
               className={`border-b border-textColor text-base font-normal`}
@@ -97,7 +116,7 @@ export const Login: React.FC<LoginProps> = ({
           >
             <GoogleLoginButton onCloseModal={onCloseModal} />
           </div>
-          <div className={`flex gap-2.5 -mt-4 mb-4`}>
+          <div className={`flex gap-2.5 h-5`}>
             <span> У вас немає акаунту?</span>
             <button
               type="button"

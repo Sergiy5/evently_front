@@ -5,9 +5,9 @@ import { RegisterInputPassword } from './RegisterInputPassword';
 import { RegisterConirmEmail } from './RegisterConfirmEmail';
 import { useAppDispatch } from '@/hooks/hooks';
 import { register as registerUser } from '@/redux/auth/operations';
-import { RegisterUserInterface } from '@/types';
+import { IRegisterUser } from '@/types';
 import { toast } from 'react-toastify';
-import authImg from '../../public/images/auth-form.webp';
+import authImg from '../../public/images/auth-img.webp';
 
 interface AuthProps {
   onCloseModal: () => void;
@@ -40,12 +40,9 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
 
     const onRegisterUser = async () => {
       try {
-        const result = await dispatch(
-          registerUser(userData as RegisterUserInterface)
-        );
+        const result = await dispatch(registerUser(userData as IRegisterUser));
         toast.success('Welcome!');
         console.log('REGISTER_RESULT_IN_AUTH_>>>>>>>>', result);
-      
       } catch (error) {
         toast.error('You are not registered!');
         console.error(error);
@@ -57,7 +54,7 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
 
   return (
     <div
-      className={` flex gap-12 flex-row-reverse overflow-hidden bg-lightPurple border-collapse border border-gray rounded-[20px]`}
+      className={` flex flex-row-reverse overflow-hidden bg-lightPurple border-collapse border border-gray rounded-[20px]`}
     >
       {statusAuth === 'login' && (
         <Login
@@ -70,6 +67,7 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
           setUserData={setUserData}
           email={userData.email}
           setStatusAuth={handleStatusAuth}
+          onCloseModal={handleCloseModal}
         />
       )}
       {statusAuth === 'register_password' && (
@@ -82,8 +80,7 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
       {statusAuth === 'confirm_email' && (
         <RegisterConirmEmail setStatusAuth={handleStatusAuth} />
       )}
-      {/* {isLoading && <div>LOADING...</div>} */}
-      <img src={authImg} alt="colage_posters" />
+      <img src={authImg} alt="colage_posters" className="w-[415px] h-[650px]" />
     </div>
   );
 };

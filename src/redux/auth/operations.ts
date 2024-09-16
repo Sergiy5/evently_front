@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { LoginUserInterface, RegisterUserInterface } from '@/types';
+import { ILoginUser, IRegisterUser } from '@/types';
 // import { RootState } from '@reduxjs/toolkit/query';
 
 const URL = import.meta.env.VITE_MOCK_API_USER_URL;
@@ -16,7 +16,7 @@ const clearAuthToken = () => {
 
 export const register = createAsyncThunk(
   'auth/register',
-  async (user: RegisterUserInterface, thunkAPI) => {
+  async (user: IRegisterUser, thunkAPI) => {
     try {
       const response = await axios.post('users/register', user);
       console.log('RESPONSE_MOCK_API', response);
@@ -30,7 +30,7 @@ export const register = createAsyncThunk(
 
 export const logIn = createAsyncThunk(
   'auth/login',
-  async (user: LoginUserInterface, thunkAPI) => {
+  async (user: ILoginUser, thunkAPI) => {
     try {
       const response = await axios.post('users/login', user);
       setAuthToken(response.data.token);

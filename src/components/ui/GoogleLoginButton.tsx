@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useAppDispatch } from '@/hooks/hooks';
-// import { googleLogin } from '@/redux/auth/authSlice';
+import { googleLogin } from '@/redux/auth/authSlice';
 // import { jwtDecode } from 'jwt-decode'; // To decode the Google JWT token
 import { FcGoogle } from 'react-icons/fc';
 import { toast } from 'react-toastify';
 
-interface GoogleUser {
-  name: string;
-  email: string;
-  picture: string;
-}
+// interface GoogleUser {
+//   name: string;
+//   email: string;
+//   picture: string;
+// }
 interface GoogleLoginProps {
   onCloseModal: () => void;
 }

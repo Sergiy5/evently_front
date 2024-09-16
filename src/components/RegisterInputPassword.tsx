@@ -8,41 +8,40 @@ import {
   StatusBarPassword,
 } from './ui';
 import {
-  RegisterFormInputsPassword,
-  RegisterUserInterface,
-  RequiredPasswordInterface,
+  IRegisterFormInputsPassword,
+  IRegisterUser,
+  IRequiredPassword,
 } from '@/types';
 
 interface RegisterInputPasswordProps {
   setStatusAuth: (status: 'confirm_email') => void;
-  setUserData: React.Dispatch<React.SetStateAction<RegisterUserInterface>>;
+  setUserData: React.Dispatch<React.SetStateAction<IRegisterUser>>;
   name: string;
 }
 
 export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
   setStatusAuth,
   setUserData,
-  name
+  name,
 }) => {
   const [onInputPassword, setOnInputPassword] = useState('');
-  const [requiredPassword, setRequiredPassword] =
-    useState<RequiredPasswordInterface>({
-      hasMinLength: false,
-      hasUppercase: false,
-      hasNumber: false,
-      hasSpecialChar: false,
-    });
+  const [requiredPassword, setRequiredPassword] = useState<IRequiredPassword>({
+    hasMinLength: false,
+    hasUppercase: false,
+    hasNumber: false,
+    hasSpecialChar: false,
+  });
 
   const {
     register,
     handleSubmit,
     watch,
     formState: { isValid, errors },
-  } = useForm<RegisterFormInputsPassword>({
+  } = useForm<IRegisterFormInputsPassword>({
     mode: 'onChange',
   });
 
-  const onSubmit = async (data: RegisterFormInputsPassword) => {
+  const onSubmit = async (data: IRegisterFormInputsPassword) => {
     const { name, password } = data;
 
     setUserData(prev => ({ ...prev, password, name }));
@@ -58,11 +57,11 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
 
   return (
     <>
-      <div className={`flex flex-col gap-8 mt-12 mb-6 mx-9 w-[500px]`}>
+      <div className={`flex flex-col mt-12 mx-[57px]`}>
         <h1>Створити акаунт</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col rounded-lg gap-8"
+          className="flex flex-col rounded-lg gap-6 w-[500px]"
         >
           <SharedInput
             id="name"
@@ -81,7 +80,7 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
             }}
             placeholder="Пароль"
             id="password"
-            autocomplete="current-password"
+            autocomplete="on"
             type="password"
             register={register}
             validation={{ required: true, validate: validatePassword }}
