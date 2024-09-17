@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { UseFormReturn } from 'react-hook-form';
-// import { VscEye, VscEyeClosed } from 'react-icons/vsc';
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
+// import { SharedItemStatusBar } from './SharedItemStatusBar';
 interface SharedInputProps {
   label?: string;
   onInput?: (value: string) => void;
@@ -109,15 +109,18 @@ export const SharedInput: React.FC<SharedInputProps> = ({
           ) : (
             <AiOutlineEyeInvisible
               onClick={togglePasswordVisibility}
-              className={clsx(
-                `w-6 h-auto ${errors[id] && 'text-error'}`
-              )}
+              className={clsx(`w-6 h-auto ${errors[id] && 'text-error'}`)}
             />
           )}
         </span>
       )}
       {/* {errors[id] && (
-        <p className="text-red-500 text-xs">{String(errors[id].message)}</p>
+        <SharedItemStatusBar
+          valid={!errors[id]}
+          text={`${errors[id].message}`}
+          sizeIcon={`w-6 h-6`}
+          className={`mt-4`}
+        />
       )} */}
     </div>
   );

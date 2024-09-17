@@ -5,6 +5,7 @@ import {
   PrivacyAgreement,
   SharedBtn,
   SharedInput,
+  SharedItemStatusBar,
   StatusBarPassword,
 } from './ui';
 import {
@@ -54,7 +55,7 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
       ...statusPassword(onInputPassword),
     }));
   }, [onInputPassword]);
-
+console.log("Errors", errors)
   return (
     <>
       <h1 className={`mb-8`}>Створити акаунт</h1>
@@ -90,7 +91,7 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
             requiredPassword={requiredPassword}
             className="-my-2"
           />
-
+<div>
           <SharedInput
             placeholder="Підтвердіть пароль"
             id="confirmPassword"
@@ -103,6 +104,15 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
             }}
             errors={errors}
           />
+           {/* {errors.email?.message && (
+            <SharedItemStatusBar
+              valid={false}
+              text={`${errors?.email?.message}`}
+              sizeIcon={``}
+              className={`mt-2`}
+            />
+          )} */}
+        </div>
           <SharedBtn
             type="submit"
             disabled={!isValid}

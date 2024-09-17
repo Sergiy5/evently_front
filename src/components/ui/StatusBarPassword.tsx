@@ -1,4 +1,4 @@
-import { SharedItemStatusBarPassword} from "."
+import { SharedItemStatusBar} from "."
 
 
 interface RequiredPasswordInterface {
@@ -18,25 +18,25 @@ export const StatusBarPassword: React.FC<StatusBarPasswordProps> = ({
   return (
     <ul className={`flex w-full text-xs justify-between ${className}`}>
       <li className={``}>
-        <SharedItemStatusBarPassword
+        <SharedItemStatusBar
           text="Мінімум 8 символів"
           valid={requiredPassword.hasMinLength}
         />
       </li>
       <li className={``}>
-        <SharedItemStatusBarPassword
+        <SharedItemStatusBar
           text="Велика літера"
           valid={requiredPassword.hasUppercase}
         />
       </li>
       <li className={``}>
-        <SharedItemStatusBarPassword
+        <SharedItemStatusBar
           text="Цифра"
           valid={requiredPassword.hasNumber}
         />
       </li>
       <li className={``}>
-        <SharedItemStatusBarPassword
+        <SharedItemStatusBar
           text="Спеціальний символ"
           valid={requiredPassword.hasSpecialChar}
         />

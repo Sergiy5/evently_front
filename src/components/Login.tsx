@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '@/hooks/hooks';
 import { validateEmail, validatePassword } from '@/utils';
-import { GoogleLoginButton, SharedInput, SharedItemStatusBarPassword } from './ui';
+import { GoogleLoginButton, SharedInput, SharedItemStatusBar} from './ui';
 import { logIn } from '@/redux/auth/operations';
 import { SharedBtn } from './ui/SharedBtn';
 import { ILoginUser } from '@/types';
 import { CustomCheckbox } from './ui/CustomCheckBox';
+import clsx from 'clsx';
 
 
 export interface LoginProps {
@@ -59,11 +60,12 @@ export const Login: React.FC<LoginProps> = ({
 
   return (
     <>
-        <h1 className="mb-6">Увійти в акаунт</h1>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="relative flex flex-col rounded-lg gap-6 w-[500px]"
-        >
+      <h1 className="mb-6">Увійти в акаунт</h1>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col rounded-lg gap-6 w-[500px]"
+      >
+        <div className={``}>
           <SharedInput
             id="email"
             autocomplete="email"
@@ -73,6 +75,16 @@ export const Login: React.FC<LoginProps> = ({
             validation={{ required: true, validate: validateEmail }}
             errors={errors}
           />
+          {errors.email?.message && (
+            <SharedItemStatusBar
+              valid={false}
+              text={`${errors?.email?.message}`}
+              sizeIcon={`w-6 h-6`}
+              className={`mt-2`}
+            />
+          )}
+        </div>
+        <div className={`relative`}>
           <SharedInput
             id="password"
             autocomplete="current-password"
@@ -83,13 +95,14 @@ export const Login: React.FC<LoginProps> = ({
             errors={errors}
           />
           <div
-            className={`absolute flex flex-row justify-between w-full top-[160px] right-0`}
+            className={`absolute flex flex-row justify-between w-full top-[76px] right-0`}
           >
-            {errors.password ? (
-              <SharedItemStatusBarPassword
+            {errors.password?.message ? (
+              <SharedItemStatusBar
                 valid={false}
                 text={`${errors?.password?.message}`}
                 sizeIcon={`w-6 h-6`}
+                className={`mt-2`}
               />
             ) : (
               <CustomCheckbox
@@ -101,31 +114,38 @@ export const Login: React.FC<LoginProps> = ({
             )}
             <Link
               to={'/forgot-password'}
-              className={`border-b border-textColor text-base font-normal`}
+              className={clsx(
+                `border-b border-textColor text-base font-normal`
+              )}
             >
               Забули пароль?
             </Link>
           </div>
-          <span className="text-base ml-auto mr-auto">або</span>
-          <div
-            className={`flex gap-2.5 items-center justify-center w-[500px] h-[70px] bg-bgColor rounded-[20px]`}
+        </div>
+        <span className="text-base ml-auto mr-auto">або</span>
+        <div
+          className={`flex gap-2.5 items-center justify-center w-[500px] h-[70px] bg-bgColor rounded-[20px]`}
+        >
+          <GoogleLoginButton onCloseModal={onCloseModal} />
+        </div>
+        <div className={`flex gap-2.5 -mt-4 h-5`}>
+          <span> У вас немає акаунту?</span>
+          <button
+            type="button"
+            onClick={() => setStatusAuth('register_email')}
+            className={`text-buttonPurple`}
           >
-            <GoogleLoginButton onCloseModal={onCloseModal} />
-          </div>
-          <div className={`flex gap-2.5 -mt-4 h-5`}>
-            <span> У вас немає акаунту?</span>
-            <button
-              type="button"
-              onClick={() => setStatusAuth('register_email')}
-              className={`text-buttonPurple`}
-            >
-              Створити
-            </button>
-          </div>
-          <SharedBtn type="submit" disabled={!isValid} className={`w-[364px] mx-auto`}>
-            Увійти
-          </SharedBtn>
-        </form>
+            Створити
+          </button>
+        </div>
+        <SharedBtn
+          type="submit"
+          disabled={!isValid}
+          className={`w-[364px] mx-auto`}
+        >
+          Увійти
+        </SharedBtn>
+      </form>
     </>
   );
 };
