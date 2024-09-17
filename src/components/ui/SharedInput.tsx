@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { UseFormReturn } from 'react-hook-form';
-import { VscEye, VscEyeClosed } from 'react-icons/vsc';
-
+// import { VscEye, VscEyeClosed } from 'react-icons/vsc';
+import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
 interface SharedInputProps {
   label?: string;
   onInput?: (value: string) => void;
@@ -86,7 +86,7 @@ export const SharedInput: React.FC<SharedInputProps> = ({
         defaultValue={defaultValue}
         {...register(id, { ...validation, onBlur: handleFocus })}
         className={clsx(
-          `flex-grow w-full font-medium h-[70px] text-base bg-background placeholder:text-darkGray
+          `flex-grow w-full font-medium h-[60px] text-base bg-background placeholder:text-darkGray
            rounded-[20px] px-5 py-6 focus:outline-none transition-all duration-200 ease-in-out
             outline-none border`,
           {
@@ -102,9 +102,17 @@ export const SharedInput: React.FC<SharedInputProps> = ({
           className="absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer"
         >
           {passwordVisible ? (
-            <VscEye onClick={togglePasswordVisibility} />
+            <AiOutlineEye
+              onClick={togglePasswordVisibility}
+              className={clsx(`w-6 h-auto ${errors[id] && 'text-error'}`)}
+            />
           ) : (
-            <VscEyeClosed onClick={togglePasswordVisibility} />
+            <AiOutlineEyeInvisible
+              onClick={togglePasswordVisibility}
+              className={clsx(
+                `w-6 h-auto ${errors[id] && 'text-error'}`
+              )}
+            />
           )}
         </span>
       )}

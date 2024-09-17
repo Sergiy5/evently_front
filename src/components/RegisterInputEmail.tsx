@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { validateEmail } from '@/utils';
-import { GoogleLoginButton, SharedInput } from './ui';
+import { GoogleLoginButton, PrivacyAgreement, SharedInput } from './ui';
 // import { toast } from 'react-toastify';
 import { SharedBtn } from './ui/SharedBtn';
 import { IRegisterFormInputEmail, IRegisterUser } from '@/types';
@@ -39,8 +39,8 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
 
   return (
     <>
-      <div className={`flex flex-col mt-12 mx-[57px]`}>
-        <h1 className="mb-6">Створити акаунт</h1>
+      <h1 className="mb-8">Створити акаунт</h1>
+      <div className={`flex flex-col h-full justify-between`}>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col rounded-lg gap-6 w-[500px]"
@@ -59,10 +59,15 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
 
           <GoogleLoginButton onCloseModal={onCloseModal} />
 
-          <SharedBtn type="submit" disabled={!isValid} className="mt-8">
+          <SharedBtn
+            type="submit"
+            disabled={!isValid}
+            className="mt-10 w-[364px] mx-auto"
+          >
             Продовжити
           </SharedBtn>
         </form>
+        <PrivacyAgreement />
       </div>
     </>
   );

@@ -10,14 +10,11 @@ export default {
   ],
   theme: {
     extend: {
-      // Font family imported
       fontFamily: {
         oswald: ['Oswald', 'sans-serif'],
         lato: ['Lato', 'sans-serif'],
         lora: ['Lora', 'serif'],
       },
-
-      // Change variables for colors here...
       colors: {
         // Main color
         lightBlue: '#D7EBFF',
@@ -36,6 +33,13 @@ export default {
         // Other color
         success: '#3BE660',
         error: '#FF0F00',
+      },
+      boxShadow: {
+        shadowPrimaryBtn: '-5px 5px 36.7px 0px rgba(0, 0, 0, 0.25) inset',
+        shadowSecondaryBtn: '0px 0px 9.3px 0px #9B8FF3 inset',
+      },
+      opacity: {
+        disabled: '0.5',
       },
       // spacing: {
       //   sm: '8px',

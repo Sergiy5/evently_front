@@ -41,8 +41,8 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
     const onRegisterUser = async () => {
       try {
         const result = await dispatch(registerUser(userData as IRegisterUser));
-        toast.success('Welcome!');
-        console.log('REGISTER_RESULT_IN_AUTH_>>>>>>>>', result);
+        toast.success(`Вітаю! ${result.payload}`);
+
       } catch (error) {
         toast.error('You are not registered!');
         console.error(error);
@@ -56,30 +56,32 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
     <div
       className={` flex flex-row-reverse overflow-hidden bg-lightPurple border-collapse border border-gray rounded-[20px]`}
     >
-      {statusAuth === 'login' && (
-        <Login
-          onCloseModal={handleCloseModal}
-          setStatusAuth={handleStatusAuth}
-        />
-      )}
-      {statusAuth === 'register_email' && (
-        <RegisterInputEmail
-          setUserData={setUserData}
-          email={userData.email}
-          setStatusAuth={handleStatusAuth}
-          onCloseModal={handleCloseModal}
-        />
-      )}
-      {statusAuth === 'register_password' && (
-        <RegisterInputPassword
-          setUserData={setUserData}
-          setStatusAuth={handleStatusAuth}
-          name={userData.name}
-        />
-      )}
-      {statusAuth === 'confirm_email' && (
-        <RegisterConirmEmail setStatusAuth={handleStatusAuth} />
-      )}
+      <div className={`flex flex-col mt-12 mb-4 mx-[57px]`}>
+        {statusAuth === 'login' && (
+          <Login
+            onCloseModal={handleCloseModal}
+            setStatusAuth={handleStatusAuth}
+          />
+        )}
+        {statusAuth === 'register_email' && (
+          <RegisterInputEmail
+            setUserData={setUserData}
+            email={userData.email}
+            setStatusAuth={handleStatusAuth}
+            onCloseModal={handleCloseModal}
+          />
+        )}
+        {statusAuth === 'register_password' && (
+          <RegisterInputPassword
+            setUserData={setUserData}
+            setStatusAuth={handleStatusAuth}
+            name={userData.name}
+          />
+        )}
+        {statusAuth === 'confirm_email' && (
+          <RegisterConirmEmail setStatusAuth={handleStatusAuth} />
+        )}
+      </div>
       <img src={authImg} alt="colage_posters" className="w-[415px] h-[650px]" />
     </div>
   );

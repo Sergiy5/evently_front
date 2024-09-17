@@ -1,4 +1,4 @@
-import { PrivacyAgreement, SharedBtn } from "./ui";
+import { PrivacyAgreement, SharedBtn } from './ui';
 
 interface RegisterConirmEmailProps {
   setStatusAuth: (status: 'register_email') => void;
@@ -8,13 +8,14 @@ export const RegisterConirmEmail: React.FC<RegisterConirmEmailProps> = ({
 }) => {
   
   return (
-    <div className={`flex flex-col items-end justify-end mb-6 mx-9`}>
-      <div className="flex flex-col gap-[60px] w-[500px]">
-        <p className="text-center text-xl w-[480px]">
+    <div className={`flex flex-col h-full justify-between`}>
+      <div className="flex flex-col justify-start gap-[63px] w-[500px]">
+        <h1>Активація акаунту</h1>
+        <p className="text-start text-xl w-[500px]">
           Для завершення реєстрації перевірте свою електронну пошту та перейдіть
           за посиланням у листі.
         </p>
-        <div className="flex justify-between">
+        <div className="flex justify-between -mt-4">
           <SharedBtn type="button" className="w-60">
             Відправити повторно
           </SharedBtn>
@@ -28,7 +29,7 @@ export const RegisterConirmEmail: React.FC<RegisterConirmEmailProps> = ({
           </SharedBtn>
         </div>
       </div>
-      <PrivacyAgreement className="mt-48 h-[38px]" />
+      <PrivacyAgreement />
     </div>
   );
 };

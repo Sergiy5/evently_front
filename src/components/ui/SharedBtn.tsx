@@ -23,16 +23,17 @@ export const SharedBtn: React.FC<SharedBtnProps> = ({
       type={type}
       disabled={disabled}
       className={clsx(
-        `rounded-tl-[71px] focus:outline-none rounded-tr-lg rounded-br-[71px] rounded-bl-lg h-[60px] font-bold py-2 px-4 ${className}`,
-        // width ? `w-${width}` : 'w-full', // This correctly uses the width class
+        `rounded-tl-[71px] font-normal focus:outline-none rounded-tr-lg rounded-br-[71px] rounded-bl-lg h-[60px]
+        active:shadow-shadowPrimaryBtn py-2 px-4 ${className}`,
+
         {
-          'opacity-50 cursor-default': disabled,
-          'cursor-pointer': !disabled,
+          'border border-buttonPurple bg-transparent text-textDark active:bg-lightPurple active:shadow-shadowSecondaryBtn':
+          transparent,
+          'bg-buttonPurple text-white': !transparent,
         },
         {
-          'border border-buttonPurple bg-transparent text-buttonPurple':
-            transparent,
-          'bg-buttonPurple text-white': !transparent,
+          'disabled cursor-default active:shadow-none': disabled,
+          'cursor-pointer': !disabled,
         }
       )}
     >

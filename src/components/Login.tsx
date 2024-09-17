@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '@/hooks/hooks';
@@ -7,9 +8,7 @@ import { GoogleLoginButton, SharedInput, SharedItemStatusBarPassword } from './u
 import { logIn } from '@/redux/auth/operations';
 import { SharedBtn } from './ui/SharedBtn';
 import { ILoginUser } from '@/types';
-import { toast } from 'react-toastify';
 import { CustomCheckbox } from './ui/CustomCheckBox';
-import { RxCross2 } from 'react-icons/rx';
 
 
 export interface LoginProps {
@@ -58,11 +57,8 @@ export const Login: React.FC<LoginProps> = ({
     }));
   };
 
-console.log('errors', errors?.password?.message);
-
   return (
     <>
-      <div className={`flex flex-col mt-12 mx-[57px]`}>
         <h1 className="mb-6">Увійти в акаунт</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -87,7 +83,7 @@ console.log('errors', errors?.password?.message);
             errors={errors}
           />
           <div
-            className={`absolute flex flex-row justify-between w-full top-[180px] right-0`}
+            className={`absolute flex flex-row justify-between w-full top-[160px] right-0`}
           >
             {errors.password ? (
               <SharedItemStatusBarPassword
@@ -116,7 +112,7 @@ console.log('errors', errors?.password?.message);
           >
             <GoogleLoginButton onCloseModal={onCloseModal} />
           </div>
-          <div className={`flex gap-2.5 h-5`}>
+          <div className={`flex gap-2.5 -mt-4 h-5`}>
             <span> У вас немає акаунту?</span>
             <button
               type="button"
@@ -126,11 +122,10 @@ console.log('errors', errors?.password?.message);
               Створити
             </button>
           </div>
-          <SharedBtn type="submit" disabled={!isValid}>
+          <SharedBtn type="submit" disabled={!isValid} className={`w-[364px] mx-auto`}>
             Увійти
           </SharedBtn>
         </form>
-      </div>
     </>
   );
 };
