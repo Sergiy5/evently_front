@@ -40,12 +40,8 @@ body {
 }
 
 main {
-  display: block;
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 20px;
+  max-width: 1440px;
   background-color: #f9f9f9;
-  text-align: center;
 }
 
 h1{

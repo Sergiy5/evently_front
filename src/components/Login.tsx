@@ -11,7 +11,6 @@ import { ILoginUser } from '@/types';
 import { CustomCheckbox } from './ui/CustomCheckBox';
 import clsx from 'clsx';
 
-
 export interface LoginProps {
   onCloseModal: () => void;
   setStatusAuth: (status: 'login' | 'register_email') => void;
@@ -41,7 +40,7 @@ export const Login: React.FC<LoginProps> = ({
     const { email, password, rememberMe } = data;
     try {
       const result = await dispatch(logIn({ email, password, rememberMe }));
-
+console.log("RESULT_ON_LOGIN_>>>>>>>>>",result)
       toast.success(`Welcome ${result.payload.name}!`);
     } catch (error) {
       console.error(error);

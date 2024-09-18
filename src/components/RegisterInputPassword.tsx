@@ -43,9 +43,9 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
   });
 
   const onSubmit = async (data: IRegisterFormInputsPassword) => {
-    const { name, password } = data;
+    const { name, password, confirmPassword } = data;
 
-    setUserData(prev => ({ ...prev, password, name }));
+    setUserData(prev => ({ ...prev, password, name, confirmPassword }));
     setStatusAuth('confirm_email');
   };
 
@@ -55,7 +55,7 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
       ...statusPassword(onInputPassword),
     }));
   }, [onInputPassword]);
-console.log("Errors", errors)
+
   return (
     <>
       <h1 className={`mb-8`}>Створити акаунт</h1>
@@ -91,28 +91,28 @@ console.log("Errors", errors)
             requiredPassword={requiredPassword}
             className="-my-2"
           />
-<div>
-          <SharedInput
-            placeholder="Підтвердіть пароль"
-            id="confirmPassword"
-            autocomplete="new-password"
-            type="password"
-            register={register}
-            validation={{
-              required: true,
-              validate: value => value === watch('password'),
-            }}
-            errors={errors}
-          />
-           {/* {errors.email?.message && (
-            <SharedItemStatusBar
-              valid={false}
-              text={`${errors?.email?.message}`}
-              sizeIcon={``}
-              className={`mt-2`}
+          <div>
+            <SharedInput
+              placeholder="Підтвердіть пароль"
+              id="confirmPassword"
+              autocomplete="new-password"
+              type="password"
+              register={register}
+              validation={{
+                required: true,
+                validate: value => value === watch('password'),
+              }}
+              errors={errors}
             />
-          )} */}
-        </div>
+            {errors.confirmPassword && (
+              <SharedItemStatusBar
+                valid={false}
+                text="Паролі не співпадають"
+                sizeIcon={``}
+                className={`mt-2`}
+              />
+            )}
+          </div>
           <SharedBtn
             type="submit"
             disabled={!isValid}

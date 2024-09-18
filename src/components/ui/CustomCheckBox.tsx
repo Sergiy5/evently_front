@@ -3,7 +3,7 @@ import { MdDone } from 'react-icons/md';
 
 
 interface CustomCheckboxProps {
-  checked: boolean;
+  checked?: boolean;
   label: string;
   className: string;
   onChange: (value: boolean) => void;

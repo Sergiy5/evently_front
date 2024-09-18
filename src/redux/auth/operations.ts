@@ -3,8 +3,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ILoginUser, IRegisterUser } from '@/types';
 // import { RootState } from '@reduxjs/toolkit/query';
 
-const URL = import.meta.env.VITE_MOCK_API_USER_URL;
-
+// const URL = import.meta.env.VITE_MOCK_API_USER_URL;
+const URL = 'https://rendereventapp.onrender.com/api/v1/';
 axios.defaults.baseURL = `${URL}`;
 
 const setAuthToken = (token: string) => {
@@ -18,9 +18,9 @@ export const register = createAsyncThunk(
   'auth/register',
   async (user: IRegisterUser, thunkAPI) => {
     try {
-      const response = await axios.post('users/register', user);
+      const response = await axios.post('authorize/registration', user);
       console.log('RESPONSE_MOCK_API', response);
-      setAuthToken(response.data.token);
+      // setAuthToken(response.data.token);
       return response.data;
     } catch (error: unknown) {
       return thunkAPI.rejectWithValue((error as Error).message);
@@ -32,7 +32,7 @@ export const logIn = createAsyncThunk(
   'auth/login',
   async (user: ILoginUser, thunkAPI) => {
     try {
-      const response = await axios.post('users/login', user);
+      const response = await axios.post('authorize/login', user);
       setAuthToken(response.data.token);
       return response.data;
     } catch (error) {

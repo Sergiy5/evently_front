@@ -16,9 +16,10 @@ interface AuthProps {
 export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
   // const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState({
+    name: '',
     email: '',
     password: '',
-    name: '',
+    confirmPassword: '',
   });
 
   const [statusAuth, setStatusAuth] = useState<
@@ -35,13 +36,15 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
   ) => {
     setStatusAuth(status);
   };
+
   useEffect(() => {
-    if (!userData.email || !userData.password || !userData.name) return;
+    if (!userData.email || !userData.password || !userData.name || !userData.confirmPassword) return;
 
     const onRegisterUser = async () => {
       try {
         const result = await dispatch(registerUser(userData as IRegisterUser));
-        toast.success(`Вітаю! ${result.payload}`);
+        console.log(result)
+        toast.success(`Вітаю! ${result.payload.message}`);
 
       } catch (error) {
         toast.error('You are not registered!');
