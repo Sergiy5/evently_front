@@ -41,7 +41,9 @@ body {
 
 main {
   max-width: 1440px;
-  background-color: #f9f9f9;
+  background-color: theme("colors.white");
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h1{
