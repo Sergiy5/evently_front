@@ -22,6 +22,8 @@ export default {
         lightGreen: '#CFFFCF',
         lightPink: '#FFD6F7',
         buttonPurple: '#9B8FF3',
+        hoverCard: '#F4F3FF',
+
 
         //Neutral color
         background: '#F8FBFF',

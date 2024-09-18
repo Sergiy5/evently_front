@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Auth, Modal } from "@/components";
 import { Main } from "@/components/Main";
 import { Container } from "@/components/Container";
+import { EventCard } from "@/components/ui";
 
 const Home: React.FC = () => {
   const  [isOpen, setIsOpen ] = useState<boolean>(false);
@@ -18,6 +19,7 @@ const Home: React.FC = () => {
       <Container>
         <h2>Home Page</h2>
         <div className="h-lvh">
+          <EventCard />
           <button
             id="register"
             className="bg-blue-500 hover:bg-blue-700 focus:outline-none text-white font-bold py-2 px-4 rounded"
