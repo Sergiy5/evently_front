@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { MdDone } from 'react-icons/md';
 
-
 interface CustomCheckboxProps {
   checked?: boolean;
   label: string;
