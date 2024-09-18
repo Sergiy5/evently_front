@@ -1,5 +1,5 @@
 interface ContainerProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }
 export const Container: React.FC<ContainerProps> = ({children, className}) => {
