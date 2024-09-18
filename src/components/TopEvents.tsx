@@ -6,8 +6,8 @@ interface TopEvents {
 }
 export const TopEvents: React.FC<TopEvents> = ({ events }) => {
   return (
-      <Container className={`flex flex-col gap-8`}>
-          <h1>Top Events</h1>
+    <Container className={`flex flex-col gap-8`}>
+      <h1>Топ подій</h1>
       <ListEvents events={events} />
     </Container>
   );

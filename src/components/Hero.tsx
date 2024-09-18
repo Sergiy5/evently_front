@@ -10,4 +10,3 @@ export const Hero: React.FC = () => {
     </Container>
   );
 };
-// [583px] aspect-[4/3]
