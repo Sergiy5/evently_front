@@ -43,9 +43,9 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
   });
 
   const onSubmit = async (data: IRegisterFormInputsPassword) => {
-    const { name, password} = data;
+    const { name, password, confirmPassword } = data;
 
-    setUserData(prev => ({ ...prev, password, name }));
+    setUserData(prev => ({ ...prev, password, name, confirmPassword }));
     setStatusAuth('confirm_email');
   };
 
