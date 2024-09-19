@@ -18,8 +18,7 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
   const [userData, setUserData] = useState({
     name: '',
     email: '',
-    password: '',
-    confirmPassword: '',
+    password: ''
   });
 
   const [statusAuth, setStatusAuth] = useState<
@@ -38,7 +37,7 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
   };
 
   useEffect(() => {
-    if (!userData.email || !userData.password || !userData.name || !userData.confirmPassword) return;
+    if (!userData.email || !userData.password || !userData.name) return;
 
     const onRegisterUser = async () => {
       try {
