@@ -45,7 +45,7 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col rounded-lg gap-6 w-[500px]"
         >
-          <div>
+          <div className={`relative`}>
           <SharedInput
             id="email"
             defaultValue={email}
@@ -61,7 +61,7 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
               valid={false}
               text={`${errors?.email?.message}`}
               sizeIcon={``}
-              className={`mt-2`}
+              className={`absolute mt-2`}
             />
           )}
         </div>

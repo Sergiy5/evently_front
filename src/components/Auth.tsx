@@ -44,6 +44,10 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
       try {
         const result = await dispatch(registerUser(userData as IRegisterUser));
         console.log(result)
+
+        if (result.payload.status === 'error') throw new Error()
+          
+          onCloseModal();
         toast.success(`Вітаю! ${result.payload.message}`);
 
       } catch (error) {
