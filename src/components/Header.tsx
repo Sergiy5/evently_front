@@ -18,14 +18,21 @@ export const Header: React.FC<HeaderProps> = () => {
   const [selectedEvent, setselectedEvent] = useState('Події');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Функция для открытия модального окна
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
+  // // Функция для открытия модального окна
+  // const handleOpenModal = () => {
+  //   setIsModalOpen(true);
+  // };
 
-  // Функция для закрытия модального окна
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  // // Функция для закрытия модального окна
+  // const handleCloseModal = () => {
+  //   setIsModalOpen(false);
+  // };
+
+  // Function to toggle modal
+
+  const handleTogleModal = () => {
+    // Slow close modal
+      setIsModalOpen(!isModalOpen);
   };
 
   return (
@@ -83,11 +90,11 @@ export const Header: React.FC<HeaderProps> = () => {
             <div className="flex gap-6 pr-12">
               <BsSearch className="w-6 h-6 cursor-pointer" />
               <FiHeart className="w-6 h-6 cursor-pointer" />
-              <button onClick={handleOpenModal}>
+              <button onClick={handleTogleModal}>
                 <CgProfile className="w-6 h-6 cursor-pointer" />
               </button>
-              <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-                <Auth onCloseModal={handleCloseModal} />
+              <Modal isOpen={isModalOpen} onClose={handleTogleModal}>
+                <Auth onCloseModal={handleTogleModal} />
               </Modal>
               <select className="cursor-pointer hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_1)]">
                 <option value="UA">UA</option>

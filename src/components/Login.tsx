@@ -4,12 +4,11 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '@/hooks/hooks';
 import { validateEmail, validatePassword } from '@/utils';
-import { GoogleLoginButton, SharedInput, SharedItemStatusBar} from './ui';
+import { GoogleLoginButton, SharedInput} from './ui';
 import { logIn } from '@/redux/auth/operations';
 import { SharedBtn } from './ui/SharedBtn';
 import { ILoginUser } from '@/types';
 import { CustomCheckbox } from './ui/CustomCheckBox';
-import clsx from 'clsx';
 
 export interface LoginProps {
   onCloseModal: () => void;
@@ -40,7 +39,9 @@ export const Login: React.FC<LoginProps> = ({
     const { email, password, rememberMe } = data;
     try {
       const result = await dispatch(logIn({ email, password, rememberMe }));
-console.log("RESULT_ON_LOGIN_>>>>>>>>>",result)
+
+      console.log("RESULT_ON_LOGIN_>>>>>>>>>", result)
+      
       toast.success(`Welcome ${result.payload.name}!`);
     } catch (error) {
       console.error(error);
@@ -62,27 +63,17 @@ console.log("RESULT_ON_LOGIN_>>>>>>>>>",result)
       <h1 className="mb-6">Увійти в акаунт</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col rounded-lg gap-6 w-[500px]"
+        className="flex flex-col rounded-lg gap-10 w-[500px]"
       >
-        <div className={`relative`}>
-          <SharedInput
-            id="email"
-            autocomplete="email"
-            placeholder="Електронна пошта "
-            type="email"
-            register={register}
-            validation={{ required: true, validate: validateEmail }}
-            errors={errors}
-          />
-          {errors.email?.message && (
-            <SharedItemStatusBar
-              valid={false}
-              text={`${errors?.email?.message}`}
-              sizeIcon={`w-6 h-6`}
-              className={`absolute mt-1`}
-            />
-          )}
-        </div>
+        <SharedInput
+          id="email"
+          autocomplete="email"
+          placeholder="Електронна пошта "
+          type="email"
+          register={register}
+          validation={{ required: true, validate: validateEmail }}
+          errors={errors}
+        />
         <div className={`relative`}>
           <SharedInput
             id="password"
@@ -93,33 +84,12 @@ console.log("RESULT_ON_LOGIN_>>>>>>>>>",result)
             validation={{ required: true, validate: validatePassword }}
             errors={errors}
           />
-          <div
-            className={`absolute flex flex-row justify-between w-full top-[76px] right-0`}
+          <Link
+            to={'/forgot-password'}
+            className={`border-b border-textColor text-xs font-normal absolute flex w-22 top-16 right-0`}
           >
-            {errors.password?.message ? (
-              <SharedItemStatusBar
-                valid={false}
-                text={`${errors?.password?.message}`}
-                sizeIcon={`w-6 h-6`}
-                className={`absolute mt-2`}
-              />
-            ) : (
-              <CustomCheckbox
-                checked={userData.rememberMe}
-                onChange={handleRememberMeChange}
-                label="Запам'ятати мене"
-                className={``}
-              />
-            )}
-            <Link
-              to={'/forgot-password'}
-              className={clsx(
-                `border-b border-textColor text-base font-normal`
-              )}
-            >
-              Забули пароль?
-            </Link>
-          </div>
+            Забули пароль?
+          </Link>
         </div>
         <span className="text-base ml-auto mr-auto">або</span>
         <div
@@ -127,15 +97,24 @@ console.log("RESULT_ON_LOGIN_>>>>>>>>>",result)
         >
           <GoogleLoginButton onCloseModal={onCloseModal} />
         </div>
-        <div className={`flex gap-2.5 -mt-4 h-5`}>
-          <span> У вас немає акаунту?</span>
-          <button
-            type="button"
-            onClick={() => setStatusAuth('register_email')}
-            className={`text-buttonPurple`}
-          >
-            Створити
-          </button>
+        <div className={`flex justify-between  w-full -mt-8 h-5`}>
+          <CustomCheckbox
+            checked={userData.rememberMe}
+            onChange={handleRememberMeChange}
+            label="Запам'ятати мене"
+            className={``}
+          />
+
+          <div className={`flex gap-2 text-base`}>
+            <span className={`text-slate-400 `}> У вас немає акаунту?</span>
+            <button
+              type="button"
+              onClick={() => setStatusAuth('register_email')}
+              className={`text-buttonPurple`}
+            >
+              Створити
+            </button>
+          </div>
         </div>
         <SharedBtn
           type="submit"

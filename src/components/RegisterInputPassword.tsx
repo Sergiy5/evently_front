@@ -62,7 +62,7 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
       <div className={`flex flex-col h-full justify-between`}>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col rounded-lg gap-6 w-[500px]"
+          className="flex flex-col rounded-lg gap-10 w-[500px]"
         >
           <SharedInput
             id="name"
@@ -74,6 +74,7 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
             validation={{ required: true }}
             errors={errors}
           />
+          <div>
           <SharedInput
             onInput={(value: string) => {
               setOnInputPassword(value);
@@ -85,13 +86,16 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
             register={register}
             validation={{ required: true, validate: validatePassword }}
             errors={errors}
-          />
+            />
 
           <StatusBarPassword
             requiredPassword={requiredPassword}
-            className="-my-2"
-          />
-          <div>
+            className="mt-[4px]"
+            />
+          </div>
+
+          <div className={`relative`}>
+
             <SharedInput
               placeholder="Підтвердіть пароль"
               id="confirmPassword"
@@ -103,16 +107,18 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
                 validate: value => value === watch('password'),
               }}
               errors={errors}
-            />
+              />
             {errors.confirmPassword && (
               <SharedItemStatusBar
-                valid={false}
-                text="Паролі не співпадають"
-                sizeIcon={``}
-                className={`mt-2`}
+              valid={false}
+              text="Паролі не співпадають"
+              sizeIcon={``}
+              className={`absolute mt-[4px]`}
               />
             )}
-          </div>
+            
+      </div>
+      
           <SharedBtn
             type="submit"
             disabled={!isValid}
