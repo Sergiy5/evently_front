@@ -30,6 +30,13 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'LatoBold';
+  src: url('./assets/fonts/Lato-Bold.ttf') format('ttf');
+    /* url('./assets/fonts/Lato-Regular.woff') format('woff'); */
+  font-weight: 700;
+  font-style: normal;
+}
 
 body {
   font-family:'LatoRegular', sans-serif ;
