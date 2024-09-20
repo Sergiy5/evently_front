@@ -7,6 +7,7 @@ import MyEventIcon from '../../public/images/MyEvent-icon.png';
 import { Auth } from './Auth';
 import { Container } from './Container';
 import { HeaderLines } from './HeaderLines';
+import { Modal } from './ui';
 
 interface HeaderProps {
   // Add any props you need for the header
@@ -15,8 +16,8 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = () => {
   const [selectedCity, setSelectedCity] = useState('Київ');
   const [selectedEvent, setselectedEvent] = useState('Події');
-
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   // Функция для открытия модального окна
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -28,8 +29,8 @@ export const Header: React.FC<HeaderProps> = () => {
   };
 
   return (
-    <Container className='relative w-[1440px] m-auto'>
-      <HeaderLines/>
+    <Container className="relative w-[1440px] m-auto">
+      <HeaderLines />
       <header className="p-4 bg-gray-100">
         <div className=" flex justify-center align-beetwen items-center m-auto max-w-[1440px] h-[84px]">
           {/* <HeaderLines /> */}
@@ -84,7 +85,9 @@ export const Header: React.FC<HeaderProps> = () => {
             <button onClick={handleOpenModal}>
               <CgProfile className="w-6 h-6 cursor-pointer" />
             </button>
-            {isModalOpen && <Auth onCloseModal={handleCloseModal} />}
+            <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+              <Auth onCloseModal={handleCloseModal} />
+            </Modal>
             <select className="cursor-pointer hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_1)]">
               <option value="UA">UA</option>
               <option value="EN">EN</option>
@@ -93,8 +96,6 @@ export const Header: React.FC<HeaderProps> = () => {
           <Button type="button">Створити подію</Button>
         </div>
       </header>
-    
     </Container>
-    
   );
 };
