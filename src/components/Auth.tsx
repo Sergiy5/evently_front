@@ -19,7 +19,7 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
     name: '',
     email: '',
     password: '',
-    confirmPassword: '',
+    // confirmPassword: '',
   });
 
   const [statusAuth, setStatusAuth] = useState<
@@ -38,12 +38,16 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
   };
 
   useEffect(() => {
-    if (!userData.email || !userData.password || !userData.name || !userData.confirmPassword) return;
+    if (!userData.email || !userData.password || !userData.name) return;
 
     const onRegisterUser = async () => {
       try {
         const result = await dispatch(registerUser(userData as IRegisterUser));
         console.log(result)
+
+        if (result.payload.status === 'error') throw new Error()
+          
+          onCloseModal();
         toast.success(`Вітаю! ${result.payload.message}`);
 
       } catch (error) {

@@ -64,7 +64,7 @@ console.log("RESULT_ON_LOGIN_>>>>>>>>>",result)
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col rounded-lg gap-6 w-[500px]"
       >
-        <div className={``}>
+        <div className={`relative`}>
           <SharedInput
             id="email"
             autocomplete="email"
@@ -79,7 +79,7 @@ console.log("RESULT_ON_LOGIN_>>>>>>>>>",result)
               valid={false}
               text={`${errors?.email?.message}`}
               sizeIcon={`w-6 h-6`}
-              className={`mt-2`}
+              className={`absolute mt-1`}
             />
           )}
         </div>
@@ -101,7 +101,7 @@ console.log("RESULT_ON_LOGIN_>>>>>>>>>",result)
                 valid={false}
                 text={`${errors?.password?.message}`}
                 sizeIcon={`w-6 h-6`}
-                className={`mt-2`}
+                className={`absolute mt-2`}
               />
             ) : (
               <CustomCheckbox
