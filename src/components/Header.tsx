@@ -88,10 +88,10 @@ export const Header: React.FC<HeaderProps> = () => {
               </select>
             </div>
             <div className="flex gap-6 pr-12">
-              <BsSearch className="w-6 h-6 cursor-pointer" />
-              <FiHeart className="w-6 h-6 cursor-pointer" />
+              <BsSearch className="w-6 h-6 cursor-pointer hover:[color:#9B8FF3]" />
+              <FiHeart className="w-6 h-6 cursor-pointer hover:[color:#9B8FF3]" />
               <button onClick={handleTogleModal}>
-                <CgProfile className="w-6 h-6 cursor-pointer" />
+                <CgProfile className="w-6 h-6 cursor-pointer hover:[color:#9B8FF3]" />
               </button>
               <Modal isOpen={isModalOpen} onClose={handleTogleModal}>
                 <Auth onCloseModal={handleTogleModal} />
