@@ -36,19 +36,22 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
         </button>
       </div>
       <div
-        className={`absolute flex flex-col items-center justify-between -bottom-[92px] w-full py-8 px-3 h-[292px]
+        className={`absolute flex flex-col items-center gap-6 -bottom-[122px] w-full pt-8 pb-6 px-3 h-[315px]
              rounded-t-[20px] bg-hoverCard transition-all ease-in-out duration-300 group-hover:bottom-0`}
       >
-        <ul className={`flex justify-between w-full`}>
-          <li>16.09.24-25.0924</li>
-          <li>17:00</li>
-          <li>Київ</li>
+        <ul className={`flex font-bold justify-between w-full`}>
+          <li>18 вересня 17:00</li>
+          <li>Від 500 грн</li>
         </ul>
+        <div className='flex flex-col items-center gap-8 h-[91px]'>
+
         <h2>Свічки власноруч</h2>
-        <p>Від 500 грн</p>
-        <SharedBtn type="button" className="w-[287px]">
+        <p>Київ, вул. Космонавтів 40</p>
+        </div>
+        <SharedBtn type="button" primary className="w-[287px]">
           Хочу
         </SharedBtn>
+        <p>Залишилось 30 квитків</p>
       </div>
     </div>
   );

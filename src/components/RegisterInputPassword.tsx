@@ -55,7 +55,7 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
       ...statusPassword(onInputPassword),
     }));
   }, [onInputPassword]);
-console.log(errors.name);
+  
   return (
     <>
       <h1 className={`mb-8`}>Створити акаунт</h1>

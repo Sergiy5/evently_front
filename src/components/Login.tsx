@@ -40,14 +40,13 @@ export const Login: React.FC<LoginProps> = ({
     const { email, password, rememberMe } = data;
     try {
       const result = await dispatch(logIn({ email, password, rememberMe }));
-      console.log('result', result);
 
       if (result.meta.requestStatus === "rejected") setIsUserLoggedIn(false);
       if (result.meta.requestStatus === 'fulfilled') {
         
         setIsUserLoggedIn(true)
         onCloseModal();
-        toast.success(`Welcome ${result.meta.arg.email}!`);
+        // toast.success(`Welcome ${result.meta.arg.email}!`);
       };
       
     } catch (error) {
