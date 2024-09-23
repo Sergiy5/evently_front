@@ -8,7 +8,7 @@ export const PrivacyAgreement: React.FC<PrivacyAgreementProps> = ({ className })
     <p
       className={`text-center text-base font-normal h-[38px] w-[500px] opacity-50 ${className} `}
     >
-      Натискаючи кнопку "Зареєструватися" я погоджуюся з{' '}
+      Натискаючи кнопку "Створити акаунт" я погоджуюся з{' '}
       <Link to="/privacy-policy" className="underline">
         Політикою конфіденційності
       </Link>{' '}

@@ -33,7 +33,7 @@ export const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
       <div
         className={` h-5 w-5 flex items-center justify-center bg-white ${className}`}
       >
-        {isChecked && <MdDone className="text-buttonPurple w-6 h-6 " />}{' '}
+        {isChecked && <MdDone className="text-black w-6 h-6 " />}{' '}
       </div>
       <span className="ml-2">{label}</span>
     </label>

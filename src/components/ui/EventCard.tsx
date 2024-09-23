@@ -1,25 +1,37 @@
-import { SharedBtn } from "./SharedBtn";
-import events from '@/assets/fakeData/events'
+import { SharedBtn } from './SharedBtn';
+import { PiHeartLight } from 'react-icons/pi';
+import { PiHeartFill } from 'react-icons/pi';
+import events from '@/assets/fakeData/events';
+import { useState } from 'react';
 
 interface EventCardProps {
-    event: {};
+  event: {};
 }
 export const EventCard: React.FC<EventCardProps> = ({ event }) => {
-  console.log("EVENTS_>>>>", events)
-  
-  if (events) {
-    events.map(event => <h2>{event.name}</h2>)
-  }
+  const [isCheked, setIsCheked] = useState(false);
+
+  // console.log("EVENTS_>>>>", events)
+
+  // if (events.length) {
+  //   events.map(event => <h2>{event.name}</h2>)
+  // }
   return (
-    <div 
+    <div
       className={`group relative flex overflow-hidden items-start bg-[url('public/images/CardImage.webp')]
          rounded-[20px] bg-no-repeat w-[311px] h-[483px]`}
     >
-      <div
-              className={`flex items-center justify-center w-32 h-8 rounded-[20px]
-             ml-6 mt-6 border-[2px] border-white bg-white bg-opacity-30`}
-      >
-        <div className={`text-white font-light text-base`}>Майстер клас</div>
+      <div className={`flex justify-between p-6 w-full `}>
+        <div
+          className={`flex items-center justify-center w-32 h-8 rounded-[20px]
+                 border-[2px] border-white bg-white bg-opacity-30`}
+        >
+          <p className={`text-white font-light text-base`}>Майстер клас</p>
+        </div>
+        {isCheked ? (
+          <PiHeartFill className={`w-6 h-6 text-lightPink`} />
+        ) : (
+          <PiHeartLight className="w-6 h-6 text-lightPink" />
+        )}
       </div>
       <div
         className={`absolute flex flex-col items-center justify-between -bottom-[92px] w-full py-8 px-3 h-[292px]

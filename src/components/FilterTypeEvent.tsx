@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CustomCheckbox } from './ui';
 import events from '@/assets/fakeData/events';
+import { nanoid } from '@reduxjs/toolkit';
 
 type FilterOption = {
   label: string;
@@ -61,7 +62,7 @@ export const FilterTypeEvent: React.FC<FilterTypeEventProps> = ({ setEvents }) =
     <div className={` w-full h-16 bg-lightPink px-8 rounded-[20px]`}>
       <ul className={`flex items-center justify-between h-full`}>
         {filterOptions.map(option => (
-          <li className={`flex gap-4`}>
+          <li key={nanoid()} className={`flex gap-4`}>
             <CustomCheckbox
               value={option.value}
               checked={selectedFilters.includes(option.value)}
