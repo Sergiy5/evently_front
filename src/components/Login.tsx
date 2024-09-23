@@ -145,11 +145,11 @@ export const Login: React.FC<LoginProps> = ({
           />
 
           <div className={`flex gap-2 text-base`}>
-            <span className={`text-slate-400 `}> У вас немає акаунту?</span>
+            <span className={`text-black `}> У вас немає акаунту?</span>
             <button
               type="button"
               onClick={() => setStatusAuth('register_email')}
-              className={`text-black
+              className={`text-black underline
                 `}
             >
               Створити
