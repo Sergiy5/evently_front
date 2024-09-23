@@ -5,7 +5,8 @@ interface CustomCheckboxProps {
   checked?: boolean;
   label: string;
   className: string;
-  onChange: (value: boolean) => void;
+  onChange: (value: boolean | string) => void;
+  value?: string;
 }   
 
 export const CustomCheckbox: React.FC<CustomCheckboxProps> = ({

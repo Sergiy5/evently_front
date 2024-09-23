@@ -43,7 +43,7 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
     const onRegisterUser = async () => {
       try {
         const result = await dispatch(registerUser(userData as IRegisterUser));
-        console.log(result)
+        console.log("RESULT_REGISTER_>>>",result)
 
         if (result.payload.status === 'error') throw new Error()
           

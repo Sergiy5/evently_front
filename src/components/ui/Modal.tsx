@@ -16,21 +16,18 @@ export const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
     return window.innerWidth - document.documentElement.clientWidth;
   };
 
-
   useEffect(() => {
     if (isOpen) {
       const scrollbarWidth = getScrollbarWidth();
       document.body.style.overflow = 'hidden'; // Prevent scrolling
       document.body.style.paddingRight = `${scrollbarWidth}px`;
       setIsOpenModal(true);
-      
     } else {
       document.body.style.overflow = ''; // Re-enable scrolling
       document.body.style.paddingRight = ''; // Reset padding
       setTimeout(() => {
         setIsOpenModal(false);
-        
-      }, 100)
+      }, 100);
     }
 
     return () => {
@@ -46,9 +43,8 @@ export const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
           setIsOpenModal(false);
           // Slow close modal
           setTimeout(() => {
-            
             onClose();
-          }, 100)
+          }, 100);
         }
       };
       if (isOpen) {
@@ -68,22 +64,31 @@ export const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
   const modalRoot = document.getElementById('portal-root');
 
   if (!modalRoot) return null;
-  
+
   return createPortal(
     <div
-      className={clsx(
-        `fixed inset-0 flex items-center justify-center z-50 bg-black transition-all`,
-        { 'bg-opacity-50': isOpenModal },
-        { 'bg-opacity-0': !isOpenModal }
-      )}
+      className={clsx(`fixed inset-0 z-50 flex items-center justify-center`)}
       aria-modal="true"
       role="dialog"
       onClick={onClose}
     >
+      {/* Backdrop with blur */}
       <div
-        className={clsx(`relative rounded-[20px] shadow-lg bg-white transition-all `,
-          {'scale-100': isOpenModal},
-          {'scale-75': !isOpenModal},
+        className={clsx(
+          `fixed inset-0 bg-slate-500 bg-opacity-50 transition-all duration-300 ease-in-out`,
+          {
+            'backdrop-blur-md': isOpenModal,
+            'backdrop-none': isOpenModal,
+          }
+        )}
+        onClick={onClose}
+      ></div>
+
+      {/* Modal content */}
+      <div
+        className={clsx(
+          `relative z-10 rounded-[20px] shadow-lg bg-white transition-all`,
+          { 'scale-100': isOpenModal, 'scale-75': !isOpenModal }
         )}
         onClick={e => e.stopPropagation()} // Prevent closing modal when clicking inside
       >

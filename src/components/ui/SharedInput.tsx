@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { UseFormReturn } from 'react-hook-form';
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
-import { SharedItemStatusBar } from './SharedItemStatusBar';
-// import { SharedItemStatusBar } from './SharedItemStatusBar';
+
 interface SharedInputProps {
   label?: string;
   onInput?: (value: string) => void;
@@ -41,7 +40,6 @@ export const SharedInput: React.FC<SharedInputProps> = ({
   };
 
   // Show password =================================================================
-  
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -114,14 +112,6 @@ export const SharedInput: React.FC<SharedInputProps> = ({
             />
           )}
         </span>
-      )}
-      {errors[id]?.message && (
-        <SharedItemStatusBar
-          valid={!errors[id]}
-          text={`${errors[id].message}`}
-          sizeIcon={`w-6 h-6`}
-          className={`absolute mt-[4px]`}
-        />
       )}
     </div>
   );

@@ -1,6 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { validateEmail } from '@/utils';
-import { GoogleLoginButton, PrivacyAgreement, SharedInput} from './ui';
+import {
+  GoogleLoginButton,
+  PrivacyAgreement,
+  SharedInput,
+  SharedItemStatusBar,
+} from './ui';
 // import { toast } from 'react-toastify';
 import { SharedBtn } from './ui/SharedBtn';
 import { IRegisterFormInputEmail, IRegisterUser } from '@/types';
@@ -45,17 +50,26 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col rounded-lg gap-6 w-[500px]"
         >
-          <SharedInput
-            id="email"
-            defaultValue={email}
-            placeholder="Електронна пошта "
-            autocomplete="email"
-            type="email"
-            register={register}
-            validation={{ required: true, validate: validateEmail }}
-            errors={errors}
-          />
-           
+          <div className={`relative`}>
+            <SharedInput
+              id="email"
+              defaultValue={email}
+              placeholder="Електронна пошта "
+              autocomplete="email"
+              type="email"
+              register={register}
+              validation={{ required: true, validate: validateEmail }}
+              errors={errors}
+            />
+            {errors.email?.message && (
+              <SharedItemStatusBar
+                valid={!errors.email?.message}
+                text={`${errors.email?.message}`}
+                sizeIcon={`w-6 h-6`}
+                className={`absolute mt-[4px]`}
+              />
+            )}
+          </div>
           <span className="text-base ml-auto mr-auto">або</span>
 
           <GoogleLoginButton onCloseModal={onCloseModal} />

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { statusPassword, validatePassword } from '@/utils';
+import { statusPassword, validateName, validatePassword } from '@/utils';
 import {
   PrivacyAgreement,
   SharedBtn,
@@ -55,7 +55,7 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
       ...statusPassword(onInputPassword),
     }));
   }, [onInputPassword]);
-
+console.log(errors.name);
   return (
     <>
       <h1 className={`mb-8`}>Створити акаунт</h1>
@@ -64,38 +64,47 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col rounded-lg gap-10 w-[500px]"
         >
-          <SharedInput
-            id="name"
-            defaultValue={name}
-            placeholder="Ім'я"
-            autocomplete="name"
-            type="text"
-            register={register}
-            validation={{ required: true }}
-            errors={errors}
-          />
-          <div>
-          <SharedInput
-            onInput={(value: string) => {
-              setOnInputPassword(value);
-            }}
-            placeholder="Пароль"
-            id="password"
-            autocomplete="on"
-            type="password"
-            register={register}
-            validation={{ required: true, validate: validatePassword }}
-            errors={errors}
+          <div className="relative">
+            <SharedInput
+              id="name"
+              defaultValue={name}
+              placeholder="Ім'я"
+              autocomplete="on"
+              type="text"
+              register={register}
+              validation={{ required: true, validate: validateName }}
+              errors={errors}
+            />
+            {errors.name?.message && (
+              <SharedItemStatusBar
+                valid={!errors.name}
+                text={errors.name?.message ?? "Ім'я відповідає вимогам"}
+                sizeIcon={`w-6 h-6`}
+                className={`absolute mt-[4px]`}
+              />
+            )}
+          </div>
+          <div className="relative">
+            <SharedInput
+              onInput={(value: string) => {
+                setOnInputPassword(value);
+              }}
+              placeholder="Пароль"
+              id="password"
+              autocomplete="on"
+              type="password"
+              register={register}
+              validation={{ required: true, validate: validatePassword }}
+              errors={errors}
             />
 
-          <StatusBarPassword
-            requiredPassword={requiredPassword}
-            className="mt-[4px]"
-            />
+            {errors.password?.message && <StatusBarPassword
+              requiredPassword={requiredPassword}
+              className="absolute mt-[4px]"
+            />}
           </div>
 
           <div className={`relative`}>
-
             <SharedInput
               placeholder="Підтвердіть пароль"
               id="confirmPassword"
@@ -107,18 +116,17 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
                 validate: value => value === watch('password'),
               }}
               errors={errors}
-              />
+            />
             {errors.confirmPassword && (
               <SharedItemStatusBar
-              valid={false}
-              text="Паролі не співпадають"
-              sizeIcon={``}
-              className={`absolute mt-[4px]`}
+                valid={false}
+                text="Паролі не співпадають"
+                sizeIcon={``}
+                className={`absolute mt-[4px]`}
               />
             )}
-            
-      </div>
-      
+          </div>
+
           <SharedBtn
             type="submit"
             disabled={!isValid}
