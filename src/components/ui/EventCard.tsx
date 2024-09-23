@@ -1,10 +1,15 @@
 import { SharedBtn } from "./SharedBtn";
+import events from '@/assets/fakeData/events'
 
 interface EventCardProps {
     event: {};
 }
 export const EventCard: React.FC<EventCardProps> = ({ event }) => {
-    
+  console.log("EVENTS_>>>>", events)
+  
+  if (events) {
+    events.map(event => <h2>{event.name}</h2>)
+  }
   return (
     <div 
       className={`group relative flex overflow-hidden items-start bg-[url('public/images/CardImage.webp')]

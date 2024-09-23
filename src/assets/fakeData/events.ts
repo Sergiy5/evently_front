@@ -1,4 +1,4 @@
-export const events = [
+ const events = [
   {
     id: 1,
     rating: 10,
@@ -120,3 +120,4 @@ export const events = [
     price: "1530 грн"
   }
 ]
+export default events

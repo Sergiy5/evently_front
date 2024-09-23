@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { CustomCheckbox } from './ui';
-import {events} from '@/assets/fakeData/events';
+import events from '@/assets/fakeData/events';
 
 type FilterOption = {
   label: string;
