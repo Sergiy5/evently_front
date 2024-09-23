@@ -15,6 +15,8 @@ export const StatusBarPassword: React.FC<StatusBarPasswordProps> = ({
   requiredPassword,
   className,
 }) => {
+
+  
   return (
     <ul className={`flex w-full text-xs justify-between ${className}`}>
       <li className={``}>

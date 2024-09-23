@@ -130,6 +130,7 @@ console.log(errors.name);
           <SharedBtn
             type="submit"
             disabled={!isValid}
+            primary
             className={`w-[364px] mt-10 ml-auto mr-auto`}
           >
             Створити акаунт

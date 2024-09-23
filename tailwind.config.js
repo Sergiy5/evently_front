@@ -24,7 +24,6 @@ export default {
         buttonPurple: '#9B8FF3',
         hoverCard: '#F4F3FF',
 
-
         //Neutral color
         background: '#F8FBFF',
         lightGray: '#F4F4F4',
@@ -37,8 +36,9 @@ export default {
         error: '#FF0F00',
       },
       boxShadow: {
+        primaryBtnActive: 'inset -5px 5px 50px 0 rgba(255, 255, 255, 0.7)',
         shadowPrimaryBtn: '-5px 5px 36.7px 0px rgba(0, 0, 0, 0.25) inset',
-        shadowSecondaryBtn: '0px 0px 9.3px 0px #9B8FF3 inset',
+        shadowSecondaryBtn: `inset 0 0 9px 0 rgba(155, 143, 243, 1)`,
       },
       opacity: {
         disabled: '0.5',

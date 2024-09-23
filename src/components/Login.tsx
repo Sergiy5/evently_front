@@ -40,6 +40,7 @@ export const Login: React.FC<LoginProps> = ({
     const { email, password, rememberMe } = data;
     try {
       const result = await dispatch(logIn({ email, password, rememberMe }));
+      console.log('result', result);
 
       if (result.meta.requestStatus === "rejected") setIsUserLoggedIn(false);
       if (result.meta.requestStatus === 'fulfilled') {
@@ -62,7 +63,6 @@ export const Login: React.FC<LoginProps> = ({
       rememberMe: !prevState.rememberMe,
     }));
   };
-  console.log('isValid', isValid);
  
   return (
     <>
@@ -116,14 +116,14 @@ export const Login: React.FC<LoginProps> = ({
             validation={{ required: true, validate: validatePassword }}
             errors={errors}
           />
-          {errors.password?.message &&
+          {errors.password?.message && (
             <SharedItemStatusBar
               valid={!errors.password?.message}
               text={`${errors.password?.message}`}
               sizeIcon={`w-6 h-6`}
               className={`absolute mt-[4px]`}
             />
-          }
+          )}
           <Link
             to={'/forgot-password'}
             className={` absolute border-b border-textColor text-xs font-normal flex w-22 top-16 right-0`}
@@ -160,6 +160,7 @@ export const Login: React.FC<LoginProps> = ({
         <SharedBtn
           type="submit"
           disabled={!isValid}
+          primary
           className={`w-[364px] mx-auto`}
         >
           Увійти

@@ -77,6 +77,7 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
           <SharedBtn
             type="submit"
             disabled={!isValid}
+            primary
             className="mt-10 w-[364px] mx-auto"
           >
             Продовжити

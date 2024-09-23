@@ -47,7 +47,7 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
 
         if (result.payload.status === 'error') throw new Error()
           
-          onCloseModal();
+          // onCloseModal();
         toast.success(`Вітаю! ${result.payload.message}`);
 
       } catch (error) {

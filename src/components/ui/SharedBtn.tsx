@@ -5,18 +5,20 @@ interface SharedBtnProps {
   children?: React.ReactNode;
   disabled?: boolean;
   onClick?: () => void;
-  transparent?: boolean;
-  className?:string;
+  className?: string;
+  secondary?: boolean;
+  primary?: boolean
 }
 export const SharedBtn: React.FC<SharedBtnProps> = ({
   type,
   children,
   disabled,
   onClick,
-  transparent,
+  secondary,
+  primary,
   className,
 }) => {
-console.log(disabled);
+  
   return (
     <button
       onClick={onClick}
@@ -27,14 +29,14 @@ console.log(disabled);
          py-2 px-4 ${className}`,
 
         {
-          'border border-buttonPurple bg-transparent text-textDark active:bg-lightPurple active:shadow-shadowSecondaryBtn':
-            transparent,
-          'bg-buttonPurple text-white': !transparent,
+          'border border-buttonPurple bg-transparent text-textDark hover:shadow-shadowSecondaryBtn active:bg-lightPurple':
+            secondary && !disabled,
+          'bg-buttonPurple text-white hover:shadow-shadowPrimaryBtn active:shadow-primaryBtnActive':
+            primary && !disabled,
         },
         {
-          'disabled cursor-default opacity-50 active:shadow-none': disabled,
-          'cursor-pointer hover:shadow-shadowPrimaryBtn active:shadow-none':
-            !disabled,
+          'bg-buttonPurple cursor-default text-background opacity-50 active:shadow-none':
+            disabled,
         }
       )}
     >
