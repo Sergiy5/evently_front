@@ -27,11 +27,13 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
         >
           <p className={`text-white font-light text-base`}>Майстер клас</p>
         </div>
-        {isCheked ? (
-          <PiHeartFill className={`w-6 h-6 text-lightPink`} />
-        ) : (
-          <PiHeartLight className="w-6 h-6 text-lightPink" />
-        )}
+        <button type="button" onClick={() => setIsCheked}>
+          {isCheked ? (
+            <PiHeartFill className={`w-6 h-6 text-lightPink`} />
+          ) : (
+            <PiHeartLight className="w-6 h-6 text-lightPink" />
+          )}
+        </button>
       </div>
       <div
         className={`absolute flex flex-col items-center justify-between -bottom-[92px] w-full py-8 px-3 h-[292px]

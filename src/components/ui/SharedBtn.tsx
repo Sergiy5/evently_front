@@ -16,7 +16,7 @@ export const SharedBtn: React.FC<SharedBtnProps> = ({
   transparent,
   className,
 }) => {
-
+console.log(disabled);
   return (
     <button
       onClick={onClick}
@@ -32,8 +32,9 @@ export const SharedBtn: React.FC<SharedBtnProps> = ({
           'bg-buttonPurple text-white': !transparent,
         },
         {
-          'disabled cursor-default active:shadow-none': disabled,
-          'cursor-pointer active:shadow-shadowPrimaryBtn': !disabled,
+          'disabled cursor-default opacity-50 active:shadow-none': disabled,
+          'cursor-pointer hover:shadow-shadowPrimaryBtn active:shadow-none':
+            !disabled,
         }
       )}
     >

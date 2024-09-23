@@ -62,6 +62,7 @@ export const Login: React.FC<LoginProps> = ({
       rememberMe: !prevState.rememberMe,
     }));
   };
+  console.log('isValid', isValid);
  
   return (
     <>
