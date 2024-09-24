@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import { FiHeart } from 'react-icons/fi';
 import { CgProfile } from 'react-icons/cg';
@@ -8,6 +8,7 @@ import { Auth } from './Auth';
 import { Container } from './Container';
 import { HeaderLines } from './HeaderLines';
 import { Modal } from './ui';
+import { useLocation } from 'react-router';
 
 interface HeaderProps {
   // Add any props you need for the header
@@ -17,6 +18,17 @@ export const Header: React.FC<HeaderProps> = () => {
   const [selectedCity, setSelectedCity] = useState('Київ');
   const [selectedEvent, setselectedEvent] = useState('Події');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get('emailConfirmed') === 'true') {
+      setIsEmailConfirmed(true);
+      setIsModalOpen(true);// Open login modal after email confirmation
+    }
+  }, [location]);
 
   // // Функция для открытия модального окна
   // const handleOpenModal = () => {
@@ -94,7 +106,10 @@ export const Header: React.FC<HeaderProps> = () => {
                 <CgProfile className="w-6 h-6 cursor-pointer hover:[color:#9B8FF3]" />
               </button>
               <Modal isOpen={isModalOpen} onClose={handleTogleModal}>
-                <Auth onCloseModal={handleTogleModal} />
+                <Auth
+                  onCloseModal={handleTogleModal}
+                  isEmailConfirmed={isEmailConfirmed}
+                />
               </Modal>
               <select className="cursor-pointer hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_1)]">
                 <option value="UA">UA</option>

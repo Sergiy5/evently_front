@@ -88,7 +88,7 @@ function handleUserLoggingFulfilled(
   action: any
 ): void {
   state.user = action.payload.user;
-  state.token = action.payload.token;
+  state.token = action.payload.accessToken;
   state.isLoggedIn = true;
   state.error = null;
 }
@@ -134,4 +134,5 @@ export const {
   setCurrentDate,
   googleLogin,
 } = authSlice.actions;
+
 export const authReducer = authSlice.reducer;

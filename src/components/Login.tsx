@@ -40,6 +40,7 @@ export const Login: React.FC<LoginProps> = ({
     const { email, password, rememberMe } = data;
     try {
       const result = await dispatch(logIn({ email, password, rememberMe }));
+      console.log("RESULT_LOGIN_>>>>>>>>>>",result)
 
       if (result.meta.requestStatus === "rejected") setIsUserLoggedIn(false);
       if (result.meta.requestStatus === 'fulfilled') {

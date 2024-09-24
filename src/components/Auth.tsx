@@ -11,15 +11,14 @@ import authImg from '../../public/images/auth-img.webp';
 
 interface AuthProps {
   onCloseModal: () => void;
+  isEmailConfirmed: boolean;
 }
 
-export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
-  // const [isLoading, setIsLoading] = useState(false);
+export const Auth: React.FC<AuthProps> = ({ onCloseModal, isEmailConfirmed }) => {
   const [userData, setUserData] = useState({
     name: '',
     email: '',
     password: '',
-    // confirmPassword: '',
   });
 
   const [statusAuth, setStatusAuth] = useState<
@@ -37,22 +36,26 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal }) => {
     setStatusAuth(status);
   };
 
+useEffect(() => {
+  if (isEmailConfirmed) {
+    setStatusAuth('login');
+  }
+}, [isEmailConfirmed]);
+
   useEffect(() => {
     if (!userData.email || !userData.password || !userData.name) return;
 
     const onRegisterUser = async () => {
       try {
         const result = await dispatch(registerUser(userData as IRegisterUser));
-        
-        console.log("RESULT_REGISTER_>>>",result)
 
-        if (result.payload.status === 'error') throw new Error()
-          
-          // onCloseModal();
+        console.log('RESULT_REGISTER_>>>', result);
+
+        if (result.payload.status === 'error') throw new Error();
+
+        // onCloseModal();
         toast.success(`Вітаю! ${result.payload.message}`);
-
       } catch (error) {
-        toast.error('You are not registered!');
         console.error(error);
       } finally {
       }
