@@ -53,18 +53,15 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
     console.log(emailUser)
   try {
     const response = await getUserByEmail(email);
-
     
-    
-    console.log('RESPONSE_EMAIL_EXIST_>>>>>>>>>', response);
-    if (response.status === 400) {
+    if (!response) {
       return toast.error(`Така електронна адреса вже існує`);
     }
 
-    if (response.status === 200) {
+    if (response?.status === 200) {
       setUserData(prev => ({ ...prev, email }));
 
-      // setStatusAuth('register_password');
+      setStatusAuth('register_password');
     }
   } catch (error) {
       // console.log(error)
