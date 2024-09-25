@@ -48,6 +48,9 @@ export const Login: React.FC<LoginProps> = ({
   });
 
   const onSubmit = async (data: ILoginUser) => {
+            setPasswordLoginError(false);
+            setEmailLoginError(false);
+
     const { email, password, rememberMe } = data;
     try {
       const { payload } = await dispatch(
@@ -57,9 +60,9 @@ export const Login: React.FC<LoginProps> = ({
       const { userName, statusCode, message } = payload;
 
       // console.log('RESULT_LOGIN_>>>>>>>>>>', payload);
-      
-      if (statusCode === 400) {
-        setIsUserLoggedIn(false);
+
+      if (statusCode === 400 && userName === null) {
+        setEmailLoginError(true);
         setErrorMessage('Акаунт з такою електронною поштою не знайдено');
       }
       if (statusCode === 400 && message === 'Wrong password') {
@@ -69,16 +72,16 @@ export const Login: React.FC<LoginProps> = ({
       }
       if (statusCode === 401) {
         setEmailLoginError(true);
-        setErrorMessage('Підтвердіть свою пошту спочатку');
+        setErrorMessage('Електронна пошта не підтверджена');
       }
       if (statusCode === 200) {
         setIsUserLoggedIn(true);
-        toast.success(`Welcome ${userName}!`);
+        toast.success(`Вітаю ${userName}!`);
         onCloseModal();
       }
     } catch (error) {
       console.error(error);
-      toast.error(`You are not logged in ${error}`);
+      toast.error(`Помилка ${error}`);
     } finally {
     }
   };
