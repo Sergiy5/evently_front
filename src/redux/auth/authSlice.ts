@@ -86,8 +86,8 @@ const authSlice = createSlice({
 function handleUserLoggingFulfilled(
   state: any,
   action: any
-): void {
-  state.user = action.payload.user;
+): void {  
+  // state.user = action.payload.user;
   state.token = action.payload.accessToken;
   state.isLoggedIn = true;
   state.error = null;

@@ -54,7 +54,7 @@ useEffect(() => {
         if (result.payload.status === 'error') throw new Error();
 
         // onCloseModal();
-        toast.success(`Вітаю! ${result.payload.message}`);
+        toast.success(`Вітаю! ${result.meta.arg.name}`);
       } catch (error) {
         console.error(error);
       } finally {

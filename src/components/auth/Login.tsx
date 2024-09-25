@@ -4,12 +4,20 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '@/hooks/hooks';
 import { validateEmail, validatePassword } from '@/utils';
-import { GoogleLoginButton, SharedInput, SharedItemStatusBar} from '../ui';
+import { GoogleLoginButton, SharedInput, SharedItemStatusBar } from '../ui';
 import { logIn } from '@/redux/auth/operations';
 import { SharedBtn } from '../ui/SharedBtn';
 import { ILoginUser } from '@/types';
 import { CustomCheckbox } from '../ui/CustomCheckBox';
 
+export interface IData {
+  accessToken: string | boolean;
+  message: string;
+  statusCode: number;
+  timestamp: string;
+  userId: string;
+  userName: string;
+}
 interface LoginProps {
   onCloseModal: () => void;
   setStatusAuth: (status: 'login' | 'register_email') => void;
@@ -25,6 +33,9 @@ export const Login: React.FC<LoginProps> = ({
     rememberMe: false,
   });
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<null | boolean>(null);
+  const [emailLoginError, setEmailLoginError] = useState(false);
+  const [passwordLoginError, setPasswordLoginError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const dispatch = useAppDispatch();
 
@@ -39,18 +50,32 @@ export const Login: React.FC<LoginProps> = ({
   const onSubmit = async (data: ILoginUser) => {
     const { email, password, rememberMe } = data;
     try {
-      const result = await dispatch(logIn({ email, password, rememberMe }));
+      const { payload } = await dispatch(
+        logIn({ email, password, rememberMe })
+      );
 
-      console.log("RESULT_LOGIN_>>>>>>>>>>",result)
+      const { userName, statusCode, message } = payload;
 
-      if (result.meta.requestStatus === "rejected") setIsUserLoggedIn(false);
-      if (result.meta.requestStatus === 'fulfilled') {
-        
-        setIsUserLoggedIn(true)
-        toast.success(`Welcome ${result.meta.arg.email}!`);
-        onCloseModal();
-      };
+      // console.log('RESULT_LOGIN_>>>>>>>>>>', payload);
       
+      if (statusCode === 400) {
+        setIsUserLoggedIn(false);
+        setErrorMessage('Акаунт з такою електронною поштою не знайдено');
+      }
+      if (statusCode === 400 && message === 'Wrong password') {
+        console.log("PASSWORD_ERROR")
+        setPasswordLoginError(true);
+        setErrorMessage('Невірний пароль');
+      }
+      if (statusCode === 401) {
+        setEmailLoginError(true);
+        setErrorMessage('Підтвердіть свою пошту спочатку');
+      }
+      if (statusCode === 200) {
+        setIsUserLoggedIn(true);
+        toast.success(`Welcome ${userName}!`);
+        onCloseModal();
+      }
     } catch (error) {
       console.error(error);
       toast.error(`You are not logged in ${error}`);
@@ -64,7 +89,7 @@ export const Login: React.FC<LoginProps> = ({
       rememberMe: !prevState.rememberMe,
     }));
   };
- 
+
   return (
     <>
       <h1 className="mb-6">Увійти в акаунт</h1>
@@ -94,11 +119,10 @@ export const Login: React.FC<LoginProps> = ({
               className={`absolute mt-[4px]`}
             />
           ) : (
-            !isUserLoggedIn &&
-            isUserLoggedIn !== null && (
+            emailLoginError && (
               <SharedItemStatusBar
                 valid={false}
-                text={`Акаунт з такою електронною поштою не знайдено.`}
+                text={`${errorMessage}`}
                 sizeIcon={`w-6 h-6`}
                 className={`absolute mt-[4px]`}
               />
@@ -118,13 +142,22 @@ export const Login: React.FC<LoginProps> = ({
             validation={{ required: true, validate: validatePassword }}
             errors={errors}
           />
-          {errors.password?.message && (
+          {errors.password?.message ? (
             <SharedItemStatusBar
               valid={!errors.password?.message}
               text={`${errors.password?.message}`}
               sizeIcon={`w-6 h-6`}
               className={`absolute mt-[4px]`}
             />
+          ) : (
+            passwordLoginError && (
+              <SharedItemStatusBar
+                valid={false}
+                text={errorMessage}
+                sizeIcon={`w-6 h-6`}
+                className={`absolute mt-[4px]`}
+              />
+            )
           )}
           <Link
             to={'/forgot-password'}

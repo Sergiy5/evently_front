@@ -19,7 +19,7 @@ export const register = createAsyncThunk(
   async (user: IRegisterUser, thunkAPI) => {
     try {
       const response = await axios.post('authorize/registration', user);
-      console.log('RESPONSE_MOCK_API', response);
+      console.log('RESPONSE_REGISTER_OPERATIONS_', response);
       // setAuthToken(response.data.token);
       return response.data;
     } catch (error: unknown) {
@@ -32,10 +32,12 @@ export const logIn = createAsyncThunk(
   'auth/login',
   async (user: ILoginUser, thunkAPI) => {
     try {
-      const response = await axios.post('authorize/login', user);
-      setAuthToken(response.data.accessToken);
-      return response.data;
+      const { data } = await axios.post('authorize/login', user);
+      
+      setAuthToken(data.accessToken);
+      return data;
     } catch (error) {
+      console.log("ERROR_ON_LOGIN", error)
       return thunkAPI.rejectWithValue((error as Error).message);
     }
   }

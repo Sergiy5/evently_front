@@ -42,33 +42,28 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
     const userData = Object.fromEntries(Object.entries(data));
     const email = userData.email;
     setEmailUser(email);
-
-  }
+  };
 
   useEffect(() => {
+    if (!emailUser) return;
+    const getUser = async (email: string) => {
+      try {
+        const response = await getUserByEmail(email);
 
-  if(!emailUser) return
-  const getUser = async (email: string) => {
-    
-    console.log(emailUser)
-  try {
-    const response = await getUserByEmail(email);
-    
-    if (!response) {
-      return toast.error(`Така електронна адреса вже існує`);
-    }
+        if (!response) {
+          return toast.error(`Така електронна адреса вже існує`);
+        }
 
-    if (response?.status === 200) {
-      setUserData(prev => ({ ...prev, email }));
+        if (response?.status === 200) {
+          setUserData(prev => ({ ...prev, email }));
+          setStatusAuth('register_password');
+        }
+      } catch (error) {
+        // console.log(error)
+      }
+    };
 
-      setStatusAuth('register_password');
-    }
-  } catch (error) {
-      // console.log(error)
-    }
-  }
-getUser(emailUser);
-
+    getUser(emailUser);
   }, [emailUser]);
 
   return (

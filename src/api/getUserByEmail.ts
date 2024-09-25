@@ -7,14 +7,14 @@ const userServices = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  // timeout: 5000, // to 30000
+  // timeout: 10000, // to 30000
   withCredentials: true,
 });
 
 export const getUserByEmail = async (email: string) => {
   try {
     const response = await userServices.get(`authorize/exist/${email}`);
-console.log("RESPONSE_IN_AXOIS->>>>>>", response)
+// console.log("RESPONSE_USER_BY_EMAIL_>>>>",response)
 return response;
     
   } catch (error) {
