@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '@/hooks/hooks';
 import { validateEmail, validatePassword } from '@/utils';
-import { GoogleLoginButton, SharedInput, SharedItemStatusBar} from './ui';
+import { GoogleLoginButton, SharedInput, SharedItemStatusBar} from '../ui';
 import { logIn } from '@/redux/auth/operations';
-import { SharedBtn } from './ui/SharedBtn';
+import { SharedBtn } from '../ui/SharedBtn';
 import { ILoginUser } from '@/types';
-import { CustomCheckbox } from './ui/CustomCheckBox';
+import { CustomCheckbox } from '../ui/CustomCheckBox';
 
 interface LoginProps {
   onCloseModal: () => void;
@@ -40,14 +40,15 @@ export const Login: React.FC<LoginProps> = ({
     const { email, password, rememberMe } = data;
     try {
       const result = await dispatch(logIn({ email, password, rememberMe }));
+
       console.log("RESULT_LOGIN_>>>>>>>>>>",result)
 
       if (result.meta.requestStatus === "rejected") setIsUserLoggedIn(false);
       if (result.meta.requestStatus === 'fulfilled') {
         
         setIsUserLoggedIn(true)
+        toast.success(`Welcome ${result.meta.arg.email}!`);
         onCloseModal();
-        // toast.success(`Welcome ${result.meta.arg.email}!`);
       };
       
     } catch (error) {
@@ -74,6 +75,7 @@ export const Login: React.FC<LoginProps> = ({
         <div className={`relative`}>
           <SharedInput
             id="email"
+            autofocus
             onInput={() => {
               setIsUserLoggedIn(null);
             }}

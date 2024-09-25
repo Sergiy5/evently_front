@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CustomCheckbox } from './ui';
+import { CustomCheckbox } from '../ui';
 import events from '@/assets/fakeData/events';
 import { nanoid } from '@reduxjs/toolkit';
 
@@ -55,7 +55,9 @@ export const FilterTypeEvent: React.FC<FilterTypeEventProps> = ({ setEvents }) =
           item =>
             selectedFilters.length === 0 || selectedFilters.includes(item.category)
         );
-        setEvents(events);
+    setEvents(events);
+    setAllEvents;
+    filteredData;
     }, [selectedFilters]);
 
   return (

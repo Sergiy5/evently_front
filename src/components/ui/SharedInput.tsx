@@ -17,6 +17,7 @@ interface SharedInputProps {
     required?: boolean;
     validate?: (value: string) => string | boolean;
   };
+  autofocus?: boolean;
 }
 
 export const SharedInput: React.FC<SharedInputProps> = ({
@@ -30,6 +31,7 @@ export const SharedInput: React.FC<SharedInputProps> = ({
   defaultValue,
   placeholder,
   onInput,
+  autofocus,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [hasValue, setHasValue] = useState(() => (defaultValue ? true : false));
@@ -43,16 +45,18 @@ export const SharedInput: React.FC<SharedInputProps> = ({
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
-  
+
   const onInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     onInput && onInput(e.target.value);
-    
+
     if (e.target.value.length > 1) setHasValue(true);
     else setHasValue(false);
   };
-  
+
   useEffect(() => {
-    const passwordInput = document.getElementById('password') as HTMLInputElement;
+    const passwordInput = document.getElementById(
+      'password'
+    ) as HTMLInputElement;
     const confirmPasswordInput = document.getElementById(
       'confirmPassword'
     ) as HTMLInputElement;
@@ -83,6 +87,7 @@ export const SharedInput: React.FC<SharedInputProps> = ({
         autoComplete={autocomplete}
         onFocus={handleFocus}
         defaultValue={defaultValue}
+        autoFocus={autofocus}
         {...register(id, { ...validation, onBlur: handleFocus })}
         className={clsx(
           `flex-grow w-full font-medium h-[60px] text-base bg-background placeholder:text-darkGray

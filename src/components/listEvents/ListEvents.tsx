@@ -1,5 +1,5 @@
 import { nanoid } from "@reduxjs/toolkit";
-import { EventCard } from './ui';
+import { EventCard } from '../ui';
 interface ListEventsProps {
   events: number;
 }

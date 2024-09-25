@@ -5,10 +5,13 @@ import {
   PrivacyAgreement,
   SharedInput,
   SharedItemStatusBar,
-} from './ui';
+} from '../ui';
 // import { toast } from 'react-toastify';
-import { SharedBtn } from './ui/SharedBtn';
+import { SharedBtn } from '../ui/SharedBtn';
 import { IRegisterFormInputEmail, IRegisterUser } from '@/types';
+import { getUserByEmail } from '@/api/getUserByEmail';
+import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
 
 interface RegisterInputEmailProps {
   setUserData: React.Dispatch<React.SetStateAction<IRegisterUser>>;
@@ -31,16 +34,45 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
     mode: 'onChange',
   });
 
+  const [emailUser, setEmailUser] = useState<string>('');
+
   const onSubmit = async (data: IRegisterFormInputEmail) => {
     if (!data) return;
 
     const userData = Object.fromEntries(Object.entries(data));
     const email = userData.email;
+    setEmailUser(email);
 
-    setUserData(prev => ({ ...prev, email }));
+  }
 
-    setStatusAuth('register_password');
-  };
+  useEffect(() => {
+
+  if(!emailUser) return
+  const getUser = async (email: string) => {
+    
+    console.log(emailUser)
+  try {
+    const response = await getUserByEmail(email);
+
+    
+    
+    console.log('RESPONSE_EMAIL_EXIST_>>>>>>>>>', response);
+    if (response.status === 400) {
+      return toast.error(`Така електронна адреса вже існує`);
+    }
+
+    if (response.status === 200) {
+      setUserData(prev => ({ ...prev, email }));
+
+      // setStatusAuth('register_password');
+    }
+  } catch (error) {
+      // console.log(error)
+    }
+  }
+getUser(emailUser);
+
+  }, [emailUser]);
 
   return (
     <>
@@ -53,6 +85,7 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
           <div className={`relative`}>
             <SharedInput
               id="email"
+              autofocus
               defaultValue={email}
               placeholder="Електронна пошта "
               autocomplete="email"

@@ -4,8 +4,8 @@ import { FiHeart } from 'react-icons/fi';
 import { CgProfile } from 'react-icons/cg';
 import Button from './ui/Button';
 import MyEventIcon from '../../public/images/MyEvent-icon.png';
-import { Auth } from './Auth';
-import { Container } from './Container';
+import { Auth } from './auth/Auth';
+import { Container } from './container/Container';
 import { HeaderLines } from './HeaderLines';
 import { Modal } from './ui';
 import { useLocation } from 'react-router';
@@ -26,7 +26,7 @@ export const Header: React.FC<HeaderProps> = () => {
     const params = new URLSearchParams(location.search);
     if (params.get('emailConfirmed') === 'true') {
       setIsEmailConfirmed(true);
-      setIsModalOpen(true);// Open login modal after email confirmation
+      setIsModalOpen(true); // Open login modal after email confirmation
     }
   }, [location]);
 
@@ -44,7 +44,7 @@ export const Header: React.FC<HeaderProps> = () => {
 
   const handleTogleModal = () => {
     // Slow close modal
-      setIsModalOpen(!isModalOpen);
+    setIsModalOpen(!isModalOpen);
   };
 
   return (

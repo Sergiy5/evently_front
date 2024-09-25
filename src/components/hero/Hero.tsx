@@ -1,7 +1,6 @@
-import { Container } from './Container';
+import { Container } from '../container/Container';
 
 export const Hero: React.FC = () => {
-
   return (
     <Container>
       <div

@@ -7,7 +7,7 @@ import {
   SharedInput,
   SharedItemStatusBar,
   StatusBarPassword,
-} from './ui';
+} from '../ui';
 import {
   IRegisterFormInputsPassword,
   IRegisterUser,
@@ -55,7 +55,7 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
       ...statusPassword(onInputPassword),
     }));
   }, [onInputPassword]);
-  
+
   return (
     <>
       <h1 className={`mb-8`}>Створити акаунт</h1>
@@ -67,6 +67,7 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
           <div className="relative">
             <SharedInput
               id="name"
+              autofocus
               defaultValue={name}
               placeholder="Ім'я"
               autocomplete="on"
@@ -98,10 +99,12 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
               errors={errors}
             />
 
-            {errors.password?.message && <StatusBarPassword
-              requiredPassword={requiredPassword}
-              className="absolute mt-[4px]"
-            />}
+            {errors.password?.message && (
+              <StatusBarPassword
+                requiredPassword={requiredPassword}
+                className="absolute mt-[4px]"
+              />
+            )}
           </div>
 
           <div className={`relative`}>

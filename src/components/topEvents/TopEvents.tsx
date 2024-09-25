@@ -1,5 +1,5 @@
-import { Container } from '@/components/Container';
-import { ListEvents } from './ListEvents';
+import { Container } from '@/components/container/Container';
+import { ListEvents } from '../listEvents/ListEvents';
 
 interface TopEvents {
   events: number;

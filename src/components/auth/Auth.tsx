@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { RegisterInputEmail } from './RegisterInputEmail';
-import { Login } from './Login';
-import { RegisterInputPassword } from './RegisterInputPassword';
-import { RegisterConirmEmail } from './RegisterConfirmEmail';
 import { useAppDispatch } from '@/hooks/hooks';
 import { register as registerUser } from '@/redux/auth/operations';
 import { IRegisterUser } from '@/types';
 import { toast } from 'react-toastify';
-import authImg from '../../public/images/auth-img.webp';
+import authImg from '../../../public/images/auth-img.webp';
+import { Login } from './Login';
+import { RegisterInputEmail } from './RegisterInputEmail';
+import { RegisterInputPassword } from './RegisterInputPassword';
+import { RegisterConirmEmail } from './RegisterConfirmEmail';
 
 interface AuthProps {
   onCloseModal: () => void;
