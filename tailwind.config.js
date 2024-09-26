@@ -53,6 +53,7 @@ export default {
         fontFamily: {
           sans: ['Open Sans', 'sans-serif'],
           serif: ['Merriweather', 'serif'],
+          lato:['LatoRegular']
         },
         fontSize: {
           xs: '12px',
