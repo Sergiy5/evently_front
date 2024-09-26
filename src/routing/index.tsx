@@ -53,6 +53,10 @@ const router = createBrowserRouter([
           { path: 'events' },
         ],
       },
+      
+      { path: 'popular', element: '' }, 
+      { path: 'organizers', element: '' }, 
+      { path: 'about', element: '' },
 
       { path: '*', element: <NotFound /> },
     ],
