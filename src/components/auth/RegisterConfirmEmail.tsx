@@ -23,7 +23,7 @@ export const RegisterConirmEmail: React.FC<RegisterConirmEmailProps> = ({
           <SharedBtn
             onClick={() => setStatusAuth('register_email')}
             type="button"
-            secondary={true}
+            secondary
             className="w-60"
           >
             Змінити email
