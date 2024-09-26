@@ -60,9 +60,9 @@ export const Header: React.FC<HeaderProps> = () => {
         <HeaderLines />
         <header className="p-4 bg-gray-100">
           <div className="leading-[19.2px] flex justify-center align-beetwen items-center m-auto max-w-[1440px] h-[84px]">
-            <a href="/">
+            <Link to='/evently_front'>
               <MainLogo/>
-            </a>
+            </Link>
             <div className="flex pl-12 pr-24 gap-8 items-center">
               <CustomSelect  
                   options={eventOptions}
