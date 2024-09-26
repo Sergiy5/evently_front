@@ -62,7 +62,7 @@ export const Login: React.FC<LoginProps> = ({
 
       if (statusCode === 400 && userName === null) {
         setEmailLoginError(true);
-        setErrorMessage('Акаунт з такою електронною поштою не знайдено');
+        setErrorMessage('Акаунт з таким імейлом не знайдено');
       }
       if (statusCode === 400 && message === 'Wrong password') {
         console.log("PASSWORD_ERROR")
@@ -71,7 +71,7 @@ export const Login: React.FC<LoginProps> = ({
       }
       if (statusCode === 401) {
         setEmailLoginError(true);
-        setErrorMessage('Електронна пошта не підтверджена');
+        setErrorMessage('Імейл не підтверджено');
       }
       if (statusCode === 200) {
         // setIsUserLoggedIn(true);

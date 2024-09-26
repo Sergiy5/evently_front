@@ -6,11 +6,9 @@ import {
   SharedInput,
   SharedItemStatusBar,
 } from '../ui';
-// import { toast } from 'react-toastify';
 import { SharedBtn } from '../ui/SharedBtn';
 import { IRegisterFormInputEmail, IRegisterUser } from '@/types';
 import { getUserByEmail } from '@/api/getUserByEmail';
-import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 
 interface RegisterInputEmailProps {
@@ -54,7 +52,7 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
 
         if (response.emailExist === true) {
           setEmailError(true);
-          setErrorMessage('Така електронна адреса вже існує');
+          setErrorMessage('Такий імейл вже існує');
         }
 
         if (response.emailExist === false) {
@@ -81,8 +79,9 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
             <SharedInput
               id="email"
               autofocus
+              onInput={()=>setEmailError(false)}
               defaultValue={email}
-              placeholder="Електронна пошта "
+              placeholder="Імейл"
               autocomplete="email"
               type="email"
               register={register}
@@ -113,7 +112,7 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
 
           <SharedBtn
             type="submit"
-            disabled={!isValid}
+            disabled={!isValid || emailError}
             primary
             className="mt-10 w-[364px] mx-auto"
           >
