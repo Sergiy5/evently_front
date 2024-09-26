@@ -32,7 +32,6 @@ export const Login: React.FC<LoginProps> = ({
     password: '',
     rememberMe: false,
   });
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState<null | boolean>(null);
   const [emailLoginError, setEmailLoginError] = useState(false);
   const [passwordLoginError, setPasswordLoginError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -75,7 +74,7 @@ export const Login: React.FC<LoginProps> = ({
         setErrorMessage('Електронна пошта не підтверджена');
       }
       if (statusCode === 200) {
-        setIsUserLoggedIn(true);
+        // setIsUserLoggedIn(true);
         toast.success(`Вітаю ${userName}!`);
         onCloseModal();
       }
@@ -104,9 +103,6 @@ export const Login: React.FC<LoginProps> = ({
           <SharedInput
             id="email"
             autofocus
-            onInput={() => {
-              setIsUserLoggedIn(null);
-            }}
             autocomplete="email"
             placeholder="Електронна пошта "
             type="email"
@@ -135,9 +131,6 @@ export const Login: React.FC<LoginProps> = ({
         <div className={`relative`}>
           <SharedInput
             id="password"
-            onInput={() => {
-              setIsUserLoggedIn(null);
-            }}
             autocomplete="current-password"
             placeholder="Пароль"
             type="password"

@@ -35,6 +35,8 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
   });
 
   const [emailUser, setEmailUser] = useState<string>('');
+  const [emailError, setEmailError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onSubmit = async (data: IRegisterFormInputEmail) => {
     if (!data) return;
@@ -50,16 +52,17 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
       try {
         const response = await getUserByEmail(email);
 
-        if (!response) {
-          return toast.error(`Така електронна адреса вже існує`);
+        if (response.emailExist === true) {
+          setEmailError(true);
+          setErrorMessage('Така електронна адреса вже існує');
         }
 
-        if (response?.status === 200) {
+        if (response.emailExist === false) {
           setUserData(prev => ({ ...prev, email }));
           setStatusAuth('register_password');
         }
       } catch (error) {
-        // console.log(error)
+        console.log(error)
       }
     };
 
@@ -86,13 +89,22 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
               validation={{ required: true, validate: validateEmail }}
               errors={errors}
             />
-            {errors.email?.message && (
+            {errors.email?.message ? (
               <SharedItemStatusBar
                 valid={!errors.email?.message}
                 text={`${errors.email?.message}`}
                 sizeIcon={`w-6 h-6`}
                 className={`absolute mt-[4px]`}
               />
+            ) : (
+              emailError && (
+                <SharedItemStatusBar
+                  valid={false}
+                  text={errorMessage}
+                  sizeIcon={`w-6 h-6`}
+                  className={`absolute mt-[4px]`}
+                />
+              )
             )}
           </div>
           <span className="text-base ml-auto mr-auto">або</span>

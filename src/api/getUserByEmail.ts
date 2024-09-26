@@ -15,7 +15,7 @@ export const getUserByEmail = async (email: string) => {
   try {
     const response = await userServices.get(`authorize/exist/${email}`);
 // console.log("RESPONSE_USER_BY_EMAIL_>>>>",response)
-return response;
+return response.data;
     
   } catch (error) {
     console.log("Error get user by email", error )
