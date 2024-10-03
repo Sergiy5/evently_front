@@ -3,10 +3,9 @@ import { PrivacyAgreement, SharedBtn } from '../ui';
 interface RegisterConirmEmailProps {
   setStatusAuth: (status: 'register_email') => void;
 }
-export const RegisterConirmEmail: React.FC<RegisterConirmEmailProps> = ({
+export const RegisterConfirmEmail: React.FC<RegisterConirmEmailProps> = ({
   setStatusAuth,
 }) => {
-
   
   return (
     <div className={`flex flex-col h-full justify-between`}>

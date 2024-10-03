@@ -7,14 +7,18 @@ import authImg from '../../../public/images/auth-img.webp';
 import { Login } from './Login';
 import { RegisterInputEmail } from './RegisterInputEmail';
 import { RegisterInputPassword } from './RegisterInputPassword';
-import { RegisterConirmEmail } from './RegisterConfirmEmail';
+import { RegisterConfirmEmail } from './RegisterConfirmEmail';
+import { PasswordRenovation } from './PasswordRenovation';
 
 interface AuthProps {
   onCloseModal: () => void;
   isEmailConfirmed: boolean;
 }
 
-export const Auth: React.FC<AuthProps> = ({ onCloseModal, isEmailConfirmed }) => {
+export const Auth: React.FC<AuthProps> = ({
+  onCloseModal,
+  isEmailConfirmed,
+}) => {
   const [userData, setUserData] = useState({
     name: '',
     email: '',
@@ -22,7 +26,11 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal, isEmailConfirmed }) =>
   });
 
   const [statusAuth, setStatusAuth] = useState<
-    'login' | 'register_email' | 'register_password' | 'confirm_email'
+    | 'login'
+    | 'register_email'
+    | 'register_password'
+    | 'confirm_email'
+    | 'password_renovation'
   >('login');
 
   const dispatch = useAppDispatch();
@@ -31,16 +39,21 @@ export const Auth: React.FC<AuthProps> = ({ onCloseModal, isEmailConfirmed }) =>
     onCloseModal();
   };
   const handleStatusAuth = (
-    status: 'login' | 'register_email' | 'register_password' | 'confirm_email'
+    status:
+      | 'login'
+      | 'register_email'
+      | 'register_password'
+      | 'confirm_email'
+      | 'password_renovation'
   ) => {
     setStatusAuth(status);
   };
 
-useEffect(() => {
-  if (isEmailConfirmed) {
-    setStatusAuth('login');
-  }
-}, [isEmailConfirmed]);
+  useEffect(() => {
+    if (isEmailConfirmed) {
+      setStatusAuth('login');
+    }
+  }, [isEmailConfirmed]);
 
   useEffect(() => {
     if (!userData.email || !userData.password || !userData.name) return;
@@ -90,7 +103,10 @@ useEffect(() => {
           />
         )}
         {statusAuth === 'confirm_email' && (
-          <RegisterConirmEmail setStatusAuth={handleStatusAuth} />
+          <RegisterConfirmEmail setStatusAuth={handleStatusAuth} />
+        )}
+        {statusAuth === 'password_renovation' && (
+          <PasswordRenovation onCloseModal={handleCloseModal} />
         )}
       </div>
       <img src={authImg} alt="colage_posters" className="w-[415px] h-[650px]" />
