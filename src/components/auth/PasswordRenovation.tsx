@@ -1,5 +1,5 @@
 import { IRegisterFormInputEmail } from '@/types';
-import { set, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import {
   PrivacyAgreement,
   SharedBtn,
@@ -11,10 +11,10 @@ import { getUserByEmail } from '@/api/getUserByEmail';
 import { validateEmail } from '@/utils';
 
 interface PasswordRenovationProps {
-  onCloseModal: () => void;
+  onCloseModal?: () => void;
 }
 export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
-  onCloseModal,
+//   onCloseModal,
 }) => {
   const [emailUser, setEmailUser] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string | boolean>('');

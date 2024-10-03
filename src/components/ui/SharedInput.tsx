@@ -60,8 +60,6 @@ export const SharedInput: React.FC<SharedInputProps> = ({
     }
   }, [passwordVisible, id]);
 
-console.log('isSubmitted', isSubmitted);
-
   return (
     <div className="relative">
       {label && (
