@@ -35,6 +35,7 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
   const [emailUser, setEmailUser] = useState<string>('');
   const [emailError, setEmailError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const onSubmit = async (data: IRegisterFormInputEmail) => {
     if (!data) return;
@@ -88,7 +89,7 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
               validation={{ required: true, validate: validateEmail }}
               errors={errors}
             />
-            {errors.email?.message ? (
+            {isSubmitted && errors.email?.message ? (
               <SharedItemStatusBar
                 valid={!errors.email?.message}
                 text={`${errors.email?.message}`}
@@ -112,6 +113,7 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
 
           <SharedBtn
             type="submit"
+            onClick={()=> setIsSubmitted(true)}
             disabled={!isValid || emailError}
             primary
             className="mt-10 w-[364px] mx-auto"
