@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '@/hooks/hooks';
 import { validateEmail, validatePassword } from '@/utils';
@@ -37,6 +36,7 @@ export const Login: React.FC<LoginProps> = ({
   const [emailLoginError, setEmailLoginError] = useState(false);
   const [passwordLoginError, setPasswordLoginError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -106,11 +106,12 @@ export const Login: React.FC<LoginProps> = ({
             autocomplete="email"
             placeholder="Електронна пошта "
             type="email"
+            isSubmitted={isSubmitted}
             register={register}
             validation={{ required: true, validate: validateEmail }}
             errors={errors}
           />
-          {errors.email?.message ? (
+          {isSubmitted && errors.email?.message ? (
             <SharedItemStatusBar
               valid={!errors.email?.message}
               text={`${errors.email?.message}`}
@@ -134,11 +135,12 @@ export const Login: React.FC<LoginProps> = ({
             autocomplete="current-password"
             placeholder="Пароль"
             type="password"
+            isSubmitted={isSubmitted}
             register={register}
             validation={{ required: true, validate: validatePassword }}
             errors={errors}
           />
-          {errors.password?.message ? (
+          {isSubmitted && errors.password?.message ? (
             <SharedItemStatusBar
               valid={!errors.password?.message}
               text={`${errors.password?.message}`}
@@ -191,6 +193,7 @@ export const Login: React.FC<LoginProps> = ({
         </div>
         <SharedBtn
           type="submit"
+          onClick={() => setIsSubmitted(true)}
           disabled={!isValid}
           primary
           className={`w-[364px] mx-auto`}
