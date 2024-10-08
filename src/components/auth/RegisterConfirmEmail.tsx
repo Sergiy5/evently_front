@@ -3,10 +3,9 @@ import { PrivacyAgreement, SharedBtn } from '../ui';
 interface RegisterConirmEmailProps {
   setStatusAuth: (status: 'register_email') => void;
 }
-export const RegisterConirmEmail: React.FC<RegisterConirmEmailProps> = ({
+export const RegisterConfirmEmail: React.FC<RegisterConirmEmailProps> = ({
   setStatusAuth,
 }) => {
-
   
   return (
     <div className={`flex flex-col h-full justify-between`}>
@@ -23,7 +22,7 @@ export const RegisterConirmEmail: React.FC<RegisterConirmEmailProps> = ({
           <SharedBtn
             onClick={() => setStatusAuth('register_email')}
             type="button"
-            secondary={true}
+            secondary
             className="w-60"
           >
             Змінити email
