@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '@/hooks/hooks';
 import { validateEmail, validatePassword } from '@/utils';
@@ -20,7 +19,9 @@ export interface IData {
 }
 interface LoginProps {
   onCloseModal: () => void;
-  setStatusAuth: (status: 'login' | 'register_email') => void;
+  setStatusAuth: (
+    status: 'login' | 'register_email' | 'password_renovation'
+  ) => void;
 }
 
 export const Login: React.FC<LoginProps> = ({
@@ -35,6 +36,7 @@ export const Login: React.FC<LoginProps> = ({
   const [emailLoginError, setEmailLoginError] = useState(false);
   const [passwordLoginError, setPasswordLoginError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -57,8 +59,6 @@ export const Login: React.FC<LoginProps> = ({
       );
 
       const { userName, statusCode, message } = payload;
-
-      // console.log('RESULT_LOGIN_>>>>>>>>>>', payload);
 
       if (statusCode === 400 && userName === null) {
         setEmailLoginError(true);
@@ -106,11 +106,12 @@ export const Login: React.FC<LoginProps> = ({
             autocomplete="email"
             placeholder="Електронна пошта "
             type="email"
+            isSubmitted={isSubmitted}
             register={register}
             validation={{ required: true, validate: validateEmail }}
             errors={errors}
           />
-          {errors.email?.message ? (
+          {isSubmitted && errors.email?.message ? (
             <SharedItemStatusBar
               valid={!errors.email?.message}
               text={`${errors.email?.message}`}
@@ -134,11 +135,12 @@ export const Login: React.FC<LoginProps> = ({
             autocomplete="current-password"
             placeholder="Пароль"
             type="password"
+            isSubmitted={isSubmitted}
             register={register}
             validation={{ required: true, validate: validatePassword }}
             errors={errors}
           />
-          {errors.password?.message ? (
+          {isSubmitted && errors.password?.message ? (
             <SharedItemStatusBar
               valid={!errors.password?.message}
               text={`${errors.password?.message}`}
@@ -155,12 +157,13 @@ export const Login: React.FC<LoginProps> = ({
               />
             )
           )}
-          <Link
-            to={'/forgot-password'}
+          <button
+            type="button"
+            onClick={() => setStatusAuth('password_renovation')}
             className={` absolute border-b border-textColor text-xs font-normal flex w-22 top-16 right-0`}
           >
             Забули пароль?
-          </Link>
+          </button>
         </div>
         <span className="text-base ml-auto mr-auto">або</span>
         <div
@@ -190,6 +193,7 @@ export const Login: React.FC<LoginProps> = ({
         </div>
         <SharedBtn
           type="submit"
+          onClick={() => setIsSubmitted(true)}
           disabled={!isValid}
           primary
           className={`w-[364px] mx-auto`}

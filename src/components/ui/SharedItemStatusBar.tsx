@@ -2,7 +2,7 @@ import { RxCross2 } from 'react-icons/rx';
 import { MdDone } from 'react-icons/md';
 
 interface StatusBarProps {
-  text: string;
+  text: string | boolean;
   valid: boolean;
   sizeIcon?: string;
   className?: string;
