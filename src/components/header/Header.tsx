@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-// import Button from '../components/ui/Button';
-import { Auth } from '../components/auth/Auth';
-import { Container } from '../components/container/Container';
 import { HeaderLines } from './HeaderLines';
-import { Modal, SharedBtn } from '../components/ui';
 import { useLocation } from 'react-router';
 import CustomSelect from '@/components/ui/CustomSelect';
 
 import { BsSearch } from 'react-icons/bs';
 import { AiOutlineHeart } from "react-icons/ai";
 import { CgProfile } from 'react-icons/cg';
-import MainLogo from '../components/ui/Logo'
 
 import { eventOptions } from '@/utils/statickData';
 import { cityOptions } from '@/utils/statickData';
 import { laguageOptions } from '@/utils/statickData';
+import { Container } from '../container/Container';
+import MainLogo from '../ui/Logo';
+import { Modal, SharedBtn } from '../ui';
+import { Auth } from '../auth';
 
 interface HeaderProps {
   // Add any props you need for the header
@@ -37,16 +36,6 @@ export const Header: React.FC<HeaderProps> = () => {
     }
   }, [location]);
 
-
-  // // Функция для открытия модального окна
-  // const handleOpenModal = () => {
-  //   setIsModalOpen(true);
-  // };
-
-  // // Функция для закрытия модального окна
-  // const handleCloseModal = () => {
-  //   setIsModalOpen(false);
-  // };
 
   // Function to toggle modal
   const handleTogleModal = () => {
@@ -109,7 +98,7 @@ export const Header: React.FC<HeaderProps> = () => {
                   buttonWidth="54px" />
             </div>
             <Link to='events'>
-              <SharedBtn 
+              <SharedBtn
               type="button"
               primary
               className={`w-[230px] mx-auto`}

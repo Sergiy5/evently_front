@@ -26,6 +26,8 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
   name,
 }) => {
   const [onInputPassword, setOnInputPassword] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isBluredNameInput, setIsBluredNameInput] = useState('');
   const [requiredPassword, setRequiredPassword] = useState<IRequiredPassword>({
     hasMinLength: false,
     hasUppercase: false,
@@ -37,7 +39,8 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
     register,
     handleSubmit,
     watch,
-    formState: { isValid, errors },
+    trigger,
+    formState: { errors },
   } = useForm<IRegisterFormInputsPassword>({
     mode: 'onChange',
   });
@@ -56,6 +59,22 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
     }));
   }, [onInputPassword]);
 
+  // Error handling on blur
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    // setErrorMessage('');
+    const { name } = e.target;
+    if (name === 'name') {
+      trigger('name');
+    }
+    if (name === 'confirmPassword') {
+      trigger('confirmPassword');
+    }
+    if (name === 'password') {
+      trigger('password');
+    }
+    setIsBluredNameInput(name);
+  };
+
   return (
     <>
       <h1 className={`mb-8`}>Створити акаунт</h1>
@@ -72,18 +91,21 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
               placeholder="Ім'я"
               autocomplete="on"
               type="text"
+              isSubmitted={isSubmitted}
+              onBlur={e => handleBlur(e)}
               register={register}
               validation={{ required: true, validate: validateName }}
               errors={errors}
             />
-            {errors.name?.message && (
-              <SharedItemStatusBar
-                valid={!errors.name}
-                text={errors.name?.message ?? "Ім'я відповідає вимогам"}
-                sizeIcon={`w-6 h-6`}
-                className={`absolute mt-[4px]`}
-              />
-            )}
+            {isSubmitted ||
+              (isBluredNameInput === 'name' && errors.name?.message && (
+                <SharedItemStatusBar
+                  valid={false}
+                  text={errors.name?.message}
+                  sizeIcon={`w-6 h-6`}
+                  className={`absolute mt-[4px]`}
+                />
+              ))}
           </div>
           <div className="relative">
             <SharedInput
@@ -94,6 +116,8 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
               id="password"
               autocomplete="on"
               type="password"
+              isSubmitted={isSubmitted}
+              onBlur={e => handleBlur(e)}
               register={register}
               validation={{ required: true, validate: validatePassword }}
               errors={errors}
@@ -113,6 +137,8 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
               id="confirmPassword"
               autocomplete="new-password"
               type="password"
+              isSubmitted={isSubmitted}
+              onBlur={e => handleBlur(e)}
               register={register}
               validation={{
                 required: true,
@@ -120,19 +146,21 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
               }}
               errors={errors}
             />
-            {errors.confirmPassword && (
-              <SharedItemStatusBar
-                valid={false}
-                text="Паролі не співпадають"
-                sizeIcon={``}
-                className={`absolute mt-[4px]`}
-              />
-            )}
+            {(isSubmitted ||
+              isBluredNameInput === 'confirmPassword') &&
+                errors.confirmPassword && (
+                  <SharedItemStatusBar
+                    valid={false}
+                    text="Паролі не співпадають"
+                    sizeIcon={``}
+                    className={`absolute mt-[4px]`}
+                  />
+                )}
           </div>
 
           <SharedBtn
             type="submit"
-            disabled={!isValid}
+            onClick={() => setIsSubmitted(true)}
             primary
             className={`w-[364px] mt-10 ml-auto mr-auto`}
           >

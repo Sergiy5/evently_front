@@ -27,7 +27,7 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
   const {
     register,
     handleSubmit,
-    formState: { isValid, errors },
+    formState: {errors },
   } = useForm<IRegisterFormInputEmail>({
     mode: 'onChange',
   });
@@ -80,32 +80,24 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
             <SharedInput
               id="email"
               autofocus
-              onInput={()=>setEmailError(false)}
+              onInput={() => setEmailError(false)}
               defaultValue={email}
-              placeholder="Імейл"
+              placeholder="Введіть email"
               autocomplete="email"
               type="email"
+              isSubmitted={isSubmitted}
               register={register}
               validation={{ required: true, validate: validateEmail }}
               errors={errors}
             />
-            {isSubmitted && errors.email?.message ? (
+            {(isSubmitted && errors.email?.message) || emailError ? (
               <SharedItemStatusBar
-                valid={!errors.email?.message}
-                text={`${errors.email?.message}`}
+                valid={false}
+                text={`${errors.email?.message ?? errorMessage}`}
                 sizeIcon={`w-6 h-6`}
                 className={`absolute mt-[4px]`}
               />
-            ) : (
-              emailError && (
-                <SharedItemStatusBar
-                  valid={false}
-                  text={errorMessage}
-                  sizeIcon={`w-6 h-6`}
-                  className={`absolute mt-[4px]`}
-                />
-              )
-            )}
+            ) : null}
           </div>
           <span className="text-base ml-auto mr-auto">або</span>
 
@@ -113,8 +105,7 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
 
           <SharedBtn
             type="submit"
-            onClick={()=> setIsSubmitted(true)}
-            disabled={!isValid || emailError}
+            onClick={() => setIsSubmitted(true)}
             primary
             className="mt-10 w-[364px] mx-auto"
           >

@@ -74,7 +74,7 @@ export const Auth: React.FC<AuthProps> = ({
       }
     };
     onRegisterUser();
-  }, [userData.password]);
+  }, [userData.email, userData.password, userData.name]);
 
   return (
     <div

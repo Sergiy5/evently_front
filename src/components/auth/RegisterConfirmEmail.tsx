@@ -16,9 +16,11 @@ export const RegisterConfirmEmail: React.FC<RegisterConirmEmailProps> = ({
           за посиланням у листі.
         </p>
         <div className="flex justify-between -mt-4">
+          
           <SharedBtn type="button" primary className="w-60">
             Відправити повторно
           </SharedBtn>
+
           <SharedBtn
             onClick={() => setStatusAuth('register_email')}
             type="button"
@@ -27,6 +29,7 @@ export const RegisterConfirmEmail: React.FC<RegisterConirmEmailProps> = ({
           >
             Змінити email
           </SharedBtn>
+
         </div>
       </div>
       <PrivacyAgreement />
