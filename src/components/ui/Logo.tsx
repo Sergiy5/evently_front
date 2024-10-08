@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../../public/images/BookMyEvent-logo.jpg'
+import logo from '../../../public/images/logo.svg'
 
 const MainLogo: React.FC = () => {
   return (
