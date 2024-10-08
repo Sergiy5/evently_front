@@ -5,7 +5,7 @@ import { Auth } from '../auth/Auth';
 import { Container } from '../container/Container';
 import { HeaderLines } from './HeaderLines';
 import { Modal, SharedBtn } from '../ui';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import CustomSelect from '@/components/ui/CustomSelect';
 
 import { BsSearch } from 'react-icons/bs';
@@ -16,6 +16,8 @@ import MainLogo from '../ui/Logo'
 import { eventOptions } from '@/utils/statickData';
 import { cityOptions } from '@/utils/statickData';
 import { laguageOptions } from '@/utils/statickData';
+import { selectIsLoggedIn } from '@/redux/auth/selectors';
+import { useSelector } from 'react-redux';
 
 interface HeaderProps {
   // Add any props you need for the header
@@ -30,13 +32,25 @@ export const Header: React.FC<HeaderProps> = () => {
   const [isInputVisible, setIsInputVisible] = useState(false);
   const inputRef = useRef<HTMLDivElement>(null);
 
+  const isLoggedIn = useSelector(selectIsLoggedIn)
+
+  const navigate = useNavigate();
+
+  const handleClick = () => { 
+    if (isLoggedIn) { // If the user is logged in, navigate to another page
+      navigate('events'); // Replace "/dashboard" with the desired path 
+    } 
+    else { // If the user is not logged in, open the auth modal
+      setIsModalOpen(true); 
+    } 
+  };
   const location = useLocation();
 
   const toggleInput = () => {
     setIsInputVisible(!isInputVisible);
   };
 
-  // Closing input when klick in not on input
+  // Closing input when klick in not on it
   const handleClickOutside = (event: MouseEvent) => {
     if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
       setIsInputVisible(false);
@@ -160,13 +174,15 @@ export const Header: React.FC<HeaderProps> = () => {
                   dropdownWidth="60px"
                   buttonWidth="54px" />
             </div>
-            <Link to='events'>
+            <div
+            onClick={handleClick}
+            >
               <SharedBtn 
               type="button"
               primary
               className={`w-[230px] mx-auto`}
               >Створити подію</SharedBtn>
-            </Link>
+            </div>
           </div>
         </header>
       </Container>
