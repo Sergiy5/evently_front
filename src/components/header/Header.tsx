@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 // import Button from '../components/ui/Button';
-import { Auth } from '../components/auth/Auth';
-import { Container } from '../components/container/Container';
+import { Auth } from '../auth/Auth';
+import { Container } from '../container/Container';
 import { HeaderLines } from './HeaderLines';
-import { Modal, SharedBtn } from '../components/ui';
+import { Modal, SharedBtn } from '../ui';
 import { useLocation } from 'react-router';
 import CustomSelect from '@/components/ui/CustomSelect';
 
 import { BsSearch } from 'react-icons/bs';
 import { AiOutlineHeart } from "react-icons/ai";
 import { CgProfile } from 'react-icons/cg';
-import MainLogo from '../components/ui/Logo'
+import MainLogo from '../ui/Logo'
 
 import { eventOptions } from '@/utils/statickData';
 import { cityOptions } from '@/utils/statickData';
