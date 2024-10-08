@@ -54,9 +54,26 @@ const router = createBrowserRouter([
         ],
       },
       
+      //routes for future components
       { path: 'popular', element: '' }, 
       { path: 'organizers', element: '' }, 
-      { path: 'about', element: '' },
+      { path: 'about', element: '' }, 
+
+      { path: 'all_events', element: ''},
+      { path: 'popular', element: '' },
+      { path: 'nearby', element: '' },
+      { path: 'concerts', element: '' },
+      { path: 'workshop', element: '' },
+      { path: 'stand_up', element: '' },
+      { path: 'business_networking', element: '' },
+      { path: 'sports_events', element: '' },
+      { path: 'another', element: '' },
+
+      { path: 'Kyiv', element: '' },
+      { path: 'Odessa', element: '' },
+      { path: 'Lviv', element: '' },
+      { path: 'Kharkiv', element: '' },
+      { path: 'Dnipro', element: '' },
 
       { path: '*', element: <NotFound /> },
     ],

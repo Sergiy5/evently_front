@@ -6,14 +6,15 @@ export interface Option {
   }
 
 export const eventOptions: Option[] = [
-    { label: 'Усі події', value: 'all-events' },
+    { label: 'Усі події', value: 'all_events' },
     { label: 'Популярні', value: 'popular' },
     { label: 'Під домом', value: 'nearby' },
     { label: 'Концерти', value: 'concerts' },
     { label: 'Майстер-клас', value: 'workshop' },
-    { label: 'Stand-Up', value: 'stand-up' },
-    { label: 'Бізнес та нетворкінг', value: 'business-networking' },
-    { label: 'Спортивні заходи', value: 'sports-events' },
+    { label: 'Stand-Up', value: 'stand_up' },
+    { label: 'Бізнес та нетворкінг', value: 'business_networking' },
+    { label: 'Спортивні заходи', value: 'sports_events' },
+    { label: 'Інше', value: 'another' },
   ];
 
 export const cityOptions: Option[] = [
