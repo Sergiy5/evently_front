@@ -56,13 +56,13 @@ export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
   }, [emailUser]);
 
   return (
-    <div className={`flex flex-col h-full justify-between`}>
-      <h1 className="mb-16">Відновлення паролю</h1>
-      <div className={`flex flex-col h-full gap-8`}>
+    <div className={`flex flex-col h-full  gap-8`}>
+      <h1 className="">Відновлення паролю</h1>
         <p className="text-start text-xl w-[500px]">
           Введіть адресу електронної пошти або номер, до якої прив`язаний ваш
           обліковий запис.
         </p>
+      <div className={`flex flex-col h-full`}>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col rounded-lg gap-8 w-[500px]"
@@ -115,7 +115,7 @@ export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
             onClick={() => setIsSubmitted(true)}
             // disabled={}
             primary
-            className="w-[364px] mx-auto"
+            className="w-[364px] mx-auto mt-8"
           >
             Продовжити
           </SharedBtn>
