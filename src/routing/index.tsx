@@ -54,13 +54,15 @@ const router = createBrowserRouter([
         ],
       },
       
+      { path: 'user_profile', element: '' }, 
+      
       //routes for future components
       { path: 'popular', element: '' }, 
       { path: 'organizers', element: '' }, 
       { path: 'about', element: '' }, 
+      { path: 'favourite', element: '' }, 
 
       { path: 'all_events', element: ''},
-      { path: 'popular', element: '' },
       { path: 'nearby', element: '' },
       { path: 'concerts', element: '' },
       { path: 'workshop', element: '' },

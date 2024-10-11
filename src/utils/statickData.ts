@@ -7,7 +7,6 @@ export interface Option {
 
 export const eventOptions: Option[] = [
     { label: 'Усі події', value: 'all_events' },
-    { label: 'Популярні', value: 'popular' },
     { label: 'Під домом', value: 'nearby' },
     { label: 'Концерти', value: 'concerts' },
     { label: 'Майстер-клас', value: 'workshop' },
