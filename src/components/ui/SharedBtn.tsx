@@ -18,15 +18,14 @@ export const SharedBtn: React.FC<SharedBtnProps> = ({
   primary,
   className,
 }) => {
-  
   return (
     <button
       onClick={onClick}
       type={type}
       disabled={disabled}
       className={clsx(
-        `rounded-tl-[71px] font-normal text-xl focus:outline-none rounded-tr-lg rounded-br-[71px] rounded-bl-lg h-[60px]
-         py-2 px-4 ${className}`,
+        `rounded-tl-[71px] font-normal text-xl focus:outline-none rounded-tr-lg rounded-br-[71px] rounded-bl-lg
+         py-2 px-4 ${className?.includes('h') ? className : 'h-[60px]'}`,
 
         {
           'border border-buttonPurple bg-transparent text-textDark hover:shadow-shadowSecondaryBtn active:bg-lightPurple':

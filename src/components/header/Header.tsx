@@ -183,7 +183,7 @@ export const Header: React.FC<HeaderProps> = () => {
               />
             </div>
             <div onClick={handleClick}>
-              <SharedBtn type="button" primary className={`w-[230px] mx-auto`}>
+              <SharedBtn type="button" primary className={`w-[230px] mx-auto h-12`}>
                 Створити подію
               </SharedBtn>
             </div>
