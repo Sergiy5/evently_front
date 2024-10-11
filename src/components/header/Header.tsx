@@ -169,10 +169,10 @@ export const Header: React.FC<HeaderProps> = () => {
                 </div>
               )}
               <Link to='/evently_front/favourite'>
-                <AiOutlineHeart className="w-[24px] h-[24px] cursor-pointer hover:[color:#9B8FF3]" />
+                <AiOutlineHeart className="w-[24px] h-[24px] cursor-pointer hover:[color:buttonPurple]" />
               </Link>
               <button onClick={() => handleClick('user_profile')}>
-                  <CgProfile className="w-[24px] h-[24px] cursor-pointer hover:[color:#9B8FF3]" />
+                  <CgProfile className="w-[24px] h-[24px] cursor-pointer hover:[color:buttonPurple]" />
               </button>
               <Modal isOpen={isModalOpen} onClose={handleTogleModal}>
                 <Auth
