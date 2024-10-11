@@ -7,8 +7,8 @@ import {
   SharedItemStatusBar,
 } from '../ui';
 import { useEffect, useState } from 'react';
-import { getUserByEmail } from '@/api/getUserByEmail';
 import { validateEmail } from '@/utils';
+import { renovationPasswordByEmail } from '@/api/renovationPasswordByEmail';
 
 interface PasswordRenovationProps {
   onCloseModal?: () => void;
@@ -24,7 +24,7 @@ export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
     register,
     handleSubmit,
     trigger,
-    formState: { isValid, errors },
+    formState: { errors },
   } = useForm<IRegisterFormInputEmail>({
     mode: 'onChange',
   });
@@ -34,10 +34,7 @@ export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
 
     const userData = Object.fromEntries(Object.entries(data));
     const email = userData.email;
-    //   if (!validateEmail(email)) {
-    //     setErrorMessage('Невірний формат електронної пошти');
-    //     return;
-    //   }
+  
     setEmailUser(email);
   };
 
@@ -45,15 +42,11 @@ export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
     if (!emailUser) return;
     // console.log('in_use_effect');
     const getUser = async (email: string) => {
+      console.log("DO_REQUEST!")
       try {
-        const response = await getUserByEmail(email);
+        const response = await renovationPasswordByEmail(email);
+        console.log("RESPONSE_>>>>>>>>>>>>>>>>", response)
 
-        if (response.emailExist === true) {
-          setErrorMessage('Такий імейл вже існує');
-        }
-
-        if (response.emailExist === false) {
-        }
       } catch (error) {
         console.log(error);
       }
@@ -62,15 +55,14 @@ export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
     getUser(emailUser);
   }, [emailUser]);
 
-  console.log('isValid', isValid);
   return (
-    <div className={`flex flex-col h-full justify-between`}>
-      <h1 className="mb-16">Відновлення паролю</h1>
-      <div className={`flex flex-col h-full gap-8`}>
+    <div className={`flex flex-col h-full  gap-8`}>
+      <h1 className="">Відновлення паролю</h1>
         <p className="text-start text-xl w-[500px]">
           Введіть адресу електронної пошти або номер, до якої прив`язаний ваш
           обліковий запис.
         </p>
+      <div className={`flex flex-col h-full`}>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col rounded-lg gap-8 w-[500px]"
@@ -84,7 +76,7 @@ export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
                 setErrorMessage(false);
                 await trigger('email'); // Trigger validation on input
               }}
-              placeholder="Імейл"
+              placeholder="Введіть email"
               autocomplete="email"
               type="email"
               register={register}
@@ -123,7 +115,7 @@ export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
             onClick={() => setIsSubmitted(true)}
             // disabled={}
             primary
-            className="w-[364px] mx-auto"
+            className="w-[364px] mx-auto mt-8"
           >
             Продовжити
           </SharedBtn>
