@@ -72,7 +72,7 @@ const router = createBrowserRouter([
       { path: 'another', element: '' },
 
       { path: 'Kyiv', element: '' },
-      { path: 'Odessa', element: '' },
+      { path: 'Odesa', element: '' },
       { path: 'Lviv', element: '' },
       { path: 'Kharkiv', element: '' },
       { path: 'Dnipro', element: '' },
