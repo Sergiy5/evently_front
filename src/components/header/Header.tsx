@@ -11,8 +11,9 @@ import CustomSelect from '@/components/ui/CustomSelect';
 import { BsSearch } from 'react-icons/bs';
 import { AiOutlineHeart } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
+
 import { CgProfile } from 'react-icons/cg';
-import MainLogo from '../ui/Logo'
+import MainLogo from '../ui/Logo';
 
 import { eventOptions } from '@/utils/statickData';
 import { cityOptions } from '@/utils/statickData';
@@ -23,8 +24,6 @@ interface HeaderProps {
   // Add any props you need for the header
 }
 
-
-
 export const Header: React.FC<HeaderProps> = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
@@ -32,9 +31,10 @@ export const Header: React.FC<HeaderProps> = () => {
   const [isInputVisible, setIsInputVisible] = useState(false);
   const inputRef = useRef<HTMLDivElement>(null);
 
-  const isLoggedIn = useSelector(selectIsLoggedIn)
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const navigate = useNavigate();
+
 
   const handleClick = (link: string,): void => { 
     if (isLoggedIn) { // If the user is logged in, navigate to another page
@@ -43,6 +43,7 @@ export const Header: React.FC<HeaderProps> = () => {
     else { // If the user is not logged in, open the auth modal
       setIsModalOpen(true); 
     } 
+
   };
 
   const location = useLocation();
@@ -144,11 +145,12 @@ export const Header: React.FC<HeaderProps> = () => {
                   className={`w-[94px] hover:font-bold `}
                   dropdownWidth="168px"
                   buttonWidth="62px" />
+
             </div>
             <div className="flex gap-6 pr-12 items-center">
-            <button onClick={toggleInput} className="focus:outline-none">
-              <BsSearch className="w-[24px] h-[24px] cursor-pointer hover:[color:#9B8FF3]" />
-            </button>
+              <button onClick={toggleInput} className="focus:outline-none">
+                <BsSearch className="w-[24px] h-[24px] cursor-pointer hover:[color:#9B8FF3]" />
+              </button>
               {isInputVisible && (
                 <div
                   ref={inputRef}
@@ -195,8 +197,9 @@ export const Header: React.FC<HeaderProps> = () => {
               <SharedBtn 
               type="button"
               primary
-              className={`w-[230px] mx-auto h-[48px]`}
+              className={`w-[230px] mx-auto h-12`}
               >Створити подію</SharedBtn>
+
             </div>
           </div>
         </header>

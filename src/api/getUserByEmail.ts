@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 
-const userServices = axios.create({
+export const userServices = axios.create({
   
   baseURL: 'https://rendereventapp.onrender.com/api/v1/',
   headers: {

@@ -37,27 +37,29 @@ export const Login: React.FC<LoginProps> = ({
   const [passwordLoginError, setPasswordLoginError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isBluredNameInput, setIsBluredNameInput] = useState('');
 
   const dispatch = useAppDispatch();
 
   const {
     register,
     handleSubmit,
-    formState: { isValid, errors },
+    trigger,
+    formState: { errors },
   } = useForm<ILoginUser>({
     mode: 'onChange',
   });
 
   const onSubmit = async (data: ILoginUser) => {
-            setPasswordLoginError(false);
-            setEmailLoginError(false);
+    setPasswordLoginError(false);
+    setEmailLoginError(false);
+    setIsBluredNameInput('');
 
     const { email, password, rememberMe } = data;
     try {
       const { payload } = await dispatch(
         logIn({ email, password, rememberMe })
       );
-
       const { userName, statusCode, message } = payload;
 
       if (statusCode === 400 && userName === null) {
@@ -65,7 +67,7 @@ export const Login: React.FC<LoginProps> = ({
         setErrorMessage('Акаунт з таким імейлом не знайдено');
       }
       if (statusCode === 400 && message === 'Wrong password') {
-        console.log("PASSWORD_ERROR")
+        console.log('PASSWORD_ERROR');
         setPasswordLoginError(true);
         setErrorMessage('Невірний пароль');
       }
@@ -80,9 +82,20 @@ export const Login: React.FC<LoginProps> = ({
       }
     } catch (error) {
       console.error(error);
-      toast.error(`Помилка ${error}`);
-    } finally {
+      // toast.error(`Помилка ${error}`);
     }
+  };
+
+  // Error handling on blur
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    setErrorMessage('');
+    const { name } = e.target;
+    if (name === 'email') {
+      trigger('email');
+    } else {
+      trigger('password');
+    }
+    setIsBluredNameInput(name);
   };
 
   const handleRememberMeChange = () => {
@@ -91,6 +104,10 @@ export const Login: React.FC<LoginProps> = ({
       rememberMe: !prevState.rememberMe,
     }));
   };
+  // console.log('emailLoginError', emailLoginError);
+  // console.log('isSubmitted', isSubmitted);
+  // console.log("isBluredNameInput === 'email'", isBluredNameInput === 'email');
+  // console.log('errors.email', errors.email);
 
   return (
     <>
@@ -103,59 +120,51 @@ export const Login: React.FC<LoginProps> = ({
           <SharedInput
             id="email"
             autofocus
+            onInput={() => {
+              setEmailLoginError(false);
+              setPasswordLoginError(false);
+            }}
+            onBlur={e => handleBlur(e)}
             autocomplete="email"
-            placeholder="Електронна пошта "
+            placeholder="Введіть email"
             type="email"
             isSubmitted={isSubmitted}
             register={register}
             validation={{ required: true, validate: validateEmail }}
             errors={errors}
           />
-          {isSubmitted && errors.email?.message ? (
+          {((isSubmitted || isBluredNameInput === 'email') &&
+            errors.email?.message) ||
+          emailLoginError && (
             <SharedItemStatusBar
-              valid={!errors.email?.message}
-              text={`${errors.email?.message}`}
+              valid={false}
+              text={`${errors.email?.message ?? errorMessage}`}
               sizeIcon={`w-6 h-6`}
               className={`absolute mt-[4px]`}
             />
-          ) : (
-            emailLoginError && (
-              <SharedItemStatusBar
-                valid={false}
-                text={`${errorMessage}`}
-                sizeIcon={`w-6 h-6`}
-                className={`absolute mt-[4px]`}
-              />
-            )
           )}
         </div>
         <div className={`relative`}>
           <SharedInput
             id="password"
             autocomplete="current-password"
-            placeholder="Пароль"
+            placeholder="Введіть пароль"
             type="password"
             isSubmitted={isSubmitted}
+            onInput={() => setPasswordLoginError(false)}
+            onBlur={e => handleBlur(e)}
             register={register}
             validation={{ required: true, validate: validatePassword }}
             errors={errors}
           />
-          {isSubmitted && errors.password?.message ? (
+          {((isSubmitted || isBluredNameInput === 'password') &&
+          errors.password?.message) || passwordLoginError && (
             <SharedItemStatusBar
-              valid={!errors.password?.message}
-              text={`${errors.password?.message}`}
+              valid={false}
+              text={`${errors.password?.message ?? errorMessage}`}
               sizeIcon={`w-6 h-6`}
               className={`absolute mt-[4px]`}
             />
-          ) : (
-            passwordLoginError && (
-              <SharedItemStatusBar
-                valid={false}
-                text={errorMessage}
-                sizeIcon={`w-6 h-6`}
-                className={`absolute mt-[4px]`}
-              />
-            )
           )}
           <button
             type="button"
@@ -170,6 +179,7 @@ export const Login: React.FC<LoginProps> = ({
           className={`flex gap-2.5 items-center justify-center w-[500px] h-[70px] bg-bgColor rounded-[20px]`}
         >
           <GoogleLoginButton onCloseModal={onCloseModal} />
+
         </div>
         <div className={`flex justify-between  w-full -mt-8 h-5`}>
           <CustomCheckbox
@@ -194,7 +204,6 @@ export const Login: React.FC<LoginProps> = ({
         <SharedBtn
           type="submit"
           onClick={() => setIsSubmitted(true)}
-          disabled={!isValid}
           primary
           className={`w-[364px] mx-auto`}
         >
