@@ -9,12 +9,20 @@ import {
 import { useForm } from 'react-hook-form';
 import { IRegisterFormInputsPassword, IRequiredPassword } from '@/types';
 import { statusPassword, validatePassword } from '@/utils';
+import { sendNewPassword } from '@/api/sendNewPassword';
 
 interface IPasswordRenovat {
   password: string;
   confirmPassword: string;
 }
-export const PasswordRenovationInputPassword: React.FC = () => {
+
+interface PasswordRenovationInputPasswordProps {
+  token: string | null;
+  onCloseModal: () => void;
+}
+export const PasswordRenovationInputPassword: React.FC<
+  PasswordRenovationInputPasswordProps
+> = ({ token, onCloseModal }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isBluredNameInput, setIsBluredNameInput] = useState('');
   const [onInputPassword, setOnInputPassword] = useState('');
@@ -24,10 +32,11 @@ export const PasswordRenovationInputPassword: React.FC = () => {
     hasNumber: false,
     hasSpecialChar: false,
   });
-  const [userData, setUserData] = useState<IPasswordRenovat>({
-    password: '',
-    confirmPassword: '',
-  });
+  const [renovationToken, setRenovationToken] = useState<string | null>(token);
+  // const [userData, setUserData] = useState<IPasswordRenovat>({
+  //   password: '',
+  //   confirmPassword: '',
+  // });
 
   const {
     register,
@@ -40,13 +49,14 @@ export const PasswordRenovationInputPassword: React.FC = () => {
   });
 
   const onSubmit = async (data: IRegisterFormInputsPassword) => {
-    const { password, confirmPassword } = data;
-
-    setUserData(prev => ({ ...prev, password, confirmPassword }));
+    const { password } = data;
+    if (!renovationToken) return;
+    const response = await sendNewPassword(password, renovationToken);
+    console.log("RESPONSE_>>>>>>>>>>>>>>>>",response)
+    // setUserData(prev => ({ ...prev, password, confirmPassword }));
   };
 
   useEffect(() => {
-    console.log(userData);
     setRequiredPassword(prev => ({
       ...prev,
       ...statusPassword(onInputPassword),
@@ -57,9 +67,7 @@ export const PasswordRenovationInputPassword: React.FC = () => {
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     // setErrorMessage('');
     const { name } = e.target;
-    if (name === 'name') {
-      trigger('name');
-    }
+   
     if (name === 'confirmPassword') {
       trigger('confirmPassword');
     }
@@ -71,11 +79,11 @@ export const PasswordRenovationInputPassword: React.FC = () => {
 
   return (
     <div className={`flex flex-col h-full justify-between`}>
-      <h1 className={`mb-16`}>Відновлення паролю</h1>
+      <h1 className={`mb-8`}>Відновлення паролю</h1>
       <div className={`flex flex-col h-full justify-between`}>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col rounded-lg gap-10 w-[500px]"
+          className="flex flex-col rounded-lg gap-6 w-[500px]"
         >
           <div className="relative">
             <SharedInput
@@ -133,7 +141,7 @@ export const PasswordRenovationInputPassword: React.FC = () => {
             primary
             className={`w-[364px] mt-10 ml-auto mr-auto`}
           >
-            Створити акаунт
+            Відновити пароль{' '}
           </SharedBtn>
         </form>
         <PrivacyAgreement />

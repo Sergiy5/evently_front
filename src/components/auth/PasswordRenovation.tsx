@@ -45,6 +45,7 @@ export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
       console.log("DO_REQUEST!")
       try {
         const response = await renovationPasswordByEmail(email);
+        
         console.log("RESPONSE_>>>>>>>>>>>>>>>>", response)
 
       } catch (error) {

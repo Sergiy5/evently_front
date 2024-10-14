@@ -25,7 +25,7 @@ export const SharedBtn: React.FC<SharedBtnProps> = ({
       disabled={disabled}
       className={clsx(
         `rounded-tl-[71px] font-normal text-xl focus:outline-none rounded-tr-lg rounded-br-[71px] rounded-bl-lg
-         py-2 px-4 ${className?.includes('h') ? className : 'h-[60px]'}`,
+         py-2 px-4 ${className?.includes('h') ? className : 'h-[60px]'} ${className}`,
 
         {
           'border border-buttonPurple bg-transparent text-textDark hover:shadow-shadowSecondaryBtn active:bg-lightPurple':
