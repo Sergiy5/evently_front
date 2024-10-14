@@ -29,21 +29,23 @@ export const Header: React.FC<HeaderProps> = () => {
   const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
   const [activeLink, setActiveLink] = useState<string | null>(null);
   const [isInputVisible, setIsInputVisible] = useState(false);
+   const [resetPasswordByToken, setResetPasswordByToken] = useState<
+     string | null
+   >(null);
   const inputRef = useRef<HTMLDivElement>(null);
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const navigate = useNavigate();
 
-
-  const handleClick = (link: string,): void => { 
-    if (isLoggedIn) { // If the user is logged in, navigate to another page
+  const handleClick = (link: string): void => {
+    if (isLoggedIn) {
+      // If the user is logged in, navigate to another page
       navigate(link);
-    } 
-    else { // If the user is not logged in, open the auth modal
-      setIsModalOpen(true); 
-    } 
-
+    } else {
+      // If the user is not logged in, open the auth modal
+      setIsModalOpen(true);
+    }
   };
 
   const location = useLocation();
@@ -76,6 +78,11 @@ export const Header: React.FC<HeaderProps> = () => {
       setIsEmailConfirmed(true);
       setIsModalOpen(true); // Open login modal after email confirmation
     }
+    if (params.get('token')) {
+      const token = params.get('token');
+      setResetPasswordByToken(token);
+      setIsModalOpen(true);
+    }
   }, [location]);
 
   // Function to toggle modal
@@ -95,57 +102,69 @@ export const Header: React.FC<HeaderProps> = () => {
         <HeaderLines />
         <header className="p-4 bg-gray-100">
           <div className="leading-[19.2px] flex justify-center align-beetwen items-center m-auto max-w-[1440px] h-[84px]">
-            <div className='background-background cursor-pointer' onClick={() => {
-              handleLinkClick('evently_front')
-              navigate('/evently_front')
-            }}>
-              <MainLogo/>
+            <div
+              className="background-background cursor-pointer"
+              onClick={() => {
+                handleLinkClick('evently_front');
+                navigate('/evently_front');
+              }}
+            >
+              <MainLogo />
             </div>
             <div className="flex pl-12 pr-24 gap-8 items-center">
-              <CustomSelect  
-                  changeLink={handleLinkClick}
-                  options={eventOptions}
-                  label='Події'
-                  replaceLabelOnSelect={false}
-                  className={`hover:font-bold `}
-                  dropdownWidth="180px"
-                  buttonWidth="62px" 
-                  />
+              <CustomSelect
+                changeLink={handleLinkClick}
+                options={eventOptions}
+                label="Події"
+                replaceLabelOnSelect={false}
+                className={`hover:font-bold `}
+                dropdownWidth="180px"
+                buttonWidth="62px"
+              />
               <nav className="flex p-right-20px gap-8">
-                <Link 
-                to="/evently_front/popular" 
-                onClick={() => handleLinkClick('popular')}
-                className={`${
-                  activeLink === 'popular' ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]' : 'text-gray-700'
-                  } w-[82px] hover:font-bold`}>
-                    Популярні
+                <Link
+                  to="/evently_front/popular"
+                  onClick={() => handleLinkClick('popular')}
+                  className={`${
+                    activeLink === 'popular'
+                      ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
+                      : 'text-gray-700'
+                  } w-[82px] hover:font-bold`}
+                >
+                  Популярні
                 </Link>
-                <Link 
-                to="/evently_front/organizers" 
-                onClick={() => handleLinkClick('organizers')}
-                className={`${
-                  activeLink === 'organizers' ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]' : 'text-gray-700'
-                  } w-[110px] hover:font-bold`}>
-                    Організаторам
+                <Link
+                  to="/evently_front/organizers"
+                  onClick={() => handleLinkClick('organizers')}
+                  className={`${
+                    activeLink === 'organizers'
+                      ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
+                      : 'text-gray-700'
+                  } w-[110px] hover:font-bold`}
+                >
+                  Організаторам
                 </Link>
-                <Link 
-                to="/evently_front/about" 
-                onClick={() => handleLinkClick('about')}
-                className={`${
-                  activeLink === 'about' ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]' : 'text-gray-700'
-                  } w-[63px] hover:font-bold`}>
-                    Про нас
+                <Link
+                  to="/evently_front/about"
+                  onClick={() => handleLinkClick('about')}
+                  className={`${
+                    activeLink === 'about'
+                      ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
+                      : 'text-gray-700'
+                  } w-[63px] hover:font-bold`}
+                >
+                  Про нас
                 </Link>
               </nav>
-              <CustomSelect  
-                  changeLink={handleLinkClick}
-                  options={cityOptions}
-                  label='Київ'
-                  replaceLabelOnSelect={true}
-                  className={`w-[94px] hover:font-bold `}
-                  dropdownWidth="168px"
-                  buttonWidth="62px" />
-
+              <CustomSelect
+                changeLink={handleLinkClick}
+                options={cityOptions}
+                label="Київ"
+                replaceLabelOnSelect={true}
+                className={`w-[94px] hover:font-bold `}
+                dropdownWidth="168px"
+                buttonWidth="62px"
+              />
             </div>
             <div className="flex gap-6 pr-12 items-center">
               <button onClick={toggleInput} className="focus:outline-none">
@@ -163,23 +182,27 @@ export const Header: React.FC<HeaderProps> = () => {
                       placeholder="Поиск..."
                       className="w-full p-2 bg-transparent text-gray-600 focus:outline-none"
                     />
-                  <RxCross2 
-                  className='h-[32px] w-[32px] cursor-pointer'
-                  onClick={() => setIsInputVisible(false)}
-                  />
+                    <RxCross2
+                      className="h-[32px] w-[32px] cursor-pointer"
+                      onClick={() => setIsInputVisible(false)}
+                    />
                   </div>
                 </div>
               )}
-              <Link to='/evently_front/favourite' className='cursor-pointer hover:[color:#9B8FF3]'>
+              <Link
+                to="/evently_front/favourite"
+                className="cursor-pointer hover:[color:#9B8FF3]"
+              >
                 <AiOutlineHeart className="w-[24px] h-[24px]" />
               </Link>
               <button onClick={() => handleClick('user_profile')}>
-                  <CgProfile className="w-[24px] h-[24px] cursor-pointer hover:[color:#9B8FF3]" />
+                <CgProfile className="w-[24px] h-[24px] cursor-pointer hover:[color:#9B8FF3]" />
               </button>
               <Modal isOpen={isModalOpen} onClose={handleTogleModal}>
                 <Auth
                   onCloseModal={handleTogleModal}
                   isEmailConfirmed={isEmailConfirmed}
+                  resetPasswordByToken={resetPasswordByToken}
                 />
               </Modal>
               <div>UA</div>
@@ -191,15 +214,14 @@ export const Header: React.FC<HeaderProps> = () => {
                   dropdownWidth="60px"
                   buttonWidth="54px" /> */}
             </div>
-            <div
-            onClick={() => handleClick('events')}
-            >
-              <SharedBtn 
-              type="button"
-              primary
-              className={`w-[230px] mx-auto h-12`}
-              >Створити подію</SharedBtn>
-
+            <div onClick={() => handleClick('events')}>
+              <SharedBtn
+                type="button"
+                primary
+                className={`w-[230px] mx-auto h-12`}
+              >
+                Створити подію
+              </SharedBtn>
             </div>
           </div>
         </header>

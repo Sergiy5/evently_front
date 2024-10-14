@@ -14,14 +14,4 @@ export const sendNewPassword = async (password: string, token: string) => {
   }
 };
 
-//  const [resetPasswordByToken, setResetPasswordByToken] = useState<
-//    string | null
-//  >(null);
-// if (params.get('token')) {
-//   const token = params.get('token');
-//   setResetPasswordByToken(token);
-//   setIsModalOpen(true);
-// }
 
-//IN_AUTH
-// resetPasswordByToken = { resetPasswordByToken };
