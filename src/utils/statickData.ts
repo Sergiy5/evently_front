@@ -7,7 +7,6 @@ export interface Option {
 
 export const eventOptions: Option[] = [
     { label: 'Усі події', value: 'all_events' },
-    { label: 'Популярні', value: 'popular' },
     { label: 'Під домом', value: 'nearby' },
     { label: 'Концерти', value: 'concerts' },
     { label: 'Майстер-клас', value: 'workshop' },
@@ -19,7 +18,7 @@ export const eventOptions: Option[] = [
 
 export const cityOptions: Option[] = [
     {label: 'Київ', value: 'Kyiv'},
-    {label: 'Одеса', value: 'Odessa'},
+    {label: 'Одеса', value: 'Odesa'},
     {label: 'Львів', value: 'Lviv'},
     {label: 'Харків', value: 'Kharkiv'},
     {label: 'Дніпро', value: 'Dnipro'},
