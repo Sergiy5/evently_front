@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import { IRegisterFormInputsPassword, IRequiredPassword } from '@/types';
 import { statusPassword, validatePassword } from '@/utils';
 import { sendNewPassword } from '@/api/sendNewPassword';
+import { toast } from 'react-toastify';
 
 interface IPasswordRenovat {
   password: string;
@@ -51,9 +52,24 @@ export const PasswordRenovationInputPassword: React.FC<
   const onSubmit = async (data: IRegisterFormInputsPassword) => {
     const { password } = data;
     if (!renovationToken) return;
+    try {
     const response = await sendNewPassword(password, renovationToken);
-    console.log("RESPONSE_>>>>>>>>>>>>>>>>",response)
-    // setUserData(prev => ({ ...prev, password, confirmPassword }));
+      console.log('RESPONSE_>>>>>>>>>>>>>>>>', response.statusCode);
+      const { message } = response;
+      console.log(message)
+      response.statusCode = response.statusСode;
+      delete response.statusСode;
+
+      console.log(response.statusCode); 
+      if (response.statusCode === 200) {
+        toast.success(`Вітаю твій пароль успішно змінено!`);
+        onCloseModal();
+      }
+      
+    } catch (error) {
+      toast.error("Токен недійсний, повторіть спробу з email!");
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -87,6 +103,7 @@ export const PasswordRenovationInputPassword: React.FC<
         >
           <div className="relative">
             <SharedInput
+              autofocus
               onInput={(value: string) => {
                 setOnInputPassword(value);
               }}
