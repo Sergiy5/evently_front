@@ -8,16 +8,19 @@ import { Login } from './Login';
 import { RegisterInputEmail } from './RegisterInputEmail';
 import { RegisterInputPassword } from './RegisterInputPassword';
 import { RegisterConfirmEmail } from './RegisterConfirmEmail';
-import { PasswordRenovation } from './PasswordRenovation';
+import { PasswordRenovationSendEmail } from './PasswordRenovationSendEmail';
+import { PasswordRenovationInputPassword } from './PasswordRenovationInputPassword';
 
 interface AuthProps {
   onCloseModal: () => void;
   isEmailConfirmed: boolean;
+  resetPasswordByToken: string | null;
 }
 
 export const Auth: React.FC<AuthProps> = ({
   onCloseModal,
   isEmailConfirmed,
+  resetPasswordByToken,
 }) => {
   const [userData, setUserData] = useState({
     name: '',
@@ -31,6 +34,7 @@ export const Auth: React.FC<AuthProps> = ({
     | 'register_password'
     | 'confirm_email'
     | 'password_renovation'
+    | 'password_renovation_on_input'
   >('login');
 
   const dispatch = useAppDispatch();
@@ -45,6 +49,7 @@ export const Auth: React.FC<AuthProps> = ({
       | 'register_password'
       | 'confirm_email'
       | 'password_renovation'
+      | 'password_renovation_on_input'
   ) => {
     setStatusAuth(status);
   };
@@ -53,7 +58,10 @@ export const Auth: React.FC<AuthProps> = ({
     if (isEmailConfirmed) {
       setStatusAuth('login');
     }
-  }, [isEmailConfirmed]);
+    if (resetPasswordByToken) {
+      setStatusAuth('password_renovation_on_input');
+    }
+  }, [isEmailConfirmed, resetPasswordByToken]);
 
   useEffect(() => {
     if (!userData.email || !userData.password || !userData.name) return;
@@ -66,7 +74,6 @@ export const Auth: React.FC<AuthProps> = ({
 
         if (result.payload.status === 'error') throw new Error();
 
-        // onCloseModal();
         toast.success(`Вітаю! ${result.meta.arg.name}`);
       } catch (error) {
         console.error(error);
@@ -106,7 +113,13 @@ export const Auth: React.FC<AuthProps> = ({
           <RegisterConfirmEmail setStatusAuth={handleStatusAuth} />
         )}
         {statusAuth === 'password_renovation' && (
-          <PasswordRenovation onCloseModal={handleCloseModal} />
+          <PasswordRenovationSendEmail onCloseModal={handleCloseModal} />
+        )}
+        {statusAuth === 'password_renovation_on_input' && (
+          <PasswordRenovationInputPassword
+            token={resetPasswordByToken}
+            setStatusAuth={handleStatusAuth}
+          />
         )}
       </div>
       <img src={authImg} alt="colage_posters" className="w-[415px] h-[650px]" />

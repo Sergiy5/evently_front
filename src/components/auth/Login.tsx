@@ -61,7 +61,7 @@ export const Login: React.FC<LoginProps> = ({
         logIn({ email, password, rememberMe })
       );
       const { userName, statusCode, message } = payload;
-
+console.log('payload_>>>>>>>>>>>>', payload);
       if (statusCode === 400 && userName === null) {
         setEmailLoginError(true);
         setErrorMessage('Акаунт з таким імейлом не знайдено');

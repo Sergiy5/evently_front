@@ -9,12 +9,21 @@ import {
 import { useForm } from 'react-hook-form';
 import { IRegisterFormInputsPassword, IRequiredPassword } from '@/types';
 import { statusPassword, validatePassword } from '@/utils';
+import { sendNewPassword } from '@/api/sendNewPassword';
+import { toast } from 'react-toastify';
 
-interface IPasswordRenovat {
-  password: string;
-  confirmPassword: string;
+// interface IPasswordRenovat {
+//   password: string;
+//   confirmPassword: string;
+// }
+
+interface PasswordRenovationInputPasswordProps {
+  token: string | null;
+  setStatusAuth: (status: 'login' | 'password_renovation_on_input') => void;
 }
-export const PasswordRenovationInputPassword: React.FC = () => {
+export const PasswordRenovationInputPassword: React.FC<
+  PasswordRenovationInputPasswordProps
+> = ({ token, setStatusAuth }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isBluredNameInput, setIsBluredNameInput] = useState('');
   const [onInputPassword, setOnInputPassword] = useState('');
@@ -23,10 +32,6 @@ export const PasswordRenovationInputPassword: React.FC = () => {
     hasUppercase: false,
     hasNumber: false,
     hasSpecialChar: false,
-  });
-  const [userData, setUserData] = useState<IPasswordRenovat>({
-    password: '',
-    confirmPassword: '',
   });
 
   const {
@@ -40,13 +45,29 @@ export const PasswordRenovationInputPassword: React.FC = () => {
   });
 
   const onSubmit = async (data: IRegisterFormInputsPassword) => {
-    const { password, confirmPassword } = data;
+    const { password } = data;
+    if (!token) return;
+    try {
+    const response = await sendNewPassword(password, token);
+      console.log('RESPONSE_>>>>>>>>>>>>>>>>', response.statusCode);
+      const { message } = response;
+      console.log(message)
+      response.statusCode = response.statusСode;
+      delete response.statusСode;
 
-    setUserData(prev => ({ ...prev, password, confirmPassword }));
+      console.log(response.statusCode); 
+      if (response.statusCode === 200) {
+        toast.success(`Вітаю твій пароль успішно змінено!`);
+        setStatusAuth('login');
+      }
+      
+    } catch (error) {
+      toast.error("Токен недійсний, повторіть спробу з email!");
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    console.log(userData);
     setRequiredPassword(prev => ({
       ...prev,
       ...statusPassword(onInputPassword),
@@ -57,9 +78,7 @@ export const PasswordRenovationInputPassword: React.FC = () => {
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     // setErrorMessage('');
     const { name } = e.target;
-    if (name === 'name') {
-      trigger('name');
-    }
+   
     if (name === 'confirmPassword') {
       trigger('confirmPassword');
     }
@@ -71,14 +90,15 @@ export const PasswordRenovationInputPassword: React.FC = () => {
 
   return (
     <div className={`flex flex-col h-full justify-between`}>
-      <h1 className={`mb-16`}>Відновлення паролю</h1>
+      <h1 className={`mb-8`}>Відновлення паролю</h1>
       <div className={`flex flex-col h-full justify-between`}>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col rounded-lg gap-10 w-[500px]"
+          className="flex flex-col rounded-lg gap-6 w-[500px]"
         >
           <div className="relative">
             <SharedInput
+              autofocus
               onInput={(value: string) => {
                 setOnInputPassword(value);
               }}
@@ -133,7 +153,7 @@ export const PasswordRenovationInputPassword: React.FC = () => {
             primary
             className={`w-[364px] mt-10 ml-auto mr-auto`}
           >
-            Створити акаунт
+            Відновити пароль{' '}
           </SharedBtn>
         </form>
         <PrivacyAgreement />

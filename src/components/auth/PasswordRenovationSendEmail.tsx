@@ -1,7 +1,6 @@
 import { IRegisterFormInputEmail } from '@/types';
 import { useForm } from 'react-hook-form';
 import {
-  PrivacyAgreement,
   SharedBtn,
   SharedInput,
   SharedItemStatusBar,
@@ -9,16 +8,19 @@ import {
 import { useEffect, useState } from 'react';
 import { validateEmail } from '@/utils';
 import { renovationPasswordByEmail } from '@/api/renovationPasswordByEmail';
+import { toast } from 'react-toastify';
 
-interface PasswordRenovationProps {
-  onCloseModal?: () => void;
+interface PasswordRenovationSendEmailProps {
+  onCloseModal: () => void;
 }
-export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
-//   onCloseModal,
-}) => {
+export const PasswordRenovationSendEmail: React.FC<
+  PasswordRenovationSendEmailProps
+> = ({ onCloseModal }) => {
   const [emailUser, setEmailUser] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string | boolean>('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+
 
   const {
     register,
@@ -34,7 +36,7 @@ export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
 
     const userData = Object.fromEntries(Object.entries(data));
     const email = userData.email;
-  
+
     setEmailUser(email);
   };
 
@@ -42,12 +44,22 @@ export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
     if (!emailUser) return;
     // console.log('in_use_effect');
     const getUser = async (email: string) => {
-      console.log("DO_REQUEST!")
+      console.log('DO_REQUEST!');
       try {
         const response = await renovationPasswordByEmail(email);
-        console.log("RESPONSE_>>>>>>>>>>>>>>>>", response)
+        const { message } = response;
+        console.log(message);
+        response.statusCode = response.statusСode;
+        delete response.statusСode;
 
+        if (response.statusCode === 200) {
+          toast.success(`Email надіслано!`);
+          onCloseModal();
+        }
       } catch (error) {
+  setEmailError(true);
+  setErrorMessage('Такий email не існує');
+
         console.log(error);
       }
     };
@@ -58,10 +70,10 @@ export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
   return (
     <div className={`flex flex-col h-full  gap-8`}>
       <h1 className="">Відновлення паролю</h1>
-        <p className="text-start text-xl w-[500px]">
-          Введіть адресу електронної пошти або номер, до якої прив`язаний ваш
-          обліковий запис.
-        </p>
+      <p className="text-start text-xl w-[500px]">
+        Введіть адресу електронної пошти, до якої привʼязаний ваш обліковий
+        запис.
+      </p>
       <div className={`flex flex-col h-full`}>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -83,7 +95,15 @@ export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
               validation={{ required: true, validate: validateEmail }}
               errors={errors}
             />
-            {isSubmitted && errors.email?.message ? (
+            {(isSubmitted && errors.email?.message) || emailError ? (
+              <SharedItemStatusBar
+                valid={false}
+                text={`${errors.email?.message ?? errorMessage}`}
+                sizeIcon={`w-6 h-6`}
+                className={`absolute mt-[4px]`}
+              />
+            ) : null}
+            {/* {isSubmitted && errors.email?.message ? (
               <SharedItemStatusBar
                 valid={!errors.email?.message}
                 text={`${errors.email?.message}`}
@@ -99,7 +119,7 @@ export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
                   className={`absolute mt-[4px]`}
                 />
               )
-            )}
+            )} */}
             {/* {isSubmitted && errorMessage && (
               <SharedItemStatusBar
                 valid={false}
@@ -121,7 +141,6 @@ export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
           </SharedBtn>
         </form>
       </div>
-      <PrivacyAgreement />
     </div>
   );
 };
