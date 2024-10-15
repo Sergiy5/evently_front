@@ -117,8 +117,8 @@ export const Auth: React.FC<AuthProps> = ({
         )}
         {statusAuth === 'password_renovation_on_input' && (
           <PasswordRenovationInputPassword
-            onCloseModal={handleCloseModal}
             token={resetPasswordByToken}
+            setStatusAuth={handleStatusAuth}
           />
         )}
       </div>

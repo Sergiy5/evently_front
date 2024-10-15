@@ -1,7 +1,6 @@
 import { IRegisterFormInputEmail } from '@/types';
 import { useForm } from 'react-hook-form';
 import {
-  PrivacyAgreement,
   SharedBtn,
   SharedInput,
   SharedItemStatusBar,
@@ -67,8 +66,8 @@ export const PasswordRenovationSendEmail: React.FC<
     <div className={`flex flex-col h-full  gap-8`}>
       <h1 className="">Відновлення паролю</h1>
       <p className="text-start text-xl w-[500px]">
-        Введіть адресу електронної пошти або номер, до якої прив`язаний ваш
-        обліковий запис.
+        Введіть адресу електронної пошти, до якої привʼязаний ваш обліковий
+        запис.
       </p>
       <div className={`flex flex-col h-full`}>
         <form
@@ -129,7 +128,6 @@ export const PasswordRenovationSendEmail: React.FC<
           </SharedBtn>
         </form>
       </div>
-      <PrivacyAgreement />
     </div>
   );
 };

@@ -12,18 +12,18 @@ import { statusPassword, validatePassword } from '@/utils';
 import { sendNewPassword } from '@/api/sendNewPassword';
 import { toast } from 'react-toastify';
 
-interface IPasswordRenovat {
-  password: string;
-  confirmPassword: string;
-}
+// interface IPasswordRenovat {
+//   password: string;
+//   confirmPassword: string;
+// }
 
 interface PasswordRenovationInputPasswordProps {
   token: string | null;
-  onCloseModal: () => void;
+  setStatusAuth: (status: 'login' | 'password_renovation_on_input') => void;
 }
 export const PasswordRenovationInputPassword: React.FC<
   PasswordRenovationInputPasswordProps
-> = ({ token, onCloseModal }) => {
+> = ({ token, setStatusAuth }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isBluredNameInput, setIsBluredNameInput] = useState('');
   const [onInputPassword, setOnInputPassword] = useState('');
@@ -33,11 +33,6 @@ export const PasswordRenovationInputPassword: React.FC<
     hasNumber: false,
     hasSpecialChar: false,
   });
-  const [renovationToken, setRenovationToken] = useState<string | null>(token);
-  // const [userData, setUserData] = useState<IPasswordRenovat>({
-  //   password: '',
-  //   confirmPassword: '',
-  // });
 
   const {
     register,
@@ -51,9 +46,9 @@ export const PasswordRenovationInputPassword: React.FC<
 
   const onSubmit = async (data: IRegisterFormInputsPassword) => {
     const { password } = data;
-    if (!renovationToken) return;
+    if (!token) return;
     try {
-    const response = await sendNewPassword(password, renovationToken);
+    const response = await sendNewPassword(password, token);
       console.log('RESPONSE_>>>>>>>>>>>>>>>>', response.statusCode);
       const { message } = response;
       console.log(message)
@@ -63,7 +58,7 @@ export const PasswordRenovationInputPassword: React.FC<
       console.log(response.statusCode); 
       if (response.statusCode === 200) {
         toast.success(`Вітаю твій пароль успішно змінено!`);
-        onCloseModal();
+        setStatusAuth('login');
       }
       
     } catch (error) {
