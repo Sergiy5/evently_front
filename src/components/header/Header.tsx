@@ -108,7 +108,7 @@ export const Header: React.FC<HeaderProps> = () => {
                   label='Події'
                   replaceLabelOnSelect={false}
                   className={`hover:font-bold `}
-                  dropdownWidth="180px"
+                  dropdownWidth="178px"
                   buttonWidth="62px" 
                   />
               <nav className="flex p-right-20px gap-8">
