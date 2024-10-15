@@ -45,6 +45,8 @@ export const PasswordRenovationSendEmail: React.FC<
       console.log('DO_REQUEST!');
       try {
         const response = await renovationPasswordByEmail(email);
+        const { message } = response;
+        console.log(message);
         response.statusCode = response.statusСode;
         delete response.statusСode;
 
