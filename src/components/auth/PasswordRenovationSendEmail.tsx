@@ -9,13 +9,14 @@ import {
 import { useEffect, useState } from 'react';
 import { validateEmail } from '@/utils';
 import { renovationPasswordByEmail } from '@/api/renovationPasswordByEmail';
+import { toast } from 'react-toastify';
 
-interface PasswordRenovationProps {
-  onCloseModal?: () => void;
+interface PasswordRenovationSendEmailProps {
+  onCloseModal: () => void;
 }
-export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
-//   onCloseModal,
-}) => {
+export const PasswordRenovationSendEmail: React.FC<
+  PasswordRenovationSendEmailProps
+> = ({ onCloseModal }) => {
   const [emailUser, setEmailUser] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string | boolean>('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -34,7 +35,7 @@ export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
 
     const userData = Object.fromEntries(Object.entries(data));
     const email = userData.email;
-  
+
     setEmailUser(email);
   };
 
@@ -42,13 +43,19 @@ export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
     if (!emailUser) return;
     // console.log('in_use_effect');
     const getUser = async (email: string) => {
-      console.log("DO_REQUEST!")
+      console.log('DO_REQUEST!');
       try {
         const response = await renovationPasswordByEmail(email);
-        
-        console.log("RESPONSE_>>>>>>>>>>>>>>>>", response)
+        response.statusCode = response.statusСode;
+        delete response.statusСode;
 
+        if (response.statusCode === 200) {
+          toast.success(`Email надіслано!`);
+          onCloseModal();
+        }
       } catch (error) {
+      toast.error('Сталася помилка, повторіть спробу!');
+
         console.log(error);
       }
     };
@@ -59,10 +66,10 @@ export const PasswordRenovation: React.FC<PasswordRenovationProps> = ({
   return (
     <div className={`flex flex-col h-full  gap-8`}>
       <h1 className="">Відновлення паролю</h1>
-        <p className="text-start text-xl w-[500px]">
-          Введіть адресу електронної пошти або номер, до якої прив`язаний ваш
-          обліковий запис.
-        </p>
+      <p className="text-start text-xl w-[500px]">
+        Введіть адресу електронної пошти або номер, до якої прив`язаний ваш
+        обліковий запис.
+      </p>
       <div className={`flex flex-col h-full`}>
         <form
           onSubmit={handleSubmit(onSubmit)}

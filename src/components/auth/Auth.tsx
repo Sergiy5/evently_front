@@ -8,7 +8,7 @@ import { Login } from './Login';
 import { RegisterInputEmail } from './RegisterInputEmail';
 import { RegisterInputPassword } from './RegisterInputPassword';
 import { RegisterConfirmEmail } from './RegisterConfirmEmail';
-import { PasswordRenovation } from './PasswordRenovation';
+import { PasswordRenovationSendEmail } from './PasswordRenovationSendEmail';
 import { PasswordRenovationInputPassword } from './PasswordRenovationInputPassword';
 
 interface AuthProps {
@@ -58,7 +58,7 @@ export const Auth: React.FC<AuthProps> = ({
     if (isEmailConfirmed) {
       setStatusAuth('login');
     }
-    if(resetPasswordByToken) {
+    if (resetPasswordByToken) {
       setStatusAuth('password_renovation_on_input');
     }
   }, [isEmailConfirmed, resetPasswordByToken]);
@@ -113,7 +113,7 @@ export const Auth: React.FC<AuthProps> = ({
           <RegisterConfirmEmail setStatusAuth={handleStatusAuth} />
         )}
         {statusAuth === 'password_renovation' && (
-          <PasswordRenovation onCloseModal={handleCloseModal} />
+          <PasswordRenovationSendEmail onCloseModal={handleCloseModal} />
         )}
         {statusAuth === 'password_renovation_on_input' && (
           <PasswordRenovationInputPassword

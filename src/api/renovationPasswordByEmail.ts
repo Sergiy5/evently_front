@@ -7,7 +7,7 @@ try {
     );
     console.log('API_response.data_>>>>>>>>>>>>>', response.data);
     
-    // return response.data
+    return response.data
 } catch (error) {
     console.log("ERROR_FROM_AXIOS",error)
 }
