@@ -19,6 +19,8 @@ export const PasswordRenovationSendEmail: React.FC<
   const [emailUser, setEmailUser] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string | boolean>('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+
 
   const {
     register,
@@ -55,7 +57,8 @@ export const PasswordRenovationSendEmail: React.FC<
           onCloseModal();
         }
       } catch (error) {
-      toast.error('Сталася помилка, повторіть спробу!');
+  setEmailError(true);
+  setErrorMessage('Такий імейл вже існує');
 
         console.log(error);
       }
@@ -92,7 +95,15 @@ export const PasswordRenovationSendEmail: React.FC<
               validation={{ required: true, validate: validateEmail }}
               errors={errors}
             />
-            {isSubmitted && errors.email?.message ? (
+            {(isSubmitted && errors.email?.message) || emailError ? (
+              <SharedItemStatusBar
+                valid={false}
+                text={`${errors.email?.message ?? errorMessage}`}
+                sizeIcon={`w-6 h-6`}
+                className={`absolute mt-[4px]`}
+              />
+            ) : null}
+            {/* {isSubmitted && errors.email?.message ? (
               <SharedItemStatusBar
                 valid={!errors.email?.message}
                 text={`${errors.email?.message}`}
@@ -108,7 +119,7 @@ export const PasswordRenovationSendEmail: React.FC<
                   className={`absolute mt-[4px]`}
                 />
               )
-            )}
+            )} */}
             {/* {isSubmitted && errorMessage && (
               <SharedItemStatusBar
                 valid={false}
