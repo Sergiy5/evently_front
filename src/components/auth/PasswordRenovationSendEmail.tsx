@@ -58,7 +58,7 @@ export const PasswordRenovationSendEmail: React.FC<
         }
       } catch (error) {
   setEmailError(true);
-  setErrorMessage('Такий імейл вже існує');
+  setErrorMessage('Такий email не існує');
 
         console.log(error);
       }
