@@ -36,6 +36,7 @@ export const PasswordRenovationInputPassword: React.FC<
   });
 
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -46,6 +47,10 @@ export const PasswordRenovationInputPassword: React.FC<
     mode: 'onChange',
   });
 
+useEffect(() => {
+    navigate('/evently_front', { replace: true });
+  },[]);
+
   const onSubmit = async (data: IRegisterFormInputsPassword) => {
     const { password } = data;
     if (!token) return;
@@ -53,7 +58,6 @@ export const PasswordRenovationInputPassword: React.FC<
     const {status} = await sendNewPassword(password, token);
       if (status === 200) {
         toast.success(`Вітаю твій пароль успішно змінено!`);
-        navigate('/evently_front', { replace: true });
         setStatusAuth('login');
       }
       if (status === 400) {
