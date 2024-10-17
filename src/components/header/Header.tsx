@@ -112,15 +112,15 @@ export const Header: React.FC<HeaderProps> = () => {
               <MainLogo />
             </div>
             <div className="flex pl-12 pr-24 gap-8 items-center">
-              <CustomSelect
-                changeLink={handleLinkClick}
-                options={eventOptions}
-                label="Події"
-                replaceLabelOnSelect={false}
-                className={`hover:font-bold `}
-                dropdownWidth="180px"
-                buttonWidth="62px"
-              />
+              <CustomSelect  
+                  changeLink={handleLinkClick}
+                  options={eventOptions}
+                  label='Події'
+                  replaceLabelOnSelect={false}
+                  className={`hover:font-bold `}
+                  dropdownWidth="178px"
+                  buttonWidth="62px" 
+                  />
               <nav className="flex p-right-20px gap-8">
                 <Link
                   to="/evently_front/popular"

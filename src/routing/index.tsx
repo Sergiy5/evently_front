@@ -10,6 +10,7 @@ import EventEdit from '@/pages/events/EventEdit';
 import AdminUsers, {
   loader as AdminUserLoader,
 } from '@/pages/admin/AdminUsers';
+import Profile from '@/components/profile/profile';
 
 const NotFound = React.lazy(() => import('../pages/NotFoundPage'));
 const Events = React.lazy(() => import('../pages/events/Events'));
@@ -54,7 +55,7 @@ const router = createBrowserRouter([
         ],
       },
       
-      { path: 'user_profile', element: '' }, 
+      { path: 'user_profile', element: <Profile/> }, 
       
       //routes for future components
       { path: 'popular', element: '' }, 
