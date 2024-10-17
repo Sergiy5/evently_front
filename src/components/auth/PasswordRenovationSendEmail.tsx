@@ -17,7 +17,7 @@ export const PasswordRenovationSendEmail: React.FC<
   PasswordRenovationSendEmailProps
 > = ({ onCloseModal }) => {
   const [emailUser, setEmailUser] = useState<string>('');
-  const [errorMessage, setErrorMessage] = useState<string | boolean>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [emailError, setEmailError] = useState(false);
 
@@ -46,21 +46,28 @@ export const PasswordRenovationSendEmail: React.FC<
     const getUser = async (email: string) => {
       console.log('DO_REQUEST!');
       try {
-        const response = await renovationPasswordByEmail(email);
-        console.log(response)
+        const {status} = await renovationPasswordByEmail(email);
+        console.log(status);
   
-        response.statusCode = response.statusСode;
-        delete response.statusСode;
+        // response.statusCode = response.statusСode;
+        // delete response.statusСode;
 
-        if (response.statusCode === 200) {
+        if (status === 200) {
           toast.success(`Email надіслано!`);
           // onCloseModal();
+        }
+        if(status === 404) {
+          setEmailError(true);
+          setErrorMessage('Такий email не існує');
+          
+        }
+        if(status === 401) {
+          setEmailError(true);
+          setErrorMessage('Цей email не підтверджено');
         }
       } catch (error) {
         console.log(error);
         //  if (error?.response.statusCode === 404) {
-           setEmailError(true);
-           setErrorMessage('Такий email не існує');
         //  };
 
       }
@@ -97,7 +104,7 @@ export const PasswordRenovationSendEmail: React.FC<
               validation={{ required: true, validate: validateEmail }}
               errors={errors}
             />
-            {(isSubmitted && errors.email?.message) || emailError ? (
+            {(isSubmitted && errors.email?.message) || errorMessage ? (
               <SharedItemStatusBar
                 valid={false}
                 text={`${errors.email?.message ?? errorMessage}`}
@@ -105,7 +112,6 @@ export const PasswordRenovationSendEmail: React.FC<
                 className={`absolute mt-[4px]`}
               />
             ) : null}
-            
           </div>
 
           <SharedBtn
