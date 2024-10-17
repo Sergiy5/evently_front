@@ -11,6 +11,7 @@ import { IRegisterFormInputsPassword, IRequiredPassword } from '@/types';
 import { statusPassword, validatePassword } from '@/utils';
 import { sendNewPassword } from '@/api/sendNewPassword';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
 
 // interface IPasswordRenovat {
 //   password: string;
@@ -34,6 +35,7 @@ export const PasswordRenovationInputPassword: React.FC<
     hasSpecialChar: false,
   });
 
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -56,6 +58,7 @@ export const PasswordRenovationInputPassword: React.FC<
       console.log(response.statusCode); 
       if (response.statusCode === 200) {
         toast.success(`Вітаю твій пароль успішно змінено!`);
+        navigate('/evently_front', { replace: true });
         setStatusAuth('login');
       }
       
