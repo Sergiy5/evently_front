@@ -49,9 +49,7 @@ export const PasswordRenovationInputPassword: React.FC<
     if (!token) return;
     try {
     const response = await sendNewPassword(password, token);
-      console.log('RESPONSE_>>>>>>>>>>>>>>>>', response.statusCode);
-      const { message } = response;
-      console.log(message)
+      console.log('RESPONSE_>>>>>>>>>>>>>>>>', response);
       response.statusCode = response.statusСode;
       delete response.statusСode;
 

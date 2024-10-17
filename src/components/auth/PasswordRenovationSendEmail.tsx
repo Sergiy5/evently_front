@@ -47,20 +47,22 @@ export const PasswordRenovationSendEmail: React.FC<
       console.log('DO_REQUEST!');
       try {
         const response = await renovationPasswordByEmail(email);
-        const { message } = response;
-        console.log(message);
+        console.log(response)
+  
         response.statusCode = response.statusСode;
         delete response.statusСode;
 
         if (response.statusCode === 200) {
           toast.success(`Email надіслано!`);
-          onCloseModal();
+          // onCloseModal();
         }
       } catch (error) {
-  setEmailError(true);
-  setErrorMessage('Такий email не існує');
-
         console.log(error);
+        //  if (error?.response.statusCode === 404) {
+           setEmailError(true);
+           setErrorMessage('Такий email не існує');
+        //  };
+
       }
     };
 
@@ -85,7 +87,7 @@ export const PasswordRenovationSendEmail: React.FC<
               autofocus
               isSubmitted={isSubmitted}
               onInput={async () => {
-                setErrorMessage(false);
+                setErrorMessage('');
                 await trigger('email'); // Trigger validation on input
               }}
               placeholder="Введіть email"
@@ -103,31 +105,7 @@ export const PasswordRenovationSendEmail: React.FC<
                 className={`absolute mt-[4px]`}
               />
             ) : null}
-            {/* {isSubmitted && errors.email?.message ? (
-              <SharedItemStatusBar
-                valid={!errors.email?.message}
-                text={`${errors.email?.message}`}
-                sizeIcon={`w-6 h-6`}
-                className={`absolute mt-[4px]`}
-              />
-            ) : (
-              errorMessage && (
-                <SharedItemStatusBar
-                  valid={false}
-                  text={errorMessage}
-                  sizeIcon={`w-6 h-6`}
-                  className={`absolute mt-[4px]`}
-                />
-              )
-            )} */}
-            {/* {isSubmitted && errorMessage && (
-              <SharedItemStatusBar
-                valid={false}
-                text={errorMessage}
-                sizeIcon={`w-6 h-6`}
-                className={`absolute mt-[4px]`}
-              />
-            )} */}
+            
           </div>
 
           <SharedBtn

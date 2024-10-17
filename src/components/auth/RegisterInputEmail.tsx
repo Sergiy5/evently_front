@@ -53,7 +53,7 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
 
         if (response.emailExist === true) {
           setEmailError(true);
-          setErrorMessage('Такий імейл вже існує');
+          setErrorMessage('Такий email вже існує');
         }
 
         if (response.emailExist === false) {
