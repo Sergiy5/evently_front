@@ -113,7 +113,7 @@ export const Auth: React.FC<AuthProps> = ({
           <RegisterConfirmEmail setStatusAuth={handleStatusAuth} />
         )}
         {statusAuth === 'password_renovation' && (
-          <PasswordRenovationSendEmail onCloseModal={handleCloseModal} />
+          <PasswordRenovationSendEmail />
         )}
         {statusAuth === 'password_renovation_on_input' && (
           <PasswordRenovationInputPassword

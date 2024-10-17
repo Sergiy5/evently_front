@@ -28,16 +28,16 @@ export const Login: React.FC<LoginProps> = ({
   onCloseModal,
   setStatusAuth,
 }) => {
-  const [userData, setUserData] = useState({
-    email: '',
-    password: '',
-    rememberMe: false,
-  });
   const [emailLoginError, setEmailLoginError] = useState(false);
   const [passwordLoginError, setPasswordLoginError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isBluredNameInput, setIsBluredNameInput] = useState('');
+  const [userData, setUserData] = useState({
+    email: '',
+    password: '',
+    rememberMe: false,
+  });
 
   const dispatch = useAppDispatch();
 
@@ -60,29 +60,26 @@ export const Login: React.FC<LoginProps> = ({
       const { payload } = await dispatch(
         logIn({ email, password, rememberMe })
       );
-      const { userName, statusCode, message } = payload;
-console.log('payload_>>>>>>>>>>>>', payload);
-      if (statusCode === 400 && userName === null) {
+      const { userName, status, message } = payload;
+
+      if (status === 400 && userName === null) {
         setEmailLoginError(true);
         setErrorMessage('Акаунт з таким імейлом не знайдено');
       }
-      if (statusCode === 400 && message === 'Wrong password') {
-        console.log('PASSWORD_ERROR');
+      if (status === 400 && message === 'Wrong password') {
         setPasswordLoginError(true);
         setErrorMessage('Невірний пароль');
       }
-      if (statusCode === 401) {
+      if (status === 401) {
         setEmailLoginError(true);
         setErrorMessage('Імейл не підтверджено');
       }
-      if (statusCode === 200) {
-        // setIsUserLoggedIn(true);
+      if (status === 200) {
         toast.success(`Вітаю ${userName}!`);
         onCloseModal();
       }
     } catch (error) {
       console.error(error);
-      // toast.error(`Помилка ${error}`);
     }
   };
 
@@ -104,10 +101,6 @@ console.log('payload_>>>>>>>>>>>>', payload);
       rememberMe: !prevState.rememberMe,
     }));
   };
-  // console.log('emailLoginError', emailLoginError);
-  // console.log('isSubmitted', isSubmitted);
-  // console.log("isBluredNameInput === 'email'", isBluredNameInput === 'email');
-  // console.log('errors.email', errors.email);
 
   return (
     <>

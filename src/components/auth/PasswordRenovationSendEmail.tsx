@@ -4,14 +4,9 @@ import { SharedBtn, SharedInput, SharedItemStatusBar } from '../ui';
 import { useEffect, useState } from 'react';
 import { validateEmail } from '@/utils';
 import { renovationPasswordByEmail } from '@/api/renovationPasswordByEmail';
-import { toast } from 'react-toastify';
 
-interface PasswordRenovationSendEmailProps {
-  onCloseModal: () => void;
-}
-export const PasswordRenovationSendEmail: React.FC<
-  PasswordRenovationSendEmailProps
-> = ({ onCloseModal }) => {
+
+export const PasswordRenovationSendEmail: React.FC = () => {
   const [emailUser, setEmailUser] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -44,9 +39,7 @@ export const PasswordRenovationSendEmail: React.FC<
         console.log(status);
 
         if (status === 200) {
-          // toast.success(`Email надіслано!`);
           setIsEmailSent(true);
-          // onCloseModal();
         }
         if (status === 404) {
           setErrorMessage('Такий email не існує');

@@ -50,16 +50,15 @@ export const PasswordRenovationInputPassword: React.FC<
     const { password } = data;
     if (!token) return;
     try {
-    const response = await sendNewPassword(password, token);
-      console.log('RESPONSE_>>>>>>>>>>>>>>>>', response);
-      response.statusCode = response.statusСode;
-      delete response.statusСode;
-
-      console.log(response.statusCode); 
-      if (response.statusCode === 200) {
+    const {status} = await sendNewPassword(password, token);
+      if (status === 200) {
         toast.success(`Вітаю твій пароль успішно змінено!`);
         navigate('/evently_front', { replace: true });
         setStatusAuth('login');
+      }
+      if (status === 400) {
+        toast.error(`Пароль має відрізнятись від поточного!`);
+        
       }
       
     } catch (error) {
