@@ -63,7 +63,7 @@ export const PasswordRenovationInputPassword: React.FC<
       }
       
     } catch (error) {
-      toast.error("Токен недійсний, повторіть спробу з email!");
+      toast.error("Термін токену вичерпано, повторіть спробу з email!");
       console.log(error);
     }
   };
