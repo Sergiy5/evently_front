@@ -9,8 +9,8 @@ import { useLocation, useNavigate } from 'react-router';
 import CustomSelect from '@/components/ui/CustomSelect';
 
 import { BsSearch } from 'react-icons/bs';
-import { AiOutlineHeart } from "react-icons/ai";
-import { RxCross2 } from "react-icons/rx";
+import { AiOutlineHeart } from 'react-icons/ai';
+import { RxCross2 } from 'react-icons/rx';
 
 import { CgProfile } from 'react-icons/cg';
 import MainLogo from '../ui/Logo';
@@ -29,9 +29,9 @@ export const Header: React.FC<HeaderProps> = () => {
   const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
   const [activeLink, setActiveLink] = useState<string | null>(null);
   const [isInputVisible, setIsInputVisible] = useState(false);
-   const [resetPasswordByToken, setResetPasswordByToken] = useState<
-     string | null
-   >(null);
+  const [resetPasswordByToken, setResetPasswordByToken] = useState<
+    string | null
+  >(null);
   const inputRef = useRef<HTMLDivElement>(null);
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -83,6 +83,9 @@ export const Header: React.FC<HeaderProps> = () => {
       setResetPasswordByToken(token);
       setIsModalOpen(true);
     }
+    return () => {
+      setResetPasswordByToken(null);
+    };
   }, [location]);
 
   // Function to toggle modal
@@ -112,15 +115,15 @@ export const Header: React.FC<HeaderProps> = () => {
               <MainLogo />
             </div>
             <div className="flex pl-12 pr-24 gap-8 items-center">
-              <CustomSelect  
-                  changeLink={handleLinkClick}
-                  options={eventOptions}
-                  label='Події'
-                  replaceLabelOnSelect={false}
-                  className={`hover:font-bold `}
-                  dropdownWidth="178px"
-                  buttonWidth="62px" 
-                  />
+              <CustomSelect
+                changeLink={handleLinkClick}
+                options={eventOptions}
+                label="Події"
+                replaceLabelOnSelect={false}
+                className={`hover:font-bold `}
+                dropdownWidth="178px"
+                buttonWidth="62px"
+              />
               <nav className="flex p-right-20px gap-8">
                 <Link
                   to="/evently_front/popular"

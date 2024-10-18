@@ -59,12 +59,12 @@ export const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
     }
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
-
   const modalRoot = document.getElementById('portal-root');
-
-  if (!modalRoot) return null;
-
+  
+  if ((!isOpen && !isOpenModal) || !modalRoot) {
+    return null;
+  };
+  
   return createPortal(
     <div
       className={clsx(`fixed inset-0 z-50 flex items-center justify-center`)}
