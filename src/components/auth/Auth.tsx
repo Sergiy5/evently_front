@@ -22,6 +22,7 @@ export const Auth: React.FC<AuthProps> = ({
   isEmailConfirmed,
   resetPasswordByToken,
 }) => {
+  const [token, setToken] = useState(resetPasswordByToken);
   const [userData, setUserData] = useState({
     name: '',
     email: '',
@@ -55,13 +56,15 @@ export const Auth: React.FC<AuthProps> = ({
   };
 
   useEffect(() => {
-    if (isEmailConfirmed) {
-      setStatusAuth('login');
-    }
     if (resetPasswordByToken) {
       setStatusAuth('password_renovation_on_input');
     }
-  }, [isEmailConfirmed, resetPasswordByToken]);
+  },[])
+  useEffect(() => {
+    if (isEmailConfirmed) {
+      setStatusAuth('login');
+    }
+  }, [isEmailConfirmed]);
 
   useEffect(() => {
     if (!userData.email || !userData.password || !userData.name) return;
@@ -117,7 +120,7 @@ export const Auth: React.FC<AuthProps> = ({
         )}
         {statusAuth === 'password_renovation_on_input' && (
           <PasswordRenovationInputPassword
-            token={resetPasswordByToken}
+            token={token}
             setStatusAuth={handleStatusAuth}
           />
         )}

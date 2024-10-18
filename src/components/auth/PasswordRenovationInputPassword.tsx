@@ -13,11 +13,6 @@ import { sendNewPassword } from '@/api/sendNewPassword';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 
-// interface IPasswordRenovat {
-//   password: string;
-//   confirmPassword: string;
-// }
-
 interface PasswordRenovationInputPasswordProps {
   token: string | null;
   setStatusAuth: (status: 'login' | 'password_renovation_on_input') => void;
@@ -47,26 +42,27 @@ export const PasswordRenovationInputPassword: React.FC<
     mode: 'onChange',
   });
 
-useEffect(() => {
+  useEffect(() => {
     navigate('/evently_front', { replace: true });
-  },[]);
+  }, []);
 
   const onSubmit = async (data: IRegisterFormInputsPassword) => {
     const { password } = data;
+
     if (!token) return;
+
     try {
-    const {status} = await sendNewPassword(password, token);
+      const { status } = await sendNewPassword(password, token);
+
       if (status === 200) {
         toast.success(`Вітаю твій пароль успішно змінено!`);
         setStatusAuth('login');
       }
       if (status === 400) {
         toast.error(`Пароль має відрізнятись від поточного!`);
-        
       }
-      
     } catch (error) {
-      toast.error("Термін токену вичерпано, повторіть спробу з email!");
+      toast.error('Термін токену вичерпано, повторіть спробу!');
       console.log(error);
     }
   };
@@ -80,9 +76,8 @@ useEffect(() => {
 
   // Error handling on blur
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    // setErrorMessage('');
     const { name } = e.target;
-   
+
     if (name === 'confirmPassword') {
       trigger('confirmPassword');
     }

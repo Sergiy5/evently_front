@@ -29,9 +29,7 @@ export const Header: React.FC<HeaderProps> = () => {
   const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
   const [activeLink, setActiveLink] = useState<string | null>(null);
   const [isInputVisible, setIsInputVisible] = useState(false);
-  const [resetPasswordByToken, setResetPasswordByToken] = useState<
-    string | null
-  >(null);
+  const [token, setToken] = useState<string | null>(null);
   const inputRef = useRef<HTMLDivElement>(null);
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -80,11 +78,12 @@ export const Header: React.FC<HeaderProps> = () => {
     }
     if (params.get('token')) {
       const token = params.get('token');
-      setResetPasswordByToken(token);
+      setToken(token);
       setIsModalOpen(true);
     }
+
     return () => {
-      setResetPasswordByToken(null);
+      setToken(null);
     };
   }, [location]);
 
@@ -205,7 +204,7 @@ export const Header: React.FC<HeaderProps> = () => {
                 <Auth
                   onCloseModal={handleTogleModal}
                   isEmailConfirmed={isEmailConfirmed}
-                  resetPasswordByToken={resetPasswordByToken}
+                  resetPasswordByToken={token}
                 />
               </Modal>
               <div>UA</div>

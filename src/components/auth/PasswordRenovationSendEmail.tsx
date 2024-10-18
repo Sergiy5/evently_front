@@ -33,10 +33,9 @@ export const PasswordRenovationSendEmail: React.FC = () => {
   useEffect(() => {
     if (!emailUser) return;
     const getUser = async (email: string) => {
-      console.log('DO_REQUEST!');
+      
       try {
         const { status } = await renovationPasswordByEmail(email);
-        console.log(status);
 
         if (status === 200) {
           setIsEmailSent(true);
