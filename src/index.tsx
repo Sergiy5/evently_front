@@ -6,10 +6,11 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './main.css';
+import './i18next/index.ts';
 import App from './App';
 import { store, persistor } from './redux/store';
 
-const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
+const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
