@@ -37,6 +37,6 @@
     "@typescript-eslint/ban-ts-comment": ["off", { "ts-ignore": true }] // Was add on fix image import error
   },
   "skipLibCheck": true, // Was add on fix image import error
-  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts", "vite-env.d.ts", "custom.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts", "vite-env.d.ts", "custom.d.ts", "src/**/*.json"],
   "exclude": ["node_modules", "build", "dist", "public"]
 }

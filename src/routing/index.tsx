@@ -3,7 +3,6 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import Home from '@/pages/Home';
 import { Layout } from '@/components/layout/Layout';
-import { ProfileTabLayout } from '@/components/layout/ProfileTabLayout';
 import { loader as eventsLoader } from '../pages/events/Events';
 import { loader as eventLoader } from '../pages/events/Event';
 import { action as editEventAction } from '@/pages/events/EventEdit';
@@ -16,6 +15,7 @@ import AdminEvents from '@/pages/admin/AdminEvents';
 import PromoEvents from '@/pages/admin/PromoEvents';
 import Notifications from '@/pages/admin/Notification';
 import AdminRouter from './privateRouters/AdminRouter';
+import LoginRouter from './privateRouters/LoginRouter';
 
 const NotFound = React.lazy(() => import('../pages/NotFoundPage'));
 const Events = React.lazy(() => import('../pages/events/Events'));
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
           editEventAction(request, params.idEvent),
       },
       {
-        element: <ProfileTabLayout />,
+        element: <LoginRouter />,
         children: [
           { path: 'user_profile', element: <Profile /> },
           { path: 'favourite', element: <Favourite /> },
