@@ -73,11 +73,11 @@ export const Auth: React.FC<AuthProps> = ({
       try {
         const result = await dispatch(registerUser(userData as IRegisterUser));
 
-        console.log('RESULT_REGISTER_>>>', result);
+        // console.log('RESULT_REGISTER_>>>', result);
 
         if (result.payload.status === 'error') throw new Error();
 
-        toast.success(`Вітаю! ${result.meta.arg.name}`);
+        toast.success(`Вітаю! ${result.meta.arg.name}. Реєстрація успішна!`);
       } catch (error) {
         console.error(error);
       } finally {
