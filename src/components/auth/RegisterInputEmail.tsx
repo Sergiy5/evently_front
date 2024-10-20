@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { validateEmail } from '@/utils';
 import {
@@ -9,7 +10,6 @@ import {
 import { SharedBtn } from '../ui/SharedBtn';
 import { IRegisterFormInputEmail, IRegisterUser } from '@/types';
 import { getUserByEmail } from '@/api/getUserByEmail';
-import { useEffect, useState } from 'react';
 
 interface RegisterInputEmailProps {
   setUserData: React.Dispatch<React.SetStateAction<IRegisterUser>>;
