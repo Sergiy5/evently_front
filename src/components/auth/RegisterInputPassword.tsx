@@ -74,7 +74,7 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
     }
     setIsBluredNameInput(name);
   };
-
+  console.log("Error_Password_>>>>>>>>>>>>",errors.password);
   return (
     <>
       <h1 className={`mb-8`}>Створити акаунт</h1>
