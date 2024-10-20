@@ -1,0 +1,13 @@
+{
+  "tabs": [
+    "My Profile",
+    "Saved",
+    "My Events",
+    "Administration",
+    "Users",
+    "Events",
+    "Promotional events",
+    "Notifications"
+  ],
+  "logout": "Logout"
+}

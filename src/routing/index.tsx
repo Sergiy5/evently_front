@@ -7,10 +7,15 @@ import { loader as eventsLoader } from '../pages/events/Events';
 import { loader as eventLoader } from '../pages/events/Event';
 import { action as editEventAction } from '@/pages/events/EventEdit';
 import EventEdit from '@/pages/events/EventEdit';
-import AdminUsers, {
-  loader as AdminUserLoader,
-} from '@/pages/admin/AdminUsers';
+import AdminUsers from '@/pages/admin/AdminUsers';
 import Profile from '@/components/profile/profile';
+import Favourite from '@/pages/Favourite';
+import MyEvent from '@/pages/MyEvent';
+import AdminEvents from '@/pages/admin/AdminEvents';
+import PromoEvents from '@/pages/admin/PromoEvents';
+import Notifications from '@/pages/admin/Notification';
+import AdminRouter from './privateRouters/AdminRouter';
+import LoginRouter from './privateRouters/LoginRouter';
 
 const NotFound = React.lazy(() => import('../pages/NotFoundPage'));
 const Events = React.lazy(() => import('../pages/events/Events'));
@@ -45,25 +50,36 @@ const router = createBrowserRouter([
         action: ({ request, params }) =>
           editEventAction(request, params.idEvent),
       },
-
-      // Later add privat router
       {
-        path: 'admin',
+        element: <LoginRouter />,
         children: [
-          { path: 'users', element: <AdminUsers />, loader: AdminUserLoader },
-          { path: 'events' },
+          { path: 'user_profile', element: <Profile /> },
+          { path: 'favourite', element: <Favourite /> },
+          { path: 'my-event', element: <MyEvent /> },
+          {
+            path: 'admin',
+            element: <AdminRouter />,
+            children: [
+              {
+                path: 'users',
+                element: <AdminUsers />,
+              },
+              { path: 'events', element: <AdminEvents /> },
+              { path: 'promo-events', element: <PromoEvents /> },
+              { path: 'notifications', element: <Notifications /> },
+            ],
+          },
         ],
       },
-      
-      { path: 'user_profile', element: <Profile/> }, 
-      
-      //routes for future components
-      { path: 'popular', element: '' }, 
-      { path: 'organizers', element: '' }, 
-      { path: 'about', element: '' }, 
-      { path: 'favourite', element: '' }, 
 
-      { path: 'all_events', element: ''},
+      // Later add privat router
+
+      //routes for future components
+      { path: 'popular', element: '' },
+      { path: 'organizers', element: '' },
+      { path: 'about', element: '' },
+
+      { path: 'all_events', element: '' },
       { path: 'nearby', element: '' },
       { path: 'concerts', element: '' },
       { path: 'workshop', element: '' },
