@@ -1,7 +1,6 @@
 import { SharedBtn } from './SharedBtn';
 import { PiHeartLight } from 'react-icons/pi';
 import { PiHeartFill } from 'react-icons/pi';
-import events from '@/assets/fakeData/events';
 import { useState } from 'react';
 
 interface EventCardProps {
@@ -9,12 +8,11 @@ interface EventCardProps {
 }
 export const EventCard: React.FC<EventCardProps> = ({ event }) => {
   const [isCheked, setIsCheked] = useState(false);
-
+  const handleCheck=()=>{
+      setIsCheked(!isCheked)
+  }
   // console.log("EVENTS_>>>>", events)
 
-  // if (events.length) {
-  //   events.map(event => <h2>{event.name}</h2>)
-  // }
   return (
     <div
       className={`group relative flex overflow-hidden items-start bg-[url('public/images/CardImage.webp')]
@@ -27,7 +25,11 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
         >
           <p className={`text-white font-light text-base`}>Майстер клас</p>
         </div>
-        <button type="button" onClick={() => setIsCheked}>
+        <button
+          type="button"
+          onClick={() => handleCheck()}
+          className={`focus:outline-none`}
+        >
           {isCheked ? (
             <PiHeartFill className={`w-6 h-6 text-lightPink`} />
           ) : (
@@ -43,10 +45,9 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
           <li>18 вересня 17:00</li>
           <li>Від 500 грн</li>
         </ul>
-        <div className='flex flex-col items-center gap-8 h-[91px]'>
-
-        <h2>Свічки власноруч</h2>
-        <p>Київ, вул. Космонавтів 40</p>
+        <div className="flex flex-col items-center gap-8 h-[91px]">
+          <h2>Свічки власноруч</h2>
+          <p>Київ, вул. Космонавтів 40</p>
         </div>
         <SharedBtn type="button" primary className="w-[287px]">
           Хочу

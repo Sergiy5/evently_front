@@ -10,7 +10,7 @@ export const Main: React.FC<MainProps> = ({ children, className }) => {
     <main
       className={`relative flex flex-col gap-16 pt-[60px] max-w-[1440px] ${className}`}
     >
-      {children}
+      <div className="relative z-20">{children}</div>
       <MainLines />
     </main>
   );

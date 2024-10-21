@@ -1,4 +1,4 @@
- const events = [
+ export const events = [
   {
     id: 1,
     rating: 10,
