@@ -5,11 +5,11 @@ import { MainLines } from '../main/MainLines';
 
 export const ProfileTabLayout = () => {
   return (
-    <main className="flex gap-[25px] relative p-[72px_79px]">
+    <main className="flex gap-[25px] relative p-[72px_79px] ">
       <MainLines />
       <ProfileTab />
 
-      <section >
+      <section className="rounded-[20px] bg-lightPurple py-4 px-8 w-full h-max">
         <Suspense fallback={<div>Loading...</div>}>
           <Outlet />
         </Suspense>

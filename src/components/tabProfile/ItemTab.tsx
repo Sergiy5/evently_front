@@ -26,7 +26,7 @@ const ItemTab: React.FC<IProps> = ({ item, title, openTab, isOpen }) => {
         onClick={isAdmin ? () => openTab() : () => {}}
         className={({ isActive }) =>
           clsx(
-            'w-full pt-[11px] pb-[10px] pl-7 flex gap-2 rounded-[15px] border border-transparent hover:border-buttonPurple',
+            'w-full pt-[11px] pb-[10px] pl-7 flex gap-2 rounded-[15px] border border-transparent mb-[3px] hover:border-buttonPurple',
             {
               'bg-buttonPurple text-background': isActive && !isAdmin,
               'text-textDark': !isActive,
