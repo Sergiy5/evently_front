@@ -18,13 +18,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
       className={`group relative flex overflow-hidden items-start bg-[url('public/images/CardImage.webp')]
          rounded-[20px] bg-no-repeat w-[311px] h-[483px]`}
     >
-      <div className={`flex justify-between p-6 w-full `}>
-        <div
-          className={`flex items-center justify-center w-32 h-8 rounded-[20px]
-                 border-[2px] border-white bg-white bg-opacity-30`}
-        >
-          <p className={`text-white font-light text-base`}>Майстер клас</p>
-        </div>
+      <div className={`flex justify-end p-6 w-full `}>
         <button
           type="button"
           onClick={() => handleCheck()}
@@ -38,9 +32,16 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
         </button>
       </div>
       <div
-        className={`absolute flex flex-col items-center gap-6 -bottom-[122px] w-full pt-8 pb-6 px-3 h-[315px]
-             rounded-t-[20px] bg-hoverCard transition-all ease-in-out duration-300 group-hover:bottom-0`}
+        className={`absolute flex flex-col items-start gap-6 -bottom-[122px] w-full pt-8 pb-6 px-3 h-[315px]
+          rounded-t-[20px] bg-hoverCard transition-all ease-in-out duration-300 group-hover:bottom-0`}
       >
+        <div
+          className={`flex items-center justify-center px-4 py- h-8 rounded-[20px]
+                 border-[2px] border-borderColor bg-bg-gradient`}
+        >
+          <p className={`font-normal text-xl text-textDark`}>Майстер клас</p>
+        </div>
+        <h3></h3>
         <ul className={`flex font-bold justify-between w-full`}>
           <li>18 вересня 17:00</li>
           <li>Від 500 грн</li>

@@ -23,6 +23,7 @@ export default {
         lightPink: '#FFD6F7',
         buttonPurple: '#9B8FF3',
         hoverCard: '#F4F3FF',
+        borderColor: '#00CED1',
 
         //Neutral color
         background: '#F8FBFF',
@@ -53,7 +54,7 @@ export default {
         fontFamily: {
           sans: ['Open Sans', 'sans-serif'],
           serif: ['Merriweather', 'serif'],
-          lato:['LatoRegular']
+          lato: ['LatoRegular'],
         },
         fontSize: {
           xs: '12px',
@@ -62,6 +63,9 @@ export default {
           lg: '18px',
           xl: '20px',
         },
+      },
+      backgroundImage: {
+        'bg-gradient': 'linear-gradient(123.03deg, #E9E6FF 100%, #D5FEFF 100%)',
       },
     },
   },

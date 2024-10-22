@@ -1,8 +1,9 @@
 import { Main } from '@/components/main/Main';
-import { Container } from '@/components/container/Container';
 import { TopEvents } from '@/components/topEvents/TopEvents';
 import { AllEvents } from '@/components/allEvents/AllEvents';
 import { Hero } from '@/components/hero/Hero';
+import { Organizers } from '@/components/organizers/Organizers';
+import { FAQ } from '@/components/faq/FAQ';
 
 const Home: React.FC = () => {
   return (
@@ -10,9 +11,8 @@ const Home: React.FC = () => {
       <Hero />
       <TopEvents events={4} />
       <AllEvents />
-      <Container>
-        <div className="h-auto"></div>
-      </Container>
+      <Organizers />
+      <FAQ />
     </Main>
   );
 };

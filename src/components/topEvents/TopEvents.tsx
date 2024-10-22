@@ -1,10 +1,9 @@
-import { Container } from '@/components/container/Container';
 import { EventCard } from '../ui';
 import { Settings } from 'react-slick';
 import { MySliderBtn } from '../ui/MySliderBtn';
 import { MySlider } from '../ui/MySlider';
 import {events} from '@/assets/fakeData/events';
-import { useEffect } from 'react';
+import { Container } from '../container/Container';
 
 interface TopEvents {
   events: number;
@@ -17,7 +16,7 @@ export const TopEvents: React.FC<TopEvents> = ({ }) => {
   
   const settings: Settings = {
     pauseOnHover: true,
-    slidesToShow: 4.1,
+    slidesToShow: 4.25,
     slidesToScroll: 4,
     infinite: false,
     nextArrow: <MySliderBtn />,
@@ -54,7 +53,9 @@ export const TopEvents: React.FC<TopEvents> = ({ }) => {
   return (
 
     <div className={`flex flex-col gap-8`}>
+      <Container>
       <h1>Топ подій</h1>
+      </Container>
       <MySlider
         arraySlides={events}
         SlideComponent={EventCard}
