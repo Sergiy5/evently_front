@@ -3,6 +3,7 @@ import { Container } from "../container/Container";
 // import { FilterDate } from "../filters/FilterDate";
 // import { FilterTypeEvent } from "../filters/FilterTypeEvent";
 import { ListEvents } from "../listEvents/ListEvents";
+import { events } from "@/assets/fakeData/events";
 
 interface AllEventsprops {}
 export const AllEvents: React.FC<AllEventsprops> = () => {
@@ -15,7 +16,7 @@ export const AllEvents: React.FC<AllEventsprops> = () => {
         {/* <FilterDate /> */}
         {/* <FilterTypeEvent setEvents={() => setEvt} /> */}
         </div>
-        <ListEvents events={12} />
+        <ListEvents events={events} />
       </Container>
     );
 };

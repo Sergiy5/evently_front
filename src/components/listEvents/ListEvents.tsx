@@ -1,19 +1,18 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { EventCard } from '../ui';
+import { IEvent } from "@/types/components";
 interface ListEventsProps {
-  events: number;
+  events: IEvent[];
 }
 export const ListEvents: React.FC<ListEventsProps> = ({ events }) => {
-  const arrayEvents = [...Array(events)];
+  console.log(events);
+
 
   return (
-    <div className={`flex flex-wrap justify-between gap-6 w-full h-auto`}>
-      {arrayEvents.map(() => (
-       <div key={nanoid()}>
-           <EventCard event={{}} />
-              
-       </div>
+    <ul className={`flex flex-wrap justify-between gap-6 w-full h-auto`}>
+      {events.map(event => (
+          <EventCard key={nanoid()} event={ event } />
       ))}
-    </div>
+    </ul>
   );
 };

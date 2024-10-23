@@ -36,8 +36,8 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
       </div>
       <div
         className={`absolute flex flex-col items-start gap-2 justify-between w-full py-4 px-5 h-[365px]
-          rounded-t-[20px] bg-hoverCard transition-all ease-in-out duration-300 -bottom-[100px]
-          ${status === 'top' ? 'group-hover:bottom-5' : 'group-hover:bottom-0'}
+          rounded-t-[20px] bg-hoverCard transition-all ease-in-out duration-300 -bottom-[101px]
+          ${status === 'top' ? 'group-hover:-bottom-10' : 'group-hover:bottom-0'}
           `}
       >
         <div
@@ -53,7 +53,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
           className={`flex flex-col gap-[18px] font-normal text-md text-textDark justify-between w-full`}
         >
           <li>{`${date?.day}, ${date?.time}`}</li>
-          <li>{location?.city }</li>
+          <li>{location?.city}</li>
           <li>{`Від ${price} грн`}</li>
         </ul>
 
