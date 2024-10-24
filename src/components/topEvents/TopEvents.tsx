@@ -14,6 +14,7 @@ export const TopEvents: React.FC<TopEvents> = ({ }) => {
     pauseOnHover: true,
     slidesToShow: 4.25,
     slidesToScroll: 4,
+    speed: 2000,
     infinite: false,
     nextArrow: <MySliderBtn next_style={true} />,
     prevArrow: <MySliderBtn />,
