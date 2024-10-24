@@ -30,6 +30,10 @@ const AdminUsers = () => {
     handleGetUsers();
   }, []);
 
+  const handleChangeData = (data: User[]) => {
+    setUsers(data);
+  };
+
   return (
     <main className="bg-lightPurple">
       <button
@@ -40,13 +44,7 @@ const AdminUsers = () => {
         {t('refresh')}
       </button>
       <div>
-        <AdminTable cols={cols} data={users}>
-          <tbody>
-            {users.slice(0, 20).map((item, index) => (
-              <UserCard item={item} index={index}/>
-            ))}
-          </tbody>
-        </AdminTable>
+        <AdminTable cols={cols} data={users} setUsers={handleChangeData}></AdminTable>
       </div>
     </main>
   );

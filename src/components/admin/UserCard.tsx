@@ -2,6 +2,7 @@ import React from 'react';
 
 import { User } from '@/pages/admin/AdminUsers';
 import { BiEditAlt } from 'react-icons/bi';
+import CellItem from './CellTable';
 
 interface IProps {
   item: User;
@@ -11,24 +12,18 @@ interface IProps {
 const UserCard: React.FC<IProps> = ({ item, index }) => {
   return (
     <tr key={item.email} className="">
-      <td className="bg-background border border-buttonPurple text-textDark text-xs p-[10px_12px] align-text-top text-nowrap">
-        {index + 1}. <span className="underline">{item.name}</span>
-      </td>
-      <td className="bg-background border border-buttonPurple text-textDark text-xs p-[10px_12px] align-text-top text-nowrap">
-        {item.phone}
-      </td>
-      <td className="bg-background border border-buttonPurple text-textDark text-xs p-[10px_12px] align-text-top text-nowrap">
-        {item.email}
-      </td>
-      <td className="bg-background border border-buttonPurple text-textDark text-xs p-[10px_12px] align-text-top text-nowrap">
-        {item.date}
-      </td>
-      <td className="bg-background border border-buttonPurple text-textDark text-xs p-[10px_12px] align-text-top text-nowrap">
-        {item.role}
-      </td>
-      <td className="bg-background border border-buttonPurple text-textDark text-xs p-[10px_12px]">
-        <BiEditAlt className='w-6 h-6 mx-auto'/>
-      </td>
+      <CellItem>
+        <>
+          {index + 1}. <span className="underline">{item.name}</span>
+        </>
+      </CellItem>
+      <CellItem>{item.phone}</CellItem>
+      <CellItem>{item.email}</CellItem>
+      <CellItem>{item.date.slice(0, 10)}</CellItem>
+      <CellItem classes='text-center'>{item.role}</CellItem>
+      <CellItem>
+        <BiEditAlt className="w-6 h-6 mx-auto" />
+      </CellItem>
     </tr>
   );
 };
