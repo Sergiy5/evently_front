@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { User } from '@/pages/admin/AdminUsers';
 import UserCard from './UserCard';
 import { BsFilter } from 'react-icons/bs';
+import { nanoid } from '@reduxjs/toolkit';
 
 interface IProps {
   cols: string[];
@@ -83,7 +84,7 @@ const AdminTable: React.FC<IProps> = ({ cols, data }) => {
       </thead>
       <tbody>
         {sortedData.slice(0, 20).map((item, index) => (
-          <UserCard item={item} index={index} />
+          <UserCard key={nanoid()} item={item} index={index} />
         ))}
       </tbody>
     </table>

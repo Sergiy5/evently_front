@@ -22,11 +22,10 @@ const [currentSlide, setCurrentSlide] = useState(0);
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 10000,
     arrows: false,
     pauseOnHover: true,
     customPaging: (i: number) => {
-      // console.log(i);
       return (
         <div
           className={`rounded-full absolute
@@ -38,7 +37,6 @@ const [currentSlide, setCurrentSlide] = useState(0);
     dotsClass: 'slick-dots custom-dots',
     afterChange: (currentSlide: number) => {
       setCurrentSlide(currentSlide);
-      console.log(currentSlide)
       
     }
   };
