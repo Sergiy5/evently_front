@@ -1,8 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
-// import ArrowIcon from "../../../../public/icons/arrow.svg";
-// import { MySliderBtnProps } from "@/typification";
 
 export interface CustomArrowProps {
   className?: string | undefined;
@@ -13,19 +11,20 @@ export interface CustomArrowProps {
 }
 
 export interface MySliderBtnProps extends CustomArrowProps {
-  prev_style?: boolean;
+  next_style?: boolean;
 }
 
 export const MySliderBtn: React.FC<MySliderBtnProps> = ({
   currentSlide = 0,
   slideCount = 0,
-  prev_style,
+  next_style,
   ...props
 }): React.JSX.Element => {
-  const isActiveNext = currentSlide > 16 - 5;
+
+  const isActiveNext = currentSlide > slideCount - 5;
   const isActivePrev = currentSlide === 0;
 
-  const isActive = prev_style ? isActivePrev : isActiveNext;
+  const isActive = next_style ? isActiveNext : isActivePrev;
 
   return (
     <button
@@ -35,8 +34,8 @@ export const MySliderBtn: React.FC<MySliderBtnProps> = ({
         `absolute  -top-20 flex items-center justify-center w-10 h-10 rounded-full 
          focus:outline-none transition-colors transition-outline duration-250 ease-[cubic-bezier(0.4,0,0.2,1)] z-10`,
         {
-          'cursor-default': isActive,
-          'cursor-pointer': !isActive,
+          'cursor-default': !isActive,
+          'cursor-pointer': isActive,
           [`${
             !isActive
               ? 'text-background bg-borderColor '
@@ -49,11 +48,11 @@ export const MySliderBtn: React.FC<MySliderBtnProps> = ({
           //   !isActive,
           // 'focus:outline-2': !isActive,
         },
-        prev_style ? 'right-16' : 'left-[1277px]'
+        next_style ? 'right-16' : 'left-[1277px]'
       )}
     >
       <MdKeyboardArrowLeft
-        className={`ml-auto mr-auto text-inherit w-6 h-6 ${prev_style && 'rotate-180'}`}
+        className={`ml-auto mr-auto text-inherit w-6 h-6 ${next_style && 'rotate-180'}`}
       />
     </button>
   );

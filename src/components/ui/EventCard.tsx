@@ -28,9 +28,9 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
           className={`focus:outline-none`}
         >
           {isCheked ? (
-            <PiHeartFill className={`w-6 h-6 text-lightPink`} />
+            <PiHeartFill className={`w-6 h-6 text-borderColor`} />
           ) : (
-            <PiHeartLight className="w-6 h-6 text-lightPink" />
+            <PiHeartLight className="w-6 h-6 text-background" />
           )}
         </button>
       </div>

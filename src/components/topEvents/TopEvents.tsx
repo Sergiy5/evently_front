@@ -15,14 +15,12 @@ export const TopEvents: React.FC<TopEvents> = ({ }) => {
     slidesToShow: 4.25,
     slidesToScroll: 4,
     infinite: false,
-    nextArrow: <MySliderBtn prev_style={true} />,
+    nextArrow: <MySliderBtn next_style={true} />,
     prevArrow: <MySliderBtn />,
     arrows: true,
     pauseOnFocus: true,
     initialSlide: 0,
     lazyLoad: 'ondemand',
-    // centerMode: true,
-    // centerPadding: '2%',
     responsive: [
       {
         breakpoint: 1024,
