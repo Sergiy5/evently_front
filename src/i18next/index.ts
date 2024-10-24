@@ -5,13 +5,17 @@ import { LOCALS } from './constants';
 
 import tabProfileUA from './locales/ua/tabProfile.json';
 import tabProfileEN from './locales/en/tabProfile.json';
+import adminUserUA from './locales/ua/adminUser.json';
+import adminUserEN from './locales/en/adminUser.json';
 
 const resources = {
   [LOCALS.UA]: {
     tabProfile: tabProfileUA,
+    adminUser: adminUserUA,
   },
   [LOCALS.EN]: {
     tabProfile: tabProfileEN,
+    adminUser: adminUserEN,
   },
 };
 

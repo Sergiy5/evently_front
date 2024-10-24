@@ -6,8 +6,7 @@ import { Navigate } from 'react-router';
 const LoginRouter = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  //   return isLoggedIn ? <ProfileTabLayout /> : <Navigate to="" />;
-  return isLoggedIn ? <ProfileTabLayout /> : <ProfileTabLayout />;
+  return isLoggedIn ? <ProfileTabLayout /> : <Navigate to="/evently_front" />;
 };
 
 export default LoginRouter;

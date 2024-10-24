@@ -1,35 +1,30 @@
-import { deleteUser } from '@/utils/adminHttp';
 import React from 'react';
-import { useNavigate } from 'react-router';
+
+import { User } from '@/pages/admin/AdminUsers';
+import { BiEditAlt } from 'react-icons/bi';
+import CellItem from './CellTable';
 
 interface IProps {
-  user: User;
+  item: User;
+  index: number;
 }
 
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  avatar: string;
-}
-
-const UserCard: React.FC<IProps> = ({ user }) => {
-  const navigate = useNavigate();
-
-  const handleDeleteUser = async () => {
-    const data = await deleteUser(user.id);
-    data && navigate('/evently_front/admin/users');
-  };
-
+const UserCard: React.FC<IProps> = ({ item, index }) => {
   return (
-    <div className="my-4 bg-white">
-      <h2>{user.name}</h2>
-      <p>{user.email}</p>
-      <div>
-        <button onClick={handleDeleteUser}>Delete</button>
-        <button>Block</button>
-      </div>
-    </div>
+    <tr key={item.email} className="">
+      <CellItem>
+        <>
+          {index + 1}. <span className="underline">{item.name}</span>
+        </>
+      </CellItem>
+      <CellItem>{item.phone}</CellItem>
+      <CellItem>{item.email}</CellItem>
+      <CellItem>{item.date.slice(0, 10)}</CellItem>
+      <CellItem classes='text-center'>{item.role}</CellItem>
+      <CellItem>
+        <BiEditAlt className="w-6 h-6 mx-auto" />
+      </CellItem>
+    </tr>
   );
 };
 

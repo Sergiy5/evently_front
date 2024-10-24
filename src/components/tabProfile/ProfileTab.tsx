@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { redirect, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
 
 import { AiOutlineHeart } from 'react-icons/ai';
 import { CgProfile } from 'react-icons/cg';
@@ -14,8 +16,8 @@ import {
 import ItemTab from './ItemTab';
 import { TbCalendarEvent } from 'react-icons/tb';
 import { PiFlowerLotusLight } from 'react-icons/pi';
-import { useTranslation } from 'react-i18next';
-import clsx from 'clsx';
+import { logOut } from '@/redux/auth/operations';
+import { useAppDispatch } from '@/hooks/hooks';
 
 const tabUser = [
   {
@@ -68,7 +70,8 @@ const ProfileTab = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation('tabProfile');
-  const tabs = t('tabs', { returnObjects: true }); // повертає масив
+  const tabs = t('tabs', { returnObjects: true });
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (pathname.includes('admin')) {
@@ -80,15 +83,17 @@ const ProfileTab = () => {
     setIsActiveAdmin(prev => !prev);
   };
 
-  const handleLogout = () => {
-    navigate('');
+  const handleLogout = async () => {
+    dispatch(logOut());
+    navigate('/evently_front');
   };
 
   return (
-    <nav className="w-[290px] min-h-[989px] h-full bg-lightPurple rounded-[20px] px-1">
-      <ul>
+    <nav className="w-[290px] min-h-[700px] h-auto bg-lightPurple rounded-[20px] px-1">
+      <ul className="mt-[21px]">
         {tabUser.map((item, index) => (
           <ItemTab
+            key={item.title}
             item={item}
             openTab={handleOpenAdminTab}
             isOpen={isActiveAdmin}
@@ -98,7 +103,12 @@ const ProfileTab = () => {
         {isActiveAdmin && (
           <>
             {tabAdmin.map((item, index) => (
-              <ItemTab title={tabs[index + 4]} item={item} openTab={() => {}} />
+              <ItemTab
+                key={item.title}
+                title={tabs[index + 4]}
+                item={item}
+                openTab={() => {}}
+              />
             ))}
           </>
         )}
