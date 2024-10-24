@@ -5,7 +5,7 @@ interface ListEventsProps {
   events: IEvent[];
 }
 export const ListEvents: React.FC<ListEventsProps> = ({ events }) => {
-  console.log(events);
+  // console.log(events);
 
 
   return (

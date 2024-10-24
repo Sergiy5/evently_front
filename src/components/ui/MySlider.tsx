@@ -13,7 +13,7 @@ export const settings: Settings = {
   slidesToScroll: 4,
   infinite: false,
   nextArrow: <MySliderBtn />,
-  prevArrow: <MySliderBtn prev_style={'rotate-180'} />,
+  prevArrow: <MySliderBtn prev_style />,
   arrows: true,
   pauseOnFocus: true,
   initialSlide: 0,

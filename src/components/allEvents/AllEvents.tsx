@@ -1,22 +1,15 @@
-// import { useState } from "react";
-import { Container } from "../container/Container";
-// import { FilterDate } from "../filters/FilterDate";
-// import { FilterTypeEvent } from "../filters/FilterTypeEvent";
-import { ListEvents } from "../listEvents/ListEvents";
-import { events } from "@/assets/fakeData/events";
+import { Container } from '../container/Container';
+import { ListEvents } from '../listEvents/ListEvents';
+import { events } from '@/assets/fakeData/events';
 
 interface AllEventsprops {}
 export const AllEvents: React.FC<AllEventsprops> = () => {
-  // const [evt, setEvt] = useState()
-
-    return (
-      <Container className={`flex flex-col gap-8`}>
-        <h1>Усі події</h1>
-        <div className="flex flex-col gap-4">
-        {/* <FilterDate /> */}
-        {/* <FilterTypeEvent setEvents={() => setEvt} /> */}
-        </div>
-        <ListEvents events={events} />
-      </Container>
-    );
+  
+  return (
+    <Container className={`flex flex-col gap-8`}>
+      <h1>Усі події</h1>
+      <div className="flex flex-col gap-4"></div>
+      <ListEvents events={events} />
+    </Container>
+  );
 };

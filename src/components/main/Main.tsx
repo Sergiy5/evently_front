@@ -8,9 +8,9 @@ export const Main: React.FC<MainProps> = ({ children, className }) => {
   
   return (
     <main
-      className={`relative flex flex-col gap-16 pt-[60px] max-w-[1440px] ${className}`}
+      className='relative'
     >
-      <div className="relative z-20">{children}</div>
+      <div className={`relative z-20 flex flex-col gap-16 pt-[60px] max-w-[1440px] ${className}`}>{children}</div>
       <MainLines />
     </main>
   );

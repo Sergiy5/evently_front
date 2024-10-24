@@ -7,9 +7,9 @@ import { FAQ } from '@/components/faq/FAQ';
 
 const Home: React.FC = () => {
   return (
-    <Main>
+    <Main className="flex flex-col gap-16">
       <Hero />
-      <TopEvents events={4} />
+      <TopEvents  />
       <AllEvents />
       <Organizers />
       <FAQ />

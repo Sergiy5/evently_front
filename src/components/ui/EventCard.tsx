@@ -12,7 +12,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
   const handleCheck=()=>{
       setIsCheked(!isCheked)
   }
-  console.log("EVENTS_>>>>", event)
+  // console.log("EVENTS_>>>>", event)
   const { id, title, date, status, price, category, location } = event;
 
   return (
@@ -37,7 +37,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
       <div
         className={`absolute flex flex-col items-start gap-2 justify-between w-full py-4 px-5 h-[365px]
           rounded-t-[20px] bg-hoverCard transition-all ease-in-out duration-300 -bottom-[101px]
-          ${status === 'top' ? 'group-hover:-bottom-10' : 'group-hover:bottom-0'}
+          ${status === 'top' ? 'group-hover:-bottom-0' : 'group-hover:-bottom-10'}
           `}
       >
         <div
