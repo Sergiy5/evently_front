@@ -1,16 +1,20 @@
 import axios from 'axios';
 
-const URL = 'https://66ceec99901aab24842029e0.mockapi.io';
+const URL = 'https://rendereventapp.onrender.com/api/v1/';
 
-export const getUsers = async () => {
-  try {
-    const response = await axios(`${URL}/adminUsers`);
-    const resData = response.data;
-    return resData;
-  } catch (error) {
-    throw new Error('Failed to get user');
-  }
-};
+// export const getUsers = async () => {
+//   try {
+//     const response = await axios.get(`${URL}/users`,{
+//       headers: {
+//         Authorization: `Bearer ${yourToken}`
+//       }
+//     });
+//     const resData = response.data;
+//     return resData;
+//   } catch (error) {
+//     throw new Error('Failed to get user');
+//   }
+// };
 
 export const deleteUser = async (id: number) => {
   try {

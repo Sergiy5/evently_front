@@ -31,6 +31,7 @@ export default {
         gray: '#E8EAEC',
         darkGray: '#D0D5D8',
         textDark: '#062341',
+        lightRed: '#FF6262',
 
         // Other color
         success: '#3BE660',

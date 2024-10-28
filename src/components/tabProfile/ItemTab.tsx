@@ -13,9 +13,16 @@ interface IProps {
   title: string;
   openTab: () => void;
   isOpen?: boolean;
+  isAdminTab?: boolean;
 }
 
-const ItemTab: React.FC<IProps> = ({ item, title, openTab, isOpen }) => {
+const ItemTab: React.FC<IProps> = ({
+  item,
+  title,
+  openTab,
+  isOpen,
+  isAdminTab,
+}) => {
   const isAdmin = item.title === 'Адміністрування';
 
   return (
@@ -26,10 +33,12 @@ const ItemTab: React.FC<IProps> = ({ item, title, openTab, isOpen }) => {
         onClick={isAdmin ? () => openTab() : () => {}}
         className={({ isActive }) =>
           clsx(
-            'w-full pt-[11px] pb-[10px] pl-7 flex gap-2 rounded-[15px] border border-transparent mb-[3px] hover:border-buttonPurple',
+            'w-full pt-[11px] pb-[10px]  flex gap-2 rounded-[15px] border border-transparent mb-[3px] hover:border-buttonPurple',
             {
               'bg-buttonPurple text-background': isActive && !isAdmin,
               'text-textDark': !isActive,
+              'pl-[60px]': isAdminTab,
+              'pl-7': !isAdminTab,
             }
           )
         }
