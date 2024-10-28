@@ -1,9 +1,10 @@
 export interface IEvent {
   id: number;
+  category: string;
   status: string;
   rating: number;
   title: string;
-  category: string;
+  type: string;
   date: {
     day: string;
     time: string;

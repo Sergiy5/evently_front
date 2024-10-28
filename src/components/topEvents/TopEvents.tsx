@@ -4,15 +4,16 @@ import { MySlider } from '../ui/MySlider';
 import { Container } from '../container/Container';
 import { EventCard } from '../ui';
 import { events } from '@/assets/fakeData/events';
+import { IEvent } from '@/types/components';
 
 
-interface TopEvents {
+interface TopEventsProps {
+  filteredEvents: IEvent[] | undefined;
 }
-export const TopEvents: React.FC<TopEvents> = ({ }) => {
-
+export const TopEvents: React.FC<TopEventsProps> = ({ filteredEvents }) => {
   const settings: Settings = {
     pauseOnHover: true,
-    slidesToShow:4.25,
+    slidesToShow: 4.25,
     slidesToScroll: 4,
     speed: 2000,
     infinite: false,
@@ -42,7 +43,6 @@ export const TopEvents: React.FC<TopEvents> = ({ }) => {
         },
       },
     ],
-   
   };
 
   return (
@@ -52,11 +52,10 @@ export const TopEvents: React.FC<TopEvents> = ({ }) => {
       </Container>
 
       <MySlider
-        arraySlides={events}
+        arraySlides={filteredEvents}
         SlideComponent={EventCard}
         settings={settings}
-        
-        />
+      />
     </div>
   );
 };

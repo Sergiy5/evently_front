@@ -7,7 +7,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 interface SliderProps<T> {
-  arraySlides: T[];
+  arraySlides: T[] | undefined;
   settings: Settings;
   SlideComponent: React.ComponentType<{ event: T }>;
 }
@@ -30,7 +30,7 @@ export const MySlider = <T,>({
 
   return (
       <Slider key={key} ref={sliderRef} {...settings}>
-        {arraySlides.map(item => (
+        {arraySlides?.map(item => (
           <SlideComponent key={nanoid()} event={item} />
         ))}
       </Slider>

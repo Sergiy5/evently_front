@@ -13,7 +13,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
       setIsCheked(!isCheked)
   }
   // console.log("EVENTS_>>>>", event)
-  const { id, title, date, status, price, category, location } = event;
+  const { id, title, date, category, price, location, type } = event;
 
   return (
     <div
@@ -37,7 +37,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
       <div
         className={`absolute flex flex-col items-start gap-2 justify-between w-full py-4 px-5 h-[365px]
           rounded-t-[20px] bg-hoverCard transition-all ease-in-out duration-300 -bottom-[101px]
-          ${status === 'top' ? 'group-hover:-bottom-0' : 'group-hover:-bottom-10'}
+          ${category === 'TOP_EVENTS' ? 'group-hover:-bottom-0' : 'group-hover:-bottom-10'}
           `}
       >
         <div
@@ -45,7 +45,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
                  border-[2px] border-borderColor bg-bg-gradient`}
         >
           <p className={`font-normal text-md text-textDark px-4 py-2.5 `}>
-            {category ?? 'category' }
+            {type}
           </p>
         </div>
         <h2 className={`min-h-[72px] text-2xl text-textDark`}>{title}</h2>

@@ -11,7 +11,8 @@ import { IEvent } from '@/types/components';
 const Home: React.FC = () => {
 
   const [events, setEvents] = useState<IEvent[] | undefined>();
-  const [topEvents, setTopEvents] = useState<IEvent[] | undefined>();
+  // const [topEvents, setTopEvents] = useState<IEvent[] | undefined>();
+  const topEvents = events?.filter((event) => event.category === 'TOP_EVENTS');
   
       useEffect(() => {
         const fetchData = async () => {
@@ -31,7 +32,7 @@ const Home: React.FC = () => {
   return (
     <Main className="flex flex-col gap-16">
       <Hero />
-      <TopEvents  />
+      <TopEvents filteredEvents={topEvents} />
       <AllEvents events={events}/>
       <Organizers />
       <FAQ />
