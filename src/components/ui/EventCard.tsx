@@ -54,7 +54,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
         >
           <li>{`${date?.day}, ${date?.time}`}</li>
           <li>{location?.city}</li>
-          <li>{`Від ${price} грн`}</li>
+          <li>{price === 0 ? <p className='text-error' >Безкоштовно</p> : <p>{`Від ${price} грн`}</p> } </li>
         </ul>
 
         <SharedBtn type="button" primary className="w-[230px] h-12 mx-auto">

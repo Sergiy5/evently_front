@@ -17,5 +17,5 @@ export interface IEvent {
     city: string;
   };
   tickets: number;
-  price: string;
+  price: number;
 }
