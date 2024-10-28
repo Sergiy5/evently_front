@@ -40,6 +40,7 @@ export default {
         primaryBtnActive: 'inset -5px 5px 50px 0 rgba(255, 255, 255, 0.7)',
         shadowPrimaryBtn: '-5px 5px 36.7px 0px rgba(0, 0, 0, 0.25) inset',
         shadowSecondaryBtn: `inset 0 0 9px 0 rgba(155, 143, 243, 1)`,
+        eventCardShadow: `5px 5px 5px rgba(155, 143, 243, 0.6)`,
       },
       opacity: {
         disabled: '0.5',

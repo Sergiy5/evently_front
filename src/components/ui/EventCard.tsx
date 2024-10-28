@@ -1,37 +1,75 @@
 import { SharedBtn } from './SharedBtn';
 import { PiHeartLight } from 'react-icons/pi';
 import { PiHeartFill } from 'react-icons/pi';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IEvent } from '@/types/components';
 import { CiLocationOn } from 'react-icons/ci';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { FaRegMoneyBillAlt } from 'react-icons/fa';
+import { addEventToLiked, removeEventFromLiked } from '@/utils/eventsHttp';
+import { selectUser } from '@/redux/auth/selectors';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 interface EventCardProps {
   event: IEvent;
 }
 export const EventCard: React.FC<EventCardProps> = ({ event }) => {
-  const [isCheked, setIsCheked] = useState(false);
-  const handleCheck=()=>{
-      setIsCheked(!isCheked)
-  }
-  // console.log("EVENTS_>>>>", event)
+  const [isChecked, setIsCheked] = useState<boolean | null>(null);
+  const [isLiked, setIsLiked] = useState(false);
   const { id, title, date, category, price, location, type, photoUrl } = event;
+  const { userId } = useSelector(selectUser);
+
+  useEffect(() => {
+    if (isChecked === null) return;
+    if (isChecked) {
+      const addLiked = async (userId: string, eventId: number) => {
+        try {
+          const response = await addEventToLiked(userId, eventId.toString());
+          if (response.status === 201) {
+            setIsLiked(true);
+          }
+          if (response.status === 401 || response.status === 403) {
+            return toast.error(`Щоб зберегти, потрібно залогінитись!`);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      addLiked(userId, id);
+    }
+
+    if (!isChecked) {
+      const deleteFromLiked = async (userId: string, eventId: number) => {
+        try {
+          const response = await removeEventFromLiked(userId, eventId);
+          if (response.status === 200) {
+            setIsLiked(false);
+          }
+          if (response.status === 401 || response.status === 403) {
+            return toast.error(`Щоб зберегти, потрібно залогінитись!`);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      deleteFromLiked(userId, id);
+    }
+  }, [isChecked, userId, id]);
 
   return (
     <div
       id={`${id}`}
-      className={`group relative flex overflow-hidden items-start 
-         rounded-[20px] bg-no-repeat w-[311px] h-[514px]`}
+      className={`group mb-4 relative flex overflow-hidden items-start rounded-[20px] w-[311px] h-[514px] shadow-eventCardShadow `}
     >
-      <img src={photoUrl} alt="" />
-      <div className={`flex justify-end p-6 w-full `}>
+      <img src={photoUrl} alt={title} />
+      <div className={`flex absolute justify-end p-6 w-full `}>
         <button
           type="button"
-          onClick={() => handleCheck()}
+          onClick={() => setIsCheked(!isChecked)}
           className={`focus:outline-none`}
         >
-          {isCheked ? (
+          {isLiked ? (
             <PiHeartFill className={`w-6 h-6 text-borderColor`} />
           ) : (
             <PiHeartLight className="w-6 h-6 text-background" />

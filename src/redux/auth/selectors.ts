@@ -1,5 +1,6 @@
 export interface RootState {
   auth: {
+    userId: number | null;
     isLoggedIn: boolean;
     user: any; // or define a type for user
     isRefreshing: boolean;

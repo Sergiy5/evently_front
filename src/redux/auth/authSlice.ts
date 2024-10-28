@@ -15,6 +15,7 @@ export interface GoogleLoginResponse {
 }
 
 export interface User {
+  userId: number | null;
   name: string | null;
   email: string | null;
 }
@@ -37,6 +38,7 @@ const getActionGeneratorsWithType: (status: string) => any[] = status =>
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
+    userId: null as null | number,
     user: {} as User,
     token: null as null | string,
     // theme: 'light',
@@ -55,7 +57,7 @@ const authSlice = createSlice({
     },
     googleLogin(state, action: PayloadAction<GoogleLoginResponse>) {
       const { name, email, token } = action.payload;
-      state.user = { name, email };
+      state.user = { name, email, userId: null };
       state.token = token;
       state.isLoggedIn = true;
       state.error = null;
@@ -89,6 +91,8 @@ function handleUserLoggingFulfilled(
 ): void {  
   // state.user = action.payload.user;
   state.token = action.payload.accessToken;
+  state.user.userId = action.payload.userId;
+  state.user.name = action.payload.userName;
   state.isLoggedIn = true;
   state.error = null;
 }

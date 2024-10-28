@@ -18,9 +18,7 @@ const Home: React.FC = () => {
         const fetchData = async () => {
           try {
             const response = await getEvents();
-            console.log(response)
             setEvents(response);
-            
           } catch (error) {
             console.log(error)
           }
