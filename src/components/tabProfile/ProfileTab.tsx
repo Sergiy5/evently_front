@@ -108,6 +108,7 @@ const ProfileTab = () => {
                 title={tabs[index + 4]}
                 item={item}
                 openTab={() => {}}
+                isAdminTab
               />
             ))}
           </>

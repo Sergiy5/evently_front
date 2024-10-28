@@ -7,9 +7,15 @@ interface ModalProps {
   children: ReactNode;
   isOpen: boolean;
   onClose?: () => void;
+  hiddenCross?: boolean;
 }
 
-export const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
+export const Modal: React.FC<ModalProps> = ({
+  children,
+  isOpen,
+  onClose,
+  hiddenCross,
+}) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const getScrollbarWidth = () => {
@@ -60,11 +66,11 @@ export const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
   }, [isOpen, onClose]);
 
   const modalRoot = document.getElementById('portal-root');
-  
+
   if ((!isOpen && !isOpenModal) || !modalRoot) {
     return null;
-  };
-  
+  }
+
   return createPortal(
     <div
       className={clsx(`fixed inset-0 z-50 flex items-center justify-center`)}
@@ -92,13 +98,15 @@ export const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
         )}
         onClick={e => e.stopPropagation()} // Prevent closing modal when clicking inside
       >
-        <button
-          onClick={onClose}
-          className="absolute top-3 right-4 z-10 p-2 text-black bg-transparent hover:text-primary"
-          aria-label="Close Modal"
-        >
-          <RxCross2 className="w-8 h-8" />
-        </button>
+        {!hiddenCross && (
+          <button
+            onClick={onClose}
+            className="absolute top-3 right-4 z-10 p-2 text-black bg-transparent hover:text-primary"
+            aria-label="Close Modal"
+          >
+            <RxCross2 className="w-8 h-8" />
+          </button>
+        )}
         {children}
       </div>
     </div>,
