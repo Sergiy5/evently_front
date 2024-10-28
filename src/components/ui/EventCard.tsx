@@ -16,14 +16,15 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
       setIsCheked(!isCheked)
   }
   // console.log("EVENTS_>>>>", event)
-  const { id, title, date, category, price, location, type } = event;
+  const { id, title, date, category, price, location, type, photoUrl } = event;
 
   return (
     <div
       id={`${id}`}
-      className={`group relative flex overflow-hidden items-start bg-[url('public/images/CardImage.webp')]
+      className={`group relative flex overflow-hidden items-start 
          rounded-[20px] bg-no-repeat w-[311px] h-[514px]`}
     >
+      <img src={photoUrl} alt="" />
       <div className={`flex justify-end p-6 w-full `}>
         <button
           type="button"
@@ -55,17 +56,17 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
         <ul
           className={`flex flex-col gap-[18px] font-normal text-md text-textDark justify-between w-full`}
         >
-          <li className='flex items-center gap-[18px]'>
+          <li className="flex items-center gap-[18px]">
             {' '}
-            <AiOutlineCalendar size='24px' />
+            <AiOutlineCalendar size="24px" />
             <p>{`${date?.day}, ${date?.time}`}</p>
           </li>
-          <li className='flex items-center gap-[18px]'>
+          <li className="flex items-center gap-[18px]">
             {' '}
-            <CiLocationOn size='24px' /> <p>{location?.city}</p>
+            <CiLocationOn size="24px" /> <p>{location?.city}</p>
           </li>
-          <li className='flex items-center gap-[18px]'>
-            <FaRegMoneyBillAlt size='24px' />
+          <li className="flex items-center gap-[18px]">
+            <FaRegMoneyBillAlt size="24px" />
             {price === 0 ? (
               <p className="text-error">Безкоштовно</p>
             ) : (

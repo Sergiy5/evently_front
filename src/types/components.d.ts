@@ -5,6 +5,7 @@ export interface IEvent {
   rating: number;
   title: string;
   type: string;
+  photoUrl: string;
   date: {
     day: string;
     time: string;
