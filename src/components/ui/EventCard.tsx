@@ -3,6 +3,9 @@ import { PiHeartLight } from 'react-icons/pi';
 import { PiHeartFill } from 'react-icons/pi';
 import { useState } from 'react';
 import { IEvent } from '@/types/components';
+import { CiLocationOn } from 'react-icons/ci';
+import { AiOutlineCalendar } from 'react-icons/ai';
+import { FaRegMoneyBillAlt } from 'react-icons/fa';
 
 interface EventCardProps {
   event: IEvent;
@@ -52,9 +55,23 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
         <ul
           className={`flex flex-col gap-[18px] font-normal text-md text-textDark justify-between w-full`}
         >
-          <li>{`${date?.day}, ${date?.time}`}</li>
-          <li>{location?.city}</li>
-          <li>{price === 0 ? <p className='text-error' >Безкоштовно</p> : <p>{`Від ${price} грн`}</p> } </li>
+          <li className='flex items-center gap-[18px]'>
+            {' '}
+            <AiOutlineCalendar size='24px' />
+            <p>{`${date?.day}, ${date?.time}`}</p>
+          </li>
+          <li className='flex items-center gap-[18px]'>
+            {' '}
+            <CiLocationOn size='24px' /> <p>{location?.city}</p>
+          </li>
+          <li className='flex items-center gap-[18px]'>
+            <FaRegMoneyBillAlt size='24px' />
+            {price === 0 ? (
+              <p className="text-error">Безкоштовно</p>
+            ) : (
+              <p>{`Від ${price} грн`}</p>
+            )}{' '}
+          </li>
         </ul>
 
         <SharedBtn type="button" primary className="w-[230px] h-12 mx-auto">
