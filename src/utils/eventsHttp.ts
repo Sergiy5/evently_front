@@ -1,8 +1,12 @@
 import axios from 'axios';
 
 import { eventType } from '../components/events/types';
+import { IEvent } from '@/types/components';
+
 
 const URL = 'https://66ceec99901aab24842029e0.mockapi.io';
+
+axios.defaults.baseURL = "https://rendereventapp.onrender.com/api/v1/";
 
 export const deleteEvent = async (id: number) => {
   try {
@@ -30,10 +34,11 @@ export const getEvent = async (id?: string) => {
 
 export const getEvents = async () => {
   try {
-    const response = await axios(`${URL}/events`);
-    const resData: eventType[] = response.data;
+    const response = await axios('events' );
+    const resData: IEvent[] = response.data;
     return resData;
   } catch (error) {
+    console.log(error)
     throw new Error('Failed to get events');
   }
 };

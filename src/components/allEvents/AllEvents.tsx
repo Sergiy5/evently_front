@@ -1,10 +1,16 @@
+import { IEvent } from '@/types/components';
 import { Container } from '../container/Container';
 import { ListEvents } from '../listEvents/ListEvents';
-import { events } from '@/assets/fakeData/events';
+import { useEffect } from 'react';
+// import { events } from '@/assets/fakeData/events';
 
-interface AllEventsprops {}
-export const AllEvents: React.FC<AllEventsprops> = () => {
-  
+interface AllEventsprops {
+  events: IEvent[] | undefined
+}
+export const AllEvents: React.FC<AllEventsprops> = ({events}) => {
+  useEffect(() => {
+      console.log(events)
+  })
   return (
     <Container className={`flex flex-col gap-8`}>
       <h1>Усі події</h1>

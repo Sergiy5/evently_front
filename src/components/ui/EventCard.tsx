@@ -45,7 +45,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
                  border-[2px] border-borderColor bg-bg-gradient`}
         >
           <p className={`font-normal text-md text-textDark px-4 py-2.5 `}>
-            {category}
+            {category ?? 'category' }
           </p>
         </div>
         <h2 className={`min-h-[72px] text-2xl text-textDark`}>{title}</h2>

@@ -12,7 +12,7 @@ export const TopEvents: React.FC<TopEvents> = ({ }) => {
 
   const settings: Settings = {
     pauseOnHover: true,
-    slidesToShow: 4.25,
+    slidesToShow:4.25,
     slidesToScroll: 4,
     speed: 2000,
     infinite: false,
@@ -42,19 +42,21 @@ export const TopEvents: React.FC<TopEvents> = ({ }) => {
         },
       },
     ],
+   
   };
-
 
   return (
     <div className={`flex flex-col gap-8`}>
       <Container>
         <h1>Топ подій</h1>
       </Container>
+
       <MySlider
         arraySlides={events}
         SlideComponent={EventCard}
         settings={settings}
-      />
+        
+        />
     </div>
   );
 };
