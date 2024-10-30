@@ -7,8 +7,9 @@ export interface User {
   email: string;
   creationDate: Date;
   mailConfirmation: boolean;
-  role: 'USER' | 'ADNIM';
+  role: 'USER' | 'ADMIN';
   location: string;
+  phone: string;
   status: 'ACTIVE' | 'BANNED';
 }
 

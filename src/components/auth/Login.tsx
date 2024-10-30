@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '@/hooks/hooks';
 import { validateEmail, validatePassword } from '@/utils';
 import { GoogleLoginButton, SharedInput, SharedItemStatusBar } from '../ui';
-import { logIn } from '@/redux/auth/operations';
+import { getUser, logIn } from '@/redux/auth/operations';
 import { SharedBtn } from '../ui/SharedBtn';
 import { ILoginUser } from '@/types';
 import { CustomCheckbox } from '../ui/CustomCheckBox';
@@ -76,6 +76,7 @@ export const Login: React.FC<LoginProps> = ({
       }
       if (status === 200) {
         toast.success(`Вітаю ${userName}!`);
+        dispatch(getUser());
         onCloseModal();
       }
     } catch (error) {
@@ -128,14 +129,14 @@ export const Login: React.FC<LoginProps> = ({
           />
           {((isSubmitted || isBluredNameInput === 'email') &&
             errors.email?.message) ||
-          emailLoginError && (
-            <SharedItemStatusBar
-              valid={false}
-              text={`${errors.email?.message ?? errorMessage}`}
-              sizeIcon={`w-6 h-6`}
-              className={`absolute mt-[4px]`}
-            />
-          )}
+            (emailLoginError && (
+              <SharedItemStatusBar
+                valid={false}
+                text={`${errors.email?.message ?? errorMessage}`}
+                sizeIcon={`w-6 h-6`}
+                className={`absolute mt-[4px]`}
+              />
+            ))}
         </div>
         <div className={`relative`}>
           <SharedInput
@@ -151,14 +152,15 @@ export const Login: React.FC<LoginProps> = ({
             errors={errors}
           />
           {((isSubmitted || isBluredNameInput === 'password') &&
-          errors.password?.message) || passwordLoginError && (
-            <SharedItemStatusBar
-              valid={false}
-              text={`${errors.password?.message ?? errorMessage}`}
-              sizeIcon={`w-6 h-6`}
-              className={`absolute mt-[4px]`}
-            />
-          )}
+            errors.password?.message) ||
+            (passwordLoginError && (
+              <SharedItemStatusBar
+                valid={false}
+                text={`${errors.password?.message ?? errorMessage}`}
+                sizeIcon={`w-6 h-6`}
+                className={`absolute mt-[4px]`}
+              />
+            ))}
           <button
             type="button"
             onClick={() => setStatusAuth('password_renovation')}
@@ -172,7 +174,6 @@ export const Login: React.FC<LoginProps> = ({
           className={`flex gap-2.5 items-center justify-center w-[500px] h-[70px] bg-bgColor rounded-[20px]`}
         >
           <GoogleLoginButton onCloseModal={onCloseModal} />
-
         </div>
         <div className={`flex justify-between  w-full -mt-8 h-5`}>
           <CustomCheckbox

@@ -3,7 +3,7 @@ import { User } from '../users/usersSlice';
 export interface RootState {
   auth: {
     isLoggedIn: boolean;
-    user: any; // or define a type for user
+    user: User; // or define a type for user
     isRefreshing: boolean;
     error: any; // or define a type for error
     token: string | null;

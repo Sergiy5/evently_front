@@ -1,5 +1,3 @@
-import React, { useRef, useState } from 'react';
-
 import CellItem from './CellTable';
 import { User } from '@/redux/users/usersSlice';
 import { TfiLock } from 'react-icons/tfi';
@@ -20,6 +18,10 @@ const UserCard: React.FC<IProps> = ({
   openPopUp,
   openModal,
 }) => {
+  const formatedDate = item.creationDate
+    ? new Date(item.creationDate).toLocaleDateString('uk-UA')
+    : 'Не вказанно';
+
   return (
     <tr key={item.email} className="relative">
       <CellItem>
@@ -32,34 +34,39 @@ const UserCard: React.FC<IProps> = ({
           )}
         </p>
       </CellItem>
-      <CellItem>{item.location || 'Не вказано'}</CellItem>
+      <CellItem>{item.phone || 'Не вказано'}</CellItem>
       <CellItem>{item.email}</CellItem>
-      <CellItem>
-        {item.creationDate ? `${item.creationDate}` : 'Не вказанно'}
-      </CellItem>
+      <CellItem>{formatedDate}</CellItem>
       <CellItem classes="text-center">
-        {item.role ? item.role : 'Не вказанно'}
+        {item.role
+          ? item.role === 'ADMIN'
+            ? 'Адмін'
+            : 'Відвідувач'
+          : 'Не вказанно'}
       </CellItem>
       <CellItem>
-        <AiOutlineUserSwitch
-          className="w-6 h-6 mx-auto"
-          onClick={() => openPopUp(index)}
-        />
+        <>
+          <AiOutlineUserSwitch
+            className="w-6 h-6 mx-auto"
+            onClick={() => openPopUp(index)}
+          />
+          {idPopUp === index && (
+            <div className="absolute -bottom-[76px] -right-[35px] bg-lightBlue rounded-[20px] w-[236px] py-6 px-5 z-10 text-center flex flex-col text-base">
+              <button onClick={() => openModal('status')}>
+                {item.status === 'ACTIVE'
+                  ? 'Заблокувати користувача'
+                  : 'Poзблокувати користувача'}
+              </button>
+              <button
+                className="mt-4 font-bold"
+                onClick={() => openModal('delete')}
+              >
+                Видалити користувача
+              </button>
+            </div>
+          )}
+        </>
       </CellItem>
-      {idPopUp === index && (
-        <td className="w-0 border-none p-0">
-          <div className="absolute top-1/2 -right-[35px] -translate-y-1/2 bg-lightBlue rounded-[20px] w-[229px] h-[102px] py-6 px-5 z-10">
-            <button onClick={() => openModal('status')}>
-              {item.status === 'ACTIVE'
-                ? 'Заблокувати користувача'
-                : 'Poзблокувати користувача'}
-            </button>
-            <button onClick={() => openModal('delete')}>
-              Видалити користувача
-            </button>
-          </div>
-        </td>
-      )}
     </tr>
   );
 };

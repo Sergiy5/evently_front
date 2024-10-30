@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import { nanoid } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 import UserCard from './UserCard';
 import { BsFilter } from 'react-icons/bs';
@@ -19,7 +20,7 @@ interface IProps {
 const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
   const [sort, setSort] = useState<
     { col: string; direction: number } | undefined
-  >(undefined);
+  >({ col: cols[3], direction: 1 });
   const [openPopUp, setOpenPopUp] = useState<number | undefined>(undefined);
   const [confirmationDelete, setConfirmationDelete] = useState<boolean>(false);
   const [confirmationChangeStatus, setConfirmationChangeStatus] =
@@ -27,8 +28,11 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
   const [selectedUser, setSelectedUser] = useState<User>();
 
   // add async function deleteUser
-  const deleteUser = () => {
-    console.log(selectedUser?.name);
+  const deleteUser = async () => {
+    const response = await axios.delete('admin/' + selectedUser?.id);
+    if (response.status === 200) {
+      setOpenPopUp(undefined);
+    }
   };
 
   // add async function changeStatusUser
@@ -79,20 +83,23 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
     sortedData = sortUser(sort, cols, data);
   }
 
+  // const widths = ['128px', '108px', '128px', '131px', '128px', '135px'];
+  // const widths = ['17%', '14%', '17%', '17%', '17%', '18%'];
+
   return (
     <>
       <table
-        className="rounded border border-buttonPurple border-separate border-spacing-0 w-full h-full"
+        className="rounded border border-buttonPurple border-separate border-spacing-0 w-full h-full table-fixed"
         onClick={event => handleClosePopUp(event)}
       >
         <thead>
           <tr className="h-[58px]">
-            {cols.map(col => (
+            {cols.map((col, index) => (
               <th
                 key={col}
                 onClick={() => handleChangeSort(col)}
                 className={clsx(
-                  'bg-lightBlue border-buttonPurple border p-[10px_12px] text-textDark text-[16px] leading-4 font-bold align-text-top text-wrap'
+                  'bg-lightBlue border-buttonPurple border p-[10px_12px] text-textDark text-[16px] leading-4 font-bold align-text-top text-wrap max-w-[135px] min-w-[108px]'
                 )}
               >
                 <p
@@ -144,7 +151,7 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
             <SharedBtn
               type="button"
               primary
-              className="w-[120px] h-8 py-0"
+              className="w-[120px] h-8 !py-0"
               onClick={deleteUser}
             >
               Taк
@@ -152,7 +159,7 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
             <SharedBtn
               type="button"
               secondary
-              className="w-[120px] h-8 py-0"
+              className="w-[120px] h-8 !py-0"
               onClick={() => setConfirmationDelete(false)}
             >
               Ні
@@ -173,7 +180,7 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
             <SharedBtn
               type="button"
               primary
-              className="w-[120px] h-8 py-0"
+              className="w-[120px] h-8 !py-0"
               onClick={changeStatusUser}
             >
               Taк
@@ -181,7 +188,7 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
             <SharedBtn
               type="button"
               secondary
-              className="w-[120px] h-8 py-0"
+              className="w-[120px] h-8 !py-0"
               onClick={() => setConfirmationChangeStatus(false)}
             >
               Ні
