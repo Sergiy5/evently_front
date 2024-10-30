@@ -218,12 +218,11 @@ export const Header: React.FC<HeaderProps> = () => {
             </div>
             <div onClick={() => handleClick('events')}>
               <SharedBtn
+                children='Створити подію'
                 type="button"
                 primary
                 className={`w-[230px] mx-auto h-12`}
-              >
-                Створити подію
-              </SharedBtn>
+              />
             </div>
           </div>
         </header>

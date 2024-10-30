@@ -51,7 +51,7 @@ const CustomSelect: React.FC<EventSelectProps> = ({
   }, []);
 
   return ( 
-    <div className="z-10  relative inline-block text-left border-buttonPurple  " ref={dropdownRef}>
+    <div className="z-30  relative inline-block text-left border-buttonPurple  " ref={dropdownRef}>
       <button
         type="button"
         className={`${
