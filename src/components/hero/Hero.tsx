@@ -5,6 +5,22 @@ import runInHonor from '@/assets/images/runInHonor.webp';
 import wieldTheatre from '@/assets/images/wieldTheatre.webp';
 import musicPlatform from '@/assets/images/musicPlatform.webp';
 import { useState } from 'react';
+import { MdKeyboardArrowLeft } from 'react-icons/md';
+
+interface prevNextBtnProps {
+  className?: string;
+}
+const PrevNextBtn: React.FC<prevNextBtnProps> = ({ className }) => {
+  return (
+    <button
+      className={`${className} absolute flex items-center left-0 w-56 h-56 -bottom-110 justify-center bg-red-500
+       hover:bg-textDark
+      `}
+    >
+      {/* <MdKeyboardArrowLeft size="24" /> */}
+    </button>
+  );
+};
 
 export const Hero: React.FC = () => {
 const [currentSlide, setCurrentSlide] = useState(0);
@@ -22,8 +38,10 @@ const [currentSlide, setCurrentSlide] = useState(0);
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
+    nextArrow: <PrevNextBtn className="rotate-180" />,
+    prevArrow: <PrevNextBtn />,
+    arrows: true,
     autoplaySpeed: 10000,
-    arrows: false,
     pauseOnHover: true,
     customPaging: (i: number) => {
       return (
@@ -37,8 +55,7 @@ const [currentSlide, setCurrentSlide] = useState(0);
     dotsClass: 'slick-dots custom-dots',
     afterChange: (currentSlide: number) => {
       setCurrentSlide(currentSlide);
-      
-    }
+    },
   };
 
   return (

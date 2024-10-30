@@ -4,13 +4,34 @@ import { AllEvents } from '@/components/allEvents/AllEvents';
 import { Hero } from '@/components/hero/Hero';
 import { Organizers } from '@/components/organizers/Organizers';
 import { FAQ } from '@/components/faq/FAQ';
+import { useEffect, useState } from 'react';
+import { getEvents } from '@/utils/eventsHttp';
+import { IEvent } from '@/types/components';
 
 const Home: React.FC = () => {
+
+  const [events, setEvents] = useState<IEvent[] | undefined>();
+  // const [topEvents, setTopEvents] = useState<IEvent[] | undefined>();
+  const topEvents = events?.filter((event) => event.category === 'TOP_EVENTS');
+  
+      useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await getEvents();
+            setEvents(response);
+          } catch (error) {
+            console.log(error)
+          }
+        };
+
+        fetchData();
+      }, []);
+
   return (
     <Main className="flex flex-col gap-16">
       <Hero />
-      <TopEvents  />
-      <AllEvents />
+      <TopEvents filteredEvents={topEvents} />
+      <AllEvents events={events}/>
       <Organizers />
       <FAQ />
     </Main>

@@ -20,6 +20,7 @@ export interface GoogleLoginResponse {
 //   name: string | null;
 //   email: string | null;
 // }
+
 export interface UserLoggingFulfilled {
   user: User;
   token: null | string;
@@ -39,6 +40,7 @@ const getActionGeneratorsWithType: (status: string) => any[] = status =>
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
+    userId: null as null | number,
     user: {} as User,
     token: null as null | string,
     // theme: 'light',
@@ -91,6 +93,8 @@ function handleUserLoggingFulfilled(state: any, action: any): void {
   state.user.id = action.payload.userId;
   state.user.name = action.payload.userName;
   state.token = action.payload.accessToken;
+  state.user.userId = action.payload.userId;
+  state.user.name = action.payload.userName;
   state.isLoggedIn = true;
   state.error = null;
 }

@@ -2,6 +2,7 @@ import { User } from '../users/usersSlice';
 
 export interface RootState {
   auth: {
+    userId: number | null;
     isLoggedIn: boolean;
     user: User; // or define a type for user
     isRefreshing: boolean;

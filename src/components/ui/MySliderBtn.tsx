@@ -48,11 +48,11 @@ export const MySliderBtn: React.FC<MySliderBtnProps> = ({
           //   !isActive,
           // 'focus:outline-2': !isActive,
         },
-        next_style ? 'right-16' : 'left-[1277px]'
+        next_style ? 'right-16' : 'right-[125px]'
       )}
     >
       <MdKeyboardArrowLeft
-        className={`ml-auto mr-auto text-inherit w-6 h-6 ${next_style && 'rotate-180'}`}
+        className={`ml-auto mr-auto text-inherit w-10 h-10 ${next_style && 'rotate-180'}`}
       />
     </button>
   );
