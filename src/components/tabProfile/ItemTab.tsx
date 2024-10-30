@@ -3,6 +3,8 @@ import React, { ReactElement } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
+import { useAppSelector } from '@/hooks/hooks';
+import { selectUser } from '@/redux/auth/selectors';
 
 interface IProps {
   item: {
@@ -24,6 +26,13 @@ const ItemTab: React.FC<IProps> = ({
   isAdminTab,
 }) => {
   const isAdmin = item.title === 'Адміністрування';
+  const user = useAppSelector(selectUser);
+
+  // if (role !== 'ADMIN' && isAdmin) {
+  //   return;
+  // }
+  console.log(user);
+
 
   return (
     <li key={title}>

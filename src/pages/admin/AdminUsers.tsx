@@ -90,8 +90,9 @@ const AdminUsers = () => {
           </button>
         </div>
         <select
-          className="h-fit w-fit rounded-[10px] border border-buttonPurple bg-background px-1 py-[3px]"
+          className="h-fit w-fit rounded-[10px] border border-buttonPurple bg-background px-1 py-[3px] mr-2"
           onChange={handleChangeQuantitty}
+          defaultValue={20}
         >
           <option value={10}>10</option>
           <option value={20}>20</option>

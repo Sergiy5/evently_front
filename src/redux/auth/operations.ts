@@ -19,7 +19,7 @@ export const register = createAsyncThunk(
   async (user: IRegisterUser, thunkAPI) => {
     try {
       const response = await axios.post('authorize/registration', user);
-      
+
       // setAuthToken(response.data.token);
       return response.data;
     } catch (error: unknown) {
@@ -33,11 +33,11 @@ export const logIn = createAsyncThunk(
   async (user: ILoginUser, thunkAPI) => {
     try {
       const { data } = await axios.post('authorize/login', user);
-      
+
       setAuthToken(data.accessToken);
       return data;
     } catch (error) {
-      console.log("ERROR_ON_LOGIN", error)
+      console.log('ERROR_ON_LOGIN', error);
       return thunkAPI.rejectWithValue((error as Error).message);
     }
   }
@@ -45,7 +45,7 @@ export const logIn = createAsyncThunk(
 
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    await axios.post('users/logout');
+    // await axios.post('users/logout');
     clearAuthToken();
   } catch (error) {
     return thunkAPI.rejectWithValue((error as Error).message);
@@ -84,3 +84,15 @@ export const refreshUser = createAsyncThunk(
     }
   }
 );
+
+export const getUser = createAsyncThunk('auth/getUser', async (_, thunkAPI) => {
+  try {
+    const state = thunkAPI.getState() as { auth: { user: { id: string } } };
+    console.log(state);
+
+    const response = await axios.get('/users/' + state.auth.user.id);
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue((error as Error).message);
+  }
+});

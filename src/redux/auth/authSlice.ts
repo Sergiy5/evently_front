@@ -6,19 +6,21 @@ import {
   logOut,
   updateUser,
   refreshUser,
+  getUser,
 } from '@/redux/auth/operations';
+import { User } from '../users/usersSlice';
 
 export interface GoogleLoginResponse {
-  name: string | null;
-  email: string | null;
-  token: string | null;
+  name: string;
+  email: string;
+  token: string;
 }
 
-export interface User {
-  userId: number | null;
-  name: string | null;
-  email: string | null;
-}
+// export interface User {
+//   name: string | null;
+//   email: string | null;
+// }
+
 export interface UserLoggingFulfilled {
   user: User;
   token: null | string;
@@ -57,7 +59,8 @@ const authSlice = createSlice({
     },
     googleLogin(state, action: PayloadAction<GoogleLoginResponse>) {
       const { name, email, token } = action.payload;
-      state.user = { name, email, userId: null };
+      state.user.name = name;
+      state.user.email = email;
       state.token = token;
       state.isLoggedIn = true;
       state.error = null;
@@ -70,6 +73,7 @@ const authSlice = createSlice({
       .addCase(refreshUser.fulfilled, handleRefreshUserFulfilled)
       .addCase(updateUser.fulfilled, handleUpdateUserFulfilled)
       .addCase(logOut.fulfilled, handleLogOut)
+      .addCase(getUser.fulfilled, handleGetFullInfomation)
       .addMatcher(
         isAnyOf(...getActionGeneratorsWithType(STATUS.FULFILLED)),
         handleUserLoggingFulfilled
@@ -85,11 +89,9 @@ const authSlice = createSlice({
   },
 });
 
-function handleUserLoggingFulfilled(
-  state: any,
-  action: any
-): void {  
-  // state.user = action.payload.user;
+function handleUserLoggingFulfilled(state: any, action: any): void {
+  state.user.id = action.payload.userId;
+  state.user.name = action.payload.userName;
   state.token = action.payload.accessToken;
   state.user.userId = action.payload.userId;
   state.user.name = action.payload.userName;
@@ -131,6 +133,10 @@ interface State {
 function handleUserRejected(state: State, action: any): void {
   state.isRefreshing = false;
   state.error = action.payload;
+}
+
+function handleGetFullInfomation(state: any, action: UnknownAction): void {
+  state.user = action.payload;
 }
 
 export const {
