@@ -1,4 +1,5 @@
 
+import { Link } from 'react-router-dom';
 import { SharedBtn } from '../ui';
 
 export const Organizers: React.FC = () => {
@@ -7,11 +8,14 @@ export const Organizers: React.FC = () => {
     <div className='mt-[50px] flex w-[1356px]  py-4 rounded-[20px] mx-[43px] bg-gradient-to-br from-[#E9E6FF] to-[#D5FEFF] px-[43px]'>  
       <div className='pr-[54px]'>
         <h1 className='w-[392px] pb-8'>Створи подію, про яку говоритимуть!</h1>
+        <Link
+          to="/evently_front/organizers">
         <SharedBtn 
           children='Стати організатором'
           type="button"
           className={`w-[276px] mx-auto h-[64px] border-buttonPurple border-[1px] bg-none color-none hover:shadow-shadowPrimaryBtn active:shadow-primaryBtnActive`}
         />
+        </Link>
       </div>
       <div className='grid grid-cols-2 grid-rows-2 items-center'>
         <div className='flex w-[424px] pr-[24px]'>
