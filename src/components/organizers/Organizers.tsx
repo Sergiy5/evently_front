@@ -1,4 +1,5 @@
 
+import { Link } from 'react-router-dom';
 import { SharedBtn } from '../ui';
 
 export const Organizers: React.FC = () => {
@@ -7,11 +8,14 @@ export const Organizers: React.FC = () => {
     <div className='mt-[50px] flex w-[1356px]  py-4 rounded-[20px] mx-[43px] bg-gradient-to-br from-[#E9E6FF] to-[#D5FEFF] px-[43px]'>  
       <div className='pr-[54px]'>
         <h1 className='w-[392px] pb-8'>Створи подію, про яку говоритимуть!</h1>
+        <Link
+          to="/evently_front/organizers">
         <SharedBtn 
           children='Стати організатором'
           type="button"
           className={`w-[276px] mx-auto h-[64px] border-buttonPurple border-[1px] bg-none color-none hover:shadow-shadowPrimaryBtn active:shadow-primaryBtnActive`}
         />
+        </Link>
       </div>
       <div className='grid grid-cols-2 grid-rows-2 items-center'>
         <div className='flex w-[424px] pr-[24px]'>
@@ -28,7 +32,7 @@ export const Organizers: React.FC = () => {
                 backgroundColor: '#E2DEFF',
               }}
             />
-            <h2 className='pb-8 text-buttonPurple'>Безкоштовно створіть подію</h2>
+            <h2 className='pb-8 text-buttonPurple'>Безкоштовно створюй подію</h2>
             <p>З нами ти можеш легко та безкоштовно запустити свій захід. Ніяких прихованих витрат — лише твої ідеї!</p>
           </div>
         </div>
@@ -46,8 +50,8 @@ export const Organizers: React.FC = () => {
                 backgroundColor: '#E2DEFF',
               }}
             />
-            <h2 className='pb-8 text-borderColor'>Довір просування нам!</h2>
-            <p className='w-[312px]'>Не витрачай час на рекламу, ми рекламуємо щоб ти зосередився на головному.</p>
+            <h2 className='pb-8 text-borderColor'> Довір просування нам!</h2>
+            <p className='w-[312px]'>Не витрачай час на рекламу, ми рекламуємо, щоб ти зосередився на головному.</p>
           </div>
         </div>
         <div className='flex w-[424px]'>
@@ -65,7 +69,7 @@ export const Organizers: React.FC = () => {
               }}
             />
             <h2 className='pb-8 text-borderColor'>Продавай та заробляй</h2>
-            <p className='w-[312px]'>Організуй подію, продавай білети та отримуй дохід, Прокачуй рейтинг та отримуй бонуси на платформі.</p>
+            <p className='w-[312px]'>Організуй подію, продавай квитки та отримуй дохід. Прокачуй рейтинг та отримуй бонуси на платформі.</p>
           </div>
         </div>
         <div className='flex w-[424px]'>
@@ -82,7 +86,7 @@ export const Organizers: React.FC = () => {
                 backgroundColor: '#E2DEFF',
               }}
             />
-            <h2 className='pb-8 text-buttonPurple'>Продавай та заробляй</h2>
+            <h2 className='pb-8 text-buttonPurple'>Зручний інтерфейс</h2>
             <p>Створюй подію в декілька кліків, легко редагуй та стеж за продажами.</p>
           </div>
         </div>
