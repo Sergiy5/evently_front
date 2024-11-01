@@ -16,6 +16,7 @@ import PromoEvents from '@/pages/admin/PromoEvents';
 import Notifications from '@/pages/admin/Notification';
 import AdminRouter from './privateRouters/AdminRouter';
 import LoginRouter from './privateRouters/LoginRouter';
+import UserProfile from '@/pages/UserProfile';
 
 const NotFound = React.lazy(() => import('../pages/NotFoundPage'));
 const Events = React.lazy(() => import('../pages/events/Events'));
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
             ],
           },
         ],
+      },
+      {
+        path: 'profile/:userId',
+        element: <UserProfile />,
       },
 
       // Later add privat router

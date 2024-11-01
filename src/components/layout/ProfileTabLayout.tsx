@@ -9,7 +9,7 @@ export const ProfileTabLayout = () => {
       <MainLines />
       <ProfileTab />
 
-      <section className="rounded-[20px] bg-lightPurple py-4 px-8 w-full h-auto">
+      <section className="rounded-[20px] bg-lightPurple py-4 px-8 w-[966px] h-auto">
         <Suspense fallback={<div>Loading...</div>}>
           <Outlet />
         </Suspense>

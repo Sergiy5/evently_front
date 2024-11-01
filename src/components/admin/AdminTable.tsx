@@ -32,6 +32,7 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
     const response = await axios.delete('admin/' + selectedUser?.id);
     if (response.status === 200) {
       setOpenPopUp(undefined);
+      setConfirmationDelete(false);
     }
   };
 
@@ -99,7 +100,7 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
                 key={col}
                 onClick={() => handleChangeSort(col)}
                 className={clsx(
-                  'bg-lightBlue border-buttonPurple border p-[10px_12px] text-textDark text-[16px] leading-4 font-bold align-text-top text-wrap max-w-[135px] min-w-[108px]'
+                  'bg-lightBlue border-buttonPurple border p-[10px_12px] text-textDark text-[16px] leading-4 font-bold align-text-top text-wrap max-w-[135px] min-w-[90px]'
                 )}
               >
                 <p
