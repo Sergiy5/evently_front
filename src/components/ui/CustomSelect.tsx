@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { IoIosArrowDown } from "react-icons/io";
 
 
-interface EventSelectProps {
+interface IEventSelectProps {
   options: Option[];
   label?: string; 
   className?: string;
@@ -14,7 +14,7 @@ interface EventSelectProps {
   changeLink?: (link: string) => void | undefined;
 }
 
-const CustomSelect: React.FC<EventSelectProps> = ({
+const CustomSelect: React.FC<IEventSelectProps> = ({
   options,
   label = '',
   className,
