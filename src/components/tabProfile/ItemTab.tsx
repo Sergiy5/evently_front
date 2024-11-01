@@ -28,11 +28,10 @@ const ItemTab: React.FC<IProps> = ({
   const isAdmin = item.title === 'Адміністрування';
   const user = useAppSelector(selectUser);
 
-  // if (role !== 'ADMIN' && isAdmin) {
-  //   return;
-  // }
+  if (user.role !== 'ADMIN' && isAdmin) {
+    return;
+  }
   console.log(user);
-
 
   return (
     <li key={title}>

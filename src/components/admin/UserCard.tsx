@@ -2,6 +2,7 @@ import CellItem from './CellTable';
 import { User } from '@/redux/users/usersSlice';
 import { TfiLock } from 'react-icons/tfi';
 import { AiOutlineUserSwitch } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 interface IProps {
   item: User;
@@ -25,14 +26,17 @@ const UserCard: React.FC<IProps> = ({
   return (
     <tr key={item.email} className="relative">
       <CellItem>
-        <p className="flex justify-between">
+        <Link
+          to={`/evently_front/profile/${item.id}`}
+          className="flex justify-between"
+        >
           <span>
             {index + 1}. <span className="underline">{item.name}</span>
           </span>
           {item.status === 'BANNED' && (
             <TfiLock className="fill-lightRed w-3 h-3" />
           )}
-        </p>
+        </Link>
       </CellItem>
       <CellItem>{item.phone || 'Не вказано'}</CellItem>
       <CellItem>{item.email}</CellItem>
@@ -54,8 +58,8 @@ const UserCard: React.FC<IProps> = ({
             <div className="absolute -bottom-[76px] -right-[35px] bg-lightBlue rounded-[20px] w-[236px] py-6 px-5 z-10 text-center flex flex-col text-base">
               <button onClick={() => openModal('status')}>
                 {item.status === 'ACTIVE'
-                  ? 'Заблокувати користувача'
-                  : 'Poзблокувати користувача'}
+                  ? 'Poзблокувати користувача'
+                  : 'Заблокувати користувача'}
               </button>
               <button
                 className="mt-4 font-bold"
