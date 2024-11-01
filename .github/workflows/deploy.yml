@@ -23,8 +23,6 @@ jobs:
       - name: Inject environment variables
         run: |
           echo "VITE_GOOGLE_CLIENT_ID=${{ secrets.VITE_GOOGLE_CLIENT_ID }}" >> .env
-          echo "VITE_CLIENT_SECRET=${{ secrets.VITE_CLIENT_SECRET }}" >> .env
-          echo "VITE_MOCK_API_USER_URL=${{ secrets.VITE_MOCK_API_USER_URL }}" >> .env
 
       - name: Build project
         run: npm run build
