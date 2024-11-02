@@ -3,6 +3,7 @@ import { nanoid } from '@reduxjs/toolkit';
 import { useRef, useState } from 'react';
 import { slides } from '@/assets/heroSlides/slides';
 import { PrevNextBtn } from './PrevNextBtn';
+import { Dots } from './Dots';
 
 export const Hero: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -50,16 +51,11 @@ export const Hero: React.FC = () => {
       </Slider>
       <div className="flex items-center mt-[20px] justify-center gap-[8px]">
         <PrevNextBtn onClick={setPrevSlide} />
-        <div className="flex items-center gap-[8px]">
-          {slides.map(slide => (
-            <button
-              onClick={() => setSlideByDot(slides.indexOf(slide))}
-              className={`rounded-full flex items-center cursor-pointer focus:outline-none
-          ${slides.indexOf(slide) === currentSlide ? 'bg-textDark size-3 ' : 'bg-darkGray size-2'}
-          `}
-            ></button>
-          ))}
-        </div>
+        <Dots
+          slides={slides}
+          currentSlide={currentSlide}
+          setSlideByDot={setSlideByDot}
+        />
         <PrevNextBtn onClick={setNextSlide} className="rotate-180" />
       </div>
     </div>
