@@ -62,7 +62,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
   return (
     <div
       id={`${id}`}
-      className={`group relative flex overflow-hidden items-start rounded-[20px] w-[311px] h-[514px] shadow-eventCardShadow ${
+      className={`group relative flex overflow-hidden items-start rounded-[20px] w-[312px] h-[514px] shadow-eventCardShadow ${
         top ? 'mb-[10px]' : ''
       }`}
     >
