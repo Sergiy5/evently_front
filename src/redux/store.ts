@@ -13,6 +13,7 @@ import {
 
 import { authReducer } from './auth/authSlice';
 import { usersReducer } from './users/usersSlice';
+import { eventsReducer } from './events/eventsSlice';
 
 const persistConfig = {
   key: 'auth',
@@ -26,6 +27,7 @@ export const store = configureStore({
   reducer: {
     auth: persistedReducer,
     users: usersReducer,
+    events: eventsReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

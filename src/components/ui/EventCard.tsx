@@ -9,6 +9,8 @@ import { addEventToLiked, removeEventFromLiked } from '@/utils/eventsHttp';
 import { selectUser } from '@/redux/auth/selectors';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { useAppSelector } from '@/hooks/hooks';
+import { getLikedEvents } from '@/redux/events/selectors';
 
 interface EventCardProps {
   event: Event;
@@ -18,8 +20,15 @@ interface EventCardProps {
 export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
   const [isChecked, setIsCheked] = useState<boolean | null>(null);
   const [isLiked, setIsLiked] = useState(false);
+
   const { id, title, date, category, price, location, type, photoUrl } = event;
   const { id: userId } = useSelector(selectUser);
+  const likedEventsAll = useAppSelector(getLikedEvents);
+  console.log(likedEventsAll);
+
+  useEffect(() => {
+    setIsLiked(likedEventsAll.some(item => item.id === event.id));
+  }, []);
 
   useEffect(() => {
     if (isChecked === null) return;
@@ -29,7 +38,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
           console.log(userId, eventId.toString());
           const response = await addEventToLiked(userId, eventId.toString());
           if (response.status === 201) {
-            setIsLiked(true);
+            // setIsLiked(true);
           }
           if (response.status === 401 || response.status === 403) {
             return toast.error(`Щоб зберегти, потрібно залогінитись!`);
@@ -46,7 +55,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
         try {
           const response = await removeEventFromLiked(userId, eventId);
           if (response.status === 200) {
-            setIsLiked(false);
+            // setIsLiked(false);
           }
           if (response.status === 401 || response.status === 403) {
             return toast.error(`Щоб зберегти, потрібно залогінитись!`);

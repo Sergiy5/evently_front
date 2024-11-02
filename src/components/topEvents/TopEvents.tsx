@@ -8,7 +8,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 interface TopEventsProps {
-  filteredEvents: Event[] | undefined;
+  filteredEvents?: Event[];
 }
 
 export const TopEvents: React.FC<TopEventsProps> = ({ filteredEvents }) => {
