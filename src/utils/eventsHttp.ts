@@ -1,12 +1,10 @@
 import axios from 'axios';
 
 import { eventType } from '../components/events/types';
-import { IEvent } from '@/types/components';
-
 
 const URL = 'https://66ceec99901aab24842029e0.mockapi.io';
 
-axios.defaults.baseURL = "https://rendereventapp.onrender.com/api/v1/";
+axios.defaults.baseURL = 'https://rendereventapp.onrender.com/api/v1/';
 
 export const deleteEvent = async (id: number) => {
   try {
@@ -34,11 +32,11 @@ export const getEvent = async (id?: string) => {
 
 export const getEvents = async () => {
   try {
-    const response = await axios('events' );
-    const resData: IEvent[] = response.data;
+    const response = await axios('events');
+    const resData: Event[] = response.data;
     return resData;
   } catch (error) {
-    console.log(error)
+    console.log(error);
     throw new Error('Failed to get events');
   }
 };
@@ -80,11 +78,11 @@ export const addEventToLiked = async (userId: string, eventId: string) => {
     });
     return response.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
 
     throw new Error('Failed to add to liked');
   }
-}
+};
 
 export const removeEventFromLiked = async (userId: string, eventId: number) => {
   try {
@@ -98,4 +96,4 @@ export const removeEventFromLiked = async (userId: string, eventId: number) => {
   } catch (error) {
     throw new Error('Failed to remove from liked');
   }
-}
+};

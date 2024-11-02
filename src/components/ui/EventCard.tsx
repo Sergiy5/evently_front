@@ -2,7 +2,6 @@ import { SharedBtn } from './SharedBtn';
 import { PiHeartLight } from 'react-icons/pi';
 import { PiHeartFill } from 'react-icons/pi';
 import { useEffect, useState } from 'react';
-import { IEvent } from '@/types/components';
 import { CiLocationOn } from 'react-icons/ci';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { FaRegMoneyBillAlt } from 'react-icons/fa';
@@ -12,7 +11,7 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 interface EventCardProps {
-  event: IEvent;
+  event: Event;
 }
 export const EventCard: React.FC<EventCardProps> = ({ event }) => {
   const [isChecked, setIsCheked] = useState<boolean | null>(null);

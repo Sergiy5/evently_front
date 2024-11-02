@@ -1,7 +1,6 @@
 import { MySliderBtn } from './MySliderBtn';
 import { Container } from '../container/Container';
 import { EventCard } from '../ui';
-import { IEvent } from '@/types/components';
 import { useRef } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import Slider, { Settings } from 'react-slick';
@@ -9,7 +8,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 interface TopEventsProps {
-  filteredEvents: IEvent[] | undefined;
+  filteredEvents: Event[] | undefined;
 }
 
 export const TopEvents: React.FC<TopEventsProps> = ({ filteredEvents }) => {
