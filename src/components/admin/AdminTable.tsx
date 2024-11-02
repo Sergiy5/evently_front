@@ -7,8 +7,9 @@ import UserCard from './UserCard';
 import { BsFilter } from 'react-icons/bs';
 import { User } from '@/redux/users/usersSlice';
 import sortUser from '@/utils/sortUser';
-import { Modal } from '../ui';
-import { SharedBtn } from '../ui';
+import { useAppDispatch } from '@/hooks/hooks';
+import { fetchUsers } from '@/redux/users/operations';
+import ModalAdmin from './ModalAdmin';
 
 interface IProps {
   cols: string[];
@@ -19,26 +20,40 @@ interface IProps {
 
 const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
   const [sort, setSort] = useState<
-    { col: string; direction: number } | undefined
-  >({ col: cols[3], direction: 1 });
+    { col: string; direction: boolean } | undefined
+  >({ col: cols[3], direction: false });
   const [openPopUp, setOpenPopUp] = useState<number | undefined>(undefined);
   const [confirmationDelete, setConfirmationDelete] = useState<boolean>(false);
   const [confirmationChangeStatus, setConfirmationChangeStatus] =
     useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<User>();
 
+  const dispatch = useAppDispatch();
+
   // add async function deleteUser
   const deleteUser = async () => {
-    const response = await axios.delete('admin/' + selectedUser?.id);
+    const response = await axios.delete('admin/users' + selectedUser?.id);
     if (response.status === 200) {
       setOpenPopUp(undefined);
       setConfirmationDelete(false);
+      dispatch(fetchUsers());
     }
   };
 
   // add async function changeStatusUser
-  const changeStatusUser = () => {
-    console.log(selectedUser?.name);
+  const changeStatusUser = async () => {
+    let url = selectedUser?.email;
+    console.log(url);
+
+    const response = await axios.patch(
+      `admin/users/${selectedUser?.status === 'ACTIVE' ? 'ban/' : 'unban/'}` +
+        url
+    );
+    if (response.status === 200) {
+      setOpenPopUp(undefined);
+      setConfirmationChangeStatus(false);
+      dispatch(fetchUsers());
+    }
   };
 
   const handlePopUp = (id: number) => {
@@ -58,15 +73,9 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
     setSort(prevState => {
       const currState = { ...prevState };
       if (currState.col !== col) {
-        return { col, direction: 1 };
+        return { col, direction: true };
       } else {
-        let direction = currState.direction as number;
-
-        if (direction === 2) {
-          return { col, direction: 0 };
-        }
-
-        return { col, direction: direction + 1 };
+        return { col, direction: !currState.direction };
       }
     });
   };
@@ -84,9 +93,6 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
     sortedData = sortUser(sort, cols, data);
   }
 
-  // const widths = ['128px', '108px', '128px', '131px', '128px', '135px'];
-  // const widths = ['17%', '14%', '17%', '17%', '17%', '18%'];
-
   return (
     <>
       <table
@@ -95,7 +101,7 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
       >
         <thead>
           <tr className="h-[58px]">
-            {cols.map((col, index) => (
+            {cols.map(col => (
               <th
                 key={col}
                 onClick={() => handleChangeSort(col)}
@@ -105,18 +111,17 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
               >
                 <p
                   className={clsx('relative', {
-                    'pr-6': col === sort?.col && sort?.direction !== 0,
+                    'pr-6': col === sort?.col,
                   })}
                 >
                   {col}
-                  {col === sort?.col && sort?.direction !== 0 && (
+                  {col === sort?.col && (
                     <BsFilter
                       className={clsx(
                         'w-6 h-6 absolute right-0 top-1/2 -translate-y-1/2',
                         {
-                          'rotate-180':
-                            col === sort?.col && sort.direction === 2,
-                          'rotate-0': col === sort?.col && sort.direction === 1,
+                          'rotate-180': col === sort?.col && sort.direction,
+                          'rotate-0': col === sort?.col && !sort.direction,
                         }
                       )}
                     />
@@ -139,64 +144,18 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
           ))}
         </tbody>
       </table>
-      <Modal
+      <ModalAdmin
+        text="Ви точно хочете видалити цього користувача?"
         isOpen={confirmationDelete}
         onClose={() => setConfirmationDelete(false)}
-        hiddenCross
-      >
-        <div className="border border-buttonPurple rounded-[20px] bg-lightBlue py-6 px-8 w-[362px] text-center">
-          <p className="text-2xl text-textDark font-lato">
-            Ви точно хочете видалити цього користувача?
-          </p>
-          <div className="flex justify-between mt-6">
-            <SharedBtn
-              type="button"
-              primary
-              className="w-[120px] h-8 !py-0"
-              onClick={deleteUser}
-            >
-              Taк
-            </SharedBtn>
-            <SharedBtn
-              type="button"
-              secondary
-              className="w-[120px] h-8 !py-0"
-              onClick={() => setConfirmationDelete(false)}
-            >
-              Ні
-            </SharedBtn>
-          </div>
-        </div>
-      </Modal>
-      <Modal
+        clickYes={deleteUser}
+      />
+      <ModalAdmin
+        text="Ви точно хочете змінити статус цього користувача?"
         isOpen={confirmationChangeStatus}
         onClose={() => setConfirmationChangeStatus(false)}
-        hiddenCross
-      >
-        <div className="border border-buttonPurple rounded-[20px] bg-lightBlue py-6 px-8 w-[362px] text-center">
-          <p className="text-2xl text-textDark font-lato">
-            Ви точно хочете змінити статус цього користувача?
-          </p>
-          <div className="flex justify-between mt-6">
-            <SharedBtn
-              type="button"
-              primary
-              className="w-[120px] h-8 !py-0"
-              onClick={changeStatusUser}
-            >
-              Taк
-            </SharedBtn>
-            <SharedBtn
-              type="button"
-              secondary
-              className="w-[120px] h-8 !py-0"
-              onClick={() => setConfirmationChangeStatus(false)}
-            >
-              Ні
-            </SharedBtn>
-          </div>
-        </div>
-      </Modal>
+        clickYes={changeStatusUser}
+      />
     </>
   );
 };

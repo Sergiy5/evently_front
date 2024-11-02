@@ -7,7 +7,7 @@ export interface User {
   email: string;
   creationDate: Date;
   mailConfirmation: boolean;
-  role: 'USER' | 'ADMIN';
+  role: 'VISITOR' | 'ORGANIZER' | 'ADMIN';
   location: string;
   phone: string;
   status: 'ACTIVE' | 'BANNED';
