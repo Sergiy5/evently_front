@@ -5,7 +5,7 @@ export const fetchUsers = createAsyncThunk(
   'users/fetchUsers',
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get('users');
+      const response = await axios.get('admin/users');
       console.log(response);
 
       return response.data;

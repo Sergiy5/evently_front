@@ -12,6 +12,12 @@ interface IProps {
   openModal: (variant: 'delete' | 'status') => void;
 }
 
+const role = {
+  ADMIN: 'Aдмін',
+  VISITOR: 'Відвідувач',
+  ORGANIZER: 'Організатор',
+};
+
 const UserCard: React.FC<IProps> = ({
   item,
   index,
@@ -42,11 +48,7 @@ const UserCard: React.FC<IProps> = ({
       <CellItem>{item.email}</CellItem>
       <CellItem>{formatedDate}</CellItem>
       <CellItem classes="text-center">
-        {item.role
-          ? item.role === 'ADMIN'
-            ? 'Адмін'
-            : 'Відвідувач'
-          : 'Не вказанно'}
+        {item.role ? role[item.role] : 'Не вказанно'}
       </CellItem>
       <CellItem>
         <>
@@ -58,8 +60,8 @@ const UserCard: React.FC<IProps> = ({
             <div className="absolute -bottom-[76px] -right-[35px] bg-lightBlue rounded-[20px] w-[236px] py-6 px-5 z-10 text-center flex flex-col text-base">
               <button onClick={() => openModal('status')}>
                 {item.status === 'ACTIVE'
-                  ? 'Poзблокувати користувача'
-                  : 'Заблокувати користувача'}
+                  ? 'Заблокувати користувача'
+                  : 'Poзблокувати користувача'}
               </button>
               <button
                 className="mt-4 font-bold"
