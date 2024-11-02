@@ -1,8 +1,12 @@
+import { ButtonHTMLAttributes } from 'react';
 import { BiRightArrowCircle } from 'react-icons/bi';
 
-export const ShowAllButton: React.FC = () => {
+interface ShowAllButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
+
+export const ShowAllButton: React.FC<ShowAllButtonProps> = ({ ...props }) => {
   return (
     <button
+      {...props}
       className="w-[200px] h-[48px] border-borderColor border-[1px] mx-auto
     rounded-[15px] flex justify-center items-center gap-[8px] focus:outline-none
     hover:bg-borderColor hover:text-background hover:fill-background
