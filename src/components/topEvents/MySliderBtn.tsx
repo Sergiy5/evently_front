@@ -24,7 +24,7 @@ export const MySliderBtn: React.FC<CustomArrowProps> = ({
       {...props}
       className={clsx(
         `absolute -top-20 flex items-center justify-center w-[40px] h-[40px] rounded-full 
-         focus:outline-none transition-colors transition-outline duration-250 ease-[cubic-bezier(0.4,0,0.2,1)] z-10`,
+         focus:outline-none transition-all duration-300 active:scale-90`,
         {
           'cursor-default': isActive,
           'cursor-pointer': !isActive,

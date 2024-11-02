@@ -9,7 +9,7 @@ import { getEvents } from '@/utils/eventsHttp';
 
 const Home: React.FC = () => {
   const [events, setEvents] = useState<Event[] | undefined>();
-  // const [topEvents, setTopEvents] = useState<IEvent[] | undefined>();
+
   const topEvents = events?.filter(event => event.category === 'TOP_EVENTS');
 
   useEffect(() => {
@@ -35,4 +35,5 @@ const Home: React.FC = () => {
     </Main>
   );
 };
+
 export default Home;
