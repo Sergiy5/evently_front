@@ -56,7 +56,7 @@ export const TopEvents: React.FC<TopEventsProps> = ({ filteredEvents }) => {
       <div className="pl-[60px] position-relative">
         <Slider ref={sliderRef} {...settings}>
           {filteredEvents?.map(item => (
-            <EventCard key={nanoid()} event={item} />
+            <EventCard key={nanoid()} event={item} top />
           ))}
         </Slider>
       </div>

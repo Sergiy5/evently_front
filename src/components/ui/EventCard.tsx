@@ -12,9 +12,10 @@ import { toast } from 'react-toastify';
 
 interface EventCardProps {
   event: Event;
+  top?: boolean;
 }
 
-export const EventCard: React.FC<EventCardProps> = ({ event }) => {
+export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
   const [isChecked, setIsCheked] = useState<boolean | null>(null);
   const [isLiked, setIsLiked] = useState(false);
   const { id, title, date, category, price, location, type, photoUrl } = event;
@@ -61,7 +62,9 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
   return (
     <div
       id={`${id}`}
-      className={`group mb-4 relative flex overflow-hidden items-start rounded-[20px] w-[311px] h-[514px] shadow-eventCardShadow `}
+      className={`group relative flex overflow-hidden items-start rounded-[20px] w-[311px] h-[514px] shadow-eventCardShadow ${
+        top ? 'mb-[10px]' : ''
+      }`}
     >
       <img src={photoUrl} alt={title} />
       <div className={`flex absolute justify-end p-6 w-full `}>
