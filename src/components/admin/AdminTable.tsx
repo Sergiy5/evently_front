@@ -32,7 +32,7 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
 
   // add async function deleteUser
   const deleteUser = async () => {
-    const response = await axios.delete('admin/users' + selectedUser?.id);
+    const response = await axios.delete('admin/users/' + selectedUser?.id);
     if (response.status === 200) {
       setOpenPopUp(undefined);
       setConfirmationDelete(false);
