@@ -13,17 +13,19 @@ import { toast } from 'react-toastify';
 interface EventCardProps {
   event: Event;
 }
+
 export const EventCard: React.FC<EventCardProps> = ({ event }) => {
   const [isChecked, setIsCheked] = useState<boolean | null>(null);
   const [isLiked, setIsLiked] = useState(false);
   const { id, title, date, category, price, location, type, photoUrl } = event;
-  const { userId } = useSelector(selectUser);
+  const { id: userId } = useSelector(selectUser);
 
   useEffect(() => {
     if (isChecked === null) return;
     if (isChecked) {
       const addLiked = async (userId: string, eventId: number) => {
         try {
+          console.log(userId, eventId.toString());
           const response = await addEventToLiked(userId, eventId.toString());
           if (response.status === 201) {
             setIsLiked(true);
