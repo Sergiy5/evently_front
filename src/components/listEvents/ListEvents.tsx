@@ -4,7 +4,7 @@ import { ShowAllButton } from '../ui/ShowAllButton';
 import { useEffect, useState } from 'react';
 
 interface ListEventsProps {
-  events: Event[] | undefined;
+  events?: Event[];
 }
 
 export const ListEvents: React.FC<ListEventsProps> = ({ events }) => {
