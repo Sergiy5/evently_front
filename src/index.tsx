@@ -11,6 +11,7 @@ import App from './App';
 import { store, persistor } from './redux/store';
 
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+console.log(clientId);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
