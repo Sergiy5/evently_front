@@ -1,4 +1,4 @@
-export interface IEvent {
+interface Event {
   id: number;
   category: string;
   status: string;
