@@ -34,13 +34,13 @@ const UserCard: React.FC<IProps> = ({
       <CellItem>
         <Link
           to={`/evently_front/profile/${item.id}`}
-          className="flex justify-between"
+          className="flex justify-between relative"
         >
-          <span>
+          <span className="w-11/12 text-nowrap text-ellipsis overflow-hidden">
             {index + 1}. <span className="underline">{item.name}</span>
           </span>
           {item.status === 'BANNED' && (
-            <TfiLock className="fill-lightRed w-3 h-3" />
+            <TfiLock className="fill-lightRed w-3 h-3 absolute -translate-y-1/2 top-1/2 right-0" />
           )}
         </Link>
       </CellItem>
