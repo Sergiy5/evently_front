@@ -37,7 +37,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
         try {
           const response = await addEventToLiked(userId, eventId.toString());
           if (response.status === 201) {
-            dispatch(fetchLikedEvents(userId));
+            dispatch(fetchLikedEvents({ userId }));
           }
         } catch (error) {
           console.log(error);
@@ -50,7 +50,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
         try {
           const response = await removeEventFromLiked(userId, eventId);
           if (response.status === 200) {
-            dispatch(fetchLikedEvents(userId));
+            dispatch(fetchLikedEvents({ userId }));
           }
         } catch (error) {
           console.log(error);

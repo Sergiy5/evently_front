@@ -4,7 +4,6 @@ import { fetchLikedEvents } from './operations';
 
 const initialState = {
   likedEvents: [] as Event[],
-  likedEventsCount: 0,
   error: null as any,
   isLoading: false,
 };
@@ -12,7 +11,11 @@ const initialState = {
 const eventsSlice = createSlice({
   name: 'events',
   initialState,
-  reducers: {},
+  reducers: {
+    deleteLikedEvents(state) {
+      state.likedEvents = [];
+    },
+  },
   extraReducers: builder =>
     builder
       .addCase(fetchLikedEvents.pending, state => {
@@ -36,3 +39,5 @@ const eventsSlice = createSlice({
 });
 
 export const eventsReducer = eventsSlice.reducer;
+
+export const { deleteLikedEvents } = eventsSlice.actions;
