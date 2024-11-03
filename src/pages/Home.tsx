@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { getEvents } from '@/utils/eventsHttp';
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { selectUser } from '@/redux/auth/selectors';
-import { likedEvents } from '@/redux/events/operations';
+import { fetchLikedEvents } from '@/redux/events/operations';
 
 const Home: React.FC = () => {
   const [events, setEvents] = useState<Event[] | undefined>();
@@ -34,9 +34,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     if (id) {
-      console.log(likedEvents(id));
-
-      dispatch(likedEvents(id));
+      dispatch(fetchLikedEvents(id));
     }
   }, [id, dispatch]);
 

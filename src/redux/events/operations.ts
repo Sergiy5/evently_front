@@ -3,7 +3,7 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'https://rendereventapp.onrender.com/api/v1/';
 
-export const likedEvents = createAsyncThunk<
+export const fetchLikedEvents = createAsyncThunk<
   Event[],
   string,
   {
@@ -20,14 +20,3 @@ export const likedEvents = createAsyncThunk<
     return rejectWithValue(error.message);
   }
 });
-
-export const getLikedEventsCount = async (id: string) => {
-  try {
-    const response = await axios(`liked-events/count/${id}`);
-    const resData: number = response.data;
-    return resData;
-  } catch (error) {
-    console.log(error);
-    throw new Error('Failed to get events');
-  }
-};

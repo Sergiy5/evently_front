@@ -9,8 +9,9 @@ import { addEventToLiked, removeEventFromLiked } from '@/utils/eventsHttp';
 import { selectUser } from '@/redux/auth/selectors';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { useAppSelector } from '@/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { getLikedEvents } from '@/redux/events/selectors';
+import { fetchLikedEvents } from '@/redux/events/operations';
 
 interface EventCardProps {
   event: Event;
@@ -18,55 +19,48 @@ interface EventCardProps {
 }
 
 export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
-  const [isChecked, setIsCheked] = useState<boolean | null>(null);
   const [isLiked, setIsLiked] = useState(false);
 
   const { id, title, date, category, price, location, type, photoUrl } = event;
+
   const { id: userId } = useSelector(selectUser);
   const likedEventsAll = useAppSelector(getLikedEvents);
-  console.log(likedEventsAll);
 
-  useEffect(() => {
-    setIsLiked(likedEventsAll.some(item => item.id === event.id));
-  }, []);
+  const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (isChecked === null) return;
-    if (isChecked) {
+  const toggleIsLiked = () => {
+    if (!isLiked) {
       const addLiked = async (userId: string, eventId: number) => {
         try {
-          console.log(userId, eventId.toString());
           const response = await addEventToLiked(userId, eventId.toString());
           if (response.status === 201) {
-            // setIsLiked(true);
-          }
-          if (response.status === 401 || response.status === 403) {
-            return toast.error(`Щоб зберегти, потрібно залогінитись!`);
+            dispatch(fetchLikedEvents(userId));
           }
         } catch (error) {
           console.log(error);
+          return toast.error('Щоб зберегти, потрібно залогінитись!');
         }
       };
       addLiked(userId, id);
-    }
-
-    if (!isChecked) {
+    } else {
       const deleteFromLiked = async (userId: string, eventId: number) => {
         try {
           const response = await removeEventFromLiked(userId, eventId);
           if (response.status === 200) {
-            // setIsLiked(false);
-          }
-          if (response.status === 401 || response.status === 403) {
-            return toast.error(`Щоб зберегти, потрібно залогінитись!`);
+            dispatch(fetchLikedEvents(userId));
           }
         } catch (error) {
           console.log(error);
+          return toast.error('Щоб зберегти, потрібно залогінитись!');
         }
       };
       deleteFromLiked(userId, id);
     }
-  }, [isChecked, userId, id]);
+  };
+
+  useEffect(() => {
+    setIsLiked(likedEventsAll.some(item => item.id === event.id));
+  }, [likedEventsAll]);
 
   return (
     <div
@@ -79,7 +73,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
       <div className={`flex absolute justify-end p-6 w-full `}>
         <button
           type="button"
-          onClick={() => setIsCheked(!isChecked)}
+          onClick={toggleIsLiked}
           className={`focus:outline-none`}
         >
           {isLiked ? (
@@ -104,6 +98,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
           </p>
         </div>
         <h2 className={`min-h-[72px] text-2xl text-textDark`}>{title}</h2>
+
         <ul
           className={`flex flex-col gap-[18px] font-normal text-md text-textDark justify-between w-full`}
         >
