@@ -14,7 +14,7 @@ import { Organizers } from '@/components/organizers/Organizers';
 import { TopEvents } from '@/components/topEvents/TopEvents';
 
 const Home: React.FC = () => {
-  const [events, setEvents] = useState<Event[] | undefined>();
+  const [events, setEvents] = useState<Event[] | []>([]);
 
   const { id } = useAppSelector(selectUser);
 

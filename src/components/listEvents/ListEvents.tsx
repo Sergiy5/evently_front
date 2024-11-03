@@ -6,7 +6,7 @@ import { EventCard } from '../ui';
 import { ShowAllButton } from '../ui/ShowAllButton';
 
 interface ListEventsProps {
-  events?: Event[];
+  events: Event[];
 }
 
 export const ListEvents: React.FC<ListEventsProps> = ({ events }) => {
