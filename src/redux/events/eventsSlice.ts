@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { fetchLikedEvents } from './operations';
 
 const initialState = {

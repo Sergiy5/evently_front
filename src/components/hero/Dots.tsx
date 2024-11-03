@@ -1,5 +1,6 @@
-import { nanoid } from '@reduxjs/toolkit';
 import { ButtonHTMLAttributes } from 'react';
+
+import { nanoid } from '@reduxjs/toolkit';
 
 interface DotsProps<T> extends ButtonHTMLAttributes<HTMLButtonElement> {
   slides: T[];

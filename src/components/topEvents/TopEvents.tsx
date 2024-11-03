@@ -1,11 +1,13 @@
-import { MySliderBtn } from './MySliderBtn';
+import { useRef } from 'react';
+import Slider, { Settings } from 'react-slick';
+
+import { nanoid } from '@reduxjs/toolkit';
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
+
 import { Container } from '../container/Container';
 import { EventCard } from '../ui';
-import { useRef } from 'react';
-import { nanoid } from '@reduxjs/toolkit';
-import Slider, { Settings } from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import { MySliderBtn } from './MySliderBtn';
 
 interface TopEventsProps {
   filteredEvents?: Event[];

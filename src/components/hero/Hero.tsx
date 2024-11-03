@@ -1,9 +1,11 @@
-import Slider from 'react-slick';
-import { nanoid } from '@reduxjs/toolkit';
 import { useRef, useState } from 'react';
+import Slider from 'react-slick';
+
 import { slides } from '@/assets/heroSlides/slides';
-import { PrevNextBtn } from './PrevNextBtn';
+import { nanoid } from '@reduxjs/toolkit';
+
 import { Dots } from './Dots';
+import { PrevNextBtn } from './PrevNextBtn';
 
 export const Hero: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

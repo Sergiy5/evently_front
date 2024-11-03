@@ -1,25 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { AiOutlineHeart } from 'react-icons/ai';
+import { BsSearch } from 'react-icons/bs';
+import { CgProfile } from 'react-icons/cg';
+import { RxCross2 } from 'react-icons/rx';
+import { useLocation, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
+
+import { selectIsLoggedIn } from '@/redux/auth/selectors';
+import { getLikedEvents } from '@/redux/events/selectors';
+
+import { useAppSelector } from '@/hooks/hooks';
+import { eventOptions } from '@/utils/statickData';
+import { cityOptions } from '@/utils/statickData';
+
+import CustomSelect from '@/components/ui/CustomSelect';
+
 // import Button from '../components/ui/Button';
 import { Auth } from '../auth/Auth';
 import { Container } from '../container/Container';
-import { HeaderLines } from './HeaderLines';
 import { Modal, SharedBtn } from '../ui';
-import { useLocation, useNavigate } from 'react-router';
-import CustomSelect from '@/components/ui/CustomSelect';
-
-import { BsSearch } from 'react-icons/bs';
-import { AiOutlineHeart } from 'react-icons/ai';
-import { RxCross2 } from 'react-icons/rx';
-
-import { CgProfile } from 'react-icons/cg';
 import MainLogo from '../ui/Logo';
-
-import { eventOptions } from '@/utils/statickData';
-import { cityOptions } from '@/utils/statickData';
-import { selectIsLoggedIn } from '@/redux/auth/selectors';
-import { getLikedEvents } from '@/redux/events/selectors';
-import { useAppSelector } from '@/hooks/hooks';
+import { HeaderLines } from './HeaderLines';
 
 interface HeaderProps {}
 

@@ -1,6 +1,7 @@
 import React from 'react';
-import clsx from 'clsx';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
+
+import clsx from 'clsx';
 
 export interface CustomArrowProps {
   next?: boolean;

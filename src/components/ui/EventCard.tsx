@@ -1,17 +1,20 @@
-import { SharedBtn } from './SharedBtn';
+import { useEffect, useState } from 'react';
+import { AiOutlineCalendar } from 'react-icons/ai';
+import { CiLocationOn } from 'react-icons/ci';
+import { FaRegMoneyBillAlt } from 'react-icons/fa';
 import { PiHeartLight } from 'react-icons/pi';
 import { PiHeartFill } from 'react-icons/pi';
-import { useEffect, useState } from 'react';
-import { CiLocationOn } from 'react-icons/ci';
-import { AiOutlineCalendar } from 'react-icons/ai';
-import { FaRegMoneyBillAlt } from 'react-icons/fa';
-import { addEventToLiked, removeEventFromLiked } from '@/utils/eventsHttp';
-import { selectUser } from '@/redux/auth/selectors';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
-import { getLikedEvents } from '@/redux/events/selectors';
+
+import { selectUser } from '@/redux/auth/selectors';
 import { fetchLikedEvents } from '@/redux/events/operations';
+import { getLikedEvents } from '@/redux/events/selectors';
+
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
+import { addEventToLiked, removeEventFromLiked } from '@/utils/eventsHttp';
+
+import { SharedBtn } from './SharedBtn';
 
 interface EventCardProps {
   event: Event;

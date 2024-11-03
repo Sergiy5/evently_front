@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
+
 import { nanoid } from '@reduxjs/toolkit';
+
 import { EventCard } from '../ui';
 import { ShowAllButton } from '../ui/ShowAllButton';
-import { useEffect, useState } from 'react';
 
 interface ListEventsProps {
   events?: Event[];
