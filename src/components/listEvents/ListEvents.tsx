@@ -1,10 +1,12 @@
-import { nanoid } from '@reduxjs/toolkit';
-import { EventCard } from '../ui';
-import { ShowAllButton } from '../ui/ShowAllButton';
 import { useEffect, useState } from 'react';
 
+import { nanoid } from '@reduxjs/toolkit';
+
+import { EventCard } from '../ui';
+import { ShowAllButton } from '../ui/ShowAllButton';
+
 interface ListEventsProps {
-  events?: Event[];
+  events: Event[];
 }
 
 export const ListEvents: React.FC<ListEventsProps> = ({ events }) => {

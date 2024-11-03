@@ -1,14 +1,24 @@
-import { Main } from '@/components/main/Main';
-import { TopEvents } from '@/components/topEvents/TopEvents';
-import { AllEvents } from '@/components/allEvents/AllEvents';
-import { Hero } from '@/components/hero/Hero';
-import { Organizers } from '@/components/organizers/Organizers';
-import { FAQ } from '@/components/faq/FAQ';
 import { useEffect, useState } from 'react';
+
+import { selectUser } from '@/redux/auth/selectors';
+import { fetchLikedEvents } from '@/redux/events/operations';
+
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { getEvents } from '@/utils/eventsHttp';
 
+import { AllEvents } from '@/components/allEvents/AllEvents';
+import { FAQ } from '@/components/faq/FAQ';
+import { Hero } from '@/components/hero/Hero';
+import { Main } from '@/components/main/Main';
+import { Organizers } from '@/components/organizers/Organizers';
+import { TopEvents } from '@/components/topEvents/TopEvents';
+
 const Home: React.FC = () => {
-  const [events, setEvents] = useState<Event[] | undefined>();
+  const [events, setEvents] = useState<Event[] | []>([]);
+
+  const { id } = useAppSelector(selectUser);
+
+  const dispatch = useAppDispatch();
 
   const topEvents = events?.filter(event => event.category === 'TOP_EVENTS');
 
@@ -24,6 +34,12 @@ const Home: React.FC = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchLikedEvents(id));
+    }
+  }, [id, dispatch]);
 
   return (
     <Main className="flex flex-col gap-16">

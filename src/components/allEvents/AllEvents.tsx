@@ -2,7 +2,7 @@ import { Container } from '../container/Container';
 import { ListEvents } from '../listEvents/ListEvents';
 
 interface AllEventsProps {
-  events?: Event[];
+  events: Event[];
 }
 
 export const AllEvents: React.FC<AllEventsProps> = ({ events }) => {

@@ -1,28 +1,28 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { AiOutlineHeart } from 'react-icons/ai';
+import { BsSearch } from 'react-icons/bs';
+import { CgProfile } from 'react-icons/cg';
+import { RxCross2 } from 'react-icons/rx';
+import { useLocation, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
+
+import { selectIsLoggedIn } from '@/redux/auth/selectors';
+import { getLikedEvents } from '@/redux/events/selectors';
+
+import { useAppSelector } from '@/hooks/hooks';
+import { eventOptions } from '@/utils/statickData';
+import { cityOptions } from '@/utils/statickData';
+
+import CustomSelect from '@/components/ui/CustomSelect';
+
 // import Button from '../components/ui/Button';
 import { Auth } from '../auth/Auth';
 import { Container } from '../container/Container';
-import { HeaderLines } from './HeaderLines';
 import { Modal, SharedBtn } from '../ui';
-import { useLocation, useNavigate } from 'react-router';
-import CustomSelect from '@/components/ui/CustomSelect';
-
-import { BsSearch } from 'react-icons/bs';
-import { AiOutlineHeart } from 'react-icons/ai';
-import { RxCross2 } from 'react-icons/rx';
-
-import { CgProfile } from 'react-icons/cg';
 import MainLogo from '../ui/Logo';
+import { HeaderLines } from './HeaderLines';
 
-import { eventOptions } from '@/utils/statickData';
-import { cityOptions } from '@/utils/statickData';
-import { selectIsLoggedIn } from '@/redux/auth/selectors';
-import { useSelector } from 'react-redux';
-
-interface HeaderProps {
-  // Add any props you need for the header
-}
+interface HeaderProps {}
 
 export const Header: React.FC<HeaderProps> = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,18 +30,18 @@ export const Header: React.FC<HeaderProps> = () => {
   const [activeLink, setActiveLink] = useState<string | null>(null);
   const [isInputVisible, setIsInputVisible] = useState(false);
   const [token, setToken] = useState<string | null>(null);
+
   const inputRef = useRef<HTMLDivElement>(null);
 
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const likedEventsCount = useAppSelector(getLikedEvents).length;
 
   const navigate = useNavigate();
 
   const handleClick = (link: string): void => {
     if (isLoggedIn) {
-      // If the user is logged in, navigate to another page
       navigate(link);
     } else {
-      // If the user is not logged in, open the auth modal
       setIsModalOpen(true);
     }
   };
@@ -193,9 +193,17 @@ export const Header: React.FC<HeaderProps> = () => {
               )}
               <Link
                 to="/evently_front/favourite"
-                className="cursor-pointer hover:[color:#9B8FF3]"
+                className="cursor-pointer hover:[color:#9B8FF3] relative"
               >
                 <AiOutlineHeart className="w-[24px] h-[24px]" />
+                {likedEventsCount > 0 && (
+                  <div
+                    className="absolute -right-2 -top-2 w-[20px] h-[20px] rounded-full bg-borderColor
+                  flex items-center justify-center"
+                  >
+                    {likedEventsCount}
+                  </div>
+                )}
               </Link>
               <button onClick={() => handleClick('user_profile')}>
                 <CgProfile className="w-[24px] h-[24px] cursor-pointer hover:[color:#9B8FF3]" />
@@ -218,7 +226,7 @@ export const Header: React.FC<HeaderProps> = () => {
             </div>
             <div onClick={() => handleClick('events')}>
               <SharedBtn
-                children='Створити подію'
+                children="Створити подію"
                 type="button"
                 primary
                 className={`w-[230px] mx-auto h-12`}

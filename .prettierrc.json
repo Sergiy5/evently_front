@@ -8,5 +8,18 @@
   "bracketSpacing": true,
   "jsxBracketSameLine": false,
   "arrowParens": "avoid",
-  "proseWrap": "always"
+  "proseWrap": "always",
+
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrder": [
+    "^react(.*)$",
+    "^@/redux/(.*)$",
+    "<THIRD_PARTY_MODULES>",
+    "^@/app/(.*)$",
+    "^@/components/(.*)$",
+    "^[./]"
+  ]
 }

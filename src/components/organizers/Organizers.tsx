@@ -1,29 +1,27 @@
-
 import { Link } from 'react-router-dom';
+
 import { SharedBtn } from '../ui';
 
 export const Organizers: React.FC = () => {
   return (
-
-    <div className='mt-[50px] flex w-[1356px]  py-4 rounded-[20px] mx-[43px] bg-gradient-to-br from-[#E9E6FF] to-[#D5FEFF] px-[43px]'>  
-      <div className='pr-[54px]'>
-        <h1 className='w-[392px] pb-8'>Створи подію, про яку говоритимуть!</h1>
-        <Link
-          to="/evently_front/organizers">
-        <SharedBtn 
-          children='Стати організатором'
-          type="button"
-          className={`w-[276px] mx-auto h-[64px] border-buttonPurple border-[1px] bg-none color-none hover:shadow-shadowPrimaryBtn active:shadow-primaryBtnActive`}
-        />
+    <div className="mt-[50px] flex w-[1356px]  py-4 rounded-[20px] mx-[43px] bg-gradient-to-br from-[#E9E6FF] to-[#D5FEFF] px-[43px]">
+      <div className="pr-[54px]">
+        <h1 className="w-[392px] pb-8">Створи подію, про яку говоритимуть!</h1>
+        <Link to="/evently_front/organizers">
+          <SharedBtn
+            children="Стати організатором"
+            type="button"
+            className={`w-[276px] mx-auto h-[64px] border-buttonPurple border-[1px] bg-none color-none hover:shadow-shadowPrimaryBtn active:shadow-primaryBtnActive`}
+          />
         </Link>
       </div>
-      <div className='grid grid-cols-2 grid-rows-2 items-center'>
-        <div className='flex w-[424px] pr-[24px]'>
-          <h1 className='pt-5'>01</h1>
-          <div className='relative ml-4 pl-6'>
-             <span
+      <div className="grid grid-cols-2 grid-rows-2 items-center">
+        <div className="flex w-[424px] pr-[24px]">
+          <h1 className="pt-5">01</h1>
+          <div className="relative ml-4 pl-6">
+            <span
               style={{
-                content: "",
+                content: '',
                 position: 'absolute',
                 left: 0,
                 top: 0,
@@ -32,14 +30,19 @@ export const Organizers: React.FC = () => {
                 backgroundColor: '#E2DEFF',
               }}
             />
-            <h2 className='pb-8 text-buttonPurple'>Безкоштовно створюй подію</h2>
-            <p>З нами ти можеш легко та безкоштовно запустити свій захід. Ніяких прихованих витрат — лише твої ідеї!</p>
+            <h2 className="pb-8 text-buttonPurple">
+              Безкоштовно створюй подію
+            </h2>
+            <p>
+              З нами ти можеш легко та безкоштовно запустити свій захід. Ніяких
+              прихованих витрат — лише твої ідеї!
+            </p>
           </div>
         </div>
-        <div className='flex w-[424px]'>
-          <h1 className='pt-5'>02</h1>
-          <div className='relative ml-4 pl-6'>
-          <span
+        <div className="flex w-[424px]">
+          <h1 className="pt-5">02</h1>
+          <div className="relative ml-4 pl-6">
+            <span
               style={{
                 content: "''",
                 position: 'absolute',
@@ -50,14 +53,17 @@ export const Organizers: React.FC = () => {
                 backgroundColor: '#E2DEFF',
               }}
             />
-            <h2 className='pb-8 text-borderColor'> Довір просування нам!</h2>
-            <p className='w-[312px]'>Не витрачай час на рекламу, ми рекламуємо, щоб ти зосередився на головному.</p>
+            <h2 className="pb-8 text-borderColor"> Довір просування нам!</h2>
+            <p className="w-[312px]">
+              Не витрачай час на рекламу, ми рекламуємо, щоб ти зосередився на
+              головному.
+            </p>
           </div>
         </div>
-        <div className='flex w-[424px]'>
-          <h1 className='pt-5'>03</h1>
-          <div className='relative ml-4 pl-6'>
-          <span
+        <div className="flex w-[424px]">
+          <h1 className="pt-5">03</h1>
+          <div className="relative ml-4 pl-6">
+            <span
               style={{
                 content: "''",
                 position: 'absolute',
@@ -68,14 +74,17 @@ export const Organizers: React.FC = () => {
                 backgroundColor: '#E2DEFF',
               }}
             />
-            <h2 className='pb-8 text-borderColor'>Продавай та заробляй</h2>
-            <p className='w-[312px]'>Організуй подію, продавай квитки та отримуй дохід. Прокачуй рейтинг та отримуй бонуси на платформі.</p>
+            <h2 className="pb-8 text-borderColor">Продавай та заробляй</h2>
+            <p className="w-[312px]">
+              Організуй подію, продавай квитки та отримуй дохід. Прокачуй
+              рейтинг та отримуй бонуси на платформі.
+            </p>
           </div>
         </div>
-        <div className='flex w-[424px]'>
-          <h1 className='pt-5'>04</h1>
-          <div className='relative ml-4 pl-6'>
-          <span
+        <div className="flex w-[424px]">
+          <h1 className="pt-5">04</h1>
+          <div className="relative ml-4 pl-6">
+            <span
               style={{
                 content: "''",
                 position: 'absolute',
@@ -86,8 +95,11 @@ export const Organizers: React.FC = () => {
                 backgroundColor: '#E2DEFF',
               }}
             />
-            <h2 className='pb-8 text-buttonPurple'>Зручний інтерфейс</h2>
-            <p>Створюй подію в декілька кліків, легко редагуй та стеж за продажами.</p>
+            <h2 className="pb-8 text-buttonPurple">Зручний інтерфейс</h2>
+            <p>
+              Створюй подію в декілька кліків, легко редагуй та стеж за
+              продажами.
+            </p>
           </div>
         </div>
       </div>
