@@ -34,7 +34,7 @@ const UserCard: React.FC<IProps> = ({
       <CellItem>
         <Link
           to={`/evently_front/profile/${item.id}`}
-          className="flex justify-between relative"
+          className="flex relative"
         >
           <span className="w-11/12 text-nowrap text-ellipsis overflow-hidden">
             {index + 1}. <span className="underline">{item.name}</span>
