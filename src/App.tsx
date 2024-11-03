@@ -1,29 +1,27 @@
-import React from 'react';
-import {
-  RouterProvider,
-  // Routes, Route
-} from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { RouterProvider } from 'react-router-dom';
 
+import { useAppDispatch, useAppSelector } from './hooks/hooks';
+import { selectToken, selectUser } from './redux/auth/selectors';
+import { deleteLikedEvents } from './redux/events/eventsSlice';
+import { fetchLikedEvents } from './redux/events/operations';
 import router from './routing';
-// import Layout from './components/Layaout';
-
-// const NotFound = React.lazy(() => import('./pages/NotFoundPage'));
-// // const Events = React.lazy(() => import('./pages/events/Events'));
-// const Home = React.lazy(() => import('./pages/Home'));
 
 const App: React.FC = () => {
-  return (
-    // <Routes>
-    //    <Route path="/" element={<Layout />}>
-    //      <Route index element={<Home />} />
-    //      {/* <Route path="/events" element={<Events />} loader={eventsLoader} /> */}
-    //      {/* <Route path="/..." element={...} />
-    //    <Route path="/..." element={...} /> */}
-    //      <Route path="*" element={<NotFound />} />;
-    //    </Route>
-    //  </Routes>
-        <RouterProvider router={router}/> 
-  );
+  const { id: userId } = useAppSelector(selectUser);
+  const token = useAppSelector(selectToken);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchLikedEvents({ userId, token }));
+    } else {
+      dispatch(deleteLikedEvents());
+    }
+  }, [userId, token, dispatch]);
+
+  return <RouterProvider router={router} />;
 };
 
 export default App;
