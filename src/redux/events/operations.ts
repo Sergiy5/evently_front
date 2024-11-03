@@ -13,8 +13,6 @@ export const fetchLikedEvents = createAsyncThunk<
   try {
     const response = await axios(`liked-events/${id}`);
     const resData = response.data.eventsList;
-    console.log(resData);
-
     return resData;
   } catch (error: any) {
     return rejectWithValue(error.message);
