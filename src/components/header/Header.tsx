@@ -1,63 +1,56 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef,  useState } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsSearch } from 'react-icons/bs';
 import { CgProfile } from 'react-icons/cg';
 import { RxCross2 } from 'react-icons/rx';
-import { useLocation, useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { selectIsLoggedIn } from '@/redux/auth/selectors';
 import { getLikedEvents } from '@/redux/events/selectors';
 
 import { useAppSelector } from '@/hooks/hooks';
-import { eventOptions } from '@/utils/statickData';
-import { cityOptions } from '@/utils/statickData';
+import { eventOptions, cityOptions } from '@/utils/statickData';
 
 import CustomSelect from '@/components/ui/CustomSelect';
 
-// import Button from '../components/ui/Button';
-import { Auth } from '../auth/Auth';
-import { Container } from '../container/Container';
-import { Modal, SharedBtn } from '../ui';
 import MainLogo from '../ui/Logo';
+import { Modal, SharedBtn } from '../ui';
+import { Container } from '../container/Container';
+import { Auth } from '../auth/Auth';
 import { HeaderLines } from './HeaderLines';
 
-interface HeaderProps {}
+interface iHeaderProps {}
 
-export const Header: React.FC<HeaderProps> = () => {
+export const Header: React.FC<iHeaderProps> = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
-  const [activeLink, setActiveLink] = useState<string | null>(null);
   const [isInputVisible, setIsInputVisible] = useState(false);
   const [token, setToken] = useState<string | null>(null);
 
   const inputRef = useRef<HTMLDivElement>(null);
 
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
-  const likedEventsCount = useAppSelector(getLikedEvents).length;
+  const likedEventsCount = (useAppSelector(getLikedEvents) as any[]).length;
 
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleClick = (link: string): void => {
+  const toggleInput = () => setIsInputVisible(!isInputVisible);
+
+  const handleLinkClick = (link: string) => {
     if (isLoggedIn) {
       navigate(link);
     } else {
       setIsModalOpen(true);
     }
   };
-
-  const location = useLocation();
-
-  const toggleInput = () => {
-    setIsInputVisible(!isInputVisible);
-  };
-
-  // Closing input when klick is not on it
-  const handleClickOutside = (event: MouseEvent) => {
-    if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
-      setIsInputVisible(false);
-    }
-  };
+    // Closing input when klick is not on it
+    const handleClickOutside = (event: MouseEvent) => {
+      if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
+        setIsInputVisible(false);
+      }
+    };
 
   useEffect(() => {
     if (isInputVisible) {
@@ -72,102 +65,87 @@ export const Header: React.FC<HeaderProps> = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    if (params.get('emailConfirmed') === 'true') {
+    if (params.get('emailConfirmed') === 'true') {  
       setIsEmailConfirmed(true);
-      setIsModalOpen(true); // Open login modal after email confirmation
-    }
-    if (params.get('token')) {
-      const token = params.get('token');
-      setToken(token);
       setIsModalOpen(true);
     }
-
-    return () => {
-      setToken(null);
-    };
+    if (params.get('token')) {
+      setToken(params.get('token'));
+      setIsModalOpen(true);
+    }
+    return () => setToken(null);
   }, [location]);
 
-  // Function to toggle modal
-  const handleTogleModal = () => {
-    // Slow close modal
-    setIsModalOpen(!isModalOpen);
-  };
-
-  //header link change color
-  const handleLinkClick = (link: string) => {
-    setActiveLink(link);
-  };
-
   return (
-    <div className={`block m-auto max-w-[1440px] font-lato bg-background`}>
-      <Container className="relative">
-        <HeaderLines />
+    <div className="block m-auto max-w-[1440px] font-lato bg-background">
+      <Container className='relative'>
+      <HeaderLines />
         <header className="p-4 bg-gray-100">
-          <div className="leading-[19.2px] flex justify-center align-beetwen items-center m-auto max-w-[1440px] h-[84px]">
-            <div
-              className="background-background cursor-pointer"
-              onClick={() => {
-                handleLinkClick('evently_front');
-                navigate('/evently_front');
-              }}
-            >
+          <div className="flex justify-center items-center h-[84px]">
+            {/* Logo */}
+            <div onClick={() => navigate('/evently_front')} className="cursor-pointer">
               <MainLogo />
             </div>
+
+            {/* Navigation Links */}
             <div className="flex pl-12 pr-24 gap-8 items-center">
               <CustomSelect
-                changeLink={handleLinkClick}
                 options={eventOptions}
                 label="Події"
                 replaceLabelOnSelect={false}
-                className={`hover:font-bold `}
+                className="hover:font-bold"
                 dropdownWidth="178px"
                 buttonWidth="62px"
               />
-              <nav className="flex p-right-20px gap-8">
-                <Link
+              <nav className="flex gap-8">
+                <NavLink
                   to="/evently_front/popular"
-                  onClick={() => handleLinkClick('popular')}
-                  className={`${
-                    activeLink === 'popular'
-                      ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
-                      : 'text-gray-700'
-                  } w-[82px] hover:font-bold`}
+                  className={({ isActive }) =>
+                    `w-[82px] ${
+                      isActive
+                        ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
+                        : 'text-gray-700 hover:font-bold'
+                    }`
+                  }
                 >
                   Популярні
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to="/evently_front/organizers"
-                  onClick={() => handleLinkClick('organizers')}
-                  className={`${
-                    activeLink === 'organizers'
-                      ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
-                      : 'text-gray-700'
-                  } w-[110px] hover:font-bold`}
+                  className={({ isActive }) =>
+                    `w-[110px] ${
+                      isActive
+                        ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
+                        : 'text-gray-700 hover:font-bold'
+                    }`
+                  }
                 >
                   Організаторам
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to="/evently_front/about"
-                  onClick={() => handleLinkClick('about')}
-                  className={`${
-                    activeLink === 'about'
-                      ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
-                      : 'text-gray-700'
-                  } w-[63px] hover:font-bold`}
+                  className={({ isActive }) =>
+                    `w-[63px] ${
+                      isActive
+                        ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
+                        : 'text-gray-700 hover:font-bold'
+                    }`
+                  }
                 >
                   Про нас
-                </Link>
+                </NavLink>
               </nav>
               <CustomSelect
-                changeLink={handleLinkClick}
                 options={cityOptions}
                 label="Київ"
-                replaceLabelOnSelect={true}
-                className={`w-[94px] hover:font-bold `}
+                replaceLabelOnSelect
+                className="w-[94px] hover:font-bold"
                 dropdownWidth="168px"
                 buttonWidth="62px"
               />
             </div>
+
+            {/* Search, Favourites, and Profile */}
             <div className="flex gap-6 pr-12 items-center">
               <button onClick={toggleInput} className="focus:outline-none">
                 <BsSearch className="w-[24px] h-[24px] cursor-pointer hover:[color:#9B8FF3]" />
@@ -191,46 +169,33 @@ export const Header: React.FC<HeaderProps> = () => {
                   </div>
                 </div>
               )}
-              <Link
+              <NavLink
                 to="/evently_front/favourite"
-                className="cursor-pointer hover:[color:#9B8FF3] relative"
+                className="relative cursor-pointer hover:[color:#9B8FF3]"
               >
                 <AiOutlineHeart className="w-[24px] h-[24px]" />
                 {likedEventsCount > 0 && (
-                  <div
-                    className="absolute -right-2 -top-2 w-[20px] h-[20px] rounded-full bg-borderColor
-                  flex items-center justify-center"
-                  >
+                  <div className="absolute -right-2 -top-2 w-[20px] h-[20px] rounded-full bg-borderColor flex items-center justify-center">
                     {likedEventsCount}
                   </div>
                 )}
-              </Link>
-              <button onClick={() => handleClick('user_profile')}>
+              </NavLink>
+              <button onClick={() => handleLinkClick('user_profile')}>
                 <CgProfile className="w-[24px] h-[24px] cursor-pointer hover:[color:#9B8FF3]" />
               </button>
-              <Modal isOpen={isModalOpen} onClose={handleTogleModal}>
+              <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
                 <Auth
-                  onCloseModal={handleTogleModal}
+                  onCloseModal={() => setIsModalOpen(false)}
                   isEmailConfirmed={isEmailConfirmed}
                   resetPasswordByToken={token}
                 />
               </Modal>
               <div>UA</div>
-              {/* this CustomSelect for future change language */}
-              {/* <CustomSelect  
-                  options={laguageOptions}
-                  label='UA'
-                  replaceLabelOnSelect={true}
-                  dropdownWidth="60px"
-                  buttonWidth="54px" /> */}
             </div>
-            <div onClick={() => handleClick('events')}>
-              <SharedBtn
-                children="Створити подію"
-                type="button"
-                primary
-                className={`w-[230px] mx-auto h-12`}
-              />
+            <div onClick={() => handleLinkClick('events')}>
+              <SharedBtn type="button" primary className="w-[230px] mx-auto h-12">
+                Створити подію
+              </SharedBtn>
             </div>
           </div>
         </header>

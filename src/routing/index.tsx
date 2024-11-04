@@ -82,6 +82,7 @@ const router = createBrowserRouter([
       // Later add privat router
 
       //routes for future components
+      // Header routes
       { path: 'popular', element: '' },
       { path: 'organizers', element: '' },
       { path: 'about', element: '' },
@@ -100,6 +101,12 @@ const router = createBrowserRouter([
       { path: 'Lviv', element: '' },
       { path: 'Kharkiv', element: '' },
       { path: 'Dnipro', element: '' },
+
+      // Footer routes
+      { path: 'office', element: '' },
+      { path: 'ReturnsAndPayment', element: '' },
+      { path: 'OfferAgreement', element: '' },
+      { path: 'PrivacyPolicy', element: '' },
 
       { path: '*', element: <NotFound /> },
     ],

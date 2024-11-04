@@ -8,6 +8,7 @@ import { Hero } from '@/components/hero/Hero';
 import { Main } from '@/components/main/Main';
 import { Organizers } from '@/components/organizers/Organizers';
 import { TopEvents } from '@/components/topEvents/TopEvents';
+import { Footer } from '@/components/footer/footer';
 
 const Home: React.FC = () => {
   const [events, setEvents] = useState<Event[] | []>([]);
@@ -34,6 +35,7 @@ const Home: React.FC = () => {
       <AllEvents events={events} />
       <Organizers />
       <FAQ />
+      <Footer />
     </Main>
   );
 };
