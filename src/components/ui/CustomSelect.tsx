@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Option } from '@/utils/statickData';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { IoIosArrowDown } from "react-icons/io";
 
 
@@ -77,7 +77,7 @@ const CustomSelect: React.FC<IEventSelectProps> = ({
         >
           <div className="py-1">
             {options.map((option) => (
-              <Link 
+              <NavLink 
               to={option.value}
               onClick={() => { 
                 handleClick(option); 
@@ -94,7 +94,7 @@ const CustomSelect: React.FC<IEventSelectProps> = ({
                   >
                   {option.label}
                 </div>
-              </Link>
+              </NavLink>
             ))}
           </div>
         </div>
