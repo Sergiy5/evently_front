@@ -16,6 +16,8 @@ interface Event {
   //   };
   location: {
     city: string;
+    street: string | null,
+    venue: string | null,
   };
   tickets: number;
   price: number;

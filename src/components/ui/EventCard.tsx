@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { AiOutlineCalendar } from 'react-icons/ai';
-import { CiLocationOn } from 'react-icons/ci';
 import { FaRegMoneyBillAlt } from 'react-icons/fa';
 import { PiHeartLight } from 'react-icons/pi';
 import { PiHeartFill } from 'react-icons/pi';
@@ -15,6 +14,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { addEventToLiked, removeEventFromLiked } from '@/utils/eventsHttp';
 
 import { SharedBtn } from './SharedBtn';
+import { GrLocation } from 'react-icons/gr';
 
 interface EventCardProps {
   event: Event;
@@ -30,6 +30,15 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
   const likedEventsAll = useAppSelector(getLikedEvents);
 
   const dispatch = useAppDispatch();
+
+  const address = location.city + ', ' + location.street;
+
+  const slicedStreet = () => {
+    if (address.length > 28) {
+      return address.slice(0, 28) + '...'
+    }
+    else { return address }
+  };
 
   const toggleIsLiked = () => {
     if (!isLiked) {
@@ -68,9 +77,8 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
   return (
     <div
       id={`${id}`}
-      className={`group relative flex overflow-hidden items-start rounded-[20px] w-[312px] h-[514px] shadow-eventCardShadow ${
-        top ? 'mb-[10px]' : ''
-      }`}
+      className={`group relative flex overflow-hidden items-start rounded-[20px] w-[312px] h-[514px] shadow-eventCardShadow ${top ? 'mb-[10px]' : ''
+        }`}
     >
       <img src={photoUrl} alt={title} />
       <div className={`flex absolute justify-end p-6 w-full `}>
@@ -112,14 +120,14 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
           </li>
           <li className="flex items-center gap-[18px]">
             {' '}
-            <CiLocationOn size="24px" /> <p>{location?.city}</p>
+            <GrLocation size="24px" /> <p>{slicedStreet()}</p>
           </li>
           <li className="flex items-center gap-[18px]">
             <FaRegMoneyBillAlt size="24px" />
             {price === 0 ? (
               <p className="text-error">Безкоштовно</p>
             ) : (
-              <p>{`Від ${price} грн`}</p>
+              <p>{`${price} грн`}</p>
             )}{' '}
           </li>
         </ul>
