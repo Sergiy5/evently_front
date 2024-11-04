@@ -90,7 +90,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
           {isLiked ? (
             <PiHeartFill className={`w-6 h-6 text-borderColor`} />
           ) : (
-            <PiHeartLight className="w-6 h-6 text-background" />
+            <PiHeartLight className="w-6 h-6 text-borderColor" />
           )}
         </button>
       </div>
