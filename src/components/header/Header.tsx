@@ -1,4 +1,4 @@
-import React, { useEffect, useRef,  useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsSearch } from 'react-icons/bs';
 import { CgProfile } from 'react-icons/cg';
@@ -20,7 +20,7 @@ import { Container } from '../container/Container';
 import { Auth } from '../auth/Auth';
 import { HeaderLines } from './HeaderLines';
 
-interface iHeaderProps {}
+interface iHeaderProps { }
 
 export const Header: React.FC<iHeaderProps> = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,12 +45,12 @@ export const Header: React.FC<iHeaderProps> = () => {
       setIsModalOpen(true);
     }
   };
-    // Closing input when klick is not on it
-    const handleClickOutside = (event: MouseEvent) => {
-      if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
-        setIsInputVisible(false);
-      }
-    };
+  // Closing input when klick is not on it
+  const handleClickOutside = (event: MouseEvent) => {
+    if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
+      setIsInputVisible(false);
+    }
+  };
 
   useEffect(() => {
     if (isInputVisible) {
@@ -65,7 +65,7 @@ export const Header: React.FC<iHeaderProps> = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    if (params.get('emailConfirmed') === 'true') {  
+    if (params.get('emailConfirmed') === 'true') {
       setIsEmailConfirmed(true);
       setIsModalOpen(true);
     }
@@ -79,7 +79,7 @@ export const Header: React.FC<iHeaderProps> = () => {
   return (
     <div className="block m-auto max-w-[1440px] font-lato bg-background">
       <Container className='relative'>
-      <HeaderLines />
+        <HeaderLines />
         <header className="p-4 bg-gray-100">
           <div className="flex justify-center items-center h-[84px]">
             {/* Logo */}
@@ -101,10 +101,9 @@ export const Header: React.FC<iHeaderProps> = () => {
                 <NavLink
                   to="/evently_front/popular"
                   className={({ isActive }) =>
-                    `w-[82px] ${
-                      isActive
-                        ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
-                        : 'text-gray-700 hover:font-bold'
+                    `w-[82px] ${isActive
+                      ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
+                      : 'text-gray-700 hover:font-bold'
                     }`
                   }
                 >
@@ -113,10 +112,9 @@ export const Header: React.FC<iHeaderProps> = () => {
                 <NavLink
                   to="/evently_front/organizers"
                   className={({ isActive }) =>
-                    `w-[110px] ${
-                      isActive
-                        ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
-                        : 'text-gray-700 hover:font-bold'
+                    `w-[110px] ${isActive
+                      ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
+                      : 'text-gray-700 hover:font-bold'
                     }`
                   }
                 >
@@ -125,10 +123,9 @@ export const Header: React.FC<iHeaderProps> = () => {
                 <NavLink
                   to="/evently_front/about"
                   className={({ isActive }) =>
-                    `w-[63px] ${
-                      isActive
-                        ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
-                        : 'text-gray-700 hover:font-bold'
+                    `w-[63px] ${isActive
+                      ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
+                      : 'text-gray-700 hover:font-bold'
                     }`
                   }
                 >
@@ -171,9 +168,9 @@ export const Header: React.FC<iHeaderProps> = () => {
               )}
               <NavLink
                 to="/evently_front/favourite"
-                className="relative cursor-pointer hover:[color:#9B8FF3]"
+                className="relative cursor-pointer "
               >
-                <AiOutlineHeart className="w-[24px] h-[24px]" />
+                <AiOutlineHeart className="w-[24px] h-[24px] hover:[color:#9B8FF3]" />
                 {likedEventsCount > 0 && (
                   <div className="absolute -right-2 -top-2 w-[20px] h-[20px] rounded-full bg-borderColor flex items-center justify-center">
                     {likedEventsCount}

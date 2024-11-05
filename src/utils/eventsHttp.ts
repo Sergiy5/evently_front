@@ -84,7 +84,7 @@ export const addEventToLiked = async (userId: string, eventId: string) => {
   }
 };
 
-export const removeEventFromLiked = async (userId: string, eventId: number) => {
+export const removeEventFromLiked = async (userId: string, eventId: string) => {
   try {
     const response = await axios.delete(`liked-events`, {
       data: {

@@ -10,19 +10,16 @@ interface ListEventsProps {
 }
 
 export const ListEvents: React.FC<ListEventsProps> = ({ events }) => {
+  // TODO navigate to all events
   const [paginatedEvents, setPaginatedEvents] = useState<[] | Event[]>([]);
-
   const PAGINATION = 16;
-
   const showAll = () => {
     const secondPart = events?.slice(PAGINATION);
     if (secondPart) {
       setPaginatedEvents(prevState => [...prevState, ...secondPart]);
     }
   };
-
   const isAllCardsShown = events?.length === paginatedEvents.length;
-
   useEffect(() => {
     if (events) {
       setPaginatedEvents(events.slice(0, PAGINATION));

@@ -3,7 +3,7 @@ import { RouterProvider } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from './hooks/hooks';
 import { selectToken, selectUser } from './redux/auth/selectors';
-import { deleteLikedEvents } from './redux/events/eventsSlice';
+import { deleteAllLikedEvents } from './redux/events/eventsSlice';
 import { fetchLikedEvents } from './redux/events/operations';
 import router from './routing';
 
@@ -17,7 +17,7 @@ const App: React.FC = () => {
     if (token) {
       dispatch(fetchLikedEvents({ userId, token }));
     } else {
-      dispatch(deleteLikedEvents());
+      dispatch(deleteAllLikedEvents());
     }
   }, [userId, token, dispatch]);
 

@@ -39,7 +39,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <div className="w-full px-[43px]">
+    <div className="w-full px-[41px]">
       <Slider ref={sliderRef} {...settings}>
         {slides.map(item => (
           <div key={nanoid()} className="aspect-[1356/606]">

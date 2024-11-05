@@ -12,7 +12,15 @@ const eventsSlice = createSlice({
   name: 'events',
   initialState,
   reducers: {
-    deleteLikedEvents(state) {
+    addLikedEvent(state, action: { payload: Event }) {
+      state.likedEvents = [...state.likedEvents, action.payload];
+    },
+    deleteLikedEvent(state, action: { payload: string }) {
+      state.likedEvents = state.likedEvents.filter(item => {
+        return item.id !== action.payload;
+      });
+    },
+    deleteAllLikedEvents(state) {
       state.likedEvents = [];
     },
   },
@@ -40,4 +48,5 @@ const eventsSlice = createSlice({
 
 export const eventsReducer = eventsSlice.reducer;
 
-export const { deleteLikedEvents } = eventsSlice.actions;
+export const { addLikedEvent, deleteLikedEvent, deleteAllLikedEvents } =
+  eventsSlice.actions;
