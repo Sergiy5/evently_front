@@ -51,7 +51,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
           }
         } catch (error) {
           console.log(error);
-          return error;
+          return toast.error('Щоб зберегти, потрібно залогінитись!');
         }
       };
       addLiked(userId, id);
@@ -64,7 +64,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
           }
         } catch (error) {
           console.log(error);
-          return toast.error('Щоб зберегти, потрібно залогінитись!');
+          return error;
         }
       };
       deleteFromLiked(userId, id);
