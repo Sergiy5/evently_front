@@ -4,14 +4,14 @@ import { SharedBtn } from '../ui';
 
 export const Organizers: React.FC = () => {
   return (
-    <div className="mt-[50px] flex w-[1356px]  py-4 rounded-[20px] mx-[43px] bg-gradient-to-br from-[#E9E6FF] to-[#D5FEFF] px-[43px]">
+    <div className="mt-[50px] flex w-[1358px]  py-[18px] rounded-[20px] ml-[41px] mr-[43px] bg-gradient-to-br from-[#E9E6FF] to-[#D5FEFF] px-[43px]">
       <div className="pr-[54px]">
         <h1 className="w-[392px] pb-8">Створи подію, про яку говоритимуть!</h1>
         <Link to="/evently_front/organizers">
           <SharedBtn
             children="Стати організатором"
             type="button"
-            className={`w-[276px] mx-auto h-[64px] border-buttonPurple border-[1px] bg-none color-none hover:shadow-shadowPrimaryBtn active:shadow-primaryBtnActive`}
+            className={`w-[276px] mx-auto h-[48px] border-buttonPurple border-[1px] bg-none color-none hover:shadow-shadowPrimaryBtn active:shadow-primaryBtnActive`}
           />
         </Link>
       </div>
@@ -97,8 +97,7 @@ export const Organizers: React.FC = () => {
             />
             <h2 className="pb-8 text-buttonPurple">Зручний інтерфейс</h2>
             <p>
-              Створюй подію в декілька кліків, легко редагуй та стеж за
-              продажами.
+            Створюй подію в декілька кліків, з легкістю внось правки та слідкуй за статистикою продажів у режимі реального часу.
             </p>
           </div>
         </div>
