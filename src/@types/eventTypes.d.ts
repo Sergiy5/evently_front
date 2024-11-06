@@ -1,5 +1,5 @@
 interface Event {
-  category: string | null;
+  category: 'TOP_EVENTS' | string | null;
   creationDate: Date;
   date: {
     day: string;
