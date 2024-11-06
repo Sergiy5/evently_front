@@ -10,17 +10,17 @@ import { selectIsLoggedIn } from '@/redux/auth/selectors';
 import { getLikedEvents } from '@/redux/events/selectors';
 
 import { useAppSelector } from '@/hooks/hooks';
-import { eventOptions, cityOptions } from '@/utils/statickData';
+import { cityOptions, eventOptions } from '@/utils/statickData';
 
 import CustomSelect from '@/components/ui/CustomSelect';
 
-import MainLogo from '../ui/Logo';
-import { Modal, SharedBtn } from '../ui';
-import { Container } from '../container/Container';
 import { Auth } from '../auth/Auth';
+import { Container } from '../container/Container';
+import { Modal, SharedBtn } from '../ui';
+import MainLogo from '../ui/Logo';
 import { HeaderLines } from './HeaderLines';
 
-interface iHeaderProps { }
+interface iHeaderProps {}
 
 export const Header: React.FC<iHeaderProps> = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -78,12 +78,15 @@ export const Header: React.FC<iHeaderProps> = () => {
 
   return (
     <div className="block m-auto max-w-[1440px] font-lato bg-background">
-      <Container className='relative'>
+      <Container className="relative">
         <HeaderLines />
         <header className="p-4 bg-gray-100">
           <div className="flex justify-center items-center h-[84px]">
             {/* Logo */}
-            <div onClick={() => navigate('/evently_front')} className="cursor-pointer">
+            <div
+              onClick={() => navigate('/evently_front')}
+              className="cursor-pointer"
+            >
               <MainLogo />
             </div>
 
@@ -101,9 +104,10 @@ export const Header: React.FC<iHeaderProps> = () => {
                 <NavLink
                   to="/evently_front/popular"
                   className={({ isActive }) =>
-                    `w-[82px] ${isActive
-                      ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
-                      : 'text-gray-700 hover:font-bold'
+                    `w-[82px] ${
+                      isActive
+                        ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
+                        : 'text-gray-700 hover:font-bold'
                     }`
                   }
                 >
@@ -112,9 +116,10 @@ export const Header: React.FC<iHeaderProps> = () => {
                 <NavLink
                   to="/evently_front/organizers"
                   className={({ isActive }) =>
-                    `w-[110px] ${isActive
-                      ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
-                      : 'text-gray-700 hover:font-bold'
+                    `w-[110px] ${
+                      isActive
+                        ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
+                        : 'text-gray-700 hover:font-bold'
                     }`
                   }
                 >
@@ -123,9 +128,10 @@ export const Header: React.FC<iHeaderProps> = () => {
                 <NavLink
                   to="/evently_front/about"
                   className={({ isActive }) =>
-                    `w-[63px] ${isActive
-                      ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
-                      : 'text-gray-700 hover:font-bold'
+                    `w-[63px] ${
+                      isActive
+                        ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
+                        : 'text-gray-700 hover:font-bold'
                     }`
                   }
                 >
@@ -173,7 +179,7 @@ export const Header: React.FC<iHeaderProps> = () => {
                 <AiOutlineHeart className="w-[24px] h-[24px] hover:[color:#9B8FF3]" />
                 {likedEventsCount > 0 && (
                   <div className="absolute -right-2 -top-2 w-[20px] h-[20px] rounded-full bg-borderColor flex items-center justify-center">
-                    {likedEventsCount}
+                    <span className="text-background">{likedEventsCount}</span>
                   </div>
                 )}
               </NavLink>
@@ -190,7 +196,11 @@ export const Header: React.FC<iHeaderProps> = () => {
               <div>UA</div>
             </div>
             <div onClick={() => handleLinkClick('events')}>
-              <SharedBtn type="button" primary className="w-[230px] mx-auto h-12">
+              <SharedBtn
+                type="button"
+                primary
+                className="w-[230px] mx-auto h-12"
+              >
                 Створити подію
               </SharedBtn>
             </div>
