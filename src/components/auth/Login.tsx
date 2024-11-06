@@ -1,13 +1,16 @@
 import { useState } from 'react';
-import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
-import { useAppDispatch } from '@/hooks/hooks';
-import { validateEmail, validatePassword } from '@/utils';
-import { GoogleLoginButton, SharedInput, SharedItemStatusBar } from '../ui';
+import { toast } from 'react-toastify';
+
 import { getUser, logIn } from '@/redux/auth/operations';
-import { SharedBtn } from '../ui/SharedBtn';
+
+import { useAppDispatch } from '@/hooks/hooks';
 import { ILoginUser } from '@/types';
+import { validateEmail, validatePassword } from '@/utils';
+
+import { GoogleLoginButton, SharedInput, SharedItemStatusBar } from '../ui';
 import { CustomCheckbox } from '../ui/CustomCheckBox';
+import { SharedBtn } from '../ui/SharedBtn';
 
 export interface IData {
   accessToken: string | boolean;
@@ -61,20 +64,21 @@ export const Login: React.FC<LoginProps> = ({
         logIn({ email, password, rememberMe })
       );
       const { userName, status, message } = payload;
+      console.log(userName);
 
-      if (status === 400 && userName === null) {
+      if (status === 400 && message === 'User banned.') {
+        setEmailLoginError(true);
+        setErrorMessage('Акаунт заблокований');
+      } else if (status === 400 && userName === undefined) {
         setEmailLoginError(true);
         setErrorMessage('Акаунт з таким імейлом не знайдено');
-      }
-      if (status === 400 && message === 'Wrong password') {
+      } else if (status === 400 && message === 'Wrong password') {
         setPasswordLoginError(true);
         setErrorMessage('Невірний пароль');
-      }
-      if (status === 401) {
+      } else if (status === 401) {
         setEmailLoginError(true);
         setErrorMessage('Імейл не підтверджено');
-      }
-      if (status === 200) {
+      } else if (status === 200) {
         toast.success(`Вітаю ${userName}!`);
         dispatch(getUser());
         onCloseModal();
