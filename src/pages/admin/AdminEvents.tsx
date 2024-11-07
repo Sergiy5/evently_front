@@ -1,5 +1,5 @@
 const AdminEvents = () => {
-  return <>Admin Users</>;
+  return <>User's Events</>;
 };
 
 export default AdminEvents;
