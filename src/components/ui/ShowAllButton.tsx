@@ -1,11 +1,12 @@
-import { ButtonHTMLAttributes } from 'react';
 import { BiRightArrowCircle } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 
-interface ShowAllButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
+interface ShowAllButtonProps {}
 
 export const ShowAllButton: React.FC<ShowAllButtonProps> = ({ ...props }) => {
   return (
-    <button
+    <Link
+      to={'all_events'}
       {...props}
       className="w-[200px] h-[48px] border-borderColor border-[1px] mx-auto
     rounded-[15px] flex justify-center items-center gap-[8px] focus:outline-none
@@ -14,6 +15,6 @@ export const ShowAllButton: React.FC<ShowAllButtonProps> = ({ ...props }) => {
     >
       <span>Показати усі</span>
       <BiRightArrowCircle width={24} height={24} />
-    </button>
+    </Link>
   );
 };

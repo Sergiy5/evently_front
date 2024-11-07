@@ -2,7 +2,6 @@ import { useRef, useState } from 'react';
 import Slider from 'react-slick';
 
 import { slides } from '@/assets/heroSlides/slides';
-import { nanoid } from '@reduxjs/toolkit';
 
 import { Dots } from './Dots';
 import { PrevNextBtn } from './PrevNextBtn';
@@ -14,15 +13,15 @@ export const Hero: React.FC = () => {
 
   const settings = {
     infinite: true,
-    speed: 500,
+    speed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     arrows: false,
     autoplaySpeed: 10000,
     pauseOnHover: true,
-    afterChange: (current: number) => {
-      setCurrentSlide(current);
+    beforeChange: (_oldIndex: number, newIndex: number) => {
+      setCurrentSlide(newIndex);
     },
   };
 
@@ -39,10 +38,10 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <div className="w-full px-[43px]">
+    <div className="w-full px-[41px]">
       <Slider ref={sliderRef} {...settings}>
         {slides.map(item => (
-          <div key={nanoid()} className="aspect-[1356/606]">
+          <div key={item.id} className="aspect-[1356/606]">
             <img
               src={item.url}
               alt={item.title}

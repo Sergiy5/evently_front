@@ -1,13 +1,15 @@
-import { createSlice, PayloadAction, isAnyOf } from '@reduxjs/toolkit';
-import { UnknownAction } from 'redux';
 import {
-  register,
+  getUser,
   logIn,
   logOut,
-  updateUser,
   refreshUser,
-  getUser,
+  register,
+  updateUser,
 } from '@/redux/auth/operations';
+
+import { PayloadAction, createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { UnknownAction } from 'redux';
+
 import { User } from '../users/usersSlice';
 
 export interface GoogleLoginResponse {
@@ -105,11 +107,7 @@ function handleUpdateUserFulfilled(state: any, action: UnknownAction): void {
 }
 
 function handleLogOut(state: any): void {
-  state.user = {
-    name: null,
-    email: null,
-    avatarURL: null,
-  };
+  state.user = {};
   state.token = null;
   state.isLoggedIn = false;
   state.error = null;

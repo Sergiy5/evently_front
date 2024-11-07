@@ -1,11 +1,11 @@
 import cryptoImage from '@/assets/images/cryptoAwards.webp';
+import musicPlatform from '@/assets/images/musicPlatform.webp';
 import runInHonor from '@/assets/images/runInHonor.webp';
 import wieldTheatre from '@/assets/images/wieldTheatre.webp';
-import musicPlatform from '@/assets/images/musicPlatform.webp';
 
 export const slides = [
-  { title: 'Crypto Awards', url: cryptoImage },
-  { title: 'Race', url: runInHonor },
-  { title: 'Wield Theatre', url: wieldTheatre },
-  { title: 'Music Platform', url: musicPlatform },
+  { id: 1, title: 'Crypto Awards', url: cryptoImage },
+  { id: 2, title: 'Race', url: runInHonor },
+  { id: 3, title: 'Wield Theatre', url: wieldTheatre },
+  { id: 4, title: 'Music Platform', url: musicPlatform },
 ];

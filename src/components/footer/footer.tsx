@@ -45,7 +45,7 @@ export const Footer: React.FC= () => {
                 </Link>
                 <Link
                   to="/evently_front/ReturnsAndPayment"
-                  className='block hover:font-bold w-[175px]'
+                  className='block hover:font-bold w-[180px]'
                 >
                   Повернення та оплата
                 </Link>
@@ -59,7 +59,7 @@ export const Footer: React.FC= () => {
                 </Link>
                 <Link
                   to="/evently_front/PrivacyPolicy"
-                  className='block hover:font-bold w-[220px]'
+                  className='block hover:font-bold w-[225px]'
                 >
                  Політика конфеденційності
                 </Link>

@@ -9,6 +9,7 @@ import AdminEvents from '@/pages/admin/AdminEvents';
 import AdminUsers from '@/pages/admin/AdminUsers';
 import Notifications from '@/pages/admin/Notification';
 import PromoEvents from '@/pages/admin/PromoEvents';
+import AllEventsPage from '@/pages/events/AllEventsPage';
 import { action as editEventAction } from '@/pages/events/EventEdit';
 import EventEdit from '@/pages/events/EventEdit';
 
@@ -78,6 +79,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+      { path: 'all_events', element: <AllEventsPage /> },
 
       // Later add privat router
 
@@ -87,7 +89,6 @@ const router = createBrowserRouter([
       { path: 'organizers', element: '' },
       { path: 'about', element: '' },
 
-      { path: 'all_events', element: '' },
       { path: 'nearby', element: '' },
       { path: 'concerts', element: '' },
       { path: 'workshop', element: '' },
