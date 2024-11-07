@@ -109,7 +109,7 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
                 key={col}
                 onClick={() => handleChangeSort(col)}
                 className={clsx(
-                  'bg-lightBlue border-buttonPurple border p-[10px_12px] text-textDark text-[16px] leading-4 font-bold align-text-top text-wrap max-w-[135px] min-w-[90px]'
+                  'bg-lightBlue border-buttonPurple border p-[10px_12px] text-textDark text-[16px] leading-4 font-bold align-text-top text-wrap max-w-[135px] min-w-[90px] hover:cursor-pointer'
                 )}
               >
                 <p className="relative pr-6">
