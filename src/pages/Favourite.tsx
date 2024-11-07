@@ -11,7 +11,7 @@ const Favourite: React.FC = () => {
     <>
       {likedEvents.length === 0 ? (
         <span>
-          Не знайшли подію, яка вас цікавить? Чому б не створити власну?
+          Не знайшов подію, яка цікавить? Чому б не створити власну?
         </span>
       ) : (
         <ListEvents events={likedEvents} />
