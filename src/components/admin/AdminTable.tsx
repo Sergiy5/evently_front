@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import clsx from 'clsx';
+import { BsFilter } from 'react-icons/bs';
+
+import { fetchUsers } from '@/redux/users/operations';
+import { User } from '@/redux/users/usersSlice';
+
+import { useAppDispatch } from '@/hooks/hooks';
+import sortUser from '@/utils/sortUser';
 import { nanoid } from '@reduxjs/toolkit';
 import axios from 'axios';
+import clsx from 'clsx';
 
-import UserCard from './UserCard';
-import { BsFilter } from 'react-icons/bs';
-import { User } from '@/redux/users/usersSlice';
-import sortUser from '@/utils/sortUser';
-import { useAppDispatch } from '@/hooks/hooks';
-import { fetchUsers } from '@/redux/users/operations';
 import ModalAdmin from './ModalAdmin';
+import UserCard from './UserCard';
 
 interface IProps {
   cols: string[];
@@ -80,7 +82,8 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
     });
   };
 
-  const handleOpenModal = (variant: 'status' | 'delete') => {
+  const handleOpenModal = (variant: 'status' | 'delete', user: User) => {
+    setSelectedUser(user);
     if (variant === 'delete') {
       setConfirmationDelete(true);
     } else {
@@ -109,23 +112,19 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
                   'bg-lightBlue border-buttonPurple border p-[10px_12px] text-textDark text-[16px] leading-4 font-bold align-text-top text-wrap max-w-[135px] min-w-[90px]'
                 )}
               >
-                <p
-                  className={clsx('relative', {
-                    'pr-6': col === sort?.col,
-                  })}
-                >
+                <p className="relative pr-6">
                   {col}
-                  {col === sort?.col && (
-                    <BsFilter
-                      className={clsx(
-                        'w-6 h-6 absolute right-0 top-1/2 -translate-y-1/2',
-                        {
-                          'rotate-180': col === sort?.col && sort.direction,
-                          'rotate-0': col === sort?.col && !sort.direction,
-                        }
-                      )}
-                    />
-                  )}
+
+                  <BsFilter
+                    className={clsx(
+                      'w-6 h-6 absolute right-0 top-1/2 -translate-y-1/2',
+                      {
+                        'rotate-180 fill-buttonPurple':
+                          col === sort?.col && sort.direction,
+                        'rotate-0': col === sort?.col && !sort.direction,
+                      }
+                    )}
+                  />
                 </p>
               </th>
             ))}

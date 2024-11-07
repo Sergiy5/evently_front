@@ -1,10 +1,11 @@
-import clsx from 'clsx';
 import React, { ReactElement } from 'react';
+import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
 import { NavLink } from 'react-router-dom';
 
-import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
-import { useAppSelector } from '@/hooks/hooks';
 import { selectUser } from '@/redux/auth/selectors';
+
+import { useAppSelector } from '@/hooks/hooks';
+import clsx from 'clsx';
 
 interface IProps {
   item: {
