@@ -52,18 +52,18 @@ const UserCard: React.FC<IProps> = ({ item, index, openModal }) => {
           {item.status === 'BANNED' ? (
             <VscKey
               onClick={() => openModal('status', item)}
-              className="w-6 h-6 fill-success"
+              className="w-6 h-6 fill-success hover:cursor-pointer"
             />
           ) : (
             <TfiLock
               onClick={() => openModal('status', item)}
-              className="w-6 h-6 fill-error"
+              className="w-6 h-6 fill-error hover:cursor-pointer"
             />
           )}
 
           <RiDeleteBin5Line
-            className="w-6 h-6"
             onClick={() => openModal('delete', item)}
+            className="w-6 h-6 hover:cursor-pointer"
           />
         </>
       </CellItem>
