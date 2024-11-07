@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchLikedEvents } from './operations';
 
 const initialState = {
+  AllEvents: [] as Event[],
   likedEvents: [] as Event[],
   error: null as any,
   isLoading: false,
@@ -12,6 +13,9 @@ const eventsSlice = createSlice({
   name: 'events',
   initialState,
   reducers: {
+    setAllEvents(state, action: { payload: Event[] }) {
+      state.AllEvents = action.payload;
+    },
     addLikedEvent(state, action: { payload: Event }) {
       state.likedEvents = [...state.likedEvents, action.payload];
     },
@@ -48,5 +52,9 @@ const eventsSlice = createSlice({
 
 export const eventsReducer = eventsSlice.reducer;
 
-export const { addLikedEvent, deleteLikedEvent, deleteAllLikedEvents } =
-  eventsSlice.actions;
+export const {
+  setAllEvents,
+  addLikedEvent,
+  deleteLikedEvent,
+  deleteAllLikedEvents,
+} = eventsSlice.actions;
