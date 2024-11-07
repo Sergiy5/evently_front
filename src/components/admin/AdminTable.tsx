@@ -117,11 +117,12 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
 
                   <BsFilter
                     className={clsx(
-                      'w-6 h-6 absolute right-0 top-1/2 -translate-y-1/2',
+                      'w-6 h-6 absolute right-0 top-1/2 -translate-y-1/2 ',
                       {
                         'rotate-180 fill-buttonPurple':
                           col === sort?.col && sort.direction,
-                        'rotate-0': col === sort?.col && !sort.direction,
+                        'rotate-0 fill-buttonPurple':
+                          col === sort?.col && !sort.direction,
                       }
                     )}
                   />
