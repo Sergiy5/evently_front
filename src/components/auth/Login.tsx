@@ -72,7 +72,7 @@ export const Login: React.FC<LoginProps> = ({
       } else if (status === 400 && userName === undefined) {
         setEmailLoginError(true);
         setErrorMessage('Акаунт з таким імейлом не знайдено');
-      } else if (status === 400 && message === 'Wrong password') {
+      } else if (status === 403 && message === 'Wrong password') {
         setPasswordLoginError(true);
         setErrorMessage('Невірний пароль');
       } else if (status === 401) {
