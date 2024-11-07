@@ -67,16 +67,16 @@ const router = createBrowserRouter([
                 path: 'users',
                 element: <AdminUsers />,
               },
+              {
+                path: 'profile/:userId',
+                element: <UserProfile />,
+              },
               { path: 'events', element: <AdminEvents /> },
               { path: 'promo-events', element: <PromoEvents /> },
               { path: 'notifications', element: <Notifications /> },
             ],
           },
         ],
-      },
-      {
-        path: 'profile/:userId',
-        element: <UserProfile />,
       },
 
       // Later add privat router
