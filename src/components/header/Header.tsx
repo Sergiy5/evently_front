@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { selectIsLoggedIn } from '@/redux/auth/selectors';
 import { getLikedEvents } from '@/redux/events/selectors';
@@ -17,14 +17,11 @@ interface HeaderProps {}
 
 export const Header: React.FC<HeaderProps> = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
-  const [token, setToken] = useState<string | null>(null);
 
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const likedEventsCount = useAppSelector(getLikedEvents).length;
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleLinkClick = (link: string) => {
     if (isLoggedIn) {
@@ -33,19 +30,6 @@ export const Header: React.FC<HeaderProps> = () => {
       setIsModalOpen(true);
     }
   };
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    if (params.get('emailConfirmed') === 'true') {
-      setIsEmailConfirmed(true);
-      setIsModalOpen(true);
-    }
-    if (params.get('token')) {
-      setToken(params.get('token'));
-      setIsModalOpen(true);
-    }
-    return () => setToken(null);
-  }, [location]);
 
   return (
     <div className="block m-auto max-w-[1440px] font-lato bg-background">
@@ -65,8 +49,6 @@ export const Header: React.FC<HeaderProps> = () => {
               handleLinkClick={handleLinkClick}
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
-              isEmailConfirmed={isEmailConfirmed}
-              token={token}
             />
 
             <div onClick={() => handleLinkClick('events')}>

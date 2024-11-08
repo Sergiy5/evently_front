@@ -3,6 +3,7 @@ import { AiOutlineHeart } from 'react-icons/ai';
 import { BsSearch } from 'react-icons/bs';
 import { CgProfile } from 'react-icons/cg';
 import { RxCross2 } from 'react-icons/rx';
+import { useLocation } from 'react-router';
 
 import { Auth } from '../auth';
 import { Modal } from '../ui';
@@ -13,8 +14,6 @@ interface UserNavigationProps {
   handleLinkClick: (link: string) => void;
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isEmailConfirmed: boolean;
-  token: string | null;
 }
 
 export const UserNavigation: React.FC<UserNavigationProps> = ({
@@ -22,10 +21,12 @@ export const UserNavigation: React.FC<UserNavigationProps> = ({
   handleLinkClick,
   isModalOpen,
   setIsModalOpen,
-  isEmailConfirmed,
-  token,
 }) => {
   const [isInputVisible, setIsInputVisible] = useState(false);
+  const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+
+  const location = useLocation();
 
   const inputRef = useRef<HTMLDivElement>(null);
 
@@ -47,6 +48,19 @@ export const UserNavigation: React.FC<UserNavigationProps> = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isInputVisible]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get('emailConfirmed') === 'true') {
+      setIsEmailConfirmed(true);
+      setIsModalOpen(true);
+    }
+    if (params.get('token')) {
+      setToken(params.get('token'));
+      setIsModalOpen(true);
+    }
+    return () => setToken(null);
+  }, [location]);
 
   return (
     <div className="flex gap-6 pr-12 items-center">
