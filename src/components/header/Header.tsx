@@ -179,7 +179,9 @@ export const Header: React.FC<iHeaderProps> = () => {
                 <AiOutlineHeart className="w-[24px] h-[24px] hover:[color:#9B8FF3]" />
                 {likedEventsCount > 0 && (
                   <div className="absolute -right-2 -top-2 w-[20px] h-[20px] rounded-full bg-borderColor flex items-center justify-center">
-                    <span className="text-background">{likedEventsCount}</span>
+                    <span className="text-background text-[10px]">
+                      {likedEventsCount}
+                    </span>
                   </div>
                 )}
               </NavLink>

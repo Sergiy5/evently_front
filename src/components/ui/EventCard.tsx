@@ -82,7 +82,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
         top ? 'mb-[10px]' : ''
       }`}
     >
-      <img src={photoUrl} alt={title} />
+      <img src={photoUrl} alt={title} width={'100%'} />
       <div className={`flex absolute justify-end p-6 w-full `}>
         <button
           type="button"
