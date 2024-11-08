@@ -2,10 +2,10 @@ import { AiOutlineHeart } from 'react-icons/ai';
 import { BsSearch } from 'react-icons/bs';
 import { CgProfile } from 'react-icons/cg';
 import { RxCross2 } from 'react-icons/rx';
-import { NavLink } from 'react-router-dom';
 
 import { Auth } from '../auth';
 import { Modal } from '../ui';
+import { IconButton } from '../ui/IconButton';
 
 interface UserNavigationProps {
   toggleInput: () => void;
@@ -56,11 +56,11 @@ export const UserNavigation = ({
           </div>
         </div>
       )}
-      <NavLink
-        to="/evently_front/favourite"
-        className="relative cursor-pointer "
+
+      <IconButton
+        Icon={AiOutlineHeart}
+        onClick={() => handleLinkClick('favourite')}
       >
-        <AiOutlineHeart className="w-[24px] h-[24px] hover:[color:#9B8FF3]" />
         {likedEventsCount > 0 && (
           <div className="absolute -right-2 -top-2 w-[20px] h-[20px] rounded-full bg-borderColor flex items-center justify-center">
             <span className="text-background text-[10px]">
@@ -68,10 +68,12 @@ export const UserNavigation = ({
             </span>
           </div>
         )}
-      </NavLink>
-      <button onClick={() => handleLinkClick('user_profile')}>
-        <CgProfile className="w-[24px] h-[24px] cursor-pointer hover:[color:#9B8FF3]" />
-      </button>
+      </IconButton>
+      <IconButton
+        Icon={CgProfile}
+        onClick={() => handleLinkClick('user_profile')}
+      />
+
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <Auth
           onCloseModal={() => setIsModalOpen(false)}
