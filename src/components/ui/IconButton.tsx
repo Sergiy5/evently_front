@@ -6,7 +6,11 @@ interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
 }
 
-export const IconButton = ({ Icon, children, ...props }: IconButtonProps) => {
+export const IconButton: React.FC<IconButtonProps> = ({
+  Icon,
+  children,
+  ...props
+}) => {
   return (
     <button className="focus:outline-none relative" {...props}>
       <Icon className="w-[24px] h-[24px] cursor-pointer hover:[color:#9B8FF3]" />

@@ -4,7 +4,7 @@ import { cityOptions, eventOptions } from '@/utils/statickData';
 
 import CustomSelect from '../ui/CustomSelect';
 
-export const Navigation = () => {
+export const Navigation: React.FC = () => {
   return (
     <div className="flex pl-12 pr-24 gap-8 items-center">
       <CustomSelect

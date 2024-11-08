@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsSearch } from 'react-icons/bs';
 import { CgProfile } from 'react-icons/cg';
@@ -8,11 +9,7 @@ import { Modal } from '../ui';
 import { IconButton } from '../ui/IconButton';
 
 interface UserNavigationProps {
-  toggleInput: () => void;
-  isInputVisible: boolean;
-  inputRef: React.RefObject<HTMLDivElement>;
   likedEventsCount: number;
-  setIsInputVisible: React.Dispatch<React.SetStateAction<boolean>>;
   handleLinkClick: (link: string) => void;
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,18 +17,37 @@ interface UserNavigationProps {
   token: string | null;
 }
 
-export const UserNavigation = ({
-  toggleInput,
-  isInputVisible,
-  inputRef,
+export const UserNavigation: React.FC<UserNavigationProps> = ({
   likedEventsCount,
-  setIsInputVisible,
   handleLinkClick,
   isModalOpen,
   setIsModalOpen,
   isEmailConfirmed,
   token,
-}: UserNavigationProps) => {
+}) => {
+  const [isInputVisible, setIsInputVisible] = useState(false);
+
+  const inputRef = useRef<HTMLDivElement>(null);
+
+  const toggleInput = () => setIsInputVisible(!isInputVisible);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
+      setIsInputVisible(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isInputVisible) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isInputVisible]);
+
   return (
     <div className="flex gap-6 pr-12 items-center">
       <button onClick={toggleInput} className="focus:outline-none">
