@@ -4,15 +4,16 @@ import { FaRegMoneyBillAlt } from 'react-icons/fa';
 import { GrLocation } from 'react-icons/gr';
 import { PiHeartLight } from 'react-icons/pi';
 import { PiHeartFill } from 'react-icons/pi';
-import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { selectUser } from '@/redux/auth/selectors';
-import { addLikedEvent, deleteLikedEvent } from '@/redux/events/eventsSlice';
-import { getLikedEvents } from '@/redux/events/selectors';
+import {
+  useAddLikedEventMutation,
+  useDeleteLikedEventMutation,
+} from '@/redux/events/operations';
 
-import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
-import { addEventToLiked, removeEventFromLiked } from '@/utils/eventsHttp';
+import { useAppSelector } from '@/hooks/hooks';
+import { useGetLikedEventsWithSkip } from '@/hooks/useGetLikedEventsWithSkip';
 
 import { SharedBtn } from './SharedBtn';
 
@@ -24,14 +25,23 @@ interface EventCardProps {
 export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
   const [isLiked, setIsLiked] = useState(false);
 
-  const { id, title, date, category, price, location, type, photoUrl } = event;
+  const {
+    id: eventId,
+    title,
+    date,
+    category,
+    price,
+    location,
+    type,
+    photoUrl,
+  } = event;
 
-  const { id: userId } = useSelector(selectUser);
-  const likedEventsAll = useAppSelector(getLikedEvents);
+  const { id: userId } = useAppSelector(selectUser);
 
-  const dispatch = useAppDispatch();
+  const { data: likedEventsAll } = useGetLikedEventsWithSkip(userId);
+  const [addLikedEvent] = useAddLikedEventMutation();
+  const [deleteLikedEvent] = useDeleteLikedEventMutation();
 
-  // TODO
   const address = location.city + ', ' + location.street;
   const slicedStreet = () => {
     if (address.length > 29) {
@@ -43,41 +53,43 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
 
   const toggleIsLiked = () => {
     if (!isLiked) {
-      const addLiked = async (userId: string, eventId: string) => {
+      const addLiked = async () => {
         try {
-          const response = await addEventToLiked(userId, eventId);
-          if (response.status === 201) {
-            dispatch(addLikedEvent(event));
+          if (userId) {
+            await addLikedEvent({ userId, eventId, event });
+          } else {
+            return toast.error('Щоб зберегти, потрібно залогінитись!');
           }
         } catch (error) {
           console.log(error);
-          return toast.error('Щоб зберегти, потрібно залогінитись!');
         }
       };
-      addLiked(userId, id);
+      addLiked();
     } else {
-      const deleteFromLiked = async (userId: string, eventId: string) => {
+      const deleteFromLiked = async () => {
         try {
-          const response = await removeEventFromLiked(userId, eventId);
-          if (response.status === 200) {
-            dispatch(deleteLikedEvent(id));
+          if (userId) {
+            await deleteLikedEvent({ userId, eventId });
+          } else {
           }
         } catch (error) {
           console.log(error);
           return error;
         }
       };
-      deleteFromLiked(userId, id);
+      deleteFromLiked();
     }
   };
 
   useEffect(() => {
-    setIsLiked(likedEventsAll.some(item => item.id === event.id));
+    if (likedEventsAll) {
+      setIsLiked(likedEventsAll.some(item => item.id === event.id));
+    }
   }, [likedEventsAll]);
 
   return (
     <div
-      id={`${id}`}
+      id={`${eventId}`}
       className={`group relative flex overflow-hidden items-start rounded-[20px] w-[312px] h-[514px] shadow-eventCardShadow ${
         top ? 'mb-[10px]' : ''
       }`}

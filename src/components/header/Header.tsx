@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { selectIsLoggedIn } from '@/redux/auth/selectors';
-import { getLikedEvents } from '@/redux/events/selectors';
 
 import { useAppSelector } from '@/hooks/hooks';
 
@@ -19,7 +18,6 @@ export const Header: React.FC<HeaderProps> = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
-  const likedEventsCount = useAppSelector(getLikedEvents).length;
 
   const navigate = useNavigate();
 
@@ -45,7 +43,6 @@ export const Header: React.FC<HeaderProps> = () => {
             </div>
             <Navigation />
             <UserNavigation
-              likedEventsCount={likedEventsCount}
               handleLinkClick={handleLinkClick}
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}

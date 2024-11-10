@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { getALlEvents } from '@/redux/events/selectors';
+import { getAllEvents } from '@/redux/events/selectors';
 
 import { useAppSelector } from '@/hooks/hooks';
 
@@ -9,7 +9,7 @@ import { Footer } from '@/components/footer/footer';
 import { Main } from '@/components/main/Main';
 
 const AllEventsPage: React.FC = () => {
-  const allEvents = useAppSelector(getALlEvents);
+  const allEvents = useAppSelector(getAllEvents);
 
   useEffect(() => {
     window.scrollTo(0, 0);

@@ -1,20 +1,21 @@
-import { getLikedEvents } from '@/redux/events/selectors';
+import { selectUser } from '@/redux/auth/selectors';
 
 import { useAppSelector } from '@/hooks/hooks';
+import { useGetLikedEventsWithSkip } from '@/hooks/useGetLikedEventsWithSkip';
 
 import { ListEvents } from '@/components/listEvents/ListEvents';
 
 const Favourite: React.FC = () => {
-  const likedEvents = useAppSelector(getLikedEvents);
+  const { id: userId } = useAppSelector(selectUser);
+
+  const { data: likedEventsAll } = useGetLikedEventsWithSkip(userId);
 
   return (
     <>
-      {likedEvents.length === 0 ? (
-        <span>
-          Не знайшов подію, яка цікавить? Чому б не створити власну?
-        </span>
+      {!likedEventsAll ? (
+        <span>Не знайшов подію, яка цікавить? Чому б не створити власну?</span>
       ) : (
-        <ListEvents events={likedEvents} />
+        <ListEvents events={likedEventsAll} />
       )}
     </>
   );

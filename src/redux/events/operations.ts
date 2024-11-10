@@ -1,27 +1,80 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-axios.defaults.baseURL = 'https://rendereventapp.onrender.com/api/v1/';
+import { RootState } from '../store';
 
-const setAuthToken = (token: string) => {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-};
+const baseURL = 'https://rendereventapp.onrender.com/api/v1/';
 
-export const fetchLikedEvents = createAsyncThunk<
-  Event[],
-  { userId: string; token?: string },
-  {
-    rejectValue: string;
-  }
->('events/getLikedEvents', async ({ userId, token }, { rejectWithValue }) => {
-  try {
-    if (token) {
-      setAuthToken(token);
-    }
-    const response = await axios(`liked-events/${userId}`);
-    const resData = response.data.eventsList;
-    return resData;
-  } catch (error: any) {
-    return rejectWithValue(error.message);
-  }
+export const EventsApi = createApi({
+  reducerPath: 'events',
+  baseQuery: fetchBaseQuery({
+    baseUrl: baseURL,
+    credentials: 'include',
+    prepareHeaders: (headers, { getState }) => {
+      const token = (getState() as RootState).auth.token;
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
+  endpoints: builder => ({
+    getLikedEvents: builder.query<Event[], string>({
+      query: userId => `liked-events/${userId}`,
+      transformResponse: (response: { eventsList: Event[] }) =>
+        response.eventsList,
+    }),
+
+    addLikedEvent: builder.mutation<
+      Event,
+      { userId: string; eventId: string; event: Event }
+    >({
+      query: ({ userId, eventId }) => ({
+        url: 'liked-events',
+        method: 'POST',
+        body: { userId, eventId },
+      }),
+      async onQueryStarted({ userId, event }, { dispatch, queryFulfilled }) {
+        const result = dispatch(
+          EventsApi.util.updateQueryData('getLikedEvents', userId, draft => {
+            draft.push(event);
+          })
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          result.undo();
+        }
+      },
+    }),
+
+    deleteLikedEvent: builder.mutation<
+      Event,
+      { userId: string; eventId: string }
+    >({
+      query: ({ userId, eventId }) => ({
+        url: 'liked-events',
+        method: 'DELETE',
+        body: { userId, eventId },
+      }),
+      async onQueryStarted({ userId, eventId }, { dispatch, queryFulfilled }) {
+        const result = dispatch(
+          EventsApi.util.updateQueryData('getLikedEvents', userId, draft => {
+            const updatedEvents = draft.filter(item => item.id !== eventId);
+            return updatedEvents;
+          })
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          result.undo();
+        }
+      },
+    }),
+  }),
 });
+
+export const {
+  useGetLikedEventsQuery,
+  useAddLikedEventMutation,
+  useDeleteLikedEventMutation,
+} = EventsApi;

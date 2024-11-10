@@ -1,4 +1,4 @@
-import { getALlEvents } from '@/redux/events/selectors';
+import { getAllEvents } from '@/redux/events/selectors';
 
 import { useAppSelector } from '@/hooks/hooks';
 
@@ -12,7 +12,7 @@ import { TopEvents } from '@/components/topEvents/TopEvents';
 import { ShowAllButton } from '@/components/ui/ShowAllButton';
 
 const Home: React.FC = () => {
-  const allEvents = useAppSelector(getALlEvents);
+  const allEvents = useAppSelector(getAllEvents);
 
   const shownEvents = 16;
   const notTopEvents = allEvents

@@ -2,25 +2,31 @@ import React, { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from './hooks/hooks';
-import { selectToken, selectUser } from './redux/auth/selectors';
-import { deleteAllLikedEvents, setAllEvents } from './redux/events/eventsSlice';
-import { fetchLikedEvents } from './redux/events/operations';
+import { useGetLikedEventsWithSkip } from './hooks/useGetLikedEventsWithSkip';
+import {
+  selectIsLoggedIn,
+  selectToken,
+  selectUser,
+} from './redux/auth/selectors';
+import { setAllEvents } from './redux/events/eventsSlice';
+import { EventsApi } from './redux/events/operations';
 import router from './routing';
 import { getEvents } from './utils/eventsHttp';
 
 const App: React.FC = () => {
   const { id: userId } = useAppSelector(selectUser);
   const token = useAppSelector(selectToken);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
   const dispatch = useAppDispatch();
 
+  useGetLikedEventsWithSkip(userId);
+
   useEffect(() => {
-    if (token) {
-      dispatch(fetchLikedEvents({ userId, token }));
-    } else {
-      dispatch(deleteAllLikedEvents());
+    if (!isLoggedIn || !token) {
+      dispatch(EventsApi.util.resetApiState());
     }
-  }, [userId, token, dispatch]);
+  }, [isLoggedIn, dispatch]);
 
   useEffect(() => {
     const fetchData = async () => {
