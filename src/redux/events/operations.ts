@@ -18,6 +18,10 @@ export const EventsApi = createApi({
     },
   }),
   endpoints: builder => ({
+    getAllEvents: builder.query<Event[], void>({
+      query: () => 'events',
+    }),
+
     getLikedEvents: builder.query<Event[], string>({
       query: userId => `liked-events/${userId}`,
       transformResponse: (response: { eventsList: Event[] }) =>
@@ -74,6 +78,7 @@ export const EventsApi = createApi({
 });
 
 export const {
+  useGetAllEventsQuery,
   useGetLikedEventsQuery,
   useAddLikedEventMutation,
   useDeleteLikedEventMutation,

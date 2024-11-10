@@ -8,10 +8,8 @@ import {
   selectToken,
   selectUser,
 } from './redux/auth/selectors';
-import { setAllEvents } from './redux/events/eventsSlice';
 import { EventsApi } from './redux/events/operations';
 import router from './routing';
-import { getEvents } from './utils/eventsHttp';
 
 const App: React.FC = () => {
   const { id: userId } = useAppSelector(selectUser);
@@ -27,18 +25,6 @@ const App: React.FC = () => {
       dispatch(EventsApi.util.resetApiState());
     }
   }, [isLoggedIn, dispatch]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getEvents();
-        dispatch(setAllEvents(response));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
 
   return <RouterProvider router={router} />;
 };

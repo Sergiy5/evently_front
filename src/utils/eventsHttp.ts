@@ -30,6 +30,7 @@ export const getEvent = async (id?: string) => {
   }
 };
 
+// TODO delete getEvents
 export const getEvents = async () => {
   try {
     const response = await axios('events');
