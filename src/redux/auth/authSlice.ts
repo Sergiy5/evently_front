@@ -10,8 +10,6 @@ import {
 import { PayloadAction, createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { UnknownAction } from 'redux';
 
-import { User } from '../users/usersSlice';
-
 export interface GoogleLoginResponse {
   name: string;
   email: string;

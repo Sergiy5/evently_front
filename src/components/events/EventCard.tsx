@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { eventType } from './types';
 
 interface props {
   event: eventType;

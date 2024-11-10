@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-import { eventType } from '../components/events/types';
-
 const URL = 'https://66ceec99901aab24842029e0.mockapi.io';
 
 axios.defaults.baseURL = 'https://rendereventapp.onrender.com/api/v1/';
@@ -22,7 +20,7 @@ export const getEvent = async (id?: string) => {
 
   try {
     const response = await axios(`${URL}/events/${id}`);
-    const resData: eventType = response.data;
+    const resData: Event = response.data;
 
     return resData;
   } catch (error) {

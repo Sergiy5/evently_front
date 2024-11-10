@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { BsFilter } from 'react-icons/bs';
 
 import { fetchUsers } from '@/redux/users/operations';
-import { User } from '@/redux/users/usersSlice';
 
 import { useAppDispatch } from '@/hooks/hooks';
 import sortUser from '@/utils/sortUser';

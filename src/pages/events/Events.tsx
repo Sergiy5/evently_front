@@ -1,13 +1,12 @@
 import React from 'react';
 import { useLoaderData, useNavigate } from 'react-router';
 
-import EventsList from '@/components/events/EventsList';
-
-import { eventType } from '@/components/events/types';
 import { getEvents } from '@/utils/eventsHttp';
 
+import EventsList from '@/components/events/EventsList';
+
 const Events: React.FC = () => {
-  const events = useLoaderData() as eventType[];
+  const events = useLoaderData() as Event[];
   const navigate = useNavigate();
 
   const handleCreateEvent = () => {
@@ -26,6 +25,6 @@ const Events: React.FC = () => {
 
 export default Events;
 
-export const loader = async (): Promise<eventType[]> => {
+export const loader = async (): Promise<Event[]> => {
   return await getEvents();
 };

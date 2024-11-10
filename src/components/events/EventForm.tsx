@@ -1,10 +1,9 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Form } from 'react-router-dom';
 import { useLoaderData } from 'react-router';
+import { Form } from 'react-router-dom';
 
 import { SharedInput } from '../ui';
-import { eventType } from './types';
-import { useState } from 'react';
 
 const EventForm = () => {
   const [idSchema, setIdSchema] = useState<string>();

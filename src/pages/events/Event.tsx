@@ -2,7 +2,6 @@ import React from 'react';
 import { useLoaderData, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import { eventType } from '../../components/events/types';
 import { deleteEvent, getEvent } from '../../utils/eventsHttp';
 
 const Event: React.FC = () => {
