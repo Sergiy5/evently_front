@@ -1,12 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Option } from '@/utils/statickData';
+import React, { useEffect, useRef, useState } from 'react';
+import { IoIosArrowDown } from 'react-icons/io';
 import { NavLink } from 'react-router-dom';
-import { IoIosArrowDown } from "react-icons/io";
 
+import { Option } from '@/utils/statickData';
+import { nanoid } from '@reduxjs/toolkit';
 
 interface IEventSelectProps {
   options: Option[];
-  label?: string; 
+  label?: string;
   className?: string;
   dropdownWidth?: string;
   buttonWidth?: string;
@@ -23,22 +24,22 @@ const CustomSelect: React.FC<IEventSelectProps> = ({
   replaceLabelOnSelect = true,
   changeLink,
 }) => {
-  
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
-  //function for changing lable 
   const handleClick = (option: Option) => {
     if (replaceLabelOnSelect) {
-      setSelectedOption(option.label); 
+      setSelectedOption(option.label);
     }
-    setIsOpen(false); 
+    setIsOpen(false);
   };
 
-
   const handleClickOutside = (event: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
       setIsOpen(false);
     }
   };
@@ -50,18 +51,25 @@ const CustomSelect: React.FC<IEventSelectProps> = ({
     };
   }, []);
 
-  return ( 
-    <div className="z-30  relative inline-block text-left border-buttonPurple  " ref={dropdownRef}>
+  return (
+    <div
+      className="z-30  relative inline-block text-left border-buttonPurple  "
+      ref={dropdownRef}
+    >
       <button
         type="button"
         className={`${
-          isOpen ? 'font-bold text-buttonPurple hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]' : 'text-gray-700'
+          isOpen
+            ? 'font-bold text-buttonPurple hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
+            : 'text-gray-700'
         } relative inline-flex justify-center items-center rounded-md px-2 py-1 bg-background text-sm text-gray-700 
          focus:outline-none relative ${className}`}
         style={{ width: buttonWidth }}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className=' text-base'>{replaceLabelOnSelect && selectedOption ? selectedOption : label}</span>
+        <span className=" text-base">
+          {replaceLabelOnSelect && selectedOption ? selectedOption : label}
+        </span>
         <IoIosArrowDown
           className={`absolute right-[-7px] w-[12px] h-[12px] inline-block mt-[2px] ml-1 transition-transform duration-200 ease-in-out ${
             isOpen ? 'transform rotate-180' : ''
@@ -76,22 +84,23 @@ const CustomSelect: React.FC<IEventSelectProps> = ({
           style={{ width: dropdownWidth }}
         >
           <div className="py-1">
-            {options.map((option) => (
-              <NavLink 
-              to={option.value}
-              onClick={() => { 
-                handleClick(option); 
-                if (changeLink) {
-                  changeLink(option.value); 
-                }
-              }}
+            {options.map(option => (
+              <NavLink
+                key={nanoid()}
+                to={option.value}
+                onClick={() => {
+                  handleClick(option);
+                  if (changeLink) {
+                    changeLink(option.value);
+                  }
+                }}
               >
                 <div
                   key={option.value}
                   onClick={() => handleClick(option)}
                   className="border-none block w-full mt-3 mb-3 text-left px-4  py-2 
                   text-black active:text-buttonPurple hover:font-bold cursor-pointer"
-                  >
+                >
                   {option.label}
                 </div>
               </NavLink>
