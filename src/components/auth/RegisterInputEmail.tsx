@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+
+import { getUserByEmail } from '@/api/getUserByEmail';
+import { IRegisterFormInputEmail, IRegisterUser } from '@/types';
 import { validateEmail } from '@/utils';
+
 import {
   GoogleLoginButton,
   PrivacyAgreement,
@@ -8,8 +12,6 @@ import {
   SharedItemStatusBar,
 } from '../ui';
 import { SharedBtn } from '../ui/SharedBtn';
-import { IRegisterFormInputEmail, IRegisterUser } from '@/types';
-import { getUserByEmail } from '@/api/getUserByEmail';
 
 interface RegisterInputEmailProps {
   setUserData: React.Dispatch<React.SetStateAction<IRegisterUser>>;
@@ -27,7 +29,7 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
   const {
     register,
     handleSubmit,
-    formState: {errors },
+    formState: { errors },
   } = useForm<IRegisterFormInputEmail>({
     mode: 'onChange',
   });
@@ -54,14 +56,15 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
         if (response.emailExist === true) {
           setEmailError(true);
           setErrorMessage('Такий email вже існує');
-        }
-
-        if (response.emailExist === false) {
+        } else if (response.status === 403) {
+          setEmailError(true);
+          setErrorMessage('Користувач з такім email заблокований');
+        } else if (response.emailExist === false) {
           setUserData(prev => ({ ...prev, email }));
           setStatusAuth('register_password');
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     };
 

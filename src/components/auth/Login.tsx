@@ -66,7 +66,7 @@ export const Login: React.FC<LoginProps> = ({
       const { userName, status, message } = payload;
       console.log(userName);
 
-      if (status === 400 && message === 'User banned.') {
+      if (status === 403 && message === 'User banned.') {
         setEmailLoginError(true);
         setErrorMessage('Акаунт заблокований');
       } else if (status === 400 && userName === undefined) {
