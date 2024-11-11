@@ -1,8 +1,9 @@
 import React from 'react';
 import { redirect } from 'react-router';
-import { createEvent, editEvent } from '../../utils/eventsHttp';
+
 import EventForm from '@/components/events/EventForm';
-import { eventType } from '@/components/events/types';
+
+import { createEvent, editEvent } from '../../utils/eventsHttp';
 
 const EventEdit: React.FC = () => {
   return (

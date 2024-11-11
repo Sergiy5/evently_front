@@ -1,5 +1,3 @@
-import { User } from '@/redux/users/usersSlice';
-
 const sortUser = (
   sort: { col: string; direction: boolean },
   cols: string[],

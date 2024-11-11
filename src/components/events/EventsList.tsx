@@ -1,5 +1,5 @@
 import EventCard from './EventCard';
-import { eventType } from './types';
+
 interface props {
   events: eventType[];
 }

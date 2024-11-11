@@ -6,7 +6,6 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import { selectUsers } from '@/redux/users/selectors';
-import { User } from '@/redux/users/usersSlice';
 
 import { useAppSelector } from '@/hooks/hooks';
 
@@ -25,7 +24,7 @@ const UserProfile = () => {
           <div className="mt-4 flex gap-4">
             <div className="bg-white rounded-full w-16 h-16"></div>
             <div>
-              <h2 className='flex gap-2 items-center'>
+              <h2 className="flex gap-2 items-center">
                 {userInfo?.name}
                 {userInfo?.status === 'BANNED' && (
                   <span>

@@ -3,8 +3,6 @@ import { TfiLock } from 'react-icons/tfi';
 import { VscKey } from 'react-icons/vsc';
 import { Link } from 'react-router-dom';
 
-import { User } from '@/redux/users/usersSlice';
-
 import CellItem from './CellTable';
 
 interface IProps {

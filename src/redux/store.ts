@@ -12,7 +12,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 
 import { authReducer } from './auth/authSlice';
-import { eventsReducer } from './events/eventsSlice';
+import { EventsApi } from './events/operations';
 import { usersReducer } from './users/usersSlice';
 
 const persistConfig = {
@@ -27,14 +27,14 @@ export const store = configureStore({
   reducer: {
     auth: persistedReducer,
     users: usersReducer,
-    events: eventsReducer,
+    [EventsApi.reducerPath]: EventsApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(EventsApi.middleware),
 });
 
 export type AppStore = typeof store;

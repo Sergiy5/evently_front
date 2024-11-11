@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { CustomCheckbox } from '../ui';
-import events from '@/assets/fakeData/events';
+
 import { nanoid } from '@reduxjs/toolkit';
+
+import { CustomCheckbox } from '../ui';
 
 type FilterOption = {
   label: string;
@@ -15,7 +16,7 @@ export interface IEvent {
   category: string;
   start: { day: string; time: string };
   end: { day: string; time: string };
-  location: {city:string};
+  location: { city: string };
   price: string;
 }
 
@@ -34,7 +35,9 @@ interface FilterTypeEventProps {
   setEvents: (event: IEvent[]) => void;
 }
 
-export const FilterTypeEvent: React.FC<FilterTypeEventProps> = ({ setEvents }) => {
+export const FilterTypeEvent: React.FC<FilterTypeEventProps> = ({
+  setEvents,
+}) => {
   const [selectedFilters, setSelectedFilters] = useState<(string | boolean)[]>(
     []
   );
@@ -51,14 +54,14 @@ export const FilterTypeEvent: React.FC<FilterTypeEventProps> = ({ setEvents }) =
   };
 
   useEffect(() => {
-      const filteredData = allEvents.filter(
-          item =>
-            selectedFilters.length === 0 || selectedFilters.includes(item.category)
-        );
+    const filteredData = allEvents.filter(
+      item =>
+        selectedFilters.length === 0 || selectedFilters.includes(item.category)
+    );
     setEvents(events);
     setAllEvents;
     filteredData;
-    }, [selectedFilters]);
+  }, [selectedFilters]);
 
   return (
     <div className={` w-full h-16 bg-lightPink px-8 rounded-[20px]`}>

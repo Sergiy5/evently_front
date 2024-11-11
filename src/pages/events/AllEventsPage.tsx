@@ -1,15 +1,13 @@
 import { useEffect } from 'react';
 
-import { getALlEvents } from '@/redux/events/selectors';
-
-import { useAppSelector } from '@/hooks/hooks';
+import { useGetAllEventsQuery } from '@/redux/events/operations';
 
 import { AllEvents } from '@/components/allEvents/AllEvents';
 import { Footer } from '@/components/footer/footer';
 import { Main } from '@/components/main/Main';
 
 const AllEventsPage: React.FC = () => {
-  const allEvents = useAppSelector(getALlEvents);
+  const { data } = useGetAllEventsQuery();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -17,7 +15,7 @@ const AllEventsPage: React.FC = () => {
 
   return (
     <Main className="flex flex-col gap-16">
-      <AllEvents events={allEvents} />
+      {data && <AllEvents events={data} />}
       <Footer />
     </Main>
   );

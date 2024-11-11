@@ -5,19 +5,22 @@ import { CgProfile } from 'react-icons/cg';
 import { RxCross2 } from 'react-icons/rx';
 import { useLocation } from 'react-router';
 
+import { selectIsLoggedIn, selectUser } from '@/redux/auth/selectors';
+
+import { useAppSelector } from '@/hooks/hooks';
+import { useGetLikedEventsWithSkip } from '@/hooks/useGetLikedEventsWithSkip';
+
 import { Auth } from '../auth';
 import { Modal } from '../ui';
 import { IconButton } from '../ui/IconButton';
 
 interface UserNavigationProps {
-  likedEventsCount: number;
   handleLinkClick: (link: string) => void;
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const UserNavigation: React.FC<UserNavigationProps> = ({
-  likedEventsCount,
   handleLinkClick,
   isModalOpen,
   setIsModalOpen,
@@ -25,6 +28,11 @@ export const UserNavigation: React.FC<UserNavigationProps> = ({
   const [isInputVisible, setIsInputVisible] = useState(false);
   const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
   const [token, setToken] = useState<string | null>(null);
+
+  const { id: userId } = useAppSelector(selectUser);
+  const IsLoggedIn = useAppSelector(selectIsLoggedIn);
+
+  const { data: likedEventsAll } = useGetLikedEventsWithSkip(userId);
 
   const location = useLocation();
 
@@ -91,10 +99,10 @@ export const UserNavigation: React.FC<UserNavigationProps> = ({
         Icon={AiOutlineHeart}
         onClick={() => handleLinkClick('favourite')}
       >
-        {likedEventsCount > 0 && (
+        {likedEventsAll && IsLoggedIn && (
           <div className="absolute -right-2 -top-2 w-[20px] h-[20px] rounded-full bg-borderColor flex items-center justify-center">
             <span className="text-background text-[10px]">
-              {likedEventsCount}
+              {likedEventsAll.length}
             </span>
           </div>
         )}

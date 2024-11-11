@@ -1,13 +1,14 @@
-import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
-
-import { MdOutlineRefresh } from 'react-icons/md';
-import AdminTable from '@/components/admin/AdminTable';
-import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
-import { fetchUsers } from '@/redux/users/operations';
-import { User } from '@/redux/users/usersSlice';
-import { selectUsers } from '@/redux/users/selectors';
+import { useTranslation } from 'react-i18next';
 import { BiChevronDown } from 'react-icons/bi';
+import { MdOutlineRefresh } from 'react-icons/md';
+
+import { fetchUsers } from '@/redux/users/operations';
+import { selectUsers } from '@/redux/users/selectors';
+
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
+
+import AdminTable from '@/components/admin/AdminTable';
 
 const AdminUsers = () => {
   const { t } = useTranslation('adminUser');
