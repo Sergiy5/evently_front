@@ -80,7 +80,7 @@ export const Login: React.FC<LoginProps> = ({
         message.includes('has been deleted and is no longer accessible.')
       ) {
         setEmailLoginError(true);
-        setErrorMessage('Цей користувач видаленний за порушення правил');
+        setErrorMessage('Акаунт видалено');
       } else if (status === 401) {
         setEmailLoginError(true);
         setErrorMessage('Імейл не підтверджено');
