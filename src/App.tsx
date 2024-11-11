@@ -10,6 +10,7 @@ import {
 } from './redux/auth/selectors';
 import { EventsApi } from './redux/events/operations';
 import router from './routing';
+import axios from 'axios';
 
 const App: React.FC = () => {
   const { id: userId } = useAppSelector(selectUser);
@@ -17,6 +18,7 @@ const App: React.FC = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
   const dispatch = useAppDispatch();
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 
   useGetLikedEventsWithSkip(userId);
 
