@@ -75,6 +75,12 @@ export const Login: React.FC<LoginProps> = ({
       } else if (status === 403 && message === 'Wrong password') {
         setPasswordLoginError(true);
         setErrorMessage('Невірний пароль');
+      } else if (
+        status === 403 &&
+        message.includes('has been deleted and is no longer accessible.')
+      ) {
+        setEmailLoginError(true);
+        setErrorMessage('Цей користувач видаленний за порушення правил');
       } else if (status === 401) {
         setEmailLoginError(true);
         setErrorMessage('Імейл не підтверджено');

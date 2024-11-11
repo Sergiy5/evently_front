@@ -58,7 +58,7 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
           setErrorMessage('Такий email вже існує');
         } else if (response.status === 403) {
           setEmailError(true);
-          setErrorMessage('Користувач з такім email заблокований');
+          setErrorMessage('Користувач з такім email був видалений');
         } else if (response.emailExist === false) {
           setUserData(prev => ({ ...prev, email }));
           setStatusAuth('register_password');
