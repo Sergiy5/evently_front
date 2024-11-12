@@ -94,12 +94,18 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
         top ? 'mb-[10px]' : ''
       }`}
     >
+      {' '}
       <img src={photoUrl} alt={title} width={'100%'} />
-      <div className={`flex absolute justify-end p-6 w-full `}>
+      <div className={`flex absolute justify-between p-6 w-full`}>
+        {category === 'TOP_EVENTS' && (
+          <div className="flex justify-center items-center w-[58px] h-[35px] bg-badge-gradient rounded-[20px]">
+            <span className="text-background">ТОП</span>
+          </div>
+        )}
         <button
           type="button"
           onClick={toggleIsLiked}
-          className={`focus:outline-none`}
+          className={`focus:outline-none ml-auto`}
         >
           {isLiked ? (
             <PiHeartFill className={`w-6 h-6 text-borderColor`} />
