@@ -1,6 +1,17 @@
 // this file is for static data that can be used like props for CustoomSelect.tsx
 
 export const eventTypes = [
+  'Усі події',
+  'Під домом',
+  'Концерти',
+  'Майстер-клас',
+  'Stand-Up',
+  'Бізнес та нетворкінг',
+  'Спортивні заходи',
+  'Інше',
+] as const;
+
+export const eventOptions = [
   { label: 'Усі події', value: 'all_events' },
   { label: 'Під домом', value: 'nearby' },
   { label: 'Концерти', value: 'concerts' },

@@ -1,40 +1,17 @@
-import { useEffect, useState } from 'react';
-
 import { eventDate, eventPrice, eventTypes } from '@/utils/statickData';
 import { nanoid } from '@reduxjs/toolkit';
 
-import { Container } from '../container/Container';
-import { CustomCheckbox } from '../ui';
 import { Checkbox } from '../ui/CheckBox';
 
-interface FilterEventsProps {}
+interface FilterEventsProps {
+  selectedTypes: string[];
+  addTypeFilter: (filter: string) => void;
+}
 
-export const FilterEvents: React.FC<FilterEventsProps> = () => {
-  // const [selectedFilters, setSelectedFilters] = useState<(string | boolean)[]>(
-  //   []
-  // );
-  // const [allEvents, setAllEvents] = useState([...events]);
-
-  // // Handle checkbox change
-  // const handleCheckboxChange = (value: string | boolean) => {
-  //   setSelectedFilters(
-  //     prev =>
-  //       prev.includes(value)
-  //         ? prev.filter(item => item !== value) // Uncheck (remove from selected)
-  //         : [...prev, value] // Check (add to selected)
-  //   );
-  // };
-
-  // useEffect(() => {
-  //   const filteredData = allEvents.filter(
-  //     item =>
-  //       selectedFilters.length === 0 || selectedFilters.includes(item.category)
-  //   );
-  //   setEvents(events);
-  //   setAllEvents;
-  //   filteredData;
-  // }, [selectedFilters]);
-
+export const FilterEvents: React.FC<FilterEventsProps> = ({
+  selectedTypes,
+  addTypeFilter,
+}) => {
   return (
     <div className="pl-[60px]">
       <div
@@ -45,10 +22,10 @@ export const FilterEvents: React.FC<FilterEventsProps> = () => {
           {eventTypes.map(option => (
             <li key={nanoid()} className={`flex gap-4`}>
               <Checkbox
-                value={option.value}
-                // checked={selectedFilters.includes(option.value)}
-                // onChange={handleCheckboxChange}
-                label={option.label}
+                value={option}
+                onChange={() => addTypeFilter(option)}
+                checked={selectedTypes.includes(option)}
+                label={option}
                 className={``}
               />
             </li>

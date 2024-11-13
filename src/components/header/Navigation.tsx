@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-import { cityOptions, eventTypes } from '@/utils/statickData';
+import { cityOptions, eventOptions } from '@/utils/statickData';
 
 import CustomSelect from '../ui/CustomSelect';
 
@@ -8,7 +8,7 @@ export const Navigation: React.FC = () => {
   return (
     <div className="flex pl-12 pr-24 gap-8 items-center">
       <CustomSelect
-        options={eventTypes}
+        options={eventOptions}
         label="Події"
         replaceLabelOnSelect={false}
         className="hover:font-bold"
