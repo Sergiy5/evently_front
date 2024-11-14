@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { useGetAllEventsQuery } from '@/redux/events/operations';
+import { getAllEvents } from '@/redux/events/selectors';
 
+import { useAppSelector } from '@/hooks/hooks';
 import { useGetEventTypeFilter } from '@/hooks/useGetEventTypeFilter';
 
 import { AllEvents } from '@/components/allEvents/AllEvents';
@@ -12,9 +13,11 @@ import { Main } from '@/components/main/Main';
 interface AllEventsPageProps {}
 
 const AllEventsPage: React.FC<AllEventsPageProps> = () => {
-  const { data: events } = useGetAllEventsQuery();
+  const events = useAppSelector(getAllEvents);
+  console.log(events);
 
-  const [filteredEvents, setFilteredEvents] = useState<Event[] | []>(events!);
+  const [filteredEvents, setFilteredEvents] = useState<Event[] | []>([]);
+  const [firstRender, setFirstRender] = useState(true);
 
   const { addTypeFilter, selectedTypes } = useGetEventTypeFilter();
 
@@ -31,6 +34,13 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
       setFilteredEvents(filteredArray);
     }
   };
+
+  useEffect(() => {
+    if (events.length > 0 && firstRender) {
+      setFilteredEvents(events);
+      setFirstRender(false);
+    }
+  }, [events, firstRender]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
