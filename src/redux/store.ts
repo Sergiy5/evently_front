@@ -12,7 +12,6 @@ import {
 import storage from 'redux-persist/lib/storage';
 
 import { authReducer } from './auth/authSlice';
-import { eventsReducer } from './events/EventsSlice';
 import { EventsApi } from './events/operations';
 import { usersReducer } from './users/usersSlice';
 
@@ -28,7 +27,6 @@ export const store = configureStore({
   reducer: {
     auth: persistedReducer,
     users: usersReducer,
-    eventsSlice: eventsReducer,
     [EventsApi.reducerPath]: EventsApi.reducer,
   },
   middleware: getDefaultMiddleware =>

@@ -10,8 +10,7 @@ import {
   selectToken,
   selectUser,
 } from './redux/auth/selectors';
-import { addAllEvents } from './redux/events/EventsSlice';
-import { EventsApi, useGetAllEventsQuery } from './redux/events/operations';
+import { EventsApi } from './redux/events/operations';
 import router from './routing';
 
 const App: React.FC = () => {
@@ -22,8 +21,6 @@ const App: React.FC = () => {
   const dispatch = useAppDispatch();
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 
-  const { data: events } = useGetAllEventsQuery();
-
   useGetLikedEventsWithSkip(userId);
 
   useEffect(() => {
@@ -31,12 +28,6 @@ const App: React.FC = () => {
       dispatch(EventsApi.util.resetApiState());
     }
   }, [isLoggedIn, dispatch]);
-
-  useEffect(() => {
-    if (events) {
-      dispatch(addAllEvents(events));
-    }
-  }, [events, dispatch]);
 
   return <RouterProvider router={router} />;
 };

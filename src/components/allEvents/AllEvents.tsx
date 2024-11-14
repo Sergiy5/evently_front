@@ -2,12 +2,13 @@ import { ListEvents } from '../listEvents/ListEvents';
 
 interface AllEventsProps {
   events: Event[];
+  title: string | boolean;
 }
 
-export const AllEvents: React.FC<AllEventsProps> = ({ events }) => {
+export const AllEvents: React.FC<AllEventsProps> = ({ events, title }) => {
   return (
     <div className={`flex flex-col gap-8`}>
-      <h1>Усі події</h1>
+      {title && <h1>{title}</h1>}
       <ListEvents events={events} />
     </div>
   );

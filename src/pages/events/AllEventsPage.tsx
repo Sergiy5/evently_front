@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { getAllEvents } from '@/redux/events/selectors';
+import { useGetAllEventsQuery } from '@/redux/events/operations';
 
-import { useAppSelector } from '@/hooks/hooks';
 import { useGetEventTypeFilter } from '@/hooks/useGetEventTypeFilter';
 
 import { AllEvents } from '@/components/allEvents/AllEvents';
@@ -13,8 +12,7 @@ import { Main } from '@/components/main/Main';
 interface AllEventsPageProps {}
 
 const AllEventsPage: React.FC<AllEventsPageProps> = () => {
-  const events = useAppSelector(getAllEvents);
-  console.log(events);
+  const { data: events } = useGetAllEventsQuery();
 
   const [filteredEvents, setFilteredEvents] = useState<Event[] | []>([]);
   const [firstRender, setFirstRender] = useState(true);
@@ -36,7 +34,7 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
   };
 
   useEffect(() => {
-    if (events.length > 0 && firstRender) {
+    if (events && events.length > 0 && firstRender) {
       setFilteredEvents(events);
       setFirstRender(false);
     }
@@ -55,7 +53,9 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
             addTypeFilter={addTypeFilter}
             selectedTypes={selectedTypes}
           />
-          {filteredEvents && <AllEvents events={filteredEvents} />}
+          {filteredEvents && (
+            <AllEvents events={filteredEvents} title={false} />
+          )}
         </div>
       )}
       <Footer />
