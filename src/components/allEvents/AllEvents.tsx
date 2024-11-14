@@ -2,13 +2,9 @@ import { ListEvents } from '../listEvents/ListEvents';
 
 interface AllEventsProps {
   events: Event[];
-  selectedTypes: string[];
 }
 
-export const AllEvents: React.FC<AllEventsProps> = ({
-  events,
-  selectedTypes,
-}) => {
+export const AllEvents: React.FC<AllEventsProps> = ({ events }) => {
   return (
     <div className={`flex flex-col gap-8`}>
       <h1>Усі події</h1>

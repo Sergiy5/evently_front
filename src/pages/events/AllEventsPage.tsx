@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useGetAllEventsQuery } from '@/redux/events/operations';
 
@@ -9,10 +9,28 @@ import { FilterEvents } from '@/components/filters/FilterEvents';
 import { Footer } from '@/components/footer/footer';
 import { Main } from '@/components/main/Main';
 
-const AllEventsPage: React.FC = () => {
-  const { data } = useGetAllEventsQuery();
+interface AllEventsPageProps {}
+
+const AllEventsPage: React.FC<AllEventsPageProps> = () => {
+  const { data: events } = useGetAllEventsQuery();
+
+  const [filteredEvents, setFilteredEvents] = useState<Event[] | []>(events!);
+
   const { addTypeFilter, selectedTypes } = useGetEventTypeFilter();
-  console.log(data);
+
+  const allEventsFilter = selectedTypes[0] === 'Усі події';
+
+  const filterEvents = () => {
+    if (events && allEventsFilter) {
+      setFilteredEvents(events);
+    }
+    if (events && !allEventsFilter) {
+      const filteredArray = events.filter(item =>
+        selectedTypes.includes(item.type)
+      );
+      setFilteredEvents(filteredArray);
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -20,13 +38,14 @@ const AllEventsPage: React.FC = () => {
 
   return (
     <Main className="flex flex-col gap-16">
-      {data && (
+      {events && (
         <div className="flex gap-[24px]">
           <FilterEvents
+            filterEvents={filterEvents}
             addTypeFilter={addTypeFilter}
             selectedTypes={selectedTypes}
           />
-          <AllEvents events={data} selectedTypes={selectedTypes} />
+          {filteredEvents && <AllEvents events={filteredEvents} />}
         </div>
       )}
       <Footer />

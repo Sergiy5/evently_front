@@ -6,11 +6,13 @@ import { Checkbox } from '../ui/CheckBox';
 interface FilterEventsProps {
   selectedTypes: string[];
   addTypeFilter: (filter: string) => void;
+  filterEvents: () => void;
 }
 
 export const FilterEvents: React.FC<FilterEventsProps> = ({
   selectedTypes,
   addTypeFilter,
+  filterEvents,
 }) => {
   return (
     <div className="pl-[60px]">
@@ -22,11 +24,10 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
           {eventTypes.map(option => (
             <li key={nanoid()} className={`flex gap-4`}>
               <Checkbox
-                value={option}
-                onChange={() => addTypeFilter(option)}
-                checked={selectedTypes.includes(option)}
-                label={option}
-                className={``}
+                value={option.label}
+                onChange={() => addTypeFilter(option.label)}
+                checked={selectedTypes.includes(option.label)}
+                label={option.label}
               />
             </li>
           ))}
@@ -64,7 +65,7 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
 
         <div>
           <button>Відмінити</button>
-          <button>Застосувати</button>
+          <button onClick={filterEvents}>Застосувати</button>
         </div>
       </div>
     </div>

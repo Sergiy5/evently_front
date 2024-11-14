@@ -1,6 +1,7 @@
 import { useGetAllEventsQuery } from '@/redux/events/operations';
 
 import { AllEvents } from '@/components/allEvents/AllEvents';
+import { Container } from '@/components/container/Container';
 import { FAQ } from '@/components/faq/FAQ';
 import { Footer } from '@/components/footer/footer';
 import { Hero } from '@/components/hero/Hero';
@@ -21,8 +22,14 @@ const Home: React.FC = () => {
   return (
     <Main className="flex flex-col gap-16">
       <Hero />
+
       <TopEvents filteredEvents={topEvents} />
-      {notTopEvents && <AllEvents events={notTopEvents} />}
+
+      {notTopEvents && (
+        <Container>
+          <AllEvents events={notTopEvents} />
+        </Container>
+      )}
       <ShowAllButton />
       <Organizers />
       <FAQ />
