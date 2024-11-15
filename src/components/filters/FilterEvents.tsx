@@ -27,11 +27,11 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
   return (
     <div className="pl-[60px]">
       <div
-        className={`w-[312px] border-buttonPurple border-[1px] rounded-[20px]`}
+        className={`w-[312px] border-buttonPurple border-[1px] rounded-[20px] flex flex-col gap-[24px]`}
       >
-        <div className="p-[18px]">
-          <h2>Тип події</h2>
-          <ul className={`flex flex-col gap-[16px]`}>
+        <div className="px-[18px] pt-[18px]">
+          <h2 className="mb-[16px]">Тип події</h2>
+          <ul className={`flex flex-col gap-[16px] pl-[18px]`}>
             {eventTypes.map(option => (
               <li key={nanoid()} className={`flex gap-4`}>
                 <Checkbox
@@ -45,9 +45,9 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
           </ul>
         </div>
 
-        <div className="p-[18px]">
-          <h2>Коли</h2>
-          <ul className={`flex flex-col gap-[16px]`}>
+        <div className="px-[18px]">
+          <h2 className="mb-[16px]">Коли</h2>
+          <ul className={`flex flex-col gap-[16px] pl-[18px]`}>
             {eventDate.map(option => (
               <li key={nanoid()} className={`flex gap-4`}>
                 <Checkbox
@@ -55,16 +55,15 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
                   onChange={() => addDateFilter(option.label)}
                   checked={selectedDates.includes(option.label)}
                   label={option.label}
-                  className={``}
                 />
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="p-[18px]">
-          <h2>Ціна</h2>
-          <ul className={`flex flex-col gap-[16px]`}>
+        <div className="px-[18px]">
+          <h2 className="mb-[16px]">Ціна</h2>
+          <ul className={`flex flex-col gap-[16px] pl-[18px]`}>
             {eventPrice.map(option => (
               <li key={nanoid()} className={`flex gap-4`}>
                 <Checkbox
@@ -72,7 +71,6 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
                   onChange={() => addPriceFilter(option.value)}
                   checked={selectedPrices.includes(option.value)}
                   label={option.label}
-                  className={``}
                 />
               </li>
             ))}
