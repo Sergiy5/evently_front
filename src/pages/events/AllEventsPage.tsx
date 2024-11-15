@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 
 import { useGetAllEventsQuery } from '@/redux/events/operations';
 
+import { useGetEventDateFilter } from '@/hooks/useGetEventDateFilter';
+import { useGetEventPriceFilter } from '@/hooks/useGetEventPriceFilter';
 import { useGetEventTypeFilter } from '@/hooks/useGetEventTypeFilter';
 
 import { AllEvents } from '@/components/allEvents/AllEvents';
@@ -16,9 +18,13 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
   const [firstRender, setFirstRender] = useState(true);
 
   const { data: events } = useGetAllEventsQuery();
-  console.log(filteredEvents);
-
   const { addTypeFilter, selectedTypes } = useGetEventTypeFilter();
+  const { addDateFilter, selectedDates, setSelectedDates } =
+    useGetEventDateFilter();
+  const { addPriceFilter, selectedPrices, setSelectedPrices } =
+    useGetEventPriceFilter();
+
+  console.log(selectedPrices);
 
   const allEventsFilter = selectedTypes[0] === 'Усі події';
 
@@ -36,6 +42,8 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
 
   const resetFilters = () => {
     addTypeFilter('Усі події');
+    setSelectedDates([]);
+    setSelectedPrices([]);
     setFirstRender(true);
   };
 
@@ -58,6 +66,10 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
           addTypeFilter={addTypeFilter}
           selectedTypes={selectedTypes}
           resetFilters={resetFilters}
+          addDateFilter={addDateFilter}
+          selectedDates={selectedDates}
+          addPriceFilter={addPriceFilter}
+          selectedPrices={selectedPrices}
         />
         {filteredEvents && <AllEvents events={filteredEvents} title={false} />}
       </div>

@@ -18,9 +18,9 @@ export const eventDate = [
 ];
 
 export const eventPrice = [
-  { label: 'Безкоштовні', value: 'free' },
-  { label: 'До 500 грн', value: '500' },
-  { label: '500грн - 1000 грн', value: '500-1000' },
+  { label: 'Безкоштовні', value: 0 },
+  { label: 'До 500 грн', value: 500 },
+  { label: '500грн - 1000 грн', value: 1000 },
 ];
 
 export const cityOptions = [

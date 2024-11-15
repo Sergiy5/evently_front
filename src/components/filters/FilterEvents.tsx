@@ -8,6 +8,10 @@ interface FilterEventsProps {
   addTypeFilter: (filter: string) => void;
   filterEvents: () => void;
   resetFilters: () => void;
+  addDateFilter: (filter: string) => void;
+  selectedDates: string[];
+  addPriceFilter: (filter: number) => void;
+  selectedPrices: number[];
 }
 
 export const FilterEvents: React.FC<FilterEventsProps> = ({
@@ -15,6 +19,10 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
   addTypeFilter,
   filterEvents,
   resetFilters,
+  addDateFilter,
+  selectedDates,
+  addPriceFilter,
+  selectedPrices,
 }) => {
   return (
     <div className="pl-[60px]">
@@ -44,8 +52,8 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
               <li key={nanoid()} className={`flex gap-4`}>
                 <Checkbox
                   value={option.value}
-                  // checked={selectedFilters.includes(option.value)}
-                  // onChange={handleCheckboxChange}
+                  onChange={() => addDateFilter(option.label)}
+                  checked={selectedDates.includes(option.label)}
                   label={option.label}
                   className={``}
                 />
@@ -61,8 +69,8 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
               <li key={nanoid()} className={`flex gap-4`}>
                 <Checkbox
                   value={option.value}
-                  // checked={selectedFilters.includes(option.value)}
-                  // onChange={handleCheckboxChange}
+                  onChange={() => addPriceFilter(option.value)}
+                  checked={selectedPrices.includes(option.value)}
                   label={option.label}
                   className={``}
                 />
