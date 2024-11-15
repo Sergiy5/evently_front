@@ -12,10 +12,11 @@ import { Main } from '@/components/main/Main';
 interface AllEventsPageProps {}
 
 const AllEventsPage: React.FC<AllEventsPageProps> = () => {
-  const { data: events } = useGetAllEventsQuery();
-
   const [filteredEvents, setFilteredEvents] = useState<Event[] | []>([]);
   const [firstRender, setFirstRender] = useState(true);
+
+  const { data: events } = useGetAllEventsQuery();
+  console.log(filteredEvents);
 
   const { addTypeFilter, selectedTypes } = useGetEventTypeFilter();
 
@@ -33,6 +34,11 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
     }
   };
 
+  const resetFilters = () => {
+    addTypeFilter('Усі події');
+    setFirstRender(true);
+  };
+
   useEffect(() => {
     if (events && events.length > 0 && firstRender) {
       setFilteredEvents(events);
@@ -46,18 +52,15 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
 
   return (
     <Main className="flex flex-col gap-16">
-      {events && (
-        <div className="flex gap-[24px]">
-          <FilterEvents
-            filterEvents={filterEvents}
-            addTypeFilter={addTypeFilter}
-            selectedTypes={selectedTypes}
-          />
-          {filteredEvents && (
-            <AllEvents events={filteredEvents} title={false} />
-          )}
-        </div>
-      )}
+      <div className="flex gap-[24px]">
+        <FilterEvents
+          filterEvents={filterEvents}
+          addTypeFilter={addTypeFilter}
+          selectedTypes={selectedTypes}
+          resetFilters={resetFilters}
+        />
+        {filteredEvents && <AllEvents events={filteredEvents} title={false} />}
+      </div>
       <Footer />
     </Main>
   );
