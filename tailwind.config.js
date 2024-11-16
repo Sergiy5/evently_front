@@ -70,6 +70,8 @@ export default {
       backgroundImage: {
         'bg-gradient': 'linear-gradient(123.03deg, #E9E6FF 0%, #D5FEFF 100%)',
         'badge-gradient': 'linear-gradient(90deg, #12C2E9 0%, #C471ED 90%)',
+        'filter-btn-gradient':
+          'linear-gradient(123.03deg, #9B8FF3 0%, #38F6F9 100%)',
       },
     },
   },
