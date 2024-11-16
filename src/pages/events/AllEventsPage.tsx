@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useGetAllEventsQuery } from '@/redux/events/operations';
 
+import { filterByPrice } from '@/helpers/filterByPrice';
 import { useGetEventDateFilter } from '@/hooks/useGetEventDateFilter';
 import { useGetEventPriceFilter } from '@/hooks/useGetEventPriceFilter';
 import { useGetEventTypeFilter } from '@/hooks/useGetEventTypeFilter';
@@ -14,6 +15,9 @@ import { Main } from '@/components/main/Main';
 interface AllEventsPageProps {}
 
 const AllEventsPage: React.FC<AllEventsPageProps> = () => {
+  const [filteredEventsByType, setFilteredEventsByType] = useState<
+    Event[] | []
+  >([]);
   const [filteredEvents, setFilteredEvents] = useState<Event[] | []>([]);
   const [firstRender, setFirstRender] = useState(true);
 
@@ -24,20 +28,12 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
   const { addPriceFilter, selectedPrices, setSelectedPrices } =
     useGetEventPriceFilter();
 
-  console.log(selectedPrices);
+  console.log(filteredEventsByType);
 
   const allEventsFilter = selectedTypes[0] === 'Усі події';
 
   const filterEvents = () => {
-    if (events && allEventsFilter) {
-      setFilteredEvents(events);
-    }
-    if (events && !allEventsFilter) {
-      const filteredArray = events.filter(item =>
-        selectedTypes.includes(item.type)
-      );
-      setFilteredEvents(filteredArray);
-    }
+    filterByPrice({ selectedPrices, filteredEventsByType, setFilteredEvents });
   };
 
   const resetFilters = () => {
@@ -53,6 +49,18 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
       setFirstRender(false);
     }
   }, [events, firstRender]);
+
+  useEffect(() => {
+    if (events && allEventsFilter) {
+      setFilteredEventsByType(events);
+    }
+    if (events && !allEventsFilter) {
+      const filteredArray = events.filter(item =>
+        selectedTypes.includes(item.type)
+      );
+      setFilteredEventsByType(filteredArray);
+    }
+  }, [events, allEventsFilter, selectedTypes]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
