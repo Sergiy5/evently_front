@@ -7,7 +7,7 @@ export const Layout = () => {
   return (
     <>
       <Header />
-      <main>
+      <main className='pt-[115px]'>
         <Suspense fallback={<div>Loading...</div>}>
           <Outlet />
         </Suspense>
