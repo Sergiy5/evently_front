@@ -1,4 +1,8 @@
-import { eventDate, eventPrice, eventTypes } from '@/utils/statickData';
+import {
+  eventDate,
+  eventPrice,
+  eventTypes,
+} from '@/assets/staticData/statickData';
 import { nanoid } from '@reduxjs/toolkit';
 
 import { Checkbox } from '../ui/CheckBox';

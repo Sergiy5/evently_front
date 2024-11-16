@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-import { cityOptions, eventTypes } from '@/utils/statickData';
+import { cityOptions, eventTypes } from '@/assets/staticData/statickData';
 
 import CustomSelect from '../ui/CustomSelect';
 
