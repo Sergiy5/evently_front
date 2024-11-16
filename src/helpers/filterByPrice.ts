@@ -18,14 +18,14 @@ export const filterByPrice = ({
     const newArray = filteredEventsByType.filter(item => item.price === 0);
     setFilteredEvents(newArray);
   }
-  // >0 && <=500
+  // 1-500
   if (selectedPrices.length === 1 && selectedPrices.includes(500)) {
     const newArray = filteredEventsByType.filter(
       item => item.price > 0 && item.price <= 500
     );
     setFilteredEvents(newArray);
   }
-  // 500-1000
+  // 501-1000
   if (selectedPrices.length === 1 && selectedPrices.includes(1000)) {
     const newArray = filteredEventsByType.filter(
       item => item.price > 500 && item.price <= 1000
@@ -43,25 +43,25 @@ export const filterByPrice = ({
     );
     setFilteredEvents(newArray);
   }
-  // >500-1000
+  // 1-1000
   if (
     selectedPrices.length === 2 &&
     selectedPrices.includes(500) &&
     selectedPrices.includes(1000)
   ) {
     const newArray = filteredEventsByType.filter(
-      item => item.price > 500 && item.price <= 1000
+      item => item.price > 0 && item.price <= 1000
     );
     setFilteredEvents(newArray);
   }
-  // 0 && 500-1000
+  // 0 && 501-1000
   if (
     selectedPrices.length === 2 &&
     selectedPrices.includes(0) &&
     selectedPrices.includes(1000)
   ) {
     const newArray = filteredEventsByType.filter(
-      item => item.price === 0 || (item.price >= 500 && item.price <= 1000)
+      item => item.price === 0 || (item.price > 500 && item.price <= 1000)
     );
     setFilteredEvents(newArray);
   }
