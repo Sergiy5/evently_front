@@ -6,6 +6,7 @@ import { filterByPrice } from '@/helpers/filterByPrice';
 import { useGetEventDateFilter } from '@/hooks/useGetEventDateFilter';
 import { useGetEventPriceFilter } from '@/hooks/useGetEventPriceFilter';
 import { useGetEventTypeFilter } from '@/hooks/useGetEventTypeFilter';
+import { useGetFilteredEventsByType } from '@/hooks/useGetFilteredEventsByType';
 
 import { AllEvents } from '@/components/allEvents/AllEvents';
 import { FilterEvents } from '@/components/filters/FilterEvents';
@@ -15,10 +16,7 @@ import { Main } from '@/components/main/Main';
 interface AllEventsPageProps {}
 
 const AllEventsPage: React.FC<AllEventsPageProps> = () => {
-  const [filteredEventsByType, setFilteredEventsByType] = useState<
-    Event[] | []
-  >([]);
-  const [filteredEvents, setFilteredEvents] = useState<Event[] | []>([]);
+  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [firstRender, setFirstRender] = useState(true);
 
   const { data: events } = useGetAllEventsQuery();
@@ -27,10 +25,10 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
     useGetEventDateFilter();
   const { addPriceFilter, selectedPrices, setSelectedPrices } =
     useGetEventPriceFilter();
-
-  console.log(filteredEventsByType);
-
-  const allEventsFilter = selectedTypes[0] === 'Усі події';
+  const { filteredEventsByType } = useGetFilteredEventsByType({
+    events,
+    selectedTypes,
+  });
 
   const filterEvents = () => {
     filterByPrice({ selectedPrices, filteredEventsByType, setFilteredEvents });
@@ -49,18 +47,6 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
       setFirstRender(false);
     }
   }, [events, firstRender]);
-
-  useEffect(() => {
-    if (events && allEventsFilter) {
-      setFilteredEventsByType(events);
-    }
-    if (events && !allEventsFilter) {
-      const filteredArray = events.filter(item =>
-        selectedTypes.includes(item.type)
-      );
-      setFilteredEventsByType(filteredArray);
-    }
-  }, [events, allEventsFilter, selectedTypes]);
 
   useEffect(() => {
     window.scrollTo(0, 0);

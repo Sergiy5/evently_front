@@ -2,6 +2,7 @@
 
 export const eventTypes = [
   { label: 'Усі події', value: 'all_events' },
+  { label: 'Популярні', value: 'popular' },
   // { label: 'Під домом', value: 'nearby' },
   { label: 'Концерт', value: 'concerts' },
   { label: 'Майстер клас', value: 'workshop' },
