@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
+import axios from 'axios';
+
 import { useAppDispatch, useAppSelector } from './hooks/hooks';
 import { useGetLikedEventsWithSkip } from './hooks/useGetLikedEventsWithSkip';
 import {
@@ -10,7 +12,6 @@ import {
 } from './redux/auth/selectors';
 import { EventsApi } from './redux/events/operations';
 import router from './routing';
-import axios from 'axios';
 
 const App: React.FC = () => {
   const { id: userId } = useAppSelector(selectUser);

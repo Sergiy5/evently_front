@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { NavLink } from 'react-router-dom';
 
-import { Option } from '@/utils/statickData';
 import { nanoid } from '@reduxjs/toolkit';
 
 interface IEventSelectProps {

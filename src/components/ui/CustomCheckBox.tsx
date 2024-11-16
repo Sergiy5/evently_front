@@ -7,19 +7,19 @@ interface CustomCheckboxProps {
   className: string;
   onChange: (value: boolean | string) => void;
   value?: string;
-}   
+}
 
 export const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
-    checked,
+  checked,
   onChange,
-    label,
-  className
+  label,
+  className,
 }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const toggleCheckbox = () => {
-      setIsChecked(!isChecked);
-      onChange(!isChecked);
+    setIsChecked(!isChecked);
+    onChange(!isChecked);
   };
 
   return (
