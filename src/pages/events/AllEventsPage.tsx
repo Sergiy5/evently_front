@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 import { useGetAllEventsQuery } from '@/redux/events/operations';
 
 import { filterByPrice } from '@/helpers/filterByPrice';
-import { useGetEventDateFilter } from '@/hooks/useGetEventDateFilter';
-import { useGetEventPriceFilter } from '@/hooks/useGetEventPriceFilter';
-import { useGetEventTypeFilter } from '@/hooks/useGetEventTypeFilter';
-import { useGetFilteredEventsByDate } from '@/hooks/useGetFilteredEventsByDate';
-import { useGetFilteredEventsByType } from '@/hooks/useGetFilteredEventsByType';
+import { useGetEventDateFilter } from '@/hooks/filters/useGetEventDateFilter';
+import { useGetEventPriceFilter } from '@/hooks/filters/useGetEventPriceFilter';
+import { useGetEventTypeFilter } from '@/hooks/filters/useGetEventTypeFilter';
+import { useGetFilteredEventsByDate } from '@/hooks/filters/useGetFilteredEventsByDate';
+import { useGetFilteredEventsByType } from '@/hooks/filters/useGetFilteredEventsByType';
 
 import { AllEvents } from '@/components/allEvents/AllEvents';
 import { FilterEvents } from '@/components/filters/FilterEvents';

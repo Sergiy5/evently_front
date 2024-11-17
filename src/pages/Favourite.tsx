@@ -1,7 +1,7 @@
 import { selectUser } from '@/redux/auth/selectors';
 
 import { useAppSelector } from '@/hooks/hooks';
-import { useGetLikedEventsWithSkip } from '@/hooks/useGetLikedEventsWithSkip';
+import { useGetLikedEventsWithSkip } from '@/hooks/query/useGetLikedEventsWithSkip';
 
 import { ListEvents } from '@/components/listEvents/ListEvents';
 
