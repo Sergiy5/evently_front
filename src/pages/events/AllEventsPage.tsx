@@ -6,6 +6,7 @@ import { filterByPrice } from '@/helpers/filterByPrice';
 import { useGetEventDateFilter } from '@/hooks/useGetEventDateFilter';
 import { useGetEventPriceFilter } from '@/hooks/useGetEventPriceFilter';
 import { useGetEventTypeFilter } from '@/hooks/useGetEventTypeFilter';
+import { useGetFilteredEventsByDate } from '@/hooks/useGetFilteredEventsByDate';
 import { useGetFilteredEventsByType } from '@/hooks/useGetFilteredEventsByType';
 
 import { AllEvents } from '@/components/allEvents/AllEvents';
@@ -29,9 +30,13 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
     events,
     selectedTypes,
   });
+  const { filteredEventsByDate } = useGetFilteredEventsByDate({
+    filteredEventsByType,
+    selectedDates,
+  });
 
   const filterEvents = () => {
-    filterByPrice({ selectedPrices, filteredEventsByType, setFilteredEvents });
+    filterByPrice({ selectedPrices, filteredEventsByDate, setFilteredEvents });
   };
 
   const resetFilters = () => {
@@ -65,7 +70,11 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
           addPriceFilter={addPriceFilter}
           selectedPrices={selectedPrices}
         />
-        {filteredEvents && <AllEvents events={filteredEvents} title={false} />}
+        {filteredEvents.length > 0 ? (
+          <AllEvents events={filteredEvents} title={false} />
+        ) : (
+          <span>Нічого не знайдено</span>
+        )}
       </div>
       <Footer />
     </Main>
