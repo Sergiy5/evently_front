@@ -1,4 +1,8 @@
-import { eventDate, eventPrice, eventTypes } from '@/utils/statickData';
+import {
+  eventDate,
+  eventPrice,
+  eventTypes,
+} from '@/assets/staticData/statickData';
 import { nanoid } from '@reduxjs/toolkit';
 
 import { Checkbox } from '../ui/CheckBox';
@@ -35,6 +39,7 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
             {eventTypes.map(option => (
               <li key={nanoid()} className={`flex gap-4`}>
                 <Checkbox
+                  name="type"
                   value={option.label}
                   onChange={() => addTypeFilter(option.label)}
                   checked={selectedTypes.includes(option.label)}
@@ -51,6 +56,7 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
             {eventDate.map(option => (
               <li key={nanoid()} className={`flex gap-4`}>
                 <Checkbox
+                  name="when"
                   value={option.value}
                   onChange={() => addDateFilter(option.label)}
                   checked={selectedDates.includes(option.label)}
@@ -67,6 +73,7 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
             {eventPrice.map(option => (
               <li key={nanoid()} className={`flex gap-4`}>
                 <Checkbox
+                  name="price"
                   value={option.value}
                   onChange={() => addPriceFilter(option.value)}
                   checked={selectedPrices.includes(option.value)}

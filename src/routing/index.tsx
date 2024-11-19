@@ -17,7 +17,6 @@ import { Layout } from '@/components/layout/Layout';
 import Profile from '@/components/profile/profile';
 
 import { loader as eventLoader } from '../pages/events/Event';
-import { loader as eventsLoader } from '../pages/events/Events';
 import AdminRouter from './privateRouters/AdminRouter';
 import LoginRouter from './privateRouters/LoginRouter';
 
@@ -34,7 +33,6 @@ const router = createBrowserRouter([
       {
         path: 'events',
         element: <Events />,
-        loader: eventsLoader,
       },
       {
         path: 'events/:idEvent',

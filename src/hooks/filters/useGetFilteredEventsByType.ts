@@ -20,18 +20,23 @@ export function useGetFilteredEventsByType({
     // only all events
     if (events && allEventsFilter) {
       setFilteredEventsByType(events);
+      return;
     }
     // only top events
     if (events && topEventsFilterOnly) {
-      const newArray = events.filter(item => item.category === 'TOP_EVENTS');
-      setFilteredEventsByType(newArray);
+      const filteredArray = events.filter(
+        item => item.category === 'TOP_EVENTS'
+      );
+      setFilteredEventsByType(filteredArray);
+      return;
     }
     // other categories without top
-    if (events && !allEventsFilter && !topEventsFilter) {
+    if (events && !topEventsFilter) {
       const filteredArray = events.filter(item =>
         selectedTypes.includes(item.type)
       );
       setFilteredEventsByType(filteredArray);
+      return;
     }
     // other categories with top
     if (events && topEventsFilter) {
@@ -40,6 +45,7 @@ export function useGetFilteredEventsByType({
           item.category === 'TOP_EVENTS' && selectedTypes.includes(item.type)
       );
       setFilteredEventsByType(filteredArray);
+      return;
     }
   }, [
     events,

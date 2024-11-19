@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router-dom';
 import axios from 'axios';
 
 import { useAppDispatch, useAppSelector } from './hooks/hooks';
-import { useGetLikedEventsWithSkip } from './hooks/useGetLikedEventsWithSkip';
+import { useGetLikedEventsWithSkip } from './hooks/query/useGetLikedEventsWithSkip';
 import {
   selectIsLoggedIn,
   selectToken,

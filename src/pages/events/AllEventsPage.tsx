@@ -3,10 +3,11 @@ import { useEffect, useState } from 'react';
 import { useGetAllEventsQuery } from '@/redux/events/operations';
 
 import { filterByPrice } from '@/helpers/filterByPrice';
-import { useGetEventDateFilter } from '@/hooks/useGetEventDateFilter';
-import { useGetEventPriceFilter } from '@/hooks/useGetEventPriceFilter';
-import { useGetEventTypeFilter } from '@/hooks/useGetEventTypeFilter';
-import { useGetFilteredEventsByType } from '@/hooks/useGetFilteredEventsByType';
+import { useGetEventDateFilter } from '@/hooks/filters/useGetEventDateFilter';
+import { useGetEventPriceFilter } from '@/hooks/filters/useGetEventPriceFilter';
+import { useGetEventTypeFilter } from '@/hooks/filters/useGetEventTypeFilter';
+import { useGetFilteredEventsByDate } from '@/hooks/filters/useGetFilteredEventsByDate';
+import { useGetFilteredEventsByType } from '@/hooks/filters/useGetFilteredEventsByType';
 
 import { AllEvents } from '@/components/allEvents/AllEvents';
 import { FilterEvents } from '@/components/filters/FilterEvents';
@@ -29,9 +30,13 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
     events,
     selectedTypes,
   });
+  const { filteredEventsByDate } = useGetFilteredEventsByDate({
+    filteredEventsByType,
+    selectedDates,
+  });
 
   const filterEvents = () => {
-    filterByPrice({ selectedPrices, filteredEventsByType, setFilteredEvents });
+    filterByPrice({ selectedPrices, filteredEventsByDate, setFilteredEvents });
   };
 
   const resetFilters = () => {
@@ -54,7 +59,7 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
 
   return (
     <Main className="flex flex-col gap-16">
-      <div className="flex gap-[24px]">
+      <div className="flex gap-[24px] pt-[8px]">
         <FilterEvents
           filterEvents={filterEvents}
           addTypeFilter={addTypeFilter}
@@ -65,7 +70,11 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
           addPriceFilter={addPriceFilter}
           selectedPrices={selectedPrices}
         />
-        {filteredEvents && <AllEvents events={filteredEvents} title={false} />}
+        {filteredEvents.length > 0 ? (
+          <AllEvents events={filteredEvents} title={false} />
+        ) : (
+          <span>Нічого не знайдено</span>
+        )}
       </div>
       <Footer />
     </Main>

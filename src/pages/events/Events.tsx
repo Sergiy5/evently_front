@@ -1,12 +1,12 @@
 import React from 'react';
-import { useLoaderData, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
-import { getEvents } from '@/utils/eventsHttp';
+import { useGetAllEventsQuery } from '@/redux/events/operations';
 
 import EventsList from '@/components/events/EventsList';
 
 const Events: React.FC = () => {
-  const events = useLoaderData() as Event[];
+  const { data: events } = useGetAllEventsQuery();
   const navigate = useNavigate();
 
   const handleCreateEvent = () => {
@@ -18,13 +18,9 @@ const Events: React.FC = () => {
       <div>
         <button onClick={handleCreateEvent}>Create event</button>
       </div>
-      <EventsList events={events} />
+      {events && <EventsList events={events} />}
     </>
   );
 };
 
 export default Events;
-
-export const loader = async (): Promise<Event[]> => {
-  return await getEvents();
-};
