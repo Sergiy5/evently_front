@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import {
   eventDate,
   eventPrice,
@@ -6,6 +8,8 @@ import {
 import { nanoid } from '@reduxjs/toolkit';
 
 import { Checkbox } from '../ui/CheckBox';
+import CustomSelect from '../ui/CustomSelect';
+import { DateRange } from './DateRange';
 
 interface FilterEventsProps {
   selectedTypes: string[];
@@ -28,6 +32,8 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
   addPriceFilter,
   selectedPrices,
 }) => {
+  const [showCalendar, setShowCalendar] = useState(false);
+
   return (
     <div className="pl-[60px]">
       <div
@@ -65,6 +71,12 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
               </li>
             ))}
           </ul>
+          <div>
+            <button onClick={() => setShowCalendar(!showCalendar)}>
+              Обрати дату
+            </button>
+            {showCalendar && <DateRange />}
+          </div>
         </div>
 
         <div className="px-[18px]">
