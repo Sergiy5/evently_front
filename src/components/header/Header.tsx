@@ -30,7 +30,7 @@ export const Header: React.FC<HeaderProps> = () => {
   };
 
   return (
-    <div className="block m-auto pb-10 w-full max-w-[1440px] font-lato bg-background fixed z-50">
+    <div className="block m-auto pb-10 w-full max-w-[1440px] font-lato bg-background fixed z-10">
       <Container className="relative">
         <HeaderLines />
         <header className="p-4 bg-gray-100">
