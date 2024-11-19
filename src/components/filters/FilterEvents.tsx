@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 
 import {
@@ -20,6 +19,9 @@ interface FilterEventsProps {
   selectedDates: string[];
   addPriceFilter: (filter: number) => void;
   selectedPrices: number[];
+  getRangeDates: (start: Date, end: Date) => void;
+  toggleCalendar: () => void;
+  showCalendar: boolean;
 }
 
 export const FilterEvents: React.FC<FilterEventsProps> = ({
@@ -31,9 +33,10 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
   selectedDates,
   addPriceFilter,
   selectedPrices,
+  getRangeDates,
+  toggleCalendar,
+  showCalendar,
 }) => {
-  const [showCalendar, setShowCalendar] = useState(false);
-
   return (
     <div className="pl-[60px] relative">
       <div
@@ -80,12 +83,12 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
               >
                 <button
                   className="flex justify-between items-center w-full h-[34px] px-[12px] focus:outline-none"
-                  onClick={() => setShowCalendar(!showCalendar)}
+                  onClick={toggleCalendar}
                 >
                   <span>Обрати дату</span>
                   <BiChevronDown />
                 </button>
-                {showCalendar && <DateRange />}
+                {showCalendar && <DateRange getRangeDates={getRangeDates} />}
               </div>
             </div>
           </div>

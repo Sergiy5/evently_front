@@ -7,6 +7,7 @@ import { useGetEventDateFilter } from '@/hooks/filters/useGetEventDateFilter';
 import { useGetEventPriceFilter } from '@/hooks/filters/useGetEventPriceFilter';
 import { useGetEventTypeFilter } from '@/hooks/filters/useGetEventTypeFilter';
 import { useGetFilteredEventsByDate } from '@/hooks/filters/useGetFilteredEventsByDate';
+import { useGetFilteredEventsByRange } from '@/hooks/filters/useGetFilteredEventsByRange';
 import { useGetFilteredEventsByType } from '@/hooks/filters/useGetFilteredEventsByType';
 
 import { AllEvents } from '@/components/allEvents/AllEvents';
@@ -19,6 +20,11 @@ interface AllEventsPageProps {}
 const AllEventsPage: React.FC<AllEventsPageProps> = () => {
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [firstRender, setFirstRender] = useState(true);
+  const [startRange, setStartRange] = useState<Date | null>(null);
+  const [endRange, setEndRange] = useState<Date | null>(null);
+  const [showCalendar, setShowCalendar] = useState(false);
+
+  console.log(startRange, endRange);
 
   const { data: events } = useGetAllEventsQuery();
   const { addTypeFilter, selectedTypes } = useGetEventTypeFilter();
@@ -34,6 +40,10 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
     filteredEventsByType,
     selectedDates,
   });
+  const { filteredEventsByRange } = useGetFilteredEventsByRange({
+    startRange,
+    endRange,
+  });
 
   const filterEvents = () => {
     filterByPrice({ selectedPrices, filteredEventsByDate, setFilteredEvents });
@@ -44,6 +54,15 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
     setSelectedDates([]);
     setSelectedPrices([]);
     setFirstRender(true);
+  };
+
+  const getRangeDates = (start: Date, end: Date) => {
+    setStartRange(start);
+    setEndRange(end);
+  };
+
+  const toggleCalendar = () => {
+    setShowCalendar(!showCalendar);
   };
 
   useEffect(() => {
@@ -69,6 +88,9 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
           selectedDates={selectedDates}
           addPriceFilter={addPriceFilter}
           selectedPrices={selectedPrices}
+          getRangeDates={getRangeDates}
+          toggleCalendar={toggleCalendar}
+          showCalendar={showCalendar}
         />
         {filteredEvents.length > 0 ? (
           <AllEvents events={filteredEvents} title={false} />
