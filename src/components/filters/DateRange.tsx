@@ -28,18 +28,17 @@ export function DateRange({ getRangeDates }: DateRangeProps) {
   }, [start, end]);
 
   return (
-    <div className="border-t-[1px] border-buttonPurple">
-      <DateRangeCalendar
-        editableDateInputs={false}
-        onChange={item => setState([item.selection])}
-        moveRangeOnFirstSelection={false}
-        ranges={state}
-        locale={uk}
-        shownDate={dayToday}
-        showMonthAndYearPickers={false}
-        showDateDisplay={false}
-        rangeColors={['#E2DEFF']}
-      />
-    </div>
+    <DateRangeCalendar
+      className="border-t-[2px] border-buttonPurple"
+      editableDateInputs={false}
+      onChange={item => setState([item.selection])}
+      moveRangeOnFirstSelection={false}
+      ranges={state}
+      locale={uk}
+      shownDate={dayToday}
+      showMonthAndYearPickers={false}
+      showDateDisplay={false}
+      rangeColors={['#9B8FF3']}
+    />
   );
 }
