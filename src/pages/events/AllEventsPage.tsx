@@ -72,6 +72,7 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
     setFilteredEventsByRange([]);
     setSelectedPrices([]);
     setFirstRender(true);
+    setShowCalendar(false);
   };
 
   const getRangeDates = (start: Date, end: Date) => {

@@ -40,8 +40,8 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
   return (
     <div className="pl-[60px] relative">
       <div
-        className="sticky top-[157px] h-[600px] w-[312px] border-buttonPurple border-[1px]
-      rounded-[20px] flex flex-col gap-[24px] pt-[18px]"
+        className="sticky top-[157px] max-h-[calc(100vh-200px)] w-[312px] border-buttonPurple border-[1px]
+      rounded-[20px] flex flex-col gap-[24px] pt-[18px] pr-[5px]"
       >
         <div className=" overflow-y-scroll">
           <div className="px-[18px]">
@@ -111,7 +111,7 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
           </div>
         </div>
 
-        <div className="border-t-buttonPurple border-t-[1px] flex">
+        <div className="border-t-buttonPurple border-t-[1px] flex mr-[-5px]">
           <button
             className="h-[50px] flex justify-center items-center flex-1 focus:outline-none border-r-buttonPurple border-r-[1px]"
             onClick={resetFilters}
