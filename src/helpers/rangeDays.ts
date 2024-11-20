@@ -11,16 +11,12 @@ export function rangeDays({ startRange, endRange }: rangeDaysProps) {
 
   const daysToAdd = () => {
     const difference = end.diff(start, 'day');
-    return difference;
+    return difference + 1;
   };
 
   let currentDate = dayjs(start);
 
   const rangeDatesArray = [];
-
-  if (daysToAdd() === 0) {
-    rangeDatesArray.push(currentDate.format('YYYY-MM-DD'));
-  }
 
   for (let i = 0; i < daysToAdd(); i++) {
     rangeDatesArray.push(currentDate.format('YYYY-MM-DD'));

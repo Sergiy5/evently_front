@@ -24,12 +24,10 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
   const [endRange, setEndRange] = useState<Date | null>(null);
   const [showCalendar, setShowCalendar] = useState(false);
 
-  console.log(startRange, endRange);
-
   const { data: events } = useGetAllEventsQuery();
   const { addTypeFilter, selectedTypes } = useGetEventTypeFilter();
   const { addDateFilter, selectedDates, setSelectedDates } =
-    useGetEventDateFilter();
+    useGetEventDateFilter({ showCalendar, setShowCalendar });
   const { addPriceFilter, selectedPrices, setSelectedPrices } =
     useGetEventPriceFilter();
   const { filteredEventsByType } = useGetFilteredEventsByType({
@@ -39,19 +37,39 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
   const { filteredEventsByDate } = useGetFilteredEventsByDate({
     filteredEventsByType,
     selectedDates,
+    showCalendar,
   });
-  const { filteredEventsByRange } = useGetFilteredEventsByRange({
-    startRange,
-    endRange,
-  });
+  const { filteredEventsByRange, setFilteredEventsByRange } =
+    useGetFilteredEventsByRange({
+      filteredEventsByType,
+      showCalendar,
+      startRange,
+      endRange,
+    });
+
+  const filteredEventsByDateOrRange = () => {
+    if (filteredEventsByDate.length > 0) {
+      return filteredEventsByDate;
+    }
+    if (filteredEventsByRange.length > 0) {
+      return filteredEventsByRange;
+    } else {
+      return [];
+    }
+  };
 
   const filterEvents = () => {
-    filterByPrice({ selectedPrices, filteredEventsByDate, setFilteredEvents });
+    filterByPrice({
+      selectedPrices,
+      filteredEventsByDateOrRange,
+      setFilteredEvents,
+    });
   };
 
   const resetFilters = () => {
     addTypeFilter('Усі події');
     setSelectedDates([]);
+    setFilteredEventsByRange([]);
     setSelectedPrices([]);
     setFirstRender(true);
   };

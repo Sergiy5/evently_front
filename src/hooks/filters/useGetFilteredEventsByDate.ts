@@ -7,11 +7,13 @@ import { thisWeekendDays } from '@/helpers/thisWeekendDays';
 interface useGetFilteredEventsByDateProps {
   filteredEventsByType: Event[];
   selectedDates: string[];
+  showCalendar: boolean;
 }
 
 export function useGetFilteredEventsByDate({
   filteredEventsByType,
   selectedDates,
+  showCalendar,
 }: useGetFilteredEventsByDateProps) {
   const [filteredEventsByDate, setFilteredEventsByDate] = useState<Event[]>([]);
 
@@ -29,8 +31,12 @@ export function useGetFilteredEventsByDate({
   const thisWeekendDaysArray = thisWeekendDays({ dayToday });
 
   useEffect(() => {
-    if (selectedDates.length === 0) {
+    if (selectedDates.length === 0 && !showCalendar) {
       setFilteredEventsByDate(filteredEventsByType);
+      return;
+    }
+    if (selectedDates.length === 0 && showCalendar) {
+      setFilteredEventsByDate([]);
       return;
     }
     // today only
