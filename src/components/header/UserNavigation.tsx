@@ -8,7 +8,7 @@ import { useLocation } from 'react-router';
 import { selectIsLoggedIn, selectUser } from '@/redux/auth/selectors';
 
 import { useAppSelector } from '@/hooks/hooks';
-import { useGetLikedEventsWithSkip } from '@/hooks/useGetLikedEventsWithSkip';
+import { useGetLikedEventsWithSkip } from '@/hooks/query/useGetLikedEventsWithSkip';
 
 import { Auth } from '../auth';
 import { Modal } from '../ui';

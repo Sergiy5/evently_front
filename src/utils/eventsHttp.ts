@@ -28,18 +28,6 @@ export const getEvent = async (id?: string) => {
   }
 };
 
-// TODO delete getEvents
-export const getEvents = async () => {
-  try {
-    const response = await axios('events');
-    const resData: Event[] = response.data;
-    return resData;
-  } catch (error) {
-    console.log(error);
-    throw new Error('Failed to get events');
-  }
-};
-
 export const editEvent = async (formData: eventType, id?: string) => {
   try {
     const response = await axios.put(`${URL}/events/${id}`, {

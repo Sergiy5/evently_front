@@ -13,7 +13,7 @@ import {
 } from '@/redux/events/operations';
 
 import { useAppSelector } from '@/hooks/hooks';
-import { useGetLikedEventsWithSkip } from '@/hooks/useGetLikedEventsWithSkip';
+import { useGetLikedEventsWithSkip } from '@/hooks/query/useGetLikedEventsWithSkip';
 
 import { SharedBtn } from './SharedBtn';
 
