@@ -1,5 +1,4 @@
 import { ListEvents } from '../listEvents/ListEvents';
-import ScrollUp from './ScrollUp';
 
 interface AllEventsProps {
   events: Event[];
