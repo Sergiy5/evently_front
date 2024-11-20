@@ -1,15 +1,14 @@
 /* Font import */
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lora:ital,wght@0,400..700;1,400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap');
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
   font-family: 'OswaldRegular';
-  src: url('./assets/fonts/Oswald-Regular.woff2') format('woff2'),
+  src:
+    url('./assets/fonts/Oswald-Regular.woff2') format('woff2'),
     url('./assets/fonts/Oswald-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
@@ -17,15 +16,17 @@
 
 @font-face {
   font-family: 'LoraRegular';
-  src: url('./assets/fonts/Lora-Regular.woff2') format('woff2'),
-      url('./assets/fonts/Lora-Regular.woff') format('woff');
+  src:
+    url('./assets/fonts/Lora-Regular.woff2') format('woff2'),
+    url('./assets/fonts/Lora-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'LatoRegular';
-  src: url('./assets/fonts/Lato-Regular.woff2') format('woff2'),
+  src:
+    url('./assets/fonts/Lato-Regular.woff2') format('woff2'),
     url('./assets/fonts/Lato-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
@@ -33,13 +34,13 @@
 @font-face {
   font-family: 'LatoBold';
   src: url('./assets/fonts/Lato-Bold.ttf') format('ttf');
-    /* url('./assets/fonts/Lato-Regular.woff') format('woff'); */
+  /* url('./assets/fonts/Lato-Regular.woff') format('woff'); */
   font-weight: 700;
   font-style: normal;
 }
 
 body {
-  font-family:'LatoRegular', sans-serif ;
+  font-family: 'LatoRegular', sans-serif;
   margin: 0;
   place-items: center;
   min-width: 320px;
@@ -48,37 +49,36 @@ body {
 
 main {
   max-width: 1440px;
-  background-color: theme("colors.background");
+  background-color: theme('colors.background');
   margin-left: auto;
   margin-right: auto;
 }
 
-h1{
+h1 {
   font-size: 64px;
   line-height: 95px;
-  color: theme("colors.textDark");
+  color: theme('colors.textDark');
 }
 
-h2{
+h2 {
   font-size: 24px;
   line-height: 36px;
   font-weight: 500;
-  color: theme("colors.textDark");
+  color: theme('colors.textDark');
 }
 h1,
 h2,
 h3,
 h4,
 h5,
-h6{
+h6 {
   font-family: 'OswaldRegular';
   font-weight: 400;
 }
 
 button {
- cursor: pointer;
+  cursor: pointer;
 }
-
 
 button:focus,
 button:focus-visible {
@@ -111,3 +111,19 @@ a {
   align-items: center;
   justify-content: center;
 } */
+
+/* calendar */
+.rdrMonth {
+  max-width: 245px;
+}
+
+/* scroll bar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #9b8ff3;
+  border-radius: 2.5px;
+}

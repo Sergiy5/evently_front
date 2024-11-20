@@ -16,12 +16,12 @@ export function thisWeekDays({ dayToday }: thisWeekDaysProps) {
 
   let currentDate = dayjs(dayToday);
 
-  const datesArray = [];
+  const weekDatesArray = [];
 
   for (let i = 0; i < daysToAdd(); i++) {
-    datesArray.push(currentDate.format('YYYY-MM-DD'));
+    weekDatesArray.push(currentDate.format('YYYY-MM-DD'));
     currentDate = currentDate.add(1, 'day');
   }
 
-  return datesArray;
+  return weekDatesArray;
 }
