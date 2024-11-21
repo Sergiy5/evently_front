@@ -103,7 +103,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
         <button
           type="button"
           onClick={toggleIsLiked}
-          className={`focus:outline-none ml-auto`}
+          className={`focus:outline-none ml-auto bg-background w-[32px] h-[32px] flex items-center justify-center rounded-full opacity-60`}
         >
           {isLiked ? (
             <PiHeartFill className={`w-6 h-6 text-borderColor`} />
