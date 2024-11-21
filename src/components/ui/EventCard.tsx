@@ -145,7 +145,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
             {price === 0 ? (
               <p className="text-error">Безкоштовно</p>
             ) : (
-              <p>{`${price} грн`}</p>
+              <p>{`${price} ₴`}</p>
             )}{' '}
           </li>
         </ul>
