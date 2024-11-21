@@ -1,6 +1,6 @@
 import React from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
-import { useAppDispatch } from '@/hooks/hooks';
+import { useAppDispatch } from '@/redux/hooks';
 import { googleLogin } from '@/redux/auth/authSlice';
 // import { jwtDecode } from 'jwt-decode'; // To decode the Google JWT token
 import { FcGoogle } from 'react-icons/fc';

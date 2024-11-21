@@ -3,7 +3,7 @@ import { RouterProvider } from 'react-router-dom';
 
 import axios from 'axios';
 
-import { useAppDispatch, useAppSelector } from './hooks/hooks';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { useGetLikedEventsWithSkip } from './hooks/query/useGetLikedEventsWithSkip';
 import {
   selectIsLoggedIn,

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 import { selectUsers } from '@/redux/users/selectors';
 
-import { useAppSelector } from '@/hooks/hooks';
+import { useAppSelector } from '@/redux/hooks';
 
 const UserProfile = () => {
   const params = useParams();

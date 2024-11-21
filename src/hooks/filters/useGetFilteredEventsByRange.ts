@@ -19,7 +19,7 @@ export function useGetFilteredEventsByRange({
   const [filteredEventsByRange, setFilteredEventsByRange] = useState<Event[]>(
     []
   );
-
+  
   const getDateOnly = (date: string) => {
     return date.slice(0, 10);
   };
@@ -40,7 +40,7 @@ export function useGetFilteredEventsByRange({
       setFilteredEventsByRange([]);
       return;
     }
-  }, [startRange, endRange]);
+  }, [startRange, endRange, showCalendar, filteredEventsByType]);
 
   return { filteredEventsByRange, setFilteredEventsByRange };
 }

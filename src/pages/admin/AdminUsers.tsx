@@ -6,7 +6,7 @@ import { MdOutlineRefresh } from 'react-icons/md';
 import { fetchUsers } from '@/redux/users/operations';
 import { selectUsers } from '@/redux/users/selectors';
 
-import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 import AdminTable from '@/components/admin/AdminTable';
 

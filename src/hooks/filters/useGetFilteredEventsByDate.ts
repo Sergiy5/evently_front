@@ -88,6 +88,7 @@ export function useGetFilteredEventsByDate({
     todayFilter,
     thisWeekFilter,
     onWeekendFilter,
+    showCalendar
   ]);
 
   return { filteredEventsByDate };

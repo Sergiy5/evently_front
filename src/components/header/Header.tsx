@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { selectIsLoggedIn } from '@/redux/auth/selectors';
 
-import { useAppSelector } from '@/hooks/hooks';
+import { useAppSelector } from '@/redux/hooks';
 
 import { Container } from '../container/Container';
 import { SharedBtn } from '../ui';
@@ -12,7 +12,7 @@ import { HeaderLines } from './HeaderLines';
 import { Navigation } from './Navigation';
 import { UserNavigation } from './UserNavigation';
 
-interface HeaderProps {}
+interface HeaderProps { }
 
 export const Header: React.FC<HeaderProps> = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
