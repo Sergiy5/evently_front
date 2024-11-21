@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import { getUser, logIn } from '@/redux/auth/operations';
 
-import { useAppDispatch } from '@/hooks/hooks';
+import { useAppDispatch } from '@/redux/hooks';
 import { ILoginUser } from '@/types';
 import { validateEmail, validatePassword } from '@/utils';
 

@@ -2,7 +2,7 @@ import { MdEmail } from 'react-icons/md';
 
 import { selectUser } from '@/redux/auth/selectors';
 
-import { useAppSelector } from '@/hooks/hooks';
+import { useAppSelector } from '@/redux/hooks';
 import { PiPhoneCall } from 'react-icons/pi';
 
 const Information = () => {

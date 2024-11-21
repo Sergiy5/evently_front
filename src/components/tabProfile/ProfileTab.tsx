@@ -15,7 +15,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { logOut } from '@/redux/auth/operations';
 
-import { useAppDispatch } from '@/hooks/hooks';
+import { useAppDispatch } from '@/redux/hooks';
 import clsx from 'clsx';
 
 import ItemTab from './ItemTab';
@@ -121,7 +121,7 @@ const ProfileTab = () => {
                   key={item.title}
                   title={tabs[index + 4]}
                   item={item}
-                  openTab={() => {}}
+                  openTab={() => { }}
                   isAdminTab
                 />
               ))}
@@ -132,8 +132,8 @@ const ProfileTab = () => {
           onClick={startLogout}
           className={clsx(
             'w-full pt-[11px] pb-[10px] pl-7 flex gap-2 text-start text-textDark text-[24px] leading-6 rounded-[15px] border border-transparent ' +
-              'hover:border-buttonPurple hover:outline-0 ' +
-              'active:bg-buttonPurple active:text-white '
+            'hover:border-buttonPurple hover:outline-0 ' +
+            'active:bg-buttonPurple active:text-white '
           )}
         >
           <IoExitOutline className="w-6 h-6" />

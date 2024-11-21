@@ -1,4 +1,4 @@
-import { useAppSelector } from '@/hooks/hooks';
+import { useAppSelector } from '@/redux/hooks';
 import { selectUser } from '@/redux/auth/selectors';
 import { Navigate, Outlet } from 'react-router';
 

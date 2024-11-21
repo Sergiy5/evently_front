@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch } from '@/hooks/hooks';
+import { useAppDispatch } from '@/redux/hooks';
 import { register as registerUser } from '@/redux/auth/operations';
 import { IRegisterUser } from '@/types';
 import { toast } from 'react-toastify';
@@ -59,7 +59,7 @@ export const Auth: React.FC<AuthProps> = ({
     if (resetPasswordByToken) {
       setStatusAuth('password_renovation_on_input');
     }
-  },[])
+  }, [])
   useEffect(() => {
     if (isEmailConfirmed) {
       setStatusAuth('login');

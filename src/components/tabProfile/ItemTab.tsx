@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import { selectUser } from '@/redux/auth/selectors';
 
-import { useAppSelector } from '@/hooks/hooks';
+import { useAppSelector } from '@/redux/hooks';
 import clsx from 'clsx';
 
 interface IProps {
@@ -39,7 +39,7 @@ const ItemTab: React.FC<IProps> = ({
       <NavLink
         to={item.url}
         end
-        onClick={isAdmin ? () => openTab() : () => {}}
+        onClick={isAdmin ? () => openTab() : () => { }}
         className={({ isActive }) =>
           clsx(
             'w-full pt-[11px] pb-[10px]  flex gap-2 rounded-[15px] border border-transparent mb-[3px] hover:border-buttonPurple',
