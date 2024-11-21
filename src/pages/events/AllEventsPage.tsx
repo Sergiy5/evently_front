@@ -15,7 +15,7 @@ import { FilterEvents } from '@/components/filters/FilterEvents';
 import { Footer } from '@/components/footer/footer';
 import { Main } from '@/components/main/Main';
 
-interface AllEventsPageProps {}
+interface AllEventsPageProps { }
 
 const AllEventsPage: React.FC<AllEventsPageProps> = () => {
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
