@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book My Event</title>
   </head>
+  <script>
+    const pathname = window.location.pathname;
+    window.location.replace(`${window.location.origin}/${pathname}`);
+  </script>
   <body>
     <div id="root" class="w-[1440px] relative"></div>
     <div id="portal-root"></div>
