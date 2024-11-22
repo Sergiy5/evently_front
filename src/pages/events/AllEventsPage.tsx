@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useGetAllEventsQuery } from '@/redux/events/operations';
+import { useLazyGetAllEventsQuery } from '@/redux/events/operations';
 
 import { filterByPrice } from '@/helpers/filterByPrice';
 import { useGetEventDateFilter } from '@/hooks/filters/useGetEventDateFilter';
@@ -15,7 +15,7 @@ import { FilterEvents } from '@/components/filters/FilterEvents';
 import { Footer } from '@/components/footer/footer';
 import { Main } from '@/components/main/Main';
 
-interface AllEventsPageProps { }
+interface AllEventsPageProps {}
 
 const AllEventsPage: React.FC<AllEventsPageProps> = () => {
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
@@ -24,7 +24,7 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
   const [endRange, setEndRange] = useState<Date | null>(null);
   const [showCalendar, setShowCalendar] = useState(false);
 
-  const { data: events } = useGetAllEventsQuery();
+  const [trigger, { data: events, isLoading }] = useLazyGetAllEventsQuery();
   const { addTypeFilter, selectedTypes } = useGetEventTypeFilter();
   const { addDateFilter, selectedDates, setSelectedDates } =
     useGetEventDateFilter({ showCalendar, setShowCalendar });
@@ -95,6 +95,10 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    trigger();
+  }, [trigger]);
+
   return (
     <Main className="flex flex-col gap-16 mt-4">
       <div className="flex gap-[24px]">
@@ -111,7 +115,8 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
           toggleCalendar={toggleCalendar}
           showCalendar={showCalendar}
         />
-        {filteredEvents.length > 0 ? (
+        {isLoading && <div>loading</div>}
+        {filteredEvents.length > 0 && !isLoading ? (
           <AllEvents events={filteredEvents} title={false} />
         ) : (
           <span>Нічого не знайдено</span>

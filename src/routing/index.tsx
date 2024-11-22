@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
+import { getAllEventsLoader } from '@/loaders/getAllEventsLoader';
 import Favourite from '@/pages/Favourite';
 import Home from '@/pages/Home';
 import MyEvent from '@/pages/MyEvent';
@@ -29,7 +30,11 @@ const router = createBrowserRouter([
     path: '/evently_front',
     element: <Layout />,
     children: [
-      { index: true, element: <Home /> },
+      {
+        index: true,
+        element: <Home />,
+        loader: getAllEventsLoader,
+      },
       {
         path: 'events',
         element: <Events />,
@@ -77,7 +82,11 @@ const router = createBrowserRouter([
           },
         ],
       },
-      { path: 'all_events', element: <AllEventsPage /> },
+      {
+        path: 'all_events',
+        element: <AllEventsPage />,
+        loader: getAllEventsLoader,
+      },
 
       // Later add privat router
 
