@@ -1,20 +1,17 @@
 import { useEffect, useState } from 'react';
 
 import { parseDateWithTime } from '@/helpers/parseDateWithTime';
-import { rangeDays } from '@/helpers/rangeDays';
 
 interface useGetFilteredEventsByRangeProps {
-  startRange: Date | null;
-  endRange: Date | null;
   showCalendar: boolean;
   filteredEventsByType: Event[];
+  rangeDatesArray: string[];
 }
 
 export function useGetFilteredEventsByRange({
-  startRange,
-  endRange,
   showCalendar,
   filteredEventsByType,
+  rangeDatesArray,
 }: useGetFilteredEventsByRangeProps) {
   const [filteredEventsByRange, setFilteredEventsByRange] = useState<Event[]>(
     []
@@ -23,8 +20,6 @@ export function useGetFilteredEventsByRange({
   const getDateOnly = (date: string) => {
     return date.slice(0, 10);
   };
-
-  const rangeDatesArray = rangeDays({ startRange, endRange });
 
   useEffect(() => {
     if (showCalendar) {
@@ -40,7 +35,7 @@ export function useGetFilteredEventsByRange({
       setFilteredEventsByRange([]);
       return;
     }
-  }, [startRange, endRange, showCalendar, filteredEventsByType]);
+  }, [showCalendar, filteredEventsByType]);
 
-  return { filteredEventsByRange, setFilteredEventsByRange, rangeDatesArray };
+  return { filteredEventsByRange, setFilteredEventsByRange };
 }

@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 
 interface rangeDaysProps {
-  startRange: Date | null;
-  endRange: Date | null;
+  startRange: Date | undefined;
+  endRange: Date | undefined;
 }
 
 export function rangeDays({ startRange, endRange }: rangeDaysProps) {

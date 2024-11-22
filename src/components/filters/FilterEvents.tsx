@@ -11,26 +11,26 @@ import { Checkbox } from '../ui/CheckBox';
 import { DateRange } from './DateRange';
 
 interface FilterEventsProps {
-  selectedTypes: string[];
+  selectedTypesLS: string[];
   addTypeFilter: (filter: string) => void;
   filterEvents: () => void;
   resetFilters: () => void;
   addDateFilter: (filter: string) => void;
-  selectedDates: string[];
+  selectedDatesLS: string[];
   addPriceFilter: (filter: number) => void;
   selectedPrices: number[];
-  getRangeDates: (start: Date, end: Date) => void;
+  getRangeDates: (start: Date, end: Date | undefined) => void;
   toggleCalendar: () => void;
   showCalendar: boolean;
 }
 
 export const FilterEvents: React.FC<FilterEventsProps> = ({
-  selectedTypes,
+  selectedTypesLS,
   addTypeFilter,
   filterEvents,
   resetFilters,
   addDateFilter,
-  selectedDates,
+  selectedDatesLS,
   addPriceFilter,
   selectedPrices,
   getRangeDates,
@@ -53,7 +53,7 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
                     name="type"
                     value={option.label}
                     onChange={() => addTypeFilter(option.label)}
-                    checked={selectedTypes.includes(option.label)}
+                    checked={selectedTypesLS.includes(option.label)}
                     label={option.label}
                   />
                 </li>
@@ -71,7 +71,7 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
                       name="when"
                       value={option.value}
                       onChange={() => addDateFilter(option.label)}
-                      checked={selectedDates.includes(option.label)}
+                      checked={selectedDatesLS.includes(option.label)}
                       label={option.label}
                     />
                   </li>
@@ -88,7 +88,10 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
                   <span>Обрати дату</span>
                   <BiChevronDown />
                 </button>
-                {showCalendar && <DateRange getRangeDates={getRangeDates} />}
+                <DateRange
+                  getRangeDates={getRangeDates}
+                  showCalendar={showCalendar}
+                />
               </div>
             </div>
           </div>

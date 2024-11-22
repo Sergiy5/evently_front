@@ -2,19 +2,19 @@ import { useEffect, useState } from 'react';
 
 interface useGetFilteredEventsByTypeProps {
   events: Event[] | undefined;
-  selectedTypes: string[];
+  selectedTypesLS: string[];
 }
 
 export function useGetFilteredEventsByType({
   events,
-  selectedTypes,
+  selectedTypesLS,
 }: useGetFilteredEventsByTypeProps) {
   const [filteredEventsByType, setFilteredEventsByType] = useState<Event[]>([]);
 
-  const allEventsFilter = selectedTypes.includes('Усі події');
+  const allEventsFilter = selectedTypesLS.includes('Усі події');
   const topEventsFilterOnly =
-    selectedTypes.includes('Популярні') && selectedTypes.length === 1;
-  const topEventsFilter = selectedTypes.includes('Популярні');
+    selectedTypesLS.includes('Популярні') && selectedTypesLS.length === 1;
+  const topEventsFilter = selectedTypesLS.includes('Популярні');
 
   useEffect(() => {
     // only all events
@@ -33,7 +33,7 @@ export function useGetFilteredEventsByType({
     // other categories without top
     if (events && !topEventsFilter) {
       const filteredArray = events.filter(item =>
-        selectedTypes.includes(item.type)
+        selectedTypesLS.includes(item.type)
       );
       setFilteredEventsByType(filteredArray);
       return;
@@ -42,7 +42,7 @@ export function useGetFilteredEventsByType({
     if (events && topEventsFilter) {
       const filteredArray = events.filter(
         item =>
-          item.category === 'TOP_EVENTS' && selectedTypes.includes(item.type)
+          item.category === 'TOP_EVENTS' && selectedTypesLS.includes(item.type)
       );
       setFilteredEventsByType(filteredArray);
       return;
@@ -50,7 +50,7 @@ export function useGetFilteredEventsByType({
   }, [
     events,
     allEventsFilter,
-    selectedTypes,
+    selectedTypesLS,
     topEventsFilter,
     topEventsFilterOnly,
   ]);
