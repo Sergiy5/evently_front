@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/evently_front',
+  base: '/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src/'), // Set up path alias for `@` to `./src/`
