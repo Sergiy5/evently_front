@@ -11,8 +11,8 @@ import {
   useAddLikedEventMutation,
   useDeleteLikedEventMutation,
 } from '@/redux/events/operations';
-
 import { useAppSelector } from '@/redux/hooks';
+
 import { useGetLikedEventsWithSkip } from '@/hooks/query/useGetLikedEventsWithSkip';
 
 import { SharedBtn } from './SharedBtn';
@@ -38,7 +38,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
 
   const { id: userId } = useAppSelector(selectUser);
 
-  const { data: likedEventsAll } = useGetLikedEventsWithSkip(userId);
+  const { data: likedEventsAll } = useGetLikedEventsWithSkip();
   const [addLikedEvent] = useAddLikedEventMutation();
   const [deleteLikedEvent] = useDeleteLikedEventMutation();
 
@@ -90,8 +90,9 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
   return (
     <div
       id={`${eventId}`}
-      className={`group relative flex overflow-hidden items-start rounded-[20px] w-[312px] h-[514px] shadow-eventCardShadow ${top ? 'mb-[10px]' : ''
-        }`}
+      className={`group relative flex overflow-hidden items-start rounded-[20px] w-[312px] h-[514px] shadow-eventCardShadow ${
+        top ? 'mb-[10px]' : ''
+      }`}
     >
       <img src={photoUrl} alt={title} width={'100%'} />
       <div className={`flex absolute justify-between p-6 w-full`}>
