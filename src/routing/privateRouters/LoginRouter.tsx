@@ -7,7 +7,7 @@ import { useAppSelector } from '@/redux/hooks';
 const LoginRouter = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
-  return isLoggedIn ? <ProfileTabLayout /> : <Navigate to="/evently_front" />;
+  return isLoggedIn ? <ProfileTabLayout /> : <Navigate to="/" />;
 };
 
 export default LoginRouter;

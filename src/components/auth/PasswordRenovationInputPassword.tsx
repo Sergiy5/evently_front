@@ -43,7 +43,7 @@ export const PasswordRenovationInputPassword: React.FC<
   });
 
   useEffect(() => {
-    navigate('/evently_front', { replace: true });
+    navigate('/', { replace: true });
   }, []);
 
   const onSubmit = async (data: IRegisterFormInputsPassword) => {
