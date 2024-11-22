@@ -16,7 +16,7 @@ export const Footer: React.FC = () => {
         <div
           className="background-background cursor-pointer pb-[64px]"
           onClick={() => {
-            navigate('/evently_front');
+            navigate('/');
           }}
         >
           <MainLogo />
@@ -24,20 +24,20 @@ export const Footer: React.FC = () => {
         <div>+380(99) 574 56 76</div>
       </div>
       <nav className="pr-[140px]">
-        <Link to="/evently_front/about" className="block pb-6 hover:font-bold">
+        <Link to="/about" className="block pb-6 hover:font-bold">
           Про нас
         </Link>
         <Link
-          to="/evently_front/organizers"
+          to="/organizers"
           className="block pb-6 hover:font-bold"
         >
           Організаторам
         </Link>
-        <Link to="/evently_front/office" className="block pb-6 hover:font-bold">
+        <Link to="/office" className="block pb-6 hover:font-bold">
           Кабінет
         </Link>
         <Link
-          to="/evently_front/ReturnsAndPayment"
+          to="/ReturnsAndPayment"
           className="block hover:font-bold w-[180px]"
         >
           Повернення та оплата
@@ -45,13 +45,13 @@ export const Footer: React.FC = () => {
       </nav>
       <nav className="pr-[190px]">
         <Link
-          to="/evently_front/OfferAgreement"
+          to="/OfferAgreement"
           className="block pb-6 hover:font-bold"
         >
           Договір-оферта
         </Link>
         <Link
-          to="/evently_front/PrivacyPolicy"
+          to="/PrivacyPolicy"
           className="block hover:font-bold w-[225px]"
         >
           Політика конфеденційності

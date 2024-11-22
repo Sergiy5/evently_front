@@ -5,7 +5,7 @@ import { Navigate, Outlet } from 'react-router';
 const AdminRouter = () => {
   const user = useAppSelector(selectUser);
 
-  return user.role === 'ADMIN' ? <Outlet /> : <Navigate to="/evently_front" />;
+  return user.role === 'ADMIN' ? <Outlet /> : <Navigate to="/" />;
 };
 
 export default AdminRouter;

@@ -16,7 +16,7 @@ const UserProfile = () => {
 
   return (
     <div>
-      <Link to={'/evently_front/admin/users'}>
+      <Link to={'/admin/users'}>
         <FaArrowLeft />
       </Link>
       <div className="mt-4">
