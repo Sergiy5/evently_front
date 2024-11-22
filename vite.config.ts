@@ -4,9 +4,9 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/evently_front/',
-  build: {
-    outDir: 'dist',
+  base: '/',
+  build:{
+    outDir: 'dist'
   },
   resolve: {
     alias: {
