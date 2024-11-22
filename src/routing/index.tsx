@@ -26,7 +26,7 @@ const Event = React.lazy(() => import('../pages/events/Event'));
 
 const router = createBrowserRouter([
   {
-    path: '/evently_front',
+    path: '/',
     element: <Layout />,
     children: [
       { index: true, element: <Home /> },

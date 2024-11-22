@@ -17,7 +17,7 @@ export const Navigation: React.FC = () => {
       />
       <nav className="flex gap-8">
         <NavLink
-          to="/evently_front/popular"
+          to="/popular"
           className={({ isActive }) =>
             `w-[82px] ${
               isActive
@@ -29,7 +29,7 @@ export const Navigation: React.FC = () => {
           Популярні
         </NavLink>
         <NavLink
-          to="/evently_front/organizers"
+          to="/organizers"
           className={({ isActive }) =>
             `w-[110px] ${
               isActive
@@ -41,7 +41,7 @@ export const Navigation: React.FC = () => {
           Організаторам
         </NavLink>
         <NavLink
-          to="/evently_front/about"
+          to="/about"
           className={({ isActive }) =>
             `w-[63px] ${
               isActive

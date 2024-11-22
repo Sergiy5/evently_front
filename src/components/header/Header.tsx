@@ -36,7 +36,7 @@ export const Header: React.FC<HeaderProps> = () => {
         <header className="p-4 bg-gray-100">
           <div className="flex justify-center items-center h-[84px]">
             <div
-              onClick={() => navigate('/evently_front')}
+              onClick={() => navigate('/')}
               className="cursor-pointer"
             >
               <MainLogo />
