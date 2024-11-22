@@ -39,7 +39,7 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
     selectedDates,
     showCalendar,
   });
-  const { filteredEventsByRange, setFilteredEventsByRange } =
+  const { filteredEventsByRange, setFilteredEventsByRange, rangeDatesArray } =
     useGetFilteredEventsByRange({
       filteredEventsByType,
       showCalendar,
@@ -98,6 +98,13 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
   useEffect(() => {
     trigger();
   }, [trigger]);
+
+  useEffect(() => {
+    localStorage.setItem('selectedTypes', JSON.stringify(selectedTypes));
+    localStorage.setItem('selectedDates', JSON.stringify(selectedDates));
+    localStorage.setItem('rangeDatesArray', JSON.stringify(rangeDatesArray));
+    localStorage.setItem('selectedPrices', JSON.stringify(selectedPrices));
+  }, [selectedTypes, selectedDates, selectedPrices, rangeDatesArray]);
 
   return (
     <Main className="flex flex-col gap-16 mt-4">
