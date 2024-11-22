@@ -69,10 +69,10 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/McLareni/evently_front.git"
+    "url": "git+https://github.com/McLareni/.git"
   },
   "bugs": {
-    "url": "https://github.com/McLareni/evently_front/issues"
+    "url": "https://github.com/McLareni/issues"
   },
-  "homepage": "https://github.com/McLareni/evently_front#readme"
+  "homepage": "https://github.com/McLareni/#readme"
 }

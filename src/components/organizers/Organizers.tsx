@@ -7,7 +7,7 @@ export const Organizers: React.FC = () => {
     <div className="mt-[50px] flex w-[1358px]  py-[18px] rounded-[20px] ml-[41px] mr-[43px] bg-gradient-to-br from-[#E9E6FF] to-[#D5FEFF] px-[43px]">
       <div className="pr-[54px]">
         <h1 className="w-[392px] pb-8">Створи подію, про яку говоритимуть!</h1>
-        <Link to="/evently_front/organizers">
+        <Link to="/organizers">
           <SharedBtn
             children="Стати організатором"
             type="button"
