@@ -8,7 +8,7 @@ const initialState = {
 };
 
 const filterSlice = createSlice({
-  name: 'filters',
+  name: 'filter',
   initialState,
   reducers: {
     addSelectedTypes(state, action: { payload: string[] }) {

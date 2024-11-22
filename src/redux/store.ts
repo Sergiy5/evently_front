@@ -35,7 +35,7 @@ const filterPersistConfig = {
 
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
-  filters: persistReducer(filterPersistConfig, filterReducer),
+  filter: persistReducer(filterPersistConfig, filterReducer),
   users: usersReducer,
   [EventsApi.reducerPath]: EventsApi.reducer,
 });
