@@ -7,7 +7,7 @@ const initialState = {
   selectedPrices: [] as number[],
 };
 
-const filterSlice = createSlice({
+const filtersSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
@@ -26,11 +26,11 @@ const filterSlice = createSlice({
   },
 });
 
-export const filterReducer = filterSlice.reducer;
+export const filterReducer = filtersSlice.reducer;
 
 export const {
   addRangeDatesArray,
   addSelectedDates,
   addSelectedPrices,
   addSelectedTypes,
-} = filterSlice.actions;
+} = filtersSlice.actions;

@@ -4,7 +4,7 @@ import { useLazyGetAllEventsQuery } from '@/redux/events/operations';
 import {
   addRangeDatesArray,
   addSelectedPrices,
-} from '@/redux/filter/FilterSlice';
+} from '@/redux/filters/filtersSlice';
 import { useAppDispatch } from '@/redux/hooks';
 
 import { filterByPrice } from '@/helpers/filterByPrice';

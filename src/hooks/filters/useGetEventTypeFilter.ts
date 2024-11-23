@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { addSelectedTypes } from '@/redux/filter/FilterSlice';
-import { getSelectedTypes } from '@/redux/filter/selectors';
+import { addSelectedTypes } from '@/redux/filters/filtersSlice';
+import { getSelectedTypes } from '@/redux/filters/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 export function useGetEventTypeFilter() {

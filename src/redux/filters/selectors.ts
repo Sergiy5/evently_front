@@ -1,10 +1,10 @@
 import { RootState } from '../store';
 
 export const getSelectedTypes = (state: RootState) =>
-  state.filters.selectedTypes;
+  state.filter.selectedTypes;
 export const getSelectedDates = (state: RootState) =>
-  state.filters.selectedDates;
+  state.filter.selectedDates;
 export const getRangeDatesArray = (state: RootState) =>
-  state.filters.rangeDatesArray;
+  state.filter.rangeDatesArray;
 export const getSelectedPrices = (state: RootState) =>
-  state.filters.selectedPrices;
+  state.filter.selectedPrices;

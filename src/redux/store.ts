@@ -13,7 +13,7 @@ import storage from 'redux-persist/lib/storage';
 
 import { authReducer } from './auth/authSlice';
 import { EventsApi } from './events/operations';
-import { filterReducer } from './filter/FilterSlice';
+import { filterReducer } from './filters/filtersSlice';
 import { usersReducer } from './users/usersSlice';
 
 const authPersistConfig = {

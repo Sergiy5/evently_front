@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-import { addSelectedDates } from '@/redux/filter/FilterSlice';
-import { getSelectedDates } from '@/redux/filter/selectors';
+import { addSelectedDates } from '@/redux/filters/filtersSlice';
+import { getSelectedDates } from '@/redux/filters/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 interface useGetEventDateFilterProps {
