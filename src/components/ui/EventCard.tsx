@@ -20,9 +20,14 @@ import { SharedBtn } from './SharedBtn';
 interface EventCardProps {
   event: Event;
   top?: boolean;
+  favorite?: boolean;
 }
 
-export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
+export const EventCard: React.FC<EventCardProps> = ({
+  event,
+  top = false,
+  favorite = false,
+}) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const {
@@ -90,9 +95,9 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
   return (
     <div
       id={`${eventId}`}
-      className={`group relative flex overflow-hidden items-start rounded-[20px] w-[312px] h-[514px] shadow-eventCardShadow ${
+      className={`group relative flex overflow-hidden items-start rounded-[20px] shadow-eventCardShadow ${
         top ? 'mb-[10px]' : ''
-      }`}
+      } ${favorite ? 'w-[284px] h-[480px]' : 'w-[312px] h-[514px]'} `}
     >
       <img src={photoUrl} alt={title} width={'100%'} />
       <div className={`flex absolute justify-between p-6 w-full`}>
@@ -127,19 +132,28 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
             {type}
           </p>
         </div>
-        <h2 className={`min-h-[72px] text-2xl text-textDark`}>{title}</h2>
+        <h2
+          className={`min-h-[72px] text-2xl text-textDark group-hover:line-clamp-none ${favorite ? 'line-clamp-2' : ''}`}
+        >
+          {title}
+        </h2>
 
         <ul
           className={`flex flex-col gap-[18px] font-normal text-md text-textDark justify-between w-full`}
         >
           <li className="flex items-center gap-[18px]">
-            {' '}
             <AiOutlineCalendar size="24px" />
             <p>{`${date?.day}, ${date?.time}`}</p>
           </li>
           <li className="flex items-center gap-[18px]">
-            {' '}
-            <GrLocation size="24px" /> <p>{slicedStreet()}</p>
+            <GrLocation size="24px" />
+            <p
+              className={
+                favorite ? 'truncate group-hover:whitespace-normal' : ''
+              }
+            >
+              {slicedStreet()}
+            </p>
           </li>
           <li className="flex items-center gap-[18px]">
             <FaRegMoneyBillAlt size="24px" />
@@ -147,7 +161,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
               <p className="text-error">Безкоштовно</p>
             ) : (
               <p>{`${price} ₴`}</p>
-            )}{' '}
+            )}
           </li>
         </ul>
 
