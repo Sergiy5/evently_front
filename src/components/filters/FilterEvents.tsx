@@ -1,5 +1,8 @@
 import { BiChevronDown } from 'react-icons/bi';
 
+import { setIsCalendarShown } from '@/redux/filters/filtersSlice';
+import { useAppDispatch } from '@/redux/hooks';
+
 import {
   eventDate,
   eventPrice,
@@ -11,32 +14,36 @@ import { Checkbox } from '../ui/CheckBox';
 import { DateRange } from './DateRange';
 
 interface FilterEventsProps {
-  selectedTypes: string[];
+  selectedTypesLS: string[];
   addTypeFilter: (filter: string) => void;
   filterEvents: () => void;
   resetFilters: () => void;
   addDateFilter: (filter: string) => void;
-  selectedDates: string[];
+  selectedDatesLS: string[];
   addPriceFilter: (filter: number) => void;
-  selectedPrices: number[];
-  getRangeDates: (start: Date, end: Date) => void;
-  toggleCalendar: () => void;
-  showCalendar: boolean;
+  selectedPricesLS: number[];
+  getRangeDates: (start: Date, end: Date | undefined) => void;
+  isShownCalendar: boolean;
 }
 
 export const FilterEvents: React.FC<FilterEventsProps> = ({
-  selectedTypes,
+  selectedTypesLS,
   addTypeFilter,
   filterEvents,
   resetFilters,
   addDateFilter,
-  selectedDates,
+  selectedDatesLS,
   addPriceFilter,
-  selectedPrices,
+  selectedPricesLS,
   getRangeDates,
-  toggleCalendar,
-  showCalendar,
+  isShownCalendar,
 }) => {
+  const dispatch = useAppDispatch();
+
+  const toggleCalendar = () => {
+    dispatch(setIsCalendarShown(!isShownCalendar));
+  };
+
   return (
     <div className="pl-[60px] relative">
       <div
@@ -53,7 +60,7 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
                     name="type"
                     value={option.label}
                     onChange={() => addTypeFilter(option.label)}
-                    checked={selectedTypes.includes(option.label)}
+                    checked={selectedTypesLS.includes(option.label)}
                     label={option.label}
                   />
                 </li>
@@ -71,7 +78,7 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
                       name="when"
                       value={option.value}
                       onChange={() => addDateFilter(option.label)}
-                      checked={selectedDates.includes(option.label)}
+                      checked={selectedDatesLS.includes(option.label)}
                       label={option.label}
                     />
                   </li>
@@ -88,7 +95,10 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
                   <span>Обрати дату</span>
                   <BiChevronDown />
                 </button>
-                {showCalendar && <DateRange getRangeDates={getRangeDates} />}
+                <DateRange
+                  getRangeDates={getRangeDates}
+                  isShownCalendar={isShownCalendar}
+                />
               </div>
             </div>
           </div>
@@ -102,7 +112,7 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
                     name="price"
                     value={option.value}
                     onChange={() => addPriceFilter(option.value)}
-                    checked={selectedPrices.includes(option.value)}
+                    checked={selectedPricesLS.includes(option.value)}
                     label={option.label}
                   />
                 </li>

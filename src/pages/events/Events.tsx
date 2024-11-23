@@ -1,12 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 
-import { useGetAllEventsQuery } from '@/redux/events/operations';
+import { useLazyGetAllEventsQuery } from '@/redux/events/operations';
 
 import EventsList from '@/components/events/EventsList';
 
 const Events: React.FC = () => {
-  const { data: events } = useGetAllEventsQuery();
+  const [trigger, { data: events, isLoading }] = useLazyGetAllEventsQuery();
   const navigate = useNavigate();
 
   const handleCreateEvent = () => {

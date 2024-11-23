@@ -8,10 +8,11 @@ import { uk } from 'date-fns/locale';
 const dayToday = new Date('2024-11-12T10:00:00');
 
 interface DateRangeProps {
-  getRangeDates: (start: Date, end: Date) => void;
+  getRangeDates: (start: Date, end: Date | undefined) => void;
+  isShownCalendar: boolean;
 }
 
-export function DateRange({ getRangeDates }: DateRangeProps) {
+export function DateRange({ getRangeDates, isShownCalendar }: DateRangeProps) {
   const [state, setState] = useState<Range[]>([
     {
       startDate: dayToday,
@@ -24,21 +25,34 @@ export function DateRange({ getRangeDates }: DateRangeProps) {
   const end = state[0].endDate;
 
   useEffect(() => {
-    start && end && getRangeDates(start, end);
-  }, [start, end]);
+    if (isShownCalendar) {
+      if (start && end) {
+        getRangeDates(start, end);
+      }
+    }
+    if (!isShownCalendar) {
+      setState([{ startDate: dayToday, endDate: undefined, key: 'selection' }]);
+      getRangeDates(dayToday, undefined);
+    }
+  }, [start, end, isShownCalendar]);
 
   return (
-    <DateRangeCalendar
-      className="border-t-[2px] border-buttonPurple"
-      editableDateInputs={false}
-      onChange={item => setState([item.selection])}
-      moveRangeOnFirstSelection={false}
-      ranges={state}
-      locale={uk}
-      shownDate={dayToday}
-      showMonthAndYearPickers={false}
-      showDateDisplay={false}
-      rangeColors={['#9B8FF3']}
-    />
+    <div
+      style={{
+        height: isShownCalendar ? 'auto' : '0',
+      }}
+    >
+      <DateRangeCalendar
+        className="border-t-[2px] border-buttonPurple"
+        editableDateInputs={false}
+        onChange={item => setState([item.selection])}
+        moveRangeOnFirstSelection={false}
+        ranges={state}
+        locale={uk}
+        showMonthAndYearPickers={false}
+        showDateDisplay={false}
+        rangeColors={['#9B8FF3']}
+      />
+    </div>
   );
 }
