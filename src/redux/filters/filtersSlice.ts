@@ -6,6 +6,8 @@ const initialState = {
   rangeDatesArray: [] as string[],
   selectedPrices: [] as number[],
   isCalendarShown: false,
+  startDate: undefined as string | undefined,
+  endDate: undefined as string | undefined,
 };
 
 const filtersSlice = createSlice({
@@ -27,6 +29,19 @@ const filtersSlice = createSlice({
     setIsCalendarShown(state, action: { payload: boolean }) {
       state.isCalendarShown = action.payload;
     },
+    setDateRange(
+      state,
+      action: {
+        payload: { start: string | undefined; end: string | undefined };
+      }
+    ) {
+      state.startDate = action.payload.start;
+      state.endDate = action.payload.end;
+    },
+    clearDateRange(state) {
+      state.startDate = undefined;
+      state.endDate = undefined;
+    },
   },
 });
 
@@ -38,4 +53,6 @@ export const {
   addSelectedPrices,
   addSelectedTypes,
   setIsCalendarShown,
+  setDateRange,
+  clearDateRange,
 } = filtersSlice.actions;

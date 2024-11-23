@@ -4,7 +4,9 @@ import { addSelectedPrices } from '@/redux/filters/filtersSlice';
 import { getSelectedPrices } from '@/redux/filters/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
-export function useGetEventPriceFilter() {
+interface useGetEventPriceFilterProps {}
+
+export function useGetEventPriceFilter({}: useGetEventPriceFilterProps) {
   const dispatch = useAppDispatch();
 
   const selectedPrices = useAppSelector(getSelectedPrices);

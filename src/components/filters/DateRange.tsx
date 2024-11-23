@@ -3,38 +3,51 @@ import { DateRange as DateRangeCalendar, Range } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 
+import { clearDateRange, setDateRange } from '@/redux/filters/filtersSlice';
+import { getEndDay, getStartDay } from '@/redux/filters/selectors';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+
 import { uk } from 'date-fns/locale';
 
 const dayToday = new Date('2024-11-12T10:00:00');
 
 interface DateRangeProps {
-  getRangeDates: (start: Date, end: Date | undefined) => void;
   isShownCalendar: boolean;
 }
 
-export function DateRange({ getRangeDates, isShownCalendar }: DateRangeProps) {
+export function DateRange({ isShownCalendar }: DateRangeProps) {
+  const startDay = useAppSelector(getStartDay);
+  const endDay = useAppSelector(getEndDay);
+
   const [state, setState] = useState<Range[]>([
     {
-      startDate: dayToday,
-      endDate: undefined,
+      startDate: startDay ? new Date(startDay) : undefined,
+      endDate: endDay ? new Date(endDay) : undefined,
       key: 'selection',
     },
   ]);
 
-  const start = state[0].startDate;
-  const end = state[0].endDate;
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (isShownCalendar) {
-      if (start && end) {
-        getRangeDates(start, end);
-      }
+      const start = state[0].startDate?.toISOString() || undefined;
+      const end = state[0].endDate?.toISOString() || undefined;
+
+      dispatch(
+        setDateRange({
+          start: start,
+          end: end,
+        })
+      );
     }
     if (!isShownCalendar) {
-      setState([{ startDate: dayToday, endDate: undefined, key: 'selection' }]);
-      getRangeDates(dayToday, undefined);
+      setState([
+        { startDate: undefined, endDate: undefined, key: 'selection' },
+      ]);
+      dispatch(clearDateRange());
     }
-  }, [start, end, isShownCalendar]);
+  }, [isShownCalendar, dispatch, state]);
 
   return (
     <div
@@ -52,6 +65,7 @@ export function DateRange({ getRangeDates, isShownCalendar }: DateRangeProps) {
         showMonthAndYearPickers={false}
         showDateDisplay={false}
         rangeColors={['#9B8FF3']}
+        shownDate={dayToday}
       />
     </div>
   );

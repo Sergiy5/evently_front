@@ -27,20 +27,15 @@ interface AllEventsPageProps {}
 const AllEventsPage: React.FC<AllEventsPageProps> = () => {
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [firstRender, setFirstRender] = useState(true);
-  const [startRange, setStartRange] = useState<Date | undefined>(undefined);
-  const [endRange, setEndRange] = useState<Date | undefined>(undefined);
 
   const dispatch = useAppDispatch();
 
   const [trigger, { data: events, isLoading }] = useLazyGetAllEventsQuery();
 
-  const { addTypeFilter } = useGetEventTypeFilter();
+  const { addTypeFilter } = useGetEventTypeFilter({});
   const { addDateFilter } = useGetEventDateFilter({});
-  const { rangeDatesArray } = useGetEventDatesRangeFilter({
-    startRange,
-    endRange,
-  });
-  const { addPriceFilter, selectedPrices } = useGetEventPriceFilter();
+  const { rangeDatesArray } = useGetEventDatesRangeFilter({});
+  const { addPriceFilter, selectedPrices } = useGetEventPriceFilter({});
 
   const { filteredEventsByType } = useGetFilteredEventsByType({
     events,
@@ -82,11 +77,6 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
     dispatch(setIsCalendarShown(false));
   };
 
-  const getRangeDates = (start: Date, end: Date | undefined) => {
-    setStartRange(start);
-    setEndRange(end);
-  };
-
   useEffect(() => {
     if (events && firstRender) {
       setFilteredEvents(events);
@@ -111,7 +101,6 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
           resetFilters={resetFilters}
           addDateFilter={addDateFilter}
           addPriceFilter={addPriceFilter}
-          getRangeDates={getRangeDates}
         />
         {isLoading && <div>loading</div>}
         {filteredEvents.length > 0 && !isLoading ? (

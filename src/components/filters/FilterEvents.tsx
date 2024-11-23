@@ -25,7 +25,6 @@ interface FilterEventsProps {
   resetFilters: () => void;
   addDateFilter: (filter: string) => void;
   addPriceFilter: (filter: number) => void;
-  getRangeDates: (start: Date, end: Date | undefined) => void;
 }
 
 export const FilterEvents: React.FC<FilterEventsProps> = ({
@@ -34,7 +33,6 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
   resetFilters,
   addDateFilter,
   addPriceFilter,
-  getRangeDates,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -98,10 +96,7 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
                   <span>Обрати дату</span>
                   <BiChevronDown />
                 </button>
-                <DateRange
-                  getRangeDates={getRangeDates}
-                  isShownCalendar={isShownCalendar}
-                />
+                <DateRange isShownCalendar={isShownCalendar} />
               </div>
             </div>
           </div>
