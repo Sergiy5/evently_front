@@ -1,6 +1,7 @@
-import { Container } from '../container/Container';
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
+
+import { Container } from '../container/Container';
 
 export const FAQ: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -9,19 +10,23 @@ export const FAQ: React.FC = () => {
   const items = [
     {
       title: 'Чи можу я повернути квиток, якщо не зможу відвідати подію?',
-      content: 'Так, повернення квитків доступно не пізніше, ніж за 24 години до початку події.',
+      content:
+        'Так, повернення квитків доступно не пізніше, ніж за 24 години до початку події.',
     },
     {
       title: 'Чи можу я передати свій квиток іншій особі?',
-      content: 'Зазвичай так, але це залежить від умов організатора. Перевірте інформацію на сторінці події.',
+      content:
+        'Зазвичай так, але це залежить від умов організатора. Перевірте інформацію на сторінці події.',
     },
     {
       title: 'Чи можу я редагувати інформацію про подію після публікації?',
-      content: 'Так, зайдіть у свій акаунт>Мої події>відредагувати. Та дочекайтесь підтвердження змін від модератора BookMyEvent.',
+      content:
+        'Так, зайдіть у свій акаунт>Мої події>відредагувати. Та дочекайтесь підтвердження змін від модератора BookMyEvent.',
     },
     {
       title: 'Як я можу вивести кошти від продажу квитків?',
-      content: 'Всі отримані кошти від квитків ви отримуєте на рахунок аккаунта, які можна вивести на будь-яку банківську карту.',
+      content:
+        'Всі отримані кошти від квитків ви отримуєте на рахунок аккаунта, які можна вивести на будь-яку банківську карту.',
     },
   ];
 
@@ -30,7 +35,7 @@ export const FAQ: React.FC = () => {
   };
 
   return (
-  <Container className="flex ml-[60px] mt-[64px] pb-[50px]">
+    <Container className="flex ml-[60px] mt-[64px] pb-[50px]">
       <h1 className="w-[89px] leading-[94.85px] text-[64px]">FAQ</h1>
       <div className="space-y-4 ml-[136px] w-[872px]">
         {items.map((item, index) => (
@@ -49,18 +54,23 @@ export const FAQ: React.FC = () => {
                 />
               </button>
               <div
-                ref={(el) => (contentRefs.current[index] = el)}
+                ref={el => (contentRefs.current[index] = el)}
                 style={{
-                  height: openIndex === index ? `${contentRefs.current[index]?.scrollHeight}px` : '0px',
+                  height:
+                    openIndex === index
+                      ? `${contentRefs.current[index]?.scrollHeight}px`
+                      : '0px',
                 }}
                 className="transition-[height] duration-300 ease-in-out"
               >
-                <div className="pb-9 px-6 text-gray-600 text-base">{item.content}</div>
+                <div className="pb-9 px-6 text-gray-600 text-base">
+                  {item.content}
+                </div>
               </div>
             </div>
           </div>
         ))}
       </div>
-  </Container>
+    </Container>
   );
-}
+};

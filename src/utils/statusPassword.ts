@@ -10,4 +10,4 @@ export const statusPassword = (password: string) => {
     hasMinLength,
     hasNumber,
   };
-}
+};

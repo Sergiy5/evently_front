@@ -1,4 +1,3 @@
-import { ILoginUser, IRegisterUser } from '@/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -17,7 +16,7 @@ const clearAuthToken = () => {
 
 export const register = createAsyncThunk(
   'auth/register',
-  async (user: IRegisterUser, thunkAPI) => {
+  async (user: RegisterUser, thunkAPI) => {
     try {
       const response = await axios.post('authorize/registration', user);
 
@@ -31,7 +30,7 @@ export const register = createAsyncThunk(
 
 export const logIn = createAsyncThunk(
   'auth/login',
-  async (user: ILoginUser, thunkAPI) => {
+  async (user: LoginUser, thunkAPI) => {
     try {
       const { data } = await axios.post('authorize/login', user);
 

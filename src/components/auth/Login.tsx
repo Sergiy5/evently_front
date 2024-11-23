@@ -3,9 +3,8 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import { getUser, logIn } from '@/redux/auth/operations';
-
 import { useAppDispatch } from '@/redux/hooks';
-import { ILoginUser } from '@/types';
+
 import { validateEmail, validatePassword } from '@/utils';
 
 import { GoogleLoginButton, SharedInput, SharedItemStatusBar } from '../ui';
@@ -49,11 +48,11 @@ export const Login: React.FC<LoginProps> = ({
     handleSubmit,
     trigger,
     formState: { errors },
-  } = useForm<ILoginUser>({
+  } = useForm<LoginUser>({
     mode: 'onChange',
   });
 
-  const onSubmit = async (data: ILoginUser) => {
+  const onSubmit = async (data: LoginUser) => {
     setPasswordLoginError(false);
     setEmailLoginError(false);
     setIsBluredNameInput('');

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { selectIsLoggedIn } from '@/redux/auth/selectors';
-
 import { useAppSelector } from '@/redux/hooks';
 
 import { Container } from '../container/Container';
@@ -12,7 +11,7 @@ import { HeaderLines } from './HeaderLines';
 import { Navigation } from './Navigation';
 import { UserNavigation } from './UserNavigation';
 
-interface HeaderProps { }
+interface HeaderProps {}
 
 export const Header: React.FC<HeaderProps> = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,10 +34,7 @@ export const Header: React.FC<HeaderProps> = () => {
         <HeaderLines />
         <header className="p-4 bg-gray-100">
           <div className="flex justify-center items-center h-[84px]">
-            <div
-              onClick={() => navigate('/')}
-              className="cursor-pointer"
-            >
+            <div onClick={() => navigate('/')} className="cursor-pointer">
               <MainLogo />
             </div>
             <Navigation />

@@ -3,7 +3,7 @@ import tabProfile from '../i18next/locales/ua/tabProfile.json';
 
 const resources = {
   adminUser,
-  tabProfile
+  tabProfile,
 } as const;
 
 export default resources;

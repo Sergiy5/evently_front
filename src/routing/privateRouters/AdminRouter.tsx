@@ -1,6 +1,7 @@
-import { useAppSelector } from '@/redux/hooks';
-import { selectUser } from '@/redux/auth/selectors';
 import { Navigate, Outlet } from 'react-router';
+
+import { selectUser } from '@/redux/auth/selectors';
+import { useAppSelector } from '@/redux/hooks';
 
 const AdminRouter = () => {
   const user = useAppSelector(selectUser);

@@ -1,10 +1,10 @@
-import { IRegisterFormInputEmail } from '@/types';
-import { useForm } from 'react-hook-form';
-import { SharedBtn, SharedInput, SharedItemStatusBar } from '../ui';
 import { useEffect, useState } from 'react';
-import { validateEmail } from '@/utils';
-import { renovationPasswordByEmail } from '@/api/renovationPasswordByEmail';
+import { useForm } from 'react-hook-form';
 
+import { renovationPasswordByEmail } from '@/api/renovationPasswordByEmail';
+import { validateEmail } from '@/utils';
+
+import { SharedBtn, SharedInput, SharedItemStatusBar } from '../ui';
 
 export const PasswordRenovationSendEmail: React.FC = () => {
   const [emailUser, setEmailUser] = useState<string>('');
@@ -17,11 +17,11 @@ export const PasswordRenovationSendEmail: React.FC = () => {
     handleSubmit,
     trigger,
     formState: { errors },
-  } = useForm<IRegisterFormInputEmail>({
+  } = useForm<RegisterFormInputEmail>({
     mode: 'onChange',
   });
 
-  const onSubmit = async (data: IRegisterFormInputEmail) => {
+  const onSubmit = async (data: RegisterFormInputEmail) => {
     if (!data) return;
 
     const userData = Object.fromEntries(Object.entries(data));
@@ -33,7 +33,6 @@ export const PasswordRenovationSendEmail: React.FC = () => {
   useEffect(() => {
     if (!emailUser) return;
     const getUser = async (email: string) => {
-      
       try {
         const { status } = await renovationPasswordByEmail(email);
 
@@ -59,7 +58,8 @@ export const PasswordRenovationSendEmail: React.FC = () => {
       <h1 className="">Відновлення паролю</h1>
       {isEmailSent ? (
         <p className="text-center text-xl w-[500px]">
-          Email на адресу <span className='underline'>{emailUser}</span> надіслано
+          Email на адресу <span className="underline">{emailUser}</span>{' '}
+          надіслано
         </p>
       ) : (
         <>

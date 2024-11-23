@@ -1,10 +1,12 @@
 import React from 'react';
-import { useGoogleLogin } from '@react-oauth/google';
-import { useAppDispatch } from '@/redux/hooks';
-import { googleLogin } from '@/redux/auth/authSlice';
 // import { jwtDecode } from 'jwt-decode'; // To decode the Google JWT token
 import { FcGoogle } from 'react-icons/fc';
 import { toast } from 'react-toastify';
+
+import { googleLogin } from '@/redux/auth/authSlice';
+import { useAppDispatch } from '@/redux/hooks';
+
+import { useGoogleLogin } from '@react-oauth/google';
 
 // interface GoogleUser {
 //   name: string;
@@ -15,7 +17,9 @@ interface GoogleLoginProps {
   onCloseModal: () => void;
 }
 
-export const GoogleLoginButton: React.FC<GoogleLoginProps> = ({ onCloseModal }) => {
+export const GoogleLoginButton: React.FC<GoogleLoginProps> = ({
+  onCloseModal,
+}) => {
   const dispatch = useAppDispatch();
 
   const login = useGoogleLogin({

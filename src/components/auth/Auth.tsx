@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch } from '@/redux/hooks';
-import { register as registerUser } from '@/redux/auth/operations';
-import { IRegisterUser } from '@/types';
 import { toast } from 'react-toastify';
+
+import { register as registerUser } from '@/redux/auth/operations';
+import { useAppDispatch } from '@/redux/hooks';
+
 import authImg from '../../../public/images/auth-img.webp';
 import { Login } from './Login';
+import { PasswordRenovationInputPassword } from './PasswordRenovationInputPassword';
+import { PasswordRenovationSendEmail } from './PasswordRenovationSendEmail';
+import { RegisterConfirmEmail } from './RegisterConfirmEmail';
 import { RegisterInputEmail } from './RegisterInputEmail';
 import { RegisterInputPassword } from './RegisterInputPassword';
-import { RegisterConfirmEmail } from './RegisterConfirmEmail';
-import { PasswordRenovationSendEmail } from './PasswordRenovationSendEmail';
-import { PasswordRenovationInputPassword } from './PasswordRenovationInputPassword';
 
 interface AuthProps {
   onCloseModal: () => void;
@@ -59,7 +60,7 @@ export const Auth: React.FC<AuthProps> = ({
     if (resetPasswordByToken) {
       setStatusAuth('password_renovation_on_input');
     }
-  }, [])
+  }, []);
   useEffect(() => {
     if (isEmailConfirmed) {
       setStatusAuth('login');
@@ -71,7 +72,7 @@ export const Auth: React.FC<AuthProps> = ({
 
     const onRegisterUser = async () => {
       try {
-        const result = await dispatch(registerUser(userData as IRegisterUser));
+        const result = await dispatch(registerUser(userData as RegisterUser));
 
         // console.log('RESULT_REGISTER_>>>', result);
 

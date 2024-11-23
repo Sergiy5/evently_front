@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+
 import { statusPassword, validateName, validatePassword } from '@/utils';
+
 import {
   PrivacyAgreement,
   SharedBtn,
@@ -8,15 +10,10 @@ import {
   SharedItemStatusBar,
   StatusBarPassword,
 } from '../ui';
-import {
-  IRegisterFormInputsPassword,
-  IRegisterUser,
-  IRequiredPassword,
-} from '@/types';
 
 interface RegisterInputPasswordProps {
   setStatusAuth: (status: 'confirm_email') => void;
-  setUserData: React.Dispatch<React.SetStateAction<IRegisterUser>>;
+  setUserData: React.Dispatch<React.SetStateAction<RegisterUser>>;
   name: string;
 }
 
@@ -28,7 +25,7 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
   const [onInputPassword, setOnInputPassword] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isBluredNameInput, setIsBluredNameInput] = useState('');
-  const [requiredPassword, setRequiredPassword] = useState<IRequiredPassword>({
+  const [requiredPassword, setRequiredPassword] = useState<RequiredPassword>({
     hasMinLength: false,
     hasUppercase: false,
     hasNumber: false,
@@ -41,11 +38,11 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
     watch,
     trigger,
     formState: { errors },
-  } = useForm<IRegisterFormInputsPassword>({
+  } = useForm<RegisterFormInputsPassword>({
     mode: 'onChange',
   });
 
-  const onSubmit = async (data: IRegisterFormInputsPassword) => {
+  const onSubmit = async (data: RegisterFormInputsPassword) => {
     const { name, password, confirmPassword } = data;
 
     setUserData(prev => ({ ...prev, password, name, confirmPassword }));
@@ -146,16 +143,15 @@ export const RegisterInputPassword: React.FC<RegisterInputPasswordProps> = ({
               }}
               errors={errors}
             />
-            {(isSubmitted ||
-              isBluredNameInput === 'confirmPassword') &&
-                errors.confirmPassword && (
-                  <SharedItemStatusBar
-                    valid={false}
-                    text="Паролі не співпадають"
-                    sizeIcon={``}
-                    className={`absolute mt-[4px]`}
-                  />
-                )}
+            {(isSubmitted || isBluredNameInput === 'confirmPassword') &&
+              errors.confirmPassword && (
+                <SharedItemStatusBar
+                  valid={false}
+                  text="Паролі не співпадають"
+                  sizeIcon={``}
+                  className={`absolute mt-[4px]`}
+                />
+              )}
           </div>
 
           <SharedBtn

@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
+
 interface PrivacyAgreementProps {
   className?: string;
 }
 
-export const PrivacyAgreement: React.FC<PrivacyAgreementProps> = ({ className }) => {
+export const PrivacyAgreement: React.FC<PrivacyAgreementProps> = ({
+  className,
+}) => {
   return (
     <p
       className={`text-center text-base font-normal h-[38px] w-[500px] opacity-50 ${className} `}

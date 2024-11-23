@@ -1,7 +1,8 @@
-import clsx from 'clsx';
-import React, { useEffect, ReactNode, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { RxCross2 } from 'react-icons/rx';
+
+import clsx from 'clsx';
 
 interface ModalProps {
   children: ReactNode;

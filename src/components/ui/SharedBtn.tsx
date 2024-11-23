@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import clsx from 'clsx';
 
 interface SharedBtnProps {
   type: 'button' | 'submit' | 'reset';
@@ -7,7 +7,7 @@ interface SharedBtnProps {
   onClick?: () => void;
   className?: string;
   secondary?: boolean;
-  primary?: boolean
+  primary?: boolean;
 }
 export const SharedBtn: React.FC<SharedBtnProps> = ({
   type,

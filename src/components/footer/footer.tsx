@@ -27,10 +27,7 @@ export const Footer: React.FC = () => {
         <Link to="/about" className="block pb-6 hover:font-bold">
           Про нас
         </Link>
-        <Link
-          to="/organizers"
-          className="block pb-6 hover:font-bold"
-        >
+        <Link to="/organizers" className="block pb-6 hover:font-bold">
           Організаторам
         </Link>
         <Link to="/office" className="block pb-6 hover:font-bold">
@@ -44,16 +41,10 @@ export const Footer: React.FC = () => {
         </Link>
       </nav>
       <nav className="pr-[190px]">
-        <Link
-          to="/OfferAgreement"
-          className="block pb-6 hover:font-bold"
-        >
+        <Link to="/OfferAgreement" className="block pb-6 hover:font-bold">
           Договір-оферта
         </Link>
-        <Link
-          to="/PrivacyPolicy"
-          className="block hover:font-bold w-[225px]"
-        >
+        <Link to="/PrivacyPolicy" className="block hover:font-bold w-[225px]">
           Політика конфеденційності
         </Link>
       </nav>

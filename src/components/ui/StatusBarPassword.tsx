@@ -1,11 +1,10 @@
-import { SharedItemStatusBar} from "."
-
+import { SharedItemStatusBar } from '.';
 
 interface RequiredPasswordInterface {
-    hasMinLength: boolean
-    hasUppercase: boolean
-    hasNumber: boolean
-    hasSpecialChar: boolean 
+  hasMinLength: boolean;
+  hasUppercase: boolean;
+  hasNumber: boolean;
+  hasSpecialChar: boolean;
 }
 interface StatusBarPasswordProps {
   requiredPassword: RequiredPasswordInterface;
@@ -15,8 +14,6 @@ export const StatusBarPassword: React.FC<StatusBarPasswordProps> = ({
   requiredPassword,
   className,
 }) => {
-
-  
   return (
     <ul className={`flex w-full text-xs justify-between ${className}`}>
       <li className={``}>
@@ -32,10 +29,7 @@ export const StatusBarPassword: React.FC<StatusBarPasswordProps> = ({
         />
       </li>
       <li className={``}>
-        <SharedItemStatusBar
-          text="Цифра"
-          valid={requiredPassword.hasNumber}
-        />
+        <SharedItemStatusBar text="Цифра" valid={requiredPassword.hasNumber} />
       </li>
       <li className={``}>
         <SharedItemStatusBar

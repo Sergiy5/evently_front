@@ -1,5 +1,5 @@
-import { RxCross2 } from 'react-icons/rx';
 import { MdDone } from 'react-icons/md';
+import { RxCross2 } from 'react-icons/rx';
 
 interface StatusBarProps {
   text: string | boolean;
@@ -11,7 +11,7 @@ export const SharedItemStatusBar: React.FC<StatusBarProps> = ({
   text,
   valid,
   sizeIcon,
-  className
+  className,
 }) => {
   return (
     <div

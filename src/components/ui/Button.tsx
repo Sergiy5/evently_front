@@ -1,5 +1,4 @@
 import React, { ButtonHTMLAttributes } from 'react';
-
 import { FcGoogle } from 'react-icons/fc';
 
 type Buttons = 'button' | 'google';

@@ -1,7 +1,8 @@
-import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
-import ProfileTab from '../tabProfile/ProfileTab';
+import { Outlet } from 'react-router-dom';
+
 import { MainLines } from '../main/MainLines';
+import ProfileTab from '../tabProfile/ProfileTab';
 
 export const ProfileTabLayout = () => {
   return (
