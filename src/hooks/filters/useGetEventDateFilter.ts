@@ -1,48 +1,43 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-import { addSelectedDates } from '@/redux/filters/filtersSlice';
-import { getSelectedDates } from '@/redux/filters/selectors';
+import {
+  addSelectedDates,
+  setIsCalendarShown,
+} from '@/redux/filters/filtersSlice';
+import {
+  getIsCalendarShown,
+  getSelectedDates,
+} from '@/redux/filters/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
-interface useGetEventDateFilterProps {
-  showCalendar: boolean;
-  setShowCalendar: Dispatch<SetStateAction<boolean>>;
-}
+interface useGetEventDateFilterProps {}
 
-export function useGetEventDateFilter({
-  showCalendar,
-  setShowCalendar,
-}: useGetEventDateFilterProps) {
-  const [selectedDates, setSelectedDates] = useState<string[]>([]);
-
+export function useGetEventDateFilter({}: useGetEventDateFilterProps) {
   const dispatch = useAppDispatch();
 
+  const isShownCalendar = useAppSelector(getIsCalendarShown);
   const selectedDatesLS = useAppSelector(getSelectedDates);
 
   const addDateFilter = (filter: string) => {
-    if (!selectedDates.includes(filter)) {
-      setSelectedDates([...selectedDates, filter]);
-      setShowCalendar(false);
+    if (!selectedDatesLS.includes(filter)) {
+      dispatch(addSelectedDates([...selectedDatesLS, filter]));
+      dispatch(setIsCalendarShown(false));
     }
-    if (selectedDates.includes(filter)) {
-      const newArray = selectedDates.filter(item => item !== filter);
-      setSelectedDates(newArray);
+    if (selectedDatesLS.includes(filter)) {
+      const newArray = selectedDatesLS.filter(item => item !== filter);
+      dispatch(addSelectedDates(newArray));
     }
   };
 
   useEffect(() => {
-    showCalendar && setSelectedDates([]);
-  }, [showCalendar]);
+    isShownCalendar && dispatch(addSelectedDates([]));
+  }, [isShownCalendar]);
 
   useEffect(() => {
     if (selectedDatesLS.length > 0) {
-      setSelectedDates(selectedDatesLS);
+      dispatch(addSelectedDates(selectedDatesLS));
     }
   }, [selectedDatesLS]);
 
-  useEffect(() => {
-    dispatch(addSelectedDates(selectedDates));
-  }, [selectedDates, dispatch]);
-
-  return { addDateFilter, selectedDatesLS, setSelectedDates };
+  return { addDateFilter, selectedDatesLS };
 }

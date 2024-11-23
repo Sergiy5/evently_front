@@ -1,50 +1,43 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { addSelectedTypes } from '@/redux/filters/filtersSlice';
 import { getSelectedTypes } from '@/redux/filters/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 export function useGetEventTypeFilter() {
-  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
-
   const dispatch = useAppDispatch();
 
   const selectedTypesLS = useAppSelector(getSelectedTypes);
-  console.log(selectedTypesLS);
 
   const addTypeFilter = (filter: string) => {
-    if (!selectedTypes.includes(filter)) {
-      setSelectedTypes([...selectedTypes, filter]);
+    if (!selectedTypesLS.includes(filter)) {
+      dispatch(addSelectedTypes([...selectedTypesLS, filter]));
     }
-    if (selectedTypes.includes(filter)) {
-      if (selectedTypes.length === 1 && filter === 'Усі події') return;
+    if (selectedTypesLS.includes(filter)) {
+      if (selectedTypesLS.length === 1 && filter === 'Усі події') return;
 
-      const newArray = selectedTypes.filter(item => item !== filter);
-      setSelectedTypes(newArray);
+      const newArray = selectedTypesLS.filter(item => item !== filter);
+      dispatch(addSelectedTypes(newArray));
     }
-    if (selectedTypes[0] === 'Усі події' && filter !== 'Усі події') {
-      setSelectedTypes([filter]);
+    if (selectedTypesLS[0] === 'Усі події' && filter !== 'Усі події') {
+      dispatch(addSelectedTypes([filter]));
     }
     if (filter === 'Усі події') {
-      setSelectedTypes(['Усі події']);
+      dispatch(addSelectedTypes(['Усі події']));
     }
   };
 
   useEffect(() => {
-    if (selectedTypes.length === 0) {
-      setSelectedTypes(['Усі події']);
-    }
-  }, [selectedTypes]);
-
-  useEffect(() => {
-    if (selectedTypesLS.length > 0 && !selectedTypesLS.includes('Усі події')) {
-      setSelectedTypes(selectedTypesLS);
+    if (selectedTypesLS.length === 0) {
+      dispatch(addSelectedTypes(['Усі події']));
     }
   }, [selectedTypesLS]);
 
   useEffect(() => {
-    dispatch(addSelectedTypes(selectedTypes));
-  }, [selectedTypes, dispatch]);
+    if (selectedTypesLS.length > 0 && !selectedTypesLS.includes('Усі події')) {
+      dispatch(addSelectedTypes(selectedTypesLS));
+    }
+  }, [selectedTypesLS]);
 
   return { selectedTypesLS, addTypeFilter };
 }

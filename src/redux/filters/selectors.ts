@@ -8,3 +8,5 @@ export const getRangeDatesArray = (state: RootState) =>
   state.filter.rangeDatesArray;
 export const getSelectedPrices = (state: RootState) =>
   state.filter.selectedPrices;
+export const getIsCalendarShown = (state: RootState) =>
+  state.filter.isCalendarShown;

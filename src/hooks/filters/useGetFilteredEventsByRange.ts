@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 import { parseDateWithTime } from '@/helpers/parseDateWithTime';
 
 interface useGetFilteredEventsByRangeProps {
-  showCalendar: boolean;
+  isShownCalendar: boolean;
   filteredEventsByType: Event[];
   rangeDatesArray: string[];
 }
 
 export function useGetFilteredEventsByRange({
-  showCalendar,
+  isShownCalendar,
   filteredEventsByType,
   rangeDatesArray,
 }: useGetFilteredEventsByRangeProps) {
@@ -22,7 +22,7 @@ export function useGetFilteredEventsByRange({
   };
 
   useEffect(() => {
-    if (showCalendar) {
+    if (isShownCalendar) {
       const filteredArray = filteredEventsByType.filter(item =>
         rangeDatesArray.includes(
           getDateOnly(parseDateWithTime({ dateString: item.date.day }))
@@ -31,11 +31,11 @@ export function useGetFilteredEventsByRange({
       setFilteredEventsByRange(filteredArray);
       return;
     }
-    if (!showCalendar) {
+    if (!isShownCalendar) {
       setFilteredEventsByRange([]);
       return;
     }
-  }, [showCalendar, filteredEventsByType]);
+  }, [isShownCalendar, filteredEventsByType]);
 
   return { filteredEventsByRange, setFilteredEventsByRange };
 }

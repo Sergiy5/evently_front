@@ -1,5 +1,8 @@
 import { BiChevronDown } from 'react-icons/bi';
 
+import { setIsCalendarShown } from '@/redux/filters/filtersSlice';
+import { useAppDispatch } from '@/redux/hooks';
+
 import {
   eventDate,
   eventPrice,
@@ -18,10 +21,9 @@ interface FilterEventsProps {
   addDateFilter: (filter: string) => void;
   selectedDatesLS: string[];
   addPriceFilter: (filter: number) => void;
-  selectedPrices: number[];
+  selectedPricesLS: number[];
   getRangeDates: (start: Date, end: Date | undefined) => void;
-  toggleCalendar: () => void;
-  showCalendar: boolean;
+  isShownCalendar: boolean;
 }
 
 export const FilterEvents: React.FC<FilterEventsProps> = ({
@@ -32,11 +34,16 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
   addDateFilter,
   selectedDatesLS,
   addPriceFilter,
-  selectedPrices,
+  selectedPricesLS,
   getRangeDates,
-  toggleCalendar,
-  showCalendar,
+  isShownCalendar,
 }) => {
+  const dispatch = useAppDispatch();
+
+  const toggleCalendar = () => {
+    dispatch(setIsCalendarShown(!isShownCalendar));
+  };
+
   return (
     <div className="pl-[60px] relative">
       <div
@@ -90,7 +97,7 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
                 </button>
                 <DateRange
                   getRangeDates={getRangeDates}
-                  showCalendar={showCalendar}
+                  isShownCalendar={isShownCalendar}
                 />
               </div>
             </div>
@@ -105,7 +112,7 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
                     name="price"
                     value={option.value}
                     onChange={() => addPriceFilter(option.value)}
-                    checked={selectedPrices.includes(option.value)}
+                    checked={selectedPricesLS.includes(option.value)}
                     label={option.label}
                   />
                 </li>

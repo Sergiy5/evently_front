@@ -9,10 +9,10 @@ const dayToday = new Date('2024-11-12T10:00:00');
 
 interface DateRangeProps {
   getRangeDates: (start: Date, end: Date | undefined) => void;
-  showCalendar: boolean;
+  isShownCalendar: boolean;
 }
 
-export function DateRange({ getRangeDates, showCalendar }: DateRangeProps) {
+export function DateRange({ getRangeDates, isShownCalendar }: DateRangeProps) {
   const [state, setState] = useState<Range[]>([
     {
       startDate: dayToday,
@@ -25,21 +25,21 @@ export function DateRange({ getRangeDates, showCalendar }: DateRangeProps) {
   const end = state[0].endDate;
 
   useEffect(() => {
-    if (showCalendar) {
+    if (isShownCalendar) {
       if (start && end) {
         getRangeDates(start, end);
       }
     }
-    if (!showCalendar) {
+    if (!isShownCalendar) {
       setState([{ startDate: dayToday, endDate: undefined, key: 'selection' }]);
       getRangeDates(dayToday, undefined);
     }
-  }, [start, end, showCalendar]);
+  }, [start, end, isShownCalendar]);
 
   return (
     <div
       style={{
-        height: showCalendar ? 'auto' : '0',
+        height: isShownCalendar ? 'auto' : '0',
       }}
     >
       <DateRangeCalendar

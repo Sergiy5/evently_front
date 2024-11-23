@@ -1,28 +1,31 @@
 import { useEffect, useState } from 'react';
 
+import { getIsCalendarShown } from '@/redux/filters/selectors';
+import { useAppSelector } from '@/redux/hooks';
+
 import { rangeDays } from '@/helpers/rangeDays';
 
 interface useGetEventDatesRangeFilterProps {
-  showCalendar: boolean;
   startRange: Date | undefined;
   endRange: Date | undefined;
 }
 
 export function useGetEventDatesRangeFilter({
-  showCalendar,
   startRange,
   endRange,
 }: useGetEventDatesRangeFilterProps) {
   const [rangeDatesArray, setRangeDatesArray] = useState<string[]>([]);
 
+  const isShownCalendar = useAppSelector(getIsCalendarShown);
+
   useEffect(() => {
-    if (showCalendar) {
+    if (isShownCalendar) {
       setRangeDatesArray(rangeDays({ startRange, endRange }));
     }
-    if (!showCalendar) {
+    if (!isShownCalendar) {
       setRangeDatesArray([]);
     }
-  }, [showCalendar, startRange, endRange]);
+  }, [isShownCalendar, startRange, endRange]);
 
   return { rangeDatesArray };
 }

@@ -5,6 +5,7 @@ const initialState = {
   selectedDates: [] as string[],
   rangeDatesArray: [] as string[],
   selectedPrices: [] as number[],
+  isCalendarShown: false,
 };
 
 const filtersSlice = createSlice({
@@ -23,6 +24,9 @@ const filtersSlice = createSlice({
     addSelectedPrices(state, action: { payload: number[] }) {
       state.selectedPrices = action.payload;
     },
+    setIsCalendarShown(state, action: { payload: boolean }) {
+      state.isCalendarShown = action.payload;
+    },
   },
 });
 
@@ -33,4 +37,5 @@ export const {
   addSelectedDates,
   addSelectedPrices,
   addSelectedTypes,
+  setIsCalendarShown,
 } = filtersSlice.actions;
