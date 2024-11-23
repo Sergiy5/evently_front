@@ -89,7 +89,7 @@ const ProfileTab = () => {
 
   const handleLogout = async () => {
     await dispatch(logOut());
-    navigate('/evently_front');
+    navigate('/');
     setConfirmLogout(false);
   };
 

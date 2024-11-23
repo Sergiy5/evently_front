@@ -1,6 +1,6 @@
 import { selectUser } from '@/redux/auth/selectors';
-
 import { useAppSelector } from '@/redux/hooks';
+
 import { useGetLikedEventsWithSkip } from '@/hooks/query/useGetLikedEventsWithSkip';
 
 import { ListEvents } from '@/components/listEvents/ListEvents';
@@ -15,7 +15,7 @@ const Favourite: React.FC = () => {
       {!likedEventsAll ? (
         <span>Не знайшов подію, яка цікавить? Чому б не створити власну?</span>
       ) : (
-        <ListEvents events={likedEventsAll} />
+        <ListEvents events={likedEventsAll} favorite />
       )}
     </>
   );
