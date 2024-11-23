@@ -7,19 +7,19 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 export function useGetEventTypeFilter() {
   const dispatch = useAppDispatch();
 
-  const selectedTypesLS = useAppSelector(getSelectedTypes);
+  const selectedTypes = useAppSelector(getSelectedTypes);
 
   const addTypeFilter = (filter: string) => {
-    if (!selectedTypesLS.includes(filter)) {
-      dispatch(addSelectedTypes([...selectedTypesLS, filter]));
+    if (!selectedTypes.includes(filter)) {
+      dispatch(addSelectedTypes([...selectedTypes, filter]));
     }
-    if (selectedTypesLS.includes(filter)) {
-      if (selectedTypesLS.length === 1 && filter === 'Усі події') return;
+    if (selectedTypes.includes(filter)) {
+      if (selectedTypes.length === 1 && filter === 'Усі події') return;
 
-      const newArray = selectedTypesLS.filter(item => item !== filter);
+      const newArray = selectedTypes.filter(item => item !== filter);
       dispatch(addSelectedTypes(newArray));
     }
-    if (selectedTypesLS[0] === 'Усі події' && filter !== 'Усі події') {
+    if (selectedTypes[0] === 'Усі події' && filter !== 'Усі події') {
       dispatch(addSelectedTypes([filter]));
     }
     if (filter === 'Усі події') {
@@ -28,16 +28,16 @@ export function useGetEventTypeFilter() {
   };
 
   useEffect(() => {
-    if (selectedTypesLS.length === 0) {
+    if (selectedTypes.length === 0) {
       dispatch(addSelectedTypes(['Усі події']));
     }
-  }, [selectedTypesLS]);
+  }, [selectedTypes, dispatch]);
 
   useEffect(() => {
-    if (selectedTypesLS.length > 0 && !selectedTypesLS.includes('Усі події')) {
-      dispatch(addSelectedTypes(selectedTypesLS));
+    if (selectedTypes.length > 0 && !selectedTypes.includes('Усі події')) {
+      dispatch(addSelectedTypes(selectedTypes));
     }
-  }, [selectedTypesLS]);
+  }, [selectedTypes, dispatch]);
 
-  return { selectedTypesLS, addTypeFilter };
+  return { addTypeFilter };
 }

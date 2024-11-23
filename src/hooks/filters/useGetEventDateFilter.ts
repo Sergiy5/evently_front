@@ -16,28 +16,28 @@ export function useGetEventDateFilter({}: useGetEventDateFilterProps) {
   const dispatch = useAppDispatch();
 
   const isShownCalendar = useAppSelector(getIsCalendarShown);
-  const selectedDatesLS = useAppSelector(getSelectedDates);
+  const selectedDates = useAppSelector(getSelectedDates);
 
   const addDateFilter = (filter: string) => {
-    if (!selectedDatesLS.includes(filter)) {
-      dispatch(addSelectedDates([...selectedDatesLS, filter]));
+    if (!selectedDates.includes(filter)) {
+      dispatch(addSelectedDates([...selectedDates, filter]));
       dispatch(setIsCalendarShown(false));
     }
-    if (selectedDatesLS.includes(filter)) {
-      const newArray = selectedDatesLS.filter(item => item !== filter);
+    if (selectedDates.includes(filter)) {
+      const newArray = selectedDates.filter(item => item !== filter);
       dispatch(addSelectedDates(newArray));
     }
   };
 
   useEffect(() => {
     isShownCalendar && dispatch(addSelectedDates([]));
-  }, [isShownCalendar]);
+  }, [isShownCalendar, dispatch]);
 
   useEffect(() => {
-    if (selectedDatesLS.length > 0) {
-      dispatch(addSelectedDates(selectedDatesLS));
+    if (selectedDates.length > 0) {
+      dispatch(addSelectedDates(selectedDates));
     }
-  }, [selectedDatesLS]);
+  }, [selectedDates, dispatch]);
 
-  return { addDateFilter, selectedDatesLS };
+  return { addDateFilter };
 }

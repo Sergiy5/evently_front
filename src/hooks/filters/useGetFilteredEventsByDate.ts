@@ -1,21 +1,26 @@
 import { useEffect, useState } from 'react';
 
+import {
+  getIsCalendarShown,
+  getSelectedDates,
+} from '@/redux/filters/selectors';
+import { useAppSelector } from '@/redux/hooks';
+
 import { parseDateWithTime } from '@/helpers/parseDateWithTime';
 import { thisWeekDays } from '@/helpers/thisWeekDays';
 import { thisWeekendDays } from '@/helpers/thisWeekendDays';
 
 interface useGetFilteredEventsByDateProps {
   filteredEventsByType: Event[];
-  selectedDatesLS: string[];
-  isShownCalendar: boolean;
 }
 
 export function useGetFilteredEventsByDate({
   filteredEventsByType,
-  selectedDatesLS,
-  isShownCalendar,
 }: useGetFilteredEventsByDateProps) {
   const [filteredEventsByDate, setFilteredEventsByDate] = useState<Event[]>([]);
+
+  const isShownCalendar = useAppSelector(getIsCalendarShown);
+  const selectedDates = useAppSelector(getSelectedDates);
 
   const dayToday = '2024-11-12T10:00:00';
 
@@ -23,24 +28,24 @@ export function useGetFilteredEventsByDate({
     return date.slice(0, 10);
   };
 
-  const todayFilter = selectedDatesLS.includes('Сьогодні');
-  const onWeekendFilter = selectedDatesLS.includes('На вихідних');
-  const thisWeekFilter = selectedDatesLS.includes('На цьому тижні');
+  const todayFilter = selectedDates.includes('Сьогодні');
+  const onWeekendFilter = selectedDates.includes('На вихідних');
+  const thisWeekFilter = selectedDates.includes('На цьому тижні');
 
   const thisWeekDaysArray = thisWeekDays({ dayToday });
   const thisWeekendDaysArray = thisWeekendDays({ dayToday });
 
   useEffect(() => {
-    if (selectedDatesLS.length === 0 && !isShownCalendar) {
+    if (selectedDates.length === 0 && !isShownCalendar) {
       setFilteredEventsByDate(filteredEventsByType);
       return;
     }
-    if (selectedDatesLS.length === 0 && isShownCalendar) {
+    if (selectedDates.length === 0 && isShownCalendar) {
       setFilteredEventsByDate([]);
       return;
     }
     // today only
-    if (selectedDatesLS.length === 1 && todayFilter) {
+    if (selectedDates.length === 1 && todayFilter) {
       const filteredArray = filteredEventsByType.filter(
         item =>
           getDateOnly(parseDateWithTime({ dateString: item.date.day })) ===
@@ -50,7 +55,7 @@ export function useGetFilteredEventsByDate({
       return;
     }
     // on weekend only
-    if (selectedDatesLS.length === 1 && onWeekendFilter) {
+    if (selectedDates.length === 1 && onWeekendFilter) {
       const filteredArray = filteredEventsByType.filter(item =>
         thisWeekendDaysArray.includes(
           getDateOnly(parseDateWithTime({ dateString: item.date.day }))
@@ -70,7 +75,7 @@ export function useGetFilteredEventsByDate({
       return;
     }
     // today and on weekend
-    if (selectedDatesLS.length === 2 && !thisWeekFilter) {
+    if (selectedDates.length === 2 && !thisWeekFilter) {
       const filteredArray = filteredEventsByType.filter(
         item =>
           getDateOnly(parseDateWithTime({ dateString: item.date.day })) ===
@@ -84,7 +89,7 @@ export function useGetFilteredEventsByDate({
     }
   }, [
     filteredEventsByType,
-    selectedDatesLS,
+    selectedDates,
     todayFilter,
     thisWeekFilter,
     onWeekendFilter,

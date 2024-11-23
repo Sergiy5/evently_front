@@ -1,20 +1,23 @@
 import { useEffect, useState } from 'react';
 
+import { getSelectedTypes } from '@/redux/filters/selectors';
+import { useAppSelector } from '@/redux/hooks';
+
 interface useGetFilteredEventsByTypeProps {
   events: Event[] | undefined;
-  selectedTypesLS: string[];
 }
 
 export function useGetFilteredEventsByType({
   events,
-  selectedTypesLS,
 }: useGetFilteredEventsByTypeProps) {
   const [filteredEventsByType, setFilteredEventsByType] = useState<Event[]>([]);
 
-  const allEventsFilter = selectedTypesLS.includes('Усі події');
+  const selectedTypes = useAppSelector(getSelectedTypes);
+
+  const allEventsFilter = selectedTypes.includes('Усі події');
   const topEventsFilterOnly =
-    selectedTypesLS.includes('Популярні') && selectedTypesLS.length === 1;
-  const topEventsFilter = selectedTypesLS.includes('Популярні');
+    selectedTypes.includes('Популярні') && selectedTypes.length === 1;
+  const topEventsFilter = selectedTypes.includes('Популярні');
 
   useEffect(() => {
     // only all events
@@ -33,7 +36,7 @@ export function useGetFilteredEventsByType({
     // other categories without top
     if (events && !topEventsFilter) {
       const filteredArray = events.filter(item =>
-        selectedTypesLS.includes(item.type)
+        selectedTypes.includes(item.type)
       );
       setFilteredEventsByType(filteredArray);
       return;
@@ -42,7 +45,7 @@ export function useGetFilteredEventsByType({
     if (events && topEventsFilter) {
       const filteredArray = events.filter(
         item =>
-          item.category === 'TOP_EVENTS' && selectedTypesLS.includes(item.type)
+          item.category === 'TOP_EVENTS' && selectedTypes.includes(item.type)
       );
       setFilteredEventsByType(filteredArray);
       return;
@@ -50,7 +53,7 @@ export function useGetFilteredEventsByType({
   }, [
     events,
     allEventsFilter,
-    selectedTypesLS,
+    selectedTypes,
     topEventsFilter,
     topEventsFilterOnly,
   ]);

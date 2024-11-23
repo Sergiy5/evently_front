@@ -1,21 +1,24 @@
 import { useEffect, useState } from 'react';
 
+import { getIsCalendarShown } from '@/redux/filters/selectors';
+import { useAppSelector } from '@/redux/hooks';
+
 import { parseDateWithTime } from '@/helpers/parseDateWithTime';
 
 interface useGetFilteredEventsByRangeProps {
-  isShownCalendar: boolean;
   filteredEventsByType: Event[];
   rangeDatesArray: string[];
 }
 
 export function useGetFilteredEventsByRange({
-  isShownCalendar,
   filteredEventsByType,
   rangeDatesArray,
 }: useGetFilteredEventsByRangeProps) {
   const [filteredEventsByRange, setFilteredEventsByRange] = useState<Event[]>(
     []
   );
+
+  const isShownCalendar = useAppSelector(getIsCalendarShown);
 
   const getDateOnly = (date: string) => {
     return date.slice(0, 10);
@@ -28,6 +31,7 @@ export function useGetFilteredEventsByRange({
           getDateOnly(parseDateWithTime({ dateString: item.date.day }))
         )
       );
+
       setFilteredEventsByRange(filteredArray);
       return;
     }
@@ -35,7 +39,7 @@ export function useGetFilteredEventsByRange({
       setFilteredEventsByRange([]);
       return;
     }
-  }, [isShownCalendar, filteredEventsByType]);
+  }, [isShownCalendar, filteredEventsByType, rangeDatesArray]);
 
   return { filteredEventsByRange, setFilteredEventsByRange };
 }

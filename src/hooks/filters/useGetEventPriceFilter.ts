@@ -1,35 +1,29 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { addSelectedPrices } from '@/redux/filters/filtersSlice';
 import { getSelectedPrices } from '@/redux/filters/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 export function useGetEventPriceFilter() {
-  const [selectedPrices, setSelectedPrices] = useState<number[]>([]);
-
   const dispatch = useAppDispatch();
 
-  const selectedPricesLS = useAppSelector(getSelectedPrices);
+  const selectedPrices = useAppSelector(getSelectedPrices);
 
   const addPriceFilter = (filter: number) => {
     if (!selectedPrices.includes(filter)) {
-      setSelectedPrices([...selectedPrices, filter]);
+      dispatch(addSelectedPrices([...selectedPrices, filter]));
     }
     if (selectedPrices.includes(filter)) {
       const newArray = selectedPrices.filter(item => item !== filter);
-      setSelectedPrices(newArray);
+      dispatch(addSelectedPrices(newArray));
     }
   };
 
   useEffect(() => {
-    if (selectedPricesLS.length > 0) {
-      setSelectedPrices(selectedPricesLS);
+    if (selectedPrices.length > 0) {
+      dispatch(addSelectedPrices(selectedPrices));
     }
-  }, [selectedPricesLS]);
-
-  useEffect(() => {
-    dispatch(addSelectedPrices(selectedPrices));
   }, [selectedPrices, dispatch]);
 
-  return { addPriceFilter, selectedPricesLS, setSelectedPrices };
+  return { addPriceFilter };
 }

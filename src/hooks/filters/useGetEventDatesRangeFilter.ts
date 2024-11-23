@@ -1,7 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-import { getIsCalendarShown } from '@/redux/filters/selectors';
-import { useAppSelector } from '@/redux/hooks';
+import { addRangeDatesArray } from '@/redux/filters/filtersSlice';
+import {
+  getIsCalendarShown,
+  getRangeDatesArray,
+} from '@/redux/filters/selectors';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 import { rangeDays } from '@/helpers/rangeDays';
 
@@ -14,16 +18,17 @@ export function useGetEventDatesRangeFilter({
   startRange,
   endRange,
 }: useGetEventDatesRangeFilterProps) {
-  const [rangeDatesArray, setRangeDatesArray] = useState<string[]>([]);
+  const dispatch = useAppDispatch();
 
+  const rangeDatesArray = useAppSelector(getRangeDatesArray);
   const isShownCalendar = useAppSelector(getIsCalendarShown);
 
   useEffect(() => {
     if (isShownCalendar) {
-      setRangeDatesArray(rangeDays({ startRange, endRange }));
+      dispatch(addRangeDatesArray(rangeDays({ startRange, endRange })));
     }
     if (!isShownCalendar) {
-      setRangeDatesArray([]);
+      dispatch(addRangeDatesArray([]));
     }
   }, [isShownCalendar, startRange, endRange]);
 
