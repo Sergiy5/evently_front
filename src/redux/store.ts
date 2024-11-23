@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import {
   FLUSH,
   PAUSE,
@@ -13,22 +13,36 @@ import storage from 'redux-persist/lib/storage';
 
 import { authReducer } from './auth/authSlice';
 import { EventsApi } from './events/operations';
+import { filterReducer } from './filters/filtersSlice';
 import { usersReducer } from './users/usersSlice';
 
-const persistConfig = {
+const authPersistConfig = {
   key: 'auth',
   storage,
   whitelist: ['token', 'theme', 'isLoggedIn', 'user'],
 };
 
-const persistedReducer = persistReducer(persistConfig, authReducer);
+const filterPersistConfig = {
+  key: 'filter',
+  storage,
+  whitelist: [
+    'selectedTypes',
+    'selectedDates',
+    'rangeDatesArray',
+    'selectedPrices',
+    'isCalendarShown',
+  ],
+};
+
+const rootReducer = combineReducers({
+  auth: persistReducer(authPersistConfig, authReducer),
+  filter: persistReducer(filterPersistConfig, filterReducer),
+  users: usersReducer,
+  [EventsApi.reducerPath]: EventsApi.reducer,
+});
 
 export const store = configureStore({
-  reducer: {
-    auth: persistedReducer,
-    users: usersReducer,
-    [EventsApi.reducerPath]: EventsApi.reducer,
-  },
+  reducer: rootReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {

@@ -43,7 +43,7 @@ export const EventCard: React.FC<EventCardProps> = ({
 
   const { id: userId } = useAppSelector(selectUser);
 
-  const { data: likedEventsAll } = useGetLikedEventsWithSkip(userId);
+  const { data: likedEventsAll } = useGetLikedEventsWithSkip();
   const [addLikedEvent] = useAddLikedEventMutation();
   const [deleteLikedEvent] = useDeleteLikedEventMutation();
 

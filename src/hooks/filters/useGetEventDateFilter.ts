@@ -1,30 +1,43 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-interface useGetEventDateFilterProps {
-  showCalendar: boolean;
-  setShowCalendar: Dispatch<SetStateAction<boolean>>;
-}
+import {
+  addSelectedDates,
+  setIsCalendarShown,
+} from '@/redux/filters/filtersSlice';
+import {
+  getIsCalendarShown,
+  getSelectedDates,
+} from '@/redux/filters/selectors';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
-export function useGetEventDateFilter({
-  showCalendar,
-  setShowCalendar,
-}: useGetEventDateFilterProps) {
-  const [selectedDates, setSelectedDates] = useState<string[]>([]);
+interface useGetEventDateFilterProps {}
+
+export function useGetEventDateFilter({}: useGetEventDateFilterProps) {
+  const dispatch = useAppDispatch();
+
+  const isShownCalendar = useAppSelector(getIsCalendarShown);
+  const selectedDatesLS = useAppSelector(getSelectedDates);
 
   const addDateFilter = (filter: string) => {
-    if (!selectedDates.includes(filter)) {
-      setSelectedDates([...selectedDates, filter]);
-      setShowCalendar(false);
+    if (!selectedDatesLS.includes(filter)) {
+      dispatch(addSelectedDates([...selectedDatesLS, filter]));
+      dispatch(setIsCalendarShown(false));
     }
-    if (selectedDates.includes(filter)) {
-      const newArray = selectedDates.filter(item => item !== filter);
-      setSelectedDates(newArray);
+    if (selectedDatesLS.includes(filter)) {
+      const newArray = selectedDatesLS.filter(item => item !== filter);
+      dispatch(addSelectedDates(newArray));
     }
   };
 
   useEffect(() => {
-    showCalendar && setSelectedDates([]);
-  }, [showCalendar]);
+    isShownCalendar && dispatch(addSelectedDates([]));
+  }, [isShownCalendar]);
 
-  return { addDateFilter, selectedDates, setSelectedDates };
+  useEffect(() => {
+    if (selectedDatesLS.length > 0) {
+      dispatch(addSelectedDates(selectedDatesLS));
+    }
+  }, [selectedDatesLS]);
+
+  return { addDateFilter, selectedDatesLS };
 }
