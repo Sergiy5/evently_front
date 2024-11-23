@@ -25,5 +25,5 @@ export function useGetEventPriceFilter() {
     }
   }, [selectedPrices, dispatch]);
 
-  return { addPriceFilter };
+  return { addPriceFilter, selectedPrices };
 }

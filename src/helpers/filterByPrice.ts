@@ -1,19 +1,16 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { getSelectedPrices } from '@/redux/filters/selectors';
-import { useAppSelector } from '@/redux/hooks';
-
 interface filterByPriceProps {
   filteredEventsByDateOrRange: () => Event[];
   setFilteredEvents: Dispatch<SetStateAction<Event[] | []>>;
+  selectedPrices: number[];
 }
 
 export const filterByPrice = ({
   filteredEventsByDateOrRange,
   setFilteredEvents,
+  selectedPrices,
 }: filterByPriceProps) => {
-  const selectedPrices = useAppSelector(getSelectedPrices);
-
   if (selectedPrices.length === 0)
     setFilteredEvents(filteredEventsByDateOrRange());
   if (selectedPrices.length === 3) return;

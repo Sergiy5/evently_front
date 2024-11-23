@@ -40,7 +40,7 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
     startRange,
     endRange,
   });
-  const { addPriceFilter } = useGetEventPriceFilter();
+  const { addPriceFilter, selectedPrices } = useGetEventPriceFilter();
 
   const { filteredEventsByType } = useGetFilteredEventsByType({
     events,
@@ -67,6 +67,7 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
 
   const filterEvents = () => {
     filterByPrice({
+      selectedPrices,
       filteredEventsByDateOrRange,
       setFilteredEvents,
     });
