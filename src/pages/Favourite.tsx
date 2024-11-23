@@ -6,9 +6,7 @@ import { useGetLikedEventsWithSkip } from '@/hooks/query/useGetLikedEventsWithSk
 import { ListEvents } from '@/components/listEvents/ListEvents';
 
 const Favourite: React.FC = () => {
-  const { id: userId } = useAppSelector(selectUser);
-
-  const { data: likedEventsAll } = useGetLikedEventsWithSkip(userId);
+  const { data: likedEventsAll } = useGetLikedEventsWithSkip();
 
   return (
     <>

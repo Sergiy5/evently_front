@@ -5,9 +5,9 @@ import { CgProfile } from 'react-icons/cg';
 import { RxCross2 } from 'react-icons/rx';
 import { useLocation } from 'react-router';
 
-import { selectIsLoggedIn, selectUser } from '@/redux/auth/selectors';
-
+import { selectIsLoggedIn } from '@/redux/auth/selectors';
 import { useAppSelector } from '@/redux/hooks';
+
 import { useGetLikedEventsWithSkip } from '@/hooks/query/useGetLikedEventsWithSkip';
 
 import { Auth } from '../auth';
@@ -29,10 +29,9 @@ export const UserNavigation: React.FC<UserNavigationProps> = ({
   const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
   const [token, setToken] = useState<string | null>(null);
 
-  const { id: userId } = useAppSelector(selectUser);
   const IsLoggedIn = useAppSelector(selectIsLoggedIn);
 
-  const { data: likedEventsAll } = useGetLikedEventsWithSkip(userId);
+  const { data: likedEventsAll } = useGetLikedEventsWithSkip();
 
   const location = useLocation();
 

@@ -1,35 +1,35 @@
 import { Dispatch, SetStateAction } from 'react';
 
 interface filterByPriceProps {
-  selectedPrices: number[];
+  selectedPricesLS: number[];
   filteredEventsByDateOrRange: () => Event[];
   setFilteredEvents: Dispatch<SetStateAction<Event[] | []>>;
 }
 
 export const filterByPrice = ({
-  selectedPrices,
+  selectedPricesLS,
   filteredEventsByDateOrRange,
   setFilteredEvents,
 }: filterByPriceProps) => {
-  if (selectedPrices.length === 0)
+  if (selectedPricesLS.length === 0)
     setFilteredEvents(filteredEventsByDateOrRange());
-  if (selectedPrices.length === 3) return;
+  if (selectedPricesLS.length === 3) return;
   // 0
-  if (selectedPrices.length === 1 && selectedPrices.includes(0)) {
+  if (selectedPricesLS.length === 1 && selectedPricesLS.includes(0)) {
     const newArray = filteredEventsByDateOrRange().filter(
       item => item.price === 0
     );
     setFilteredEvents(newArray);
   }
   // 1-500
-  if (selectedPrices.length === 1 && selectedPrices.includes(500)) {
+  if (selectedPricesLS.length === 1 && selectedPricesLS.includes(500)) {
     const newArray = filteredEventsByDateOrRange().filter(
       item => item.price > 0 && item.price <= 500
     );
     setFilteredEvents(newArray);
   }
   // 501-1000
-  if (selectedPrices.length === 1 && selectedPrices.includes(1000)) {
+  if (selectedPricesLS.length === 1 && selectedPricesLS.includes(1000)) {
     const newArray = filteredEventsByDateOrRange().filter(
       item => item.price > 500 && item.price <= 1000
     );
@@ -37,9 +37,9 @@ export const filterByPrice = ({
   }
   // 0-500
   if (
-    selectedPrices.length === 2 &&
-    selectedPrices.includes(0) &&
-    selectedPrices.includes(500)
+    selectedPricesLS.length === 2 &&
+    selectedPricesLS.includes(0) &&
+    selectedPricesLS.includes(500)
   ) {
     const newArray = filteredEventsByDateOrRange().filter(
       item => item.price >= 0 && item.price <= 500
@@ -48,9 +48,9 @@ export const filterByPrice = ({
   }
   // 1-1000
   if (
-    selectedPrices.length === 2 &&
-    selectedPrices.includes(500) &&
-    selectedPrices.includes(1000)
+    selectedPricesLS.length === 2 &&
+    selectedPricesLS.includes(500) &&
+    selectedPricesLS.includes(1000)
   ) {
     const newArray = filteredEventsByDateOrRange().filter(
       item => item.price > 0 && item.price <= 1000
@@ -59,9 +59,9 @@ export const filterByPrice = ({
   }
   // 0 && 501-1000
   if (
-    selectedPrices.length === 2 &&
-    selectedPrices.includes(0) &&
-    selectedPrices.includes(1000)
+    selectedPricesLS.length === 2 &&
+    selectedPricesLS.includes(0) &&
+    selectedPricesLS.includes(1000)
   ) {
     const newArray = filteredEventsByDateOrRange().filter(
       item => item.price === 0 || (item.price > 500 && item.price <= 1000)
