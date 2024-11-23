@@ -25,14 +25,17 @@ export function useGetFilteredEventsByRange({
   };
 
   useEffect(() => {
-    if (isShownCalendar) {
+    if (isShownCalendar && rangeDatesArray.length !== 0) {
       const filteredArray = filteredEventsByType.filter(item =>
         rangeDatesArray.includes(
           getDateOnly(parseDateWithTime({ dateString: item.date.day }))
         )
       );
-
       setFilteredEventsByRange(filteredArray);
+      return;
+    }
+    if (isShownCalendar && rangeDatesArray.length === 0) {
+      setFilteredEventsByRange(filteredEventsByType);
       return;
     }
     if (!isShownCalendar) {
