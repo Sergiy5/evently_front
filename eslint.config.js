@@ -17,6 +17,8 @@ export default [
         module: 'readonly',
         __dirname: 'readonly',
         React: true,
+        User: true,
+        eventType: true,
       },
       parser: typescriptEslintParser,
       sourceType: 'module',
