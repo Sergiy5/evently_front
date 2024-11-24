@@ -1,23 +1,13 @@
 import js from '@eslint/js';
-import globals from 'globals';
 import typescriptEslintPlugin from '@typescript-eslint/eslint-plugin';
 import typescriptEslintParser from '@typescript-eslint/parser';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import globals from 'globals';
 
 export default [
   {
-    'no-restricted-imports': 'off',
-    '@typescript-eslint/no-restricted-imports': [
-      'warn',
-      {
-        name: 'react-redux',
-        importNames: ['useSelector', 'useDispatch'],
-        message:
-          'Use typed hooks `useAppDispatch` and `useAppSelector` instead.',
-      },
-    ],
     files: ['**/*.{ts,tsx}', 'tailwind.config.js'],
     ignores: ['dist', 'build'],
     languageOptions: {
@@ -30,10 +20,10 @@ export default [
       },
       parser: typescriptEslintParser,
       sourceType: 'module',
-    },
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
+      parserOptions: {
+        project: ['./tsconfig.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     plugins: {
       react: react,
@@ -50,19 +40,22 @@ export default [
       ...typescriptEslintPlugin.configs.recommended.rules,
       ...react.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
+      'no-restricted-imports': 'off',
+      '@typescript-eslint/no-restricted-imports': [
+        'warn',
+        {
+          name: 'react-redux',
+          importNames: ['useSelector', 'useDispatch'],
+          message:
+            'Use typed hooks `useAppDispatch` and `useAppSelector` instead.',
+        },
+      ],
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
       ],
-      'padding-line-between-statements': [
-        'error',
-        { blankLine: 'always', prev: '*', next: 'return' },
-      ],
-      'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
-      'no-undef': 'off',
     },
   },
   js.configs.recommended,
 ];
-
