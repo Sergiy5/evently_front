@@ -1,10 +1,13 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    
     "composite": true,
     "target": "ES2022",
-    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "skipLibCheck": true,
@@ -22,11 +25,22 @@
     "rootDir": "./", // The root directory of your source files
     "baseUrl": ".", // Base URL for module resolution
     "paths": {
-      "@/*": ["./src/*"],
-      "pages/*": ["src/pages/*"],
-      "components/*": ["src/components/*"],
-      "types/*": ["src/@types/*", "redux-persist"],
-      "public/*": ["public/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "pages/*": [
+        "src/pages/*"
+      ],
+      "components/*": [
+        "src/components/*"
+      ],
+      "types/*": [
+        "src/@types/*",
+        "redux-persist"
+      ],
+      "public/*": [
+        "public/*"
+      ]
     },
     "sourceMap": true, // Emit source maps for debugging
     "noUnusedLocals": true,
@@ -34,9 +48,27 @@
     "noFallthroughCasesInSwitch": true
   },
   "rules": {
-    "@typescript-eslint/ban-ts-comment": ["off", { "ts-ignore": true }] // Was add on fix image import error
+    "@typescript-eslint/ban-ts-comment": [
+      "off",
+      {
+        "ts-ignore": true
+      }
+    ] // Was add on fix image import error
   },
   "skipLibCheck": true, // Was add on fix image import error
-  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts", "vite-env.d.ts", "custom.d.ts", "src/**/*.json"],
-  "exclude": ["node_modules", "build", "dist", "public"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "vite.config.ts",
+    "vite-env.d.ts",
+    "custom.d.ts",
+    "src/@types/**/*.d.ts",
+    "src/**/*.json"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "public"
+  ]
 }
