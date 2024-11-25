@@ -31,6 +31,8 @@ const filterPersistConfig = {
     'rangeDatesArray',
     'selectedPrices',
     'isCalendarShown',
+    'startDate',
+    'endDate',
   ],
 };
 

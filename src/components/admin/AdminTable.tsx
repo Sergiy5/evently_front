@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { BsFilter } from 'react-icons/bs';
 
+import { useAppDispatch } from '@/redux/hooks';
 import { fetchUsers } from '@/redux/users/operations';
 
-import { useAppDispatch } from '@/redux/hooks';
 import sortUser from '@/utils/sortUser';
 import { nanoid } from '@reduxjs/toolkit';
 import axios from 'axios';
@@ -48,7 +48,7 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
 
     const response = await axios.patch(
       `admin/users/${selectedUser?.status === 'ACTIVE' ? 'ban/' : 'unban/'}` +
-      url
+        url
     );
     if (response.status === 200) {
       setOpenPopUp(undefined);

@@ -1,12 +1,13 @@
-import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import { LOCALS } from './constants';
 
-import tabProfileUA from './locales/ua/tabProfile.json';
+import i18n from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+
+import { LOCALS } from './constants';
+import adminUserEN from './locales/en/adminUser.json';
 import tabProfileEN from './locales/en/tabProfile.json';
 import adminUserUA from './locales/ua/adminUser.json';
-import adminUserEN from './locales/en/adminUser.json';
+import tabProfileUA from './locales/ua/tabProfile.json';
 
 const resources = {
   [LOCALS.UA]: {

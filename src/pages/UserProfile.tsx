@@ -5,14 +5,13 @@ import { TfiLock } from 'react-icons/tfi';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import { selectUsers } from '@/redux/users/selectors';
-
 import { useAppSelector } from '@/redux/hooks';
+import { selectUsers } from '@/redux/users/selectors';
 
 const UserProfile = () => {
   const params = useParams();
-  const users = useAppSelector(selectUsers) as User[];
-  const userInfo = users.find((user: User) => user.id === params.userId);
+  const users = useAppSelector(selectUsers);
+  const userInfo = users.find(user => user.id === params.userId);
 
   return (
     <div>

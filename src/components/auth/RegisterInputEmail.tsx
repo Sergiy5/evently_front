@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { getUserByEmail } from '@/api/getUserByEmail';
-import { IRegisterFormInputEmail, IRegisterUser } from '@/types';
 import { validateEmail } from '@/utils';
 
 import {
@@ -14,7 +13,7 @@ import {
 import { SharedBtn } from '../ui/SharedBtn';
 
 interface RegisterInputEmailProps {
-  setUserData: React.Dispatch<React.SetStateAction<IRegisterUser>>;
+  setUserData: React.Dispatch<React.SetStateAction<RegisterUser>>;
   setStatusAuth: (status: 'register_email' | 'register_password') => void;
   onCloseModal: () => void;
   email: string;
@@ -30,7 +29,7 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IRegisterFormInputEmail>({
+  } = useForm<RegisterFormInputEmail>({
     mode: 'onChange',
   });
 
@@ -39,7 +38,7 @@ export const RegisterInputEmail: React.FC<RegisterInputEmailProps> = ({
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const onSubmit = async (data: IRegisterFormInputEmail) => {
+  const onSubmit = async (data: RegisterFormInputEmail) => {
     if (!data) return;
 
     const userData = Object.fromEntries(Object.entries(data));

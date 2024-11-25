@@ -1,4 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
+
+import { sendNewPassword } from '@/api/sendNewPassword';
+import { statusPassword, validatePassword } from '@/utils';
+
 import {
   PrivacyAgreement,
   SharedBtn,
@@ -6,12 +13,6 @@ import {
   SharedItemStatusBar,
   StatusBarPassword,
 } from '../ui';
-import { useForm } from 'react-hook-form';
-import { IRegisterFormInputsPassword, IRequiredPassword } from '@/types';
-import { statusPassword, validatePassword } from '@/utils';
-import { sendNewPassword } from '@/api/sendNewPassword';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router';
 
 interface PasswordRenovationInputPasswordProps {
   token: string | null;
@@ -23,7 +24,7 @@ export const PasswordRenovationInputPassword: React.FC<
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isBluredNameInput, setIsBluredNameInput] = useState('');
   const [onInputPassword, setOnInputPassword] = useState('');
-  const [requiredPassword, setRequiredPassword] = useState<IRequiredPassword>({
+  const [requiredPassword, setRequiredPassword] = useState<RequiredPassword>({
     hasMinLength: false,
     hasUppercase: false,
     hasNumber: false,
@@ -38,7 +39,7 @@ export const PasswordRenovationInputPassword: React.FC<
     watch,
     trigger,
     formState: { errors },
-  } = useForm<IRegisterFormInputsPassword>({
+  } = useForm<RegisterFormInputsPassword>({
     mode: 'onChange',
   });
 
@@ -46,7 +47,7 @@ export const PasswordRenovationInputPassword: React.FC<
     navigate('/', { replace: true });
   }, []);
 
-  const onSubmit = async (data: IRegisterFormInputsPassword) => {
+  const onSubmit = async (data: RegisterFormInputsPassword) => {
     const { password } = data;
 
     if (!token) return;

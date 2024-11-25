@@ -1,9 +1,8 @@
 import { MdEmail } from 'react-icons/md';
+import { PiPhoneCall } from 'react-icons/pi';
 
 import { selectUser } from '@/redux/auth/selectors';
-
 import { useAppSelector } from '@/redux/hooks';
-import { PiPhoneCall } from 'react-icons/pi';
 
 const Information = () => {
   const { name, role, email, phone } = useAppSelector(selectUser);

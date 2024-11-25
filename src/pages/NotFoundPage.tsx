@@ -6,8 +6,13 @@ const NotFound: React.FC = () => {
   return (
     <div className={`flex flex-col items-center justify-center gap-8 `}>
       <h1>404 Page Not Found</h1>
-          <p>The page you're looking for doesn't exist.</p>
-          <Link to="/" className="bg-secondary text-sm p-2 rounded-lg hover:bg-yellow-500">Go Home</Link>
+      <p>The page you're looking for doesn't exist.</p>
+      <Link
+        to="/"
+        className="bg-secondary text-sm p-2 rounded-lg hover:bg-yellow-500"
+      >
+        Go Home
+      </Link>
     </div>
   );
 };

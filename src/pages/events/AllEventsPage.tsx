@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react';
 
 import { useLazyGetAllEventsQuery } from '@/redux/events/operations';
 import {
-  addRangeDatesArray,
   addSelectedDates,
+  addSelectedPrices,
   setIsCalendarShown,
 } from '@/redux/filters/filtersSlice';
-import { getIsCalendarShown } from '@/redux/filters/selectors';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useAppDispatch } from '@/redux/hooks';
 
 import { filterByPrice } from '@/helpers/filterByPrice';
 import { useGetEventDateFilter } from '@/hooks/filters/useGetEventDateFilter';
@@ -28,38 +27,25 @@ interface AllEventsPageProps {}
 const AllEventsPage: React.FC<AllEventsPageProps> = () => {
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [firstRender, setFirstRender] = useState(true);
-  const [startRange, setStartRange] = useState<Date | undefined>(undefined);
-  const [endRange, setEndRange] = useState<Date | undefined>(undefined);
 
   const dispatch = useAppDispatch();
-  console.log(startRange, endRange);
-
-  const isShownCalendar = useAppSelector(getIsCalendarShown);
 
   const [trigger, { data: events, isLoading }] = useLazyGetAllEventsQuery();
 
-  const { addTypeFilter, selectedTypesLS } = useGetEventTypeFilter();
-  const { addDateFilter, selectedDatesLS } = useGetEventDateFilter({});
-  const { rangeDatesArray } = useGetEventDatesRangeFilter({
-    startRange,
-    endRange,
-  });
-  const { addPriceFilter, selectedPricesLS, setSelectedPrices } =
-    useGetEventPriceFilter();
+  const { addTypeFilter } = useGetEventTypeFilter({});
+  const { addDateFilter } = useGetEventDateFilter({});
+  const { rangeDatesArray } = useGetEventDatesRangeFilter({});
+  const { addPriceFilter, selectedPrices } = useGetEventPriceFilter({});
 
   const { filteredEventsByType } = useGetFilteredEventsByType({
     events,
-    selectedTypesLS,
   });
   const { filteredEventsByDate } = useGetFilteredEventsByDate({
     filteredEventsByType,
-    selectedDatesLS,
-    isShownCalendar,
   });
   const { filteredEventsByRange, setFilteredEventsByRange } =
     useGetFilteredEventsByRange({
       filteredEventsByType,
-      isShownCalendar,
       rangeDatesArray,
     });
 
@@ -76,7 +62,7 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
 
   const filterEvents = () => {
     filterByPrice({
-      selectedPricesLS,
+      selectedPrices,
       filteredEventsByDateOrRange,
       setFilteredEvents,
     });
@@ -86,18 +72,13 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
     addTypeFilter('Усі події');
     dispatch(addSelectedDates([]));
     setFilteredEventsByRange([]);
-    setSelectedPrices([]);
+    dispatch(addSelectedPrices([]));
     setFirstRender(true);
     dispatch(setIsCalendarShown(false));
   };
 
-  const getRangeDates = (start: Date, end: Date | undefined) => {
-    setStartRange(start);
-    setEndRange(end);
-  };
-
   useEffect(() => {
-    if (events && events.length > 0 && firstRender) {
+    if (events && firstRender) {
       setFilteredEvents(events);
       setFirstRender(false);
     }
@@ -111,24 +92,15 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
     trigger();
   }, [trigger]);
 
-  useEffect(() => {
-    dispatch(addRangeDatesArray(rangeDatesArray));
-  }, [rangeDatesArray, dispatch]);
-
   return (
     <Main className="flex flex-col gap-16 mt-4">
       <div className="flex gap-[24px]">
         <FilterEvents
           filterEvents={filterEvents}
           addTypeFilter={addTypeFilter}
-          selectedTypesLS={selectedTypesLS}
           resetFilters={resetFilters}
           addDateFilter={addDateFilter}
-          selectedDatesLS={selectedDatesLS}
           addPriceFilter={addPriceFilter}
-          selectedPricesLS={selectedPricesLS}
-          getRangeDates={getRangeDates}
-          isShownCalendar={isShownCalendar}
         />
         {isLoading && <div>loading</div>}
         {filteredEvents.length > 0 && !isLoading ? (

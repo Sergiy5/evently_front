@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import clsx from 'clsx';
 import { UseFormReturn } from 'react-hook-form';
-import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+
+import clsx from 'clsx';
 
 interface SharedInputProps {
   label?: string;
@@ -41,7 +42,7 @@ export const SharedInput: React.FC<SharedInputProps> = ({
   const [hasValue, setHasValue] = useState(!!defaultValue);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isBlured, setIsBlured] = useState(false);
-  
+
   const handleFocus = () => {
     setIsFocused(prev => !prev);
   };

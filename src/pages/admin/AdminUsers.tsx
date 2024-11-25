@@ -3,10 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { BiChevronDown } from 'react-icons/bi';
 import { MdOutlineRefresh } from 'react-icons/md';
 
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { fetchUsers } from '@/redux/users/operations';
 import { selectUsers } from '@/redux/users/selectors';
-
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 import AdminTable from '@/components/admin/AdminTable';
 

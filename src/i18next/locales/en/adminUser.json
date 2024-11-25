@@ -1,4 +1,11 @@
 {
   "refresh": "Refresh",
-  "colTable": ["Name", "Phone", "Email", "Date of registration", "Role", "Status"]
+  "colTable": [
+    "Name",
+    "Phone",
+    "Email",
+    "Date of registration",
+    "Role",
+    "Status"
+  ]
 }

@@ -6,7 +6,6 @@ interface RegisterConirmEmailProps {
 export const RegisterConfirmEmail: React.FC<RegisterConirmEmailProps> = ({
   setStatusAuth,
 }) => {
-  
   return (
     <div className={`flex flex-col h-full justify-between`}>
       <div className="flex flex-col justify-start gap-[32px] w-[500px]">
@@ -16,7 +15,6 @@ export const RegisterConfirmEmail: React.FC<RegisterConirmEmailProps> = ({
           за посиланням у листі.
         </p>
         <div className="flex justify-between mt-8">
-          
           <SharedBtn type="button" primary className="w-60">
             Відправити повторно
           </SharedBtn>
@@ -29,7 +27,6 @@ export const RegisterConfirmEmail: React.FC<RegisterConirmEmailProps> = ({
           >
             Змінити email
           </SharedBtn>
-
         </div>
       </div>
       <PrivacyAgreement />

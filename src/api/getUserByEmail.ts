@@ -1,8 +1,6 @@
-
 import axios from 'axios';
 
 export const userServices = axios.create({
-  
   baseURL: 'https://rendereventapp.onrender.com/api/v1/',
   headers: {
     'Content-Type': 'application/json',
@@ -14,10 +12,9 @@ export const userServices = axios.create({
 export const getUserByEmail = async (email: string) => {
   try {
     const response = await userServices.get(`authorize/exist/${email}`);
-// console.log("RESPONSE_USER_BY_EMAIL_>>>>",response)
-return response.data;
-    
+    // console.log("RESPONSE_USER_BY_EMAIL_>>>>",response)
+    return response.data;
   } catch (error) {
-    console.log("Error get user by email", error )
+    console.log('Error get user by email', error);
   }
-}
+};
