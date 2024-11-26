@@ -75,7 +75,6 @@ export const EventCard: React.FC<EventCardProps> = ({
         try {
           if (userId) {
             await deleteLikedEvent({ userId, eventId });
-          } else {
           }
         } catch (error) {
           console.log(error);
@@ -90,14 +89,14 @@ export const EventCard: React.FC<EventCardProps> = ({
     if (likedEventsAll) {
       setIsLiked(likedEventsAll.some(item => item.id === event.id));
     }
-  }, [likedEventsAll]);
+  }, [event.id, likedEventsAll]);
 
   return (
     <div
       id={`${eventId}`}
       className={`group relative flex overflow-hidden items-start rounded-[20px] shadow-eventCardShadow ${
         top ? 'mb-[10px]' : ''
-      } ${favorite ? 'w-[284px] h-[480px]' : 'w-[312px] h-[514px]'} `}
+      } ${favorite ? 'w-[312px] h-[480px]' : 'w-[312px] h-[514px]'} `}
     >
       <img src={photoUrl} alt={title} width={'100%'} />
       <div className={`flex absolute justify-between p-6 w-full`}>

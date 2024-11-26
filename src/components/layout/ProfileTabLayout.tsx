@@ -6,11 +6,11 @@ import ProfileTab from '../tabProfile/ProfileTab';
 
 export const ProfileTabLayout = () => {
   return (
-    <main className="flex gap-[25px] relative p-[72px_79px] ">
+    <main className="flex gap-[25px] relative p-[72px_55px] ">
       <MainLines />
       <ProfileTab />
 
-      <section className="rounded-[20px] bg-lightPurple py-4 px-8 w-[966px] h-auto">
+      <section className="rounded-[20px] bg-lightPurple py-4 px-[16px] w-full h-auto">
         <Suspense fallback={<div>Loading...</div>}>
           <Outlet />
         </Suspense>
