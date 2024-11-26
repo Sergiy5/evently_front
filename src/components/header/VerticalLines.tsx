@@ -1,6 +1,6 @@
 import { nanoid } from '@reduxjs/toolkit';
 
-export const MainLines: React.FC = () => {
+export const VerticalLines: React.FC = () => {
   return (
     <>
       <div

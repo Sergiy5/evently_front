@@ -26,7 +26,7 @@ const Home: React.FC = () => {
   }, [trigger]);
 
   return (
-    <Main className="flex flex-col gap-16">
+    <Main className="flex flex-col gap-16 z-10">
       <Hero />
       {isLoading ? (
         <div>loading</div>
