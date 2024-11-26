@@ -28,10 +28,10 @@ export const filterByPrice = ({
     );
     setFilteredEvents(newArray);
   }
-  // 501-1000
+  // 500-1000
   if (selectedPrices.length === 1 && selectedPrices.includes(1000)) {
     const newArray = filteredEventsByDateOrRange().filter(
-      item => item.price > 500 && item.price <= 1000
+      item => item.price >= 500 && item.price <= 1000
     );
     setFilteredEvents(newArray);
   }

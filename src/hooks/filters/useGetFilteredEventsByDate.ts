@@ -89,11 +89,13 @@ export function useGetFilteredEventsByDate({
     }
   }, [
     filteredEventsByType,
-    selectedDates,
-    todayFilter,
-    thisWeekFilter,
-    onWeekendFilter,
     isShownCalendar,
+    onWeekendFilter,
+    selectedDates.length,
+    thisWeekDaysArray,
+    thisWeekFilter,
+    thisWeekendDaysArray,
+    todayFilter,
   ]);
 
   return { filteredEventsByDate };

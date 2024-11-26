@@ -10,9 +10,7 @@ import {
 } from '@/redux/filters/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
-interface useGetEventDateFilterProps {}
-
-export function useGetEventDateFilter({}: useGetEventDateFilterProps) {
+export function useGetEventDateFilter() {
   const dispatch = useAppDispatch();
 
   const isShownCalendar = useAppSelector(getIsCalendarShown);
@@ -30,6 +28,7 @@ export function useGetEventDateFilter({}: useGetEventDateFilterProps) {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     isShownCalendar && dispatch(addSelectedDates([]));
   }, [isShownCalendar, dispatch]);
 
@@ -37,7 +36,7 @@ export function useGetEventDateFilter({}: useGetEventDateFilterProps) {
     if (selectedDates.length > 0) {
       dispatch(addSelectedDates(selectedDates));
     }
-  }, [selectedDates, dispatch]);
+  }, [dispatch, selectedDates]);
 
   return { addDateFilter };
 }

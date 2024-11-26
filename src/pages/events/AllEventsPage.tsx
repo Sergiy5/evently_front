@@ -22,9 +22,7 @@ import { FilterEvents } from '@/components/filters/FilterEvents';
 import { Footer } from '@/components/footer/footer';
 import { Main } from '@/components/main/Main';
 
-interface AllEventsPageProps {}
-
-const AllEventsPage: React.FC<AllEventsPageProps> = () => {
+const AllEventsPage: React.FC = () => {
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [firstRender, setFirstRender] = useState(true);
 
@@ -32,10 +30,10 @@ const AllEventsPage: React.FC<AllEventsPageProps> = () => {
 
   const [trigger, { data: events, isLoading }] = useLazyGetAllEventsQuery();
 
-  const { addTypeFilter } = useGetEventTypeFilter({});
-  const { addDateFilter } = useGetEventDateFilter({});
-  const { rangeDatesArray } = useGetEventDatesRangeFilter({});
-  const { addPriceFilter, selectedPrices } = useGetEventPriceFilter({});
+  const { addTypeFilter } = useGetEventTypeFilter();
+  const { addDateFilter } = useGetEventDateFilter();
+  const { rangeDatesArray } = useGetEventDatesRangeFilter();
+  const { addPriceFilter, selectedPrices } = useGetEventPriceFilter();
 
   const { filteredEventsByType } = useGetFilteredEventsByType({
     events,

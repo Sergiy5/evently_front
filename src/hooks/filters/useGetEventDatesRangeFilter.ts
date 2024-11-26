@@ -11,9 +11,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 import { rangeDays } from '@/helpers/rangeDays';
 
-interface useGetEventDatesRangeFilterProps {}
-
-export function useGetEventDatesRangeFilter({}: useGetEventDatesRangeFilterProps) {
+export function useGetEventDatesRangeFilter() {
   const dispatch = useAppDispatch();
 
   const rangeDatesArray = useAppSelector(getRangeDatesArray);
@@ -28,7 +26,7 @@ export function useGetEventDatesRangeFilter({}: useGetEventDatesRangeFilterProps
     if (!isShownCalendar) {
       dispatch(addRangeDatesArray([]));
     }
-  }, [isShownCalendar, startRange, endRange]);
+  }, [isShownCalendar, startRange, endRange, dispatch]);
 
   return { rangeDatesArray };
 }
