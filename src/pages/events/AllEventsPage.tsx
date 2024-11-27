@@ -103,7 +103,7 @@ const AllEventsPage: React.FC = () => {
   }, [trigger]);
 
   return (
-    <Main className="flex flex-col gap-16 mt-4">
+    <Main className="flex flex-col gap-16">
       <div className="flex gap-[24px]">
         <FilterEvents
           filterEvents={filterEvents}

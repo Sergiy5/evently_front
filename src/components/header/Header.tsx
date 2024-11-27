@@ -28,7 +28,7 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <div className="pb-10 w-[1440px] font-lato bg-background fixed top-0 z-20">
+    <div className="pb-[34px] w-[1440px] font-lato bg-background fixed top-0 z-20">
       <Container className="relative">
         <HeaderLines />
         <header className="p-4 bg-gray-100">
