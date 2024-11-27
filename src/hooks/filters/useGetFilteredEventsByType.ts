@@ -51,8 +51,8 @@ export function useGetFilteredEventsByType({
       return;
     }
   }, [
-    events,
     allEventsFilter,
+    events,
     selectedTypes,
     topEventsFilter,
     topEventsFilterOnly,

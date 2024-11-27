@@ -4,9 +4,7 @@ import { addSelectedTypes } from '@/redux/filters/filtersSlice';
 import { getSelectedTypes } from '@/redux/filters/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
-interface useGetEventTypeFilterProps {}
-
-export function useGetEventTypeFilter({}: useGetEventTypeFilterProps) {
+export function useGetEventTypeFilter() {
   const dispatch = useAppDispatch();
 
   const selectedTypes = useAppSelector(getSelectedTypes);

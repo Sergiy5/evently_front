@@ -22,7 +22,7 @@ const App: React.FC = () => {
     if (!isLoggedIn || !token) {
       dispatch(EventsApi.util.resetApiState());
     }
-  }, [isLoggedIn, dispatch]);
+  }, [dispatch, isLoggedIn, token]);
 
   return <RouterProvider router={router} />;
 };

@@ -10,10 +10,9 @@ import MainLogo from '../ui/Logo';
 import { HeaderLines } from './HeaderLines';
 import { Navigation } from './Navigation';
 import { UserNavigation } from './UserNavigation';
+import { VerticalLines } from './VerticalLines';
 
-interface HeaderProps {}
-
-export const Header: React.FC<HeaderProps> = () => {
+export const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
@@ -29,7 +28,7 @@ export const Header: React.FC<HeaderProps> = () => {
   };
 
   return (
-    <div className="pb-10 w-[1440px] font-lato bg-background fixed top-0 z-10">
+    <div className="pb-[34px] w-[1440px] font-lato bg-background fixed top-0 z-20">
       <Container className="relative">
         <HeaderLines />
         <header className="p-4 bg-gray-100">
@@ -56,6 +55,7 @@ export const Header: React.FC<HeaderProps> = () => {
           </div>
         </header>
       </Container>
+      <VerticalLines />
     </div>
   );
 };

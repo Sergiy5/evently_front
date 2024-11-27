@@ -17,6 +17,7 @@ export function thisWeekendDays({ dayToday }: thisWeekendDaysProps) {
   let currentDate = '' as unknown as dayjs.Dayjs;
 
   let currentDate1 = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     daysToAdd() > 1
       ? (currentDate = dayjs(dayToday).day(6))
       : (currentDate = dayjs(dayToday).day(0));

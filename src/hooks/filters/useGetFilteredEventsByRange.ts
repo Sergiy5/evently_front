@@ -42,7 +42,7 @@ export function useGetFilteredEventsByRange({
       setFilteredEventsByRange([]);
       return;
     }
-  }, [isShownCalendar, filteredEventsByType, rangeDatesArray]);
+  }, [filteredEventsByType, isShownCalendar, rangeDatesArray]);
 
   return { filteredEventsByRange, setFilteredEventsByRange };
 }

@@ -33,6 +33,8 @@ const filterPersistConfig = {
     'isCalendarShown',
     'startDate',
     'endDate',
+    'filteredEventsId',
+    'firstSearch',
   ],
 };
 
