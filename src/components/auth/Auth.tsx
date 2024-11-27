@@ -5,6 +5,7 @@ import { register as registerUser } from '@/redux/auth/operations';
 import { useAppDispatch } from '@/redux/hooks';
 
 import authImg from '../../../public/images/auth-img.webp';
+import BackButton from '../ui/BackButton';
 import { Login } from './Login';
 import { PasswordRenovationInputPassword } from './PasswordRenovationInputPassword';
 import { PasswordRenovationSendEmail } from './PasswordRenovationSendEmail';
@@ -99,12 +100,15 @@ export const Auth: React.FC<AuthProps> = ({
           />
         )}
         {statusAuth === 'register_email' && (
-          <RegisterInputEmail
-            setUserData={setUserData}
-            email={userData.email}
-            setStatusAuth={handleStatusAuth}
-            onCloseModal={handleCloseModal}
-          />
+          <>
+            <BackButton click={() => setStatusAuth('login')} />
+            <RegisterInputEmail
+              setUserData={setUserData}
+              email={userData.email}
+              setStatusAuth={handleStatusAuth}
+              onCloseModal={handleCloseModal}
+            />
+          </>
         )}
         {statusAuth === 'register_password' && (
           <RegisterInputPassword
@@ -117,7 +121,10 @@ export const Auth: React.FC<AuthProps> = ({
           <RegisterConfirmEmail setStatusAuth={handleStatusAuth} />
         )}
         {statusAuth === 'password_renovation' && (
-          <PasswordRenovationSendEmail />
+          <>
+            <BackButton click={() => setStatusAuth('login')} />
+            <PasswordRenovationSendEmail />
+          </>
         )}
         {statusAuth === 'password_renovation_on_input' && (
           <PasswordRenovationInputPassword
