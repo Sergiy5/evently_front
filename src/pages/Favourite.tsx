@@ -10,7 +10,7 @@ const Favourite: React.FC = () => {
       {!likedEventsAll ? (
         <span>Не знайшов подію, яка цікавить? Чому б не створити власну?</span>
       ) : (
-        <ListEvents events={likedEventsAll} favorite />
+        <ListEvents events={likedEventsAll} />
       )}
     </>
   );

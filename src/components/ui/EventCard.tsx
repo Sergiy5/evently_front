@@ -20,14 +20,9 @@ import { SharedBtn } from './SharedBtn';
 interface EventCardProps {
   event: Event;
   top?: boolean;
-  favorite?: boolean;
 }
 
-export const EventCard: React.FC<EventCardProps> = ({
-  event,
-  top = false,
-  favorite = false,
-}) => {
+export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const {
@@ -94,9 +89,9 @@ export const EventCard: React.FC<EventCardProps> = ({
   return (
     <div
       id={`${eventId}`}
-      className={`group relative flex overflow-hidden items-start rounded-[20px] shadow-eventCardShadow ${
+      className={`group relative flex overflow-hidden items-start rounded-[20px] shadow-eventCardShadow w-[312px] h-[514px] ${
         top ? 'mb-[10px]' : ''
-      } ${favorite ? 'w-[312px] h-[480px]' : 'w-[312px] h-[514px]'} `}
+      }`}
     >
       <img src={photoUrl} alt={title} width={'100%'} />
       <div className={`flex absolute justify-between p-6 w-full`}>
@@ -132,7 +127,7 @@ export const EventCard: React.FC<EventCardProps> = ({
           </p>
         </div>
         <h2
-          className={`min-h-[72px] text-2xl text-textDark group-hover:line-clamp-none ${favorite ? 'line-clamp-2' : ''}`}
+          className={`min-h-[72px] text-2xl text-textDark group-hover:line-clamp-none`}
         >
           {title}
         </h2>
@@ -146,13 +141,7 @@ export const EventCard: React.FC<EventCardProps> = ({
           </li>
           <li className="flex items-center gap-[18px]">
             <GrLocation size="24px" />
-            <p
-              className={
-                favorite ? 'truncate group-hover:whitespace-normal' : ''
-              }
-            >
-              {slicedStreet()}
-            </p>
+            <p>{slicedStreet()}</p>
           </li>
           <li className="flex items-center gap-[18px]">
             <FaRegMoneyBillAlt size="24px" />
