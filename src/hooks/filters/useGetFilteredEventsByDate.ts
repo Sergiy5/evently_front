@@ -87,15 +87,14 @@ export function useGetFilteredEventsByDate({
       setFilteredEventsByDate(filteredArray);
       return;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     filteredEventsByType,
-    isShownCalendar,
-    onWeekendFilter,
-    selectedDates.length,
-    thisWeekDaysArray,
-    thisWeekFilter,
-    thisWeekendDaysArray,
+    selectedDates,
     todayFilter,
+    thisWeekFilter,
+    onWeekendFilter,
+    isShownCalendar,
   ]);
 
   return { filteredEventsByDate };

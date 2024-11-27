@@ -30,24 +30,24 @@ export function DateRange({ isShownCalendar }: DateRangeProps) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isShownCalendar) {
-      const start = state[0].startDate?.toISOString() || undefined;
-      const end = state[0].endDate?.toISOString() || undefined;
+    setState([
+      {
+        startDate: startDay ? new Date(startDay) : undefined,
+        endDate: endDay ? new Date(endDay) : undefined,
+        key: 'selection',
+      },
+    ]);
+  }, [startDay, endDay]);
 
-      dispatch(
-        setDateRange({
-          start: start,
-          end: end,
-        })
-      );
-    }
-    if (!isShownCalendar) {
-      setState([
-        { startDate: undefined, endDate: undefined, key: 'selection' },
-      ]);
+  useEffect(() => {
+    if (isShownCalendar) {
+      const start = state[0].startDate?.toISOString();
+      const end = state[0].endDate?.toISOString();
+      dispatch(setDateRange({ start, end }));
+    } else {
       dispatch(clearDateRange());
     }
-  }, [isShownCalendar, dispatch, state]);
+  }, [isShownCalendar, state, dispatch]);
 
   return (
     <div

@@ -1,39 +1,35 @@
-import { Dispatch, SetStateAction } from 'react';
-
 interface filterByPriceProps {
   filteredEventsByDateOrRange: () => Event[];
-  setFilteredEvents: Dispatch<SetStateAction<Event[] | []>>;
   selectedPrices: number[];
 }
 
 export const filterByPrice = ({
   filteredEventsByDateOrRange,
-  setFilteredEvents,
   selectedPrices,
 }: filterByPriceProps) => {
-  if (selectedPrices.length === 0)
-    setFilteredEvents(filteredEventsByDateOrRange());
-  if (selectedPrices.length === 3) return;
+  if (selectedPrices.length === 0 || selectedPrices.length === 3) {
+    return filteredEventsByDateOrRange;
+  }
   // 0
   if (selectedPrices.length === 1 && selectedPrices.includes(0)) {
     const newArray = filteredEventsByDateOrRange().filter(
       item => item.price === 0
     );
-    setFilteredEvents(newArray);
+    return newArray;
   }
   // 1-500
   if (selectedPrices.length === 1 && selectedPrices.includes(500)) {
     const newArray = filteredEventsByDateOrRange().filter(
       item => item.price > 0 && item.price <= 500
     );
-    setFilteredEvents(newArray);
+    return newArray;
   }
   // 500-1000
   if (selectedPrices.length === 1 && selectedPrices.includes(1000)) {
     const newArray = filteredEventsByDateOrRange().filter(
       item => item.price >= 500 && item.price <= 1000
     );
-    setFilteredEvents(newArray);
+    return newArray;
   }
   // 0-500
   if (
@@ -44,7 +40,7 @@ export const filterByPrice = ({
     const newArray = filteredEventsByDateOrRange().filter(
       item => item.price >= 0 && item.price <= 500
     );
-    setFilteredEvents(newArray);
+    return newArray;
   }
   // 1-1000
   if (
@@ -55,7 +51,7 @@ export const filterByPrice = ({
     const newArray = filteredEventsByDateOrRange().filter(
       item => item.price > 0 && item.price <= 1000
     );
-    setFilteredEvents(newArray);
+    return newArray;
   }
   // 0 && 501-1000
   if (
@@ -66,6 +62,7 @@ export const filterByPrice = ({
     const newArray = filteredEventsByDateOrRange().filter(
       item => item.price === 0 || (item.price > 500 && item.price <= 1000)
     );
-    setFilteredEvents(newArray);
+    return newArray;
   }
+  return [];
 };

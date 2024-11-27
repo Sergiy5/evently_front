@@ -4,9 +4,12 @@ import { useLazyGetAllEventsQuery } from '@/redux/events/operations';
 import {
   addSelectedDates,
   addSelectedPrices,
+  setFilteredEventsId,
+  setFirstSearch,
   setIsCalendarShown,
 } from '@/redux/filters/filtersSlice';
-import { useAppDispatch } from '@/redux/hooks';
+import { getFilteredEventsId, getFirstSearch } from '@/redux/filters/selectors';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 import { filterByPrice } from '@/helpers/filterByPrice';
 import { useGetEventDateFilter } from '@/hooks/filters/useGetEventDateFilter';
@@ -28,6 +31,9 @@ const AllEventsPage: React.FC = () => {
 
   const dispatch = useAppDispatch();
 
+  const firstSearch = useAppSelector(getFirstSearch);
+  const filteredEventsId = useAppSelector(getFilteredEventsId);
+
   const [trigger, { data: events, isLoading }] = useLazyGetAllEventsQuery();
 
   const { addTypeFilter } = useGetEventTypeFilter();
@@ -48,22 +54,19 @@ const AllEventsPage: React.FC = () => {
     });
 
   const filteredEventsByDateOrRange = () => {
-    if (filteredEventsByDate.length > 0) {
-      return filteredEventsByDate;
-    }
-    if (filteredEventsByRange.length > 0) {
-      return filteredEventsByRange;
-    } else {
-      return [];
-    }
+    if (filteredEventsByDate.length > 0) return filteredEventsByDate;
+    if (filteredEventsByRange.length > 0) return filteredEventsByRange;
+    return [];
   };
 
   const filterEvents = () => {
-    filterByPrice({
-      selectedPrices,
-      filteredEventsByDateOrRange,
-      setFilteredEvents,
-    });
+    setFilteredEvents(
+      filterByPrice({
+        selectedPrices,
+        filteredEventsByDateOrRange,
+      })
+    );
+    dispatch(setFirstSearch(false));
   };
 
   const resetFilters = () => {
@@ -73,21 +76,30 @@ const AllEventsPage: React.FC = () => {
     dispatch(addSelectedPrices([]));
     setFirstRender(true);
     dispatch(setIsCalendarShown(false));
+    dispatch(setFirstSearch(true));
   };
 
   useEffect(() => {
-    if (events && firstRender) {
+    if (!firstRender)
+      dispatch(setFilteredEventsId(filteredEvents.map(item => item.id)));
+  }, [dispatch, filteredEvents, firstRender]);
+
+  useEffect(() => {
+    if (events && firstSearch && firstRender) {
       setFilteredEvents(events);
       setFirstRender(false);
     }
-  }, [events, firstRender]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    if (events && !firstSearch && firstRender) {
+      setFilteredEvents(
+        events.filter(item => filteredEventsId.includes(item.id))
+      );
+      setFirstRender(false);
+    }
+  }, [events, filteredEventsId, firstRender, firstSearch]);
 
   useEffect(() => {
     trigger();
+    window.scrollTo(0, 0);
   }, [trigger]);
 
   return (

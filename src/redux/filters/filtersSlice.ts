@@ -8,6 +8,8 @@ const initialState = {
   isCalendarShown: false,
   startDate: undefined as string | undefined,
   endDate: undefined as string | undefined,
+  filteredEventsId: [] as string[],
+  firstSearch: true,
 };
 
 const filtersSlice = createSlice({
@@ -42,6 +44,12 @@ const filtersSlice = createSlice({
       state.startDate = undefined;
       state.endDate = undefined;
     },
+    setFilteredEventsId(state, action: { payload: string[] }) {
+      state.filteredEventsId = action.payload;
+    },
+    setFirstSearch(state, action: { payload: boolean }) {
+      state.firstSearch = action.payload;
+    },
   },
 });
 
@@ -55,4 +63,6 @@ export const {
   setIsCalendarShown,
   setDateRange,
   clearDateRange,
+  setFilteredEventsId,
+  setFirstSearch,
 } = filtersSlice.actions;

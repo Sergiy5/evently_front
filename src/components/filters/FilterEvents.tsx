@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { BiChevronDown } from 'react-icons/bi';
 
 import { setIsCalendarShown } from '@/redux/filters/filtersSlice';
