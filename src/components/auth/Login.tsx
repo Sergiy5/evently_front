@@ -22,6 +22,7 @@ export interface IData {
 interface LoginProps {
   onCloseModal: () => void;
   setStatusAuth: (
+    // eslint-disable-next-line no-unused-vars
     status: 'login' | 'register_email' | 'password_renovation'
   ) => void;
 }

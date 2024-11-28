@@ -1,9 +1,7 @@
 import { BiRightArrowCircle } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 
-interface ShowAllButtonProps {}
-
-export const ShowAllButton: React.FC<ShowAllButtonProps> = ({ ...props }) => {
+export const ShowAllButton: React.FC = ({ ...props }) => {
   return (
     <Link
       to={'all_events'}

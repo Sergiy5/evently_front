@@ -9,6 +9,7 @@ export const fetchUsers = createAsyncThunk<User[]>(
       console.log(response);
 
       return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
     }

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { RiDeleteBin5Line } from 'react-icons/ri';
 import { TfiLock } from 'react-icons/tfi';
 import { VscKey } from 'react-icons/vsc';

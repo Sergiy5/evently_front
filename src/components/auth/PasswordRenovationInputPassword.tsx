@@ -16,6 +16,7 @@ import {
 
 interface PasswordRenovationInputPasswordProps {
   token: string | null;
+  // eslint-disable-next-line no-unused-vars
   setStatusAuth: (status: 'login' | 'password_renovation_on_input') => void;
 }
 export const PasswordRenovationInputPassword: React.FC<

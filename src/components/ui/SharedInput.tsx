@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
@@ -60,6 +62,7 @@ export const SharedInput: React.FC<SharedInputProps> = ({
 
   const onInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     onInput && onInput(value);
     setHasValue(!!value.length);
   };

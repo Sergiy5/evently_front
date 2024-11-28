@@ -5,6 +5,7 @@ interface CustomCheckboxProps {
   checked?: boolean;
   label: string;
   className: string;
+  // eslint-disable-next-line no-unused-vars
   onChange: (value: boolean | string) => void;
   value?: string;
 }

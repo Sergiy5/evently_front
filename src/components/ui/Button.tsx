@@ -18,6 +18,7 @@ const Button: React.FC<IProps> = ({
 }) => {
   const defaultClasses = ' text-center font-lato font-normal text-xl leading-6';
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const variants: any = {
     button: {
       class:
@@ -48,4 +49,4 @@ const Button: React.FC<IProps> = ({
 
 export default Button;
 
-export const GoogleButton = () => {};
+export const GoogleButton = () => { };
