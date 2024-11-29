@@ -8,7 +8,7 @@ import globals from 'globals';
 
 export default [
   {
-    files: ['**/*.{ts,tsx}', 'tailwind.config.js'],
+    files: ['**/*.{ts,tsx}'],
     ignores: ['dist', 'build'],
     languageOptions: {
       ecmaVersion: 2022,
