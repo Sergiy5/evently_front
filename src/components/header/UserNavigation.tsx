@@ -15,6 +15,7 @@ import { Modal } from '../ui';
 import { IconButton } from '../ui/IconButton';
 
 interface UserNavigationProps {
+  // eslint-disable-next-line no-unused-vars
   handleLinkClick: (link: string) => void;
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;

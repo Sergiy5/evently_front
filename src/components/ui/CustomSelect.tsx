@@ -11,6 +11,7 @@ interface IEventSelectProps {
   dropdownWidth?: string;
   buttonWidth?: string;
   replaceLabelOnSelect?: boolean;
+  // eslint-disable-next-line no-unused-vars
   changeLink?: (link: string) => void | undefined;
 }
 
@@ -57,11 +58,10 @@ const CustomSelect: React.FC<IEventSelectProps> = ({
     >
       <button
         type="button"
-        className={`${
-          isOpen
+        className={`${isOpen
             ? 'font-bold text-buttonPurple hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
             : 'text-gray-700'
-        } relative inline-flex justify-center items-center rounded-md px-2 py-1 bg-background text-sm text-gray-700 
+          } relative inline-flex justify-center items-center rounded-md px-2 py-1 bg-background text-sm text-gray-700 
          focus:outline-none relative ${className}`}
         style={{ width: buttonWidth }}
         onClick={() => setIsOpen(!isOpen)}
@@ -70,9 +70,8 @@ const CustomSelect: React.FC<IEventSelectProps> = ({
           {replaceLabelOnSelect && selectedOption ? selectedOption : label}
         </span>
         <IoIosArrowDown
-          className={`absolute right-[-7px] w-[12px] h-[12px] inline-block mt-[2px] ml-1 transition-transform duration-200 ease-in-out ${
-            isOpen ? 'transform rotate-180' : ''
-          }`}
+          className={`absolute right-[-7px] w-[12px] h-[12px] inline-block mt-[2px] ml-1 transition-transform duration-200 ease-in-out ${isOpen ? 'transform rotate-180' : ''
+            }`}
         />
       </button>
       {isOpen && (

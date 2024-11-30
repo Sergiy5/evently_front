@@ -9,10 +9,11 @@ export const Organizers: React.FC = () => {
         <h1 className="w-[392px] pb-8">Створи подію, про яку говоритимуть!</h1>
         <Link to="/organizers">
           <SharedBtn
-            children="Стати організатором"
             type="button"
             className={`w-[276px] mx-auto h-[48px] border-buttonPurple border-[1px] bg-none color-none hover:shadow-shadowPrimaryBtn active:shadow-primaryBtnActive`}
-          />
+          >
+            Стати організатором
+          </SharedBtn>
         </Link>
       </div>
       <div className="grid grid-cols-2 grid-rows-2 items-center">

@@ -1,10 +1,14 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 
+import { useResetAllFiltersAfterRouting } from '@/hooks/filters/useResetAllFiltersAfterRouting';
+
 import { Header } from '../header/Header';
 import { MainLines } from '../main/MainLines';
 
 export const Layout = () => {
+  useResetAllFiltersAfterRouting();
+
   return (
     <>
       <Header />

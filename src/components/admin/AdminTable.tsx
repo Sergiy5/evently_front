@@ -48,7 +48,7 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
 
     const response = await axios.patch(
       `admin/users/${selectedUser?.status === 'ACTIVE' ? 'ban/' : 'unban/'}` +
-        url
+      url
     );
     if (response.status === 200) {
       setOpenPopUp(undefined);
@@ -62,6 +62,7 @@ const AdminTable: React.FC<IProps> = ({ cols, data, from, to }) => {
     setOpenPopUp(id);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleClosePopUp = (event: any) => {
     if (event.target.tagName === 'svg' || event.target.tagName === 'path') {
       return;
