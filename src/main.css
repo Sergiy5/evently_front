@@ -127,3 +127,41 @@ a {
   background: #9b8ff3;
   border-radius: 2.5px;
 }
+
+@keyframes wave1 {
+  0% {
+    bottom: -100px;
+    left: -560px;
+  }
+  50% {
+    bottom: 120px;
+    left: -0px;
+  }
+  100% {
+    bottom: -100px;
+    left: -560px;
+  }
+}
+
+.animate-wave1 {
+  animation: wave1 10s cubic-bezier(.27,0,.79,1.03) infinite forwards;
+}
+
+@keyframes wave2 {
+  0% {
+    bottom: -100px;
+    right: -560px;
+  }
+  50% {
+    bottom: 120px;
+    right: -0px;
+  }
+  100% {
+    bottom: -100px;
+    right: -560px;
+  }
+}
+
+.animate-wave2 {
+  animation: wave2 10s cubic-bezier(.27,0,.79,1.03) infinite forwards;
+}
