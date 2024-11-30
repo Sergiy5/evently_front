@@ -52,7 +52,7 @@ export const FilterEvents: React.FC<FilterEventsProps> = ({
         className="sticky top-[150px] max-h-[calc(100vh-200px)] w-[312px] border-buttonPurple border-[1px]
       rounded-[20px] flex flex-col gap-[24px] pt-[18px] pr-[5px]"
       >
-        <div className="overflow-y-scroll">
+        <div className="overflow-y-scroll overscroll-contain">
           <div className="px-[18px]">
             <h2 className="mb-[16px]">Тип події</h2>
             <ul className={`flex flex-col gap-[16px] pl-[18px]`}>
