@@ -14,6 +14,7 @@ import { SharedBtn } from '../ui/SharedBtn';
 
 interface RegisterInputEmailProps {
   setUserData: React.Dispatch<React.SetStateAction<RegisterUser>>;
+  // eslint-disable-next-line no-unused-vars
   setStatusAuth: (status: 'register_email' | 'register_password') => void;
   onCloseModal: () => void;
   email: string;

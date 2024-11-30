@@ -12,6 +12,7 @@ const EventForm = () => {
   const {
     register,
     formState: { errors, isValid },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } = useForm<any>({
     mode: 'onChange',
   });

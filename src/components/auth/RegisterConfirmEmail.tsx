@@ -1,6 +1,7 @@
 import { PrivacyAgreement, SharedBtn } from '../ui';
 
 interface RegisterConirmEmailProps {
+  // eslint-disable-next-line no-unused-vars
   setStatusAuth: (status: 'register_email') => void;
 }
 export const RegisterConfirmEmail: React.FC<RegisterConirmEmailProps> = ({

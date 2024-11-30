@@ -21,7 +21,7 @@ export const deleteUser = async (id: number) => {
     const response = await axios.delete(`${URL}/adminUsers/${id}`);
     return response.data;
   } catch (error) {
-    throw new Error('Failed to delete user');
+    throw new Error(`Failed to delete user ${error}`);
   }
 };
 
@@ -32,6 +32,6 @@ export const getUser = async (id: string) => {
 
     return resData;
   } catch (error) {
-    throw new Error('Failed to get user');
+    throw new Error(`Failed to get user ${error}`);
   }
 };

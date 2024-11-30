@@ -12,6 +12,7 @@ import {
 } from '../ui';
 
 interface RegisterInputPasswordProps {
+  // eslint-disable-next-line no-unused-vars
   setStatusAuth: (status: 'confirm_email') => void;
   setUserData: React.Dispatch<React.SetStateAction<RegisterUser>>;
   name: string;

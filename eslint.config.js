@@ -8,7 +8,7 @@ import globals from 'globals';
 
 export default [
   {
-    files: ['**/*.{ts,tsx}', 'tailwind.config.js'],
+    files: ['**/*.{ts,tsx}'],
     ignores: ['dist', 'build'],
     languageOptions: {
       ecmaVersion: 2022,
@@ -19,6 +19,11 @@ export default [
         React: true,
         User: true,
         eventType: true,
+        RegisterUser: true,
+        LoginUser: true,
+        RequiredPassword: true,
+        RegisterFormInputsPassword: true,
+        RegisterFormInputEmail: true,
       },
       parser: typescriptEslintParser,
       sourceType: 'module',

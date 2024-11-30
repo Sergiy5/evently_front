@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 
 // Імпорт попапу для логінізації
 import { selectIsLoggedIn } from '@/redux/auth/selectors';
@@ -7,10 +6,11 @@ import { selectIsLoggedIn } from '@/redux/auth/selectors';
 import { Auth } from '../auth/Auth';
 import { Modal } from '../ui/Modal';
 import Information from './Information';
+import { useAppSelector } from '@/redux/hooks';
 
 const Profile: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
 
   useEffect(() => {

@@ -5,6 +5,7 @@ import { nanoid } from '@reduxjs/toolkit';
 interface DotsProps<T> extends ButtonHTMLAttributes<HTMLButtonElement> {
   slides: T[];
   currentSlide: number;
+  // eslint-disable-next-line no-unused-vars
   setSlideByDot: (index: number) => void;
 }
 

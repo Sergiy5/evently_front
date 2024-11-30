@@ -24,7 +24,7 @@ export const Auth: React.FC<AuthProps> = ({
   isEmailConfirmed,
   resetPasswordByToken,
 }) => {
-  const [token, setToken] = useState(resetPasswordByToken);
+  const [token] = useState(resetPasswordByToken);
   const [userData, setUserData] = useState({
     name: '',
     email: '',
@@ -82,7 +82,6 @@ export const Auth: React.FC<AuthProps> = ({
         toast.success(`Вітаю! ${result.meta.arg.name}. Реєстрація успішна!`);
       } catch (error) {
         console.error(error);
-      } finally {
       }
     };
     onRegisterUser();

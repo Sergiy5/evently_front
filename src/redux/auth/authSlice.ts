@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   getUser,
   logIn,
@@ -34,6 +35,7 @@ const STATUS = {
 
 const actionGenerators = [register, logIn];
 
+// eslint-disable-next-line no-unused-vars
 const getActionGeneratorsWithType: (status: string) => any[] = status =>
   actionGenerators.map(generator => (generator as any)[status]);
 

@@ -9,7 +9,7 @@ export const deleteEvent = async (id: number) => {
     const response = await axios.delete(`${URL}/events/${id}`);
     return response.data;
   } catch (error) {
-    throw new Error('Failed to delete event');
+    throw new Error(`Failed to delete event ${error}`);
   }
 };
 
@@ -24,7 +24,7 @@ export const getEvent = async (id?: string) => {
 
     return resData;
   } catch (error) {
-    throw new Error('Failed to get event');
+    throw new Error(`Failed to get event ${error}`);
   }
 };
 
@@ -37,7 +37,7 @@ export const editEvent = async (formData: eventType, id?: string) => {
     const resData = response.data;
     return resData;
   } catch (error) {
-    throw new Error('Failed to edit event');
+    throw new Error(`Failed to edit event ${error}`);
   }
 };
 
@@ -53,7 +53,7 @@ export const createEvent = async (formData: eventType) => {
     const resData = response.data;
     return resData;
   } catch (error) {
-    throw new Error('Failed to create event');
+    throw new Error(`Failed to create event ${error}`);
   }
 };
 
@@ -81,6 +81,6 @@ export const removeEventFromLiked = async (userId: string, eventId: string) => {
     });
     return response.data;
   } catch (error) {
-    throw new Error('Failed to remove from liked');
+    throw new Error(`Failed to remove from liked ${error}`);
   }
 };
