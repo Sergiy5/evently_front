@@ -8,12 +8,10 @@ interface ListEventsProps {
 
 export const ListEvents: React.FC<ListEventsProps> = ({ events }) => {
   return (
-    <>
-      <div className={`flex flex-wrap justify-start gap-6`}>
-        {events.map(event => (
-          <EventCard key={nanoid()} event={event} />
-        ))}
-      </div>
-    </>
+    <div className={`flex flex-wrap justify-start gap-6`}>
+      {events.map(event => (
+        <EventCard key={nanoid()} event={event} />
+      ))}
+    </div>
   );
 };
