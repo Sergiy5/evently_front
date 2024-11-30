@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router';
 
 import { resetAllFilters } from '@/redux/filters/filtersSlice';
@@ -9,12 +9,10 @@ export function useResetAllFiltersAfterRouting() {
 
   const dispatch = useAppDispatch();
 
-  const isRouted = useRef(false);
 
   useEffect(() => {
-    if (!isRouted.current && pathname !== '/all_events') {
+    if (pathname !== '/all_events') {
       dispatch(resetAllFilters());
-      isRouted.current = true;
     }
   }, [dispatch, pathname]);
 }
