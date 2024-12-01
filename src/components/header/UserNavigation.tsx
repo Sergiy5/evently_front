@@ -99,7 +99,7 @@ export const UserNavigation: React.FC<UserNavigationProps> = ({
         Icon={AiOutlineHeart}
         onClick={() => handleLinkClick('favourite')}
       >
-        {likedEventsAll && IsLoggedIn && (
+        {likedEventsAll && likedEventsAll.length > 0 && IsLoggedIn && (
           <div className="absolute -right-2 -top-2 w-[20px] h-[20px] rounded-full bg-borderColor flex items-center justify-center">
             <span className="text-background text-[10px]">
               {likedEventsAll.length}
