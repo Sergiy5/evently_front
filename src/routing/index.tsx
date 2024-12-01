@@ -2,8 +2,8 @@ import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
 import { getAllEventsLoader } from '@/loaders/getAllEventsLoader';
-import Favourite from '@/pages/Favourite';
-import Home from '@/pages/Home';
+import FavouritePage from '@/pages/FavouritePage';
+import HomePage from '@/pages/HomePage';
 import MyEvent from '@/pages/MyEvent';
 import UserProfile from '@/pages/UserProfile';
 import AdminEvents from '@/pages/admin/AdminEvents';
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <HomePage />,
         loader: getAllEventsLoader,
       },
       {
@@ -61,7 +61,7 @@ const router = createBrowserRouter([
         element: <LoginRouter />,
         children: [
           { path: 'user_profile', element: <Profile /> },
-          { path: 'favourite', element: <Favourite /> },
+          { path: 'favourite', element: <FavouritePage /> },
           { path: 'my-event', element: <MyEvent /> },
           {
             path: 'admin',

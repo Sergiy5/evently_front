@@ -6,4 +6,4 @@ export { GoogleLoginButton } from './GoogleLoginButton';
 export { StatusBarPassword } from './StatusBarPassword';
 export { PrivacyAgreement } from './PrivacyAgreement';
 export { CustomCheckbox } from './CustomCheckBox';
-export { EventCard } from './EventCard';
+export { Checkbox } from './CheckBox';
