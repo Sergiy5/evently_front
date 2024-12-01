@@ -7,7 +7,7 @@ const FavouritePage: React.FC = () => {
 
   return (
     <>
-      {!likedEventsAll ? (
+      {!likedEventsAll || likedEventsAll.length === 0 ? (
         <span>Не знайшов подію, яка цікавить? Чому б не створити власну?</span>
       ) : (
         <ListEvents events={likedEventsAll} />
