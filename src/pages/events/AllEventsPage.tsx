@@ -24,6 +24,7 @@ import { AllEvents } from '@/components/allEvents/AllEvents';
 import { FilterEvents } from '@/components/filters/FilterEvents';
 import { Footer } from '@/components/footer/footer';
 import { Main } from '@/components/main/Main';
+import { useScrollToTop } from '@/hooks/useScrollToTop';
 
 const AllEventsPage: React.FC = () => {
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
@@ -97,9 +98,10 @@ const AllEventsPage: React.FC = () => {
     }
   }, [events, filteredEventsId, firstRender, firstSearch]);
 
+  useScrollToTop();
+
   useEffect(() => {
     trigger();
-    window.scrollTo(0, 0);
   }, [trigger]);
 
   return (
