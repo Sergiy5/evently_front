@@ -84,7 +84,7 @@ export const UserNavigation: React.FC<UserNavigationProps> = ({
             <BsSearch className="w-[24px] h-[24px] mr-2" />
             <input
               type="text"
-              placeholder="Поиск..."
+              placeholder="Пошук..."
               className="w-full p-2 bg-transparent text-gray-600 focus:outline-none"
             />
             <RxCross2
