@@ -1,8 +1,8 @@
 import { useGetLikedEventsWithSkip } from '@/hooks/query/useGetLikedEventsWithSkip';
 
-import { ListEvents } from '@/components/listEvents/ListEvents';
+import { ListEvents } from '@/components/allEvents/ListEvents';
 
-const Favourite: React.FC = () => {
+const FavouritePage: React.FC = () => {
   const { data: likedEventsAll } = useGetLikedEventsWithSkip();
 
   return (
@@ -16,4 +16,4 @@ const Favourite: React.FC = () => {
   );
 };
 
-export default Favourite;
+export default FavouritePage;
