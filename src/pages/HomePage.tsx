@@ -10,9 +10,9 @@ import { Hero } from '@/components/hero/Hero';
 import { Main } from '@/components/main/Main';
 import { Organizers } from '@/components/organizers/Organizers';
 import { TopEvents } from '@/components/topEvents/TopEvents';
-import { ShowAllButton } from '@/components/ui/ShowAllButton';
+import { ShowAllButton } from '@/components/allEvents/ShowAllButton';
 
-const Home: React.FC = () => {
+const HomePage: React.FC = () => {
   const [trigger, { data: events, isLoading }] = useLazyGetAllEventsQuery();
 
   const shownEvents = 16;
@@ -48,4 +48,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default HomePage;

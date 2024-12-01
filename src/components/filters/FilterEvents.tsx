@@ -17,7 +17,7 @@ import {
 } from '@/assets/staticData/statickData';
 import { nanoid } from '@reduxjs/toolkit';
 
-import { Checkbox } from '../ui/CheckBox';
+import { Checkbox } from '../ui';
 import { DateRange } from './DateRange';
 
 interface FilterEventsProps {
