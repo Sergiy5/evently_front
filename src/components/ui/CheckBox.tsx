@@ -15,7 +15,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({ label, ...props }) => {
         {props.checked && <MdDone className="text-black w-6 h-6" />}
       </div>
       <span
-        className={clsx('ml-2', {
+        className={clsx('ml-2 hover:text-buttonPurple', {
           'text-buttonPurple font-bold': props.checked,
         })}
       >
