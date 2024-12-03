@@ -82,7 +82,7 @@ const AllEventsPage: React.FC = () => {
     setFirstRender(true);
     dispatch(setIsCalendarShown(false));
     dispatch(setFirstSearch(true));
-    dispatch(setFilterWithHeaderNav(false));
+    dispatch(setFilterWithHeaderNav(true));
   };
 
   useEffect(() => {
