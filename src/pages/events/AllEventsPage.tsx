@@ -30,7 +30,6 @@ import { useScrollToTop } from '@/hooks/useScrollToTop';
 const AllEventsPage: React.FC = () => {
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [firstRender, setFirstRender] = useState(true);
-  console.log(filteredEvents);
 
   const dispatch = useAppDispatch();
 
@@ -92,13 +91,16 @@ const AllEventsPage: React.FC = () => {
         setFilteredEvents(events.filter(
           item => item.category === 'TOP_EVENTS'
         ));
-      }
+        return;
+      };
       if (selectedTypes.includes('Усі події')) {
         setFilteredEvents(events);
+        return;
       } else {
         setFilteredEvents(events.filter(
           item => item.type === selectedTypes[0]
         ));
+        return;
       };
     };
     dispatch(setFirstSearch(false));
@@ -106,8 +108,10 @@ const AllEventsPage: React.FC = () => {
   }, [dispatch, events, isFilterWithHeaderNav, selectedTypes]);
 
   useEffect(() => {
-    if (!firstRender)
+    if (!firstRender) {
+      dispatch(setFilterWithHeaderNav(false));
       dispatch(setFilteredEventsId(filteredEvents.map(item => item.id)));
+    }
   }, [dispatch, filteredEvents, firstRender]);
 
   useEffect(() => {
