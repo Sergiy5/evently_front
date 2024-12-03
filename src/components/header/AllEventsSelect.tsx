@@ -1,4 +1,4 @@
-import { setOneFilterType } from '@/redux/filters/filtersSlice';
+import { setFilterWithHeaderNav, setOneFilterType } from '@/redux/filters/filtersSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import React, { useEffect, useRef, useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
@@ -26,7 +26,8 @@ export const AllEventsSelect: React.FC<AllEventsSelectProps> = ({
   const dispatch = useAppDispatch();
 
   const handleClick = (value: string) => {
-    dispatch(setOneFilterType(value))
+    dispatch(setOneFilterType(value));
+    dispatch(setFilterWithHeaderNav(true));
     setIsOpen(false);
   };
 

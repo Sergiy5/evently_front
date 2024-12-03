@@ -5,10 +5,11 @@ import {
   addSelectedDates,
   addSelectedPrices,
   setFilteredEventsId,
+  setFilterWithHeaderNav,
   setFirstSearch,
   setIsCalendarShown,
 } from '@/redux/filters/filtersSlice';
-import { getFilteredEventsId, getFirstSearch } from '@/redux/filters/selectors';
+import { getFilteredEventsId, getFilterWithHeaderNav, getFirstSearch, getSelectedTypes } from '@/redux/filters/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 import { filterByPrice } from '@/helpers/filterByPrice';
@@ -29,11 +30,14 @@ import { useScrollToTop } from '@/hooks/useScrollToTop';
 const AllEventsPage: React.FC = () => {
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [firstRender, setFirstRender] = useState(true);
+  console.log(filteredEvents);
 
   const dispatch = useAppDispatch();
 
   const firstSearch = useAppSelector(getFirstSearch);
   const filteredEventsId = useAppSelector(getFilteredEventsId);
+  const isFilterWithHeaderNav = useAppSelector(getFilterWithHeaderNav);
+  const selectedTypes = useAppSelector(getSelectedTypes);
 
   const [trigger, { data: events, isLoading }] = useLazyGetAllEventsQuery();
 
@@ -68,6 +72,7 @@ const AllEventsPage: React.FC = () => {
       })
     );
     dispatch(setFirstSearch(false));
+    dispatch(setFilterWithHeaderNav(false));
   };
 
   const resetFilters = () => {
@@ -78,7 +83,27 @@ const AllEventsPage: React.FC = () => {
     setFirstRender(true);
     dispatch(setIsCalendarShown(false));
     dispatch(setFirstSearch(true));
+    dispatch(setFilterWithHeaderNav(false));
   };
+
+  useEffect(() => {
+    if (events && isFilterWithHeaderNav) {
+      if (selectedTypes.includes('Популярні')) {
+        setFilteredEvents(events.filter(
+          item => item.category === 'TOP_EVENTS'
+        ));
+      }
+      if (selectedTypes.includes('Усі події')) {
+        setFilteredEvents(events);
+      } else {
+        setFilteredEvents(events.filter(
+          item => item.type === selectedTypes[0]
+        ));
+      };
+    };
+    dispatch(setFirstSearch(false));
+    setFirstRender(false);
+  }, [dispatch, events, isFilterWithHeaderNav, selectedTypes]);
 
   useEffect(() => {
     if (!firstRender)
