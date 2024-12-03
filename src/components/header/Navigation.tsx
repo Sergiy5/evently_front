@@ -3,14 +3,14 @@ import { NavLink } from 'react-router-dom';
 import { cityOptions, eventTypes } from '@/assets/staticData/statickData';
 
 import CustomSelect from '../ui/CustomSelect';
+import { AllEventsSelect } from './AllEventsSelect';
 
 export const Navigation: React.FC = () => {
   return (
     <div className="flex pl-12 pr-24 gap-8 items-center">
-      <CustomSelect
+      <AllEventsSelect
         options={eventTypes}
         label="Події"
-        replaceLabelOnSelect={false}
         className="hover:font-bold"
         dropdownWidth="178px"
         buttonWidth="62px"
@@ -19,10 +19,9 @@ export const Navigation: React.FC = () => {
         <NavLink
           to="/popular"
           className={({ isActive }) =>
-            `w-[82px] ${
-              isActive
-                ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
-                : 'text-gray-700 hover:font-bold'
+            `w-[82px] ${isActive
+              ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
+              : 'text-gray-700 hover:font-bold'
             }`
           }
         >
@@ -31,10 +30,9 @@ export const Navigation: React.FC = () => {
         <NavLink
           to="/organizers"
           className={({ isActive }) =>
-            `w-[110px] ${
-              isActive
-                ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
-                : 'text-gray-700 hover:font-bold'
+            `w-[110px] ${isActive
+              ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
+              : 'text-gray-700 hover:font-bold'
             }`
           }
         >
@@ -43,10 +41,9 @@ export const Navigation: React.FC = () => {
         <NavLink
           to="/about"
           className={({ isActive }) =>
-            `w-[63px] ${
-              isActive
-                ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
-                : 'text-gray-700 hover:font-bold'
+            `w-[63px] ${isActive
+              ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
+              : 'text-gray-700 hover:font-bold'
             }`
           }
         >

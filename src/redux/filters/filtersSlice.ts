@@ -61,6 +61,17 @@ const filtersSlice = createSlice({
       state.filteredEventsId = [];
       state.firstSearch = true;
     },
+    setOneFilterType(state, action: { payload: string }) {
+      state.selectedTypes = [action.payload];
+      state.selectedDates = [];
+      state.rangeDatesArray = [];
+      state.selectedPrices = [];
+      state.isCalendarShown = false;
+      state.startDate = undefined;
+      state.endDate = undefined;
+      state.filteredEventsId = [];
+      state.firstSearch = true;
+    }
   },
 });
 
@@ -77,4 +88,5 @@ export const {
   setFilteredEventsId,
   setFirstSearch,
   resetAllFilters,
+  setOneFilterType
 } = filtersSlice.actions;
