@@ -20,9 +20,14 @@ import { SharedBtn } from './SharedBtn';
 interface EventCardProps {
   event: Event;
   top?: boolean;
+  status?: boolean;
 }
 
-export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
+export const EventCard: React.FC<EventCardProps> = ({
+  event,
+  top = false,
+  status = false,
+}) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const {
@@ -100,22 +105,24 @@ export const EventCard: React.FC<EventCardProps> = ({ event, top = false }) => {
             <span className="text-background">ТОП</span>
           </div>
         )}
-        <button
-          type="button"
-          onClick={toggleIsLiked}
-          className={`focus:outline-none ml-auto bg-background w-[32px] h-[32px] flex items-center justify-center rounded-full opacity-60`}
-        >
-          {isLiked ? (
-            <PiHeartFill className={`w-6 h-6 text-borderColor`} />
-          ) : (
-            <PiHeartLight className="w-6 h-6 text-borderColor" />
-          )}
-        </button>
+        {!status && (
+          <button
+            type="button"
+            onClick={toggleIsLiked}
+            className={`focus:outline-none ml-auto bg-background w-[32px] h-[32px] flex items-center justify-center rounded-full opacity-60`}
+          >
+            {isLiked ? (
+              <PiHeartFill className={`w-6 h-6 text-borderColor`} />
+            ) : (
+              <PiHeartLight className="w-6 h-6 text-borderColor" />
+            )}
+          </button>
+        )}
       </div>
       <div
         className={`absolute flex flex-col items-start gap-2 justify-between w-full py-4 px-5 h-[365px]
           rounded-t-[20px] bg-hoverCard transition-all ease-in-out duration-300 -bottom-[101px]
-          ${category === 'TOP_EVENTS' ? 'group-hover:-bottom-0' : 'group-hover:-bottom-10'}
+          ${category === 'TOP_EVENTS' ? 'group-hover:-bottom-0' : status ? '' : 'group-hover:-bottom-10'}
           `}
       >
         <div
