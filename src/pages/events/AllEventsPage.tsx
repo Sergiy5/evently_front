@@ -4,28 +4,27 @@ import { useLazyGetAllEventsQuery } from '@/redux/events/operations';
 import {
   addSelectedDates,
   addSelectedPrices,
-  setFilteredEventsId,
   setFilterWithHeaderNav,
+  setFilteredEventsId,
   setFirstSearch,
   setIsCalendarShown,
 } from '@/redux/filters/filtersSlice';
-import { getFilteredEventsId, getFilterWithHeaderNav, getFirstSearch, getSelectedTypes } from '@/redux/filters/selectors';
+import {
+  getFilterWithHeaderNav,
+  getFilteredEventsId,
+  getFirstSearch,
+  getSelectedTypes,
+} from '@/redux/filters/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 import { filterByPrice } from '@/helpers/filterByPrice';
-import { useGetEventDateFilter } from '@/hooks/filters/useGetEventDateFilter';
-import { useGetEventDatesRangeFilter } from '@/hooks/filters/useGetEventDatesRangeFilter';
-import { useGetEventPriceFilter } from '@/hooks/filters/useGetEventPriceFilter';
-import { useGetEventTypeFilter } from '@/hooks/filters/useGetEventTypeFilter';
-import { useGetFilteredEventsByDate } from '@/hooks/filters/useGetFilteredEventsByDate';
-import { useGetFilteredEventsByRange } from '@/hooks/filters/useGetFilteredEventsByRange';
-import { useGetFilteredEventsByType } from '@/hooks/filters/useGetFilteredEventsByType';
+import { useFilter } from '@/hooks/filters/useFilter';
+import { useScrollToTop } from '@/hooks/useScrollToTop';
 
 import { AllEvents } from '@/components/allEvents/AllEvents';
 import { FilterEvents } from '@/components/filters/FilterEvents';
 import { Footer } from '@/components/footer/footer';
 import { Main } from '@/components/main/Main';
-import { useScrollToTop } from '@/hooks/useScrollToTop';
 
 const AllEventsPage: React.FC = () => {
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
@@ -40,22 +39,15 @@ const AllEventsPage: React.FC = () => {
 
   const [trigger, { data: events, isLoading }] = useLazyGetAllEventsQuery();
 
-  const { addTypeFilter } = useGetEventTypeFilter();
-  const { addDateFilter } = useGetEventDateFilter();
-  const { rangeDatesArray } = useGetEventDatesRangeFilter();
-  const { addPriceFilter, selectedPrices } = useGetEventPriceFilter();
-
-  const { filteredEventsByType } = useGetFilteredEventsByType({
-    events,
-  });
-  const { filteredEventsByDate } = useGetFilteredEventsByDate({
-    filteredEventsByType,
-  });
-  const { filteredEventsByRange, setFilteredEventsByRange } =
-    useGetFilteredEventsByRange({
-      filteredEventsByType,
-      rangeDatesArray,
-    });
+  const {
+    addTypeFilter,
+    addDateFilter,
+    addPriceFilter,
+    selectedPrices,
+    filteredEventsByDate,
+    filteredEventsByRange,
+    setFilteredEventsByRange,
+  } = useFilter({ events });
 
   const filteredEventsByDateOrRange = () => {
     if (filteredEventsByDate.length > 0) return filteredEventsByDate;
@@ -88,21 +80,21 @@ const AllEventsPage: React.FC = () => {
   useEffect(() => {
     if (events && isFilterWithHeaderNav) {
       if (selectedTypes.includes('Популярні')) {
-        setFilteredEvents(events.filter(
-          item => item.category === 'TOP_EVENTS'
-        ));
+        setFilteredEvents(
+          events.filter(item => item.category === 'TOP_EVENTS')
+        );
         return;
-      };
+      }
       if (selectedTypes.includes('Усі події')) {
         setFilteredEvents(events);
         return;
       } else {
-        setFilteredEvents(events.filter(
-          item => item.type === selectedTypes[0]
-        ));
+        setFilteredEvents(
+          events.filter(item => item.type === selectedTypes[0])
+        );
         return;
-      };
-    };
+      }
+    }
     dispatch(setFirstSearch(false));
     setFirstRender(false);
   }, [dispatch, events, isFilterWithHeaderNav, selectedTypes]);
