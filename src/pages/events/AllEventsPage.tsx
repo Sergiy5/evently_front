@@ -2,12 +2,10 @@ import { useEffect, useState } from 'react';
 
 import { useLazyGetAllEventsQuery } from '@/redux/events/operations';
 import {
-  addSelectedDates,
-  addSelectedPrices,
+  resetAllFilters,
   setFilterWithHeaderNav,
   setFilteredEventsId,
   setFirstSearch,
-  setIsCalendarShown,
 } from '@/redux/filters/filtersSlice';
 import {
   getFilterWithHeaderNav,
@@ -46,7 +44,6 @@ const AllEventsPage: React.FC = () => {
     selectedPrices,
     filteredEventsByDate,
     filteredEventsByRange,
-    setFilteredEventsByRange,
   } = useFilter({ events });
 
   const filteredEventsByDateOrRange = () => {
@@ -67,14 +64,9 @@ const AllEventsPage: React.FC = () => {
   };
 
   const resetFilters = () => {
-    addTypeFilter('Усі події');
-    dispatch(addSelectedDates([]));
-    setFilteredEventsByRange([]);
-    dispatch(addSelectedPrices([]));
+    dispatch(resetAllFilters());
+
     setFirstRender(true);
-    dispatch(setIsCalendarShown(false));
-    dispatch(setFirstSearch(true));
-    dispatch(setFilterWithHeaderNav(true));
   };
 
   useEffect(() => {

@@ -20,11 +20,10 @@ export function useFilter({ events }: useFilterProps) {
   const { filteredEventsByDate } = useGetFilteredEventsByDate({
     filteredEventsByType,
   });
-  const { filteredEventsByRange, setFilteredEventsByRange } =
-    useGetFilteredEventsByRange({
-      filteredEventsByType,
-      rangeDatesArray,
-    });
+  const { filteredEventsByRange } = useGetFilteredEventsByRange({
+    filteredEventsByType,
+    rangeDatesArray,
+  });
 
   return {
     addTypeFilter,
@@ -33,6 +32,5 @@ export function useFilter({ events }: useFilterProps) {
     selectedPrices,
     filteredEventsByDate,
     filteredEventsByRange,
-    setFilteredEventsByRange,
   };
 }

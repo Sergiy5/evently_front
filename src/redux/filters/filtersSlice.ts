@@ -61,6 +61,7 @@ const filtersSlice = createSlice({
       state.endDate = undefined;
       state.filteredEventsId = [];
       state.firstSearch = true;
+      state.filterWithHeaderNav = false;
     },
     setOneFilterType(state, action: { payload: string }) {
       state.selectedTypes = [action.payload];
@@ -74,8 +75,8 @@ const filtersSlice = createSlice({
       state.firstSearch = true;
     },
     setFilterWithHeaderNav(state, action: { payload: boolean }) {
-      state.filterWithHeaderNav = action.payload
-    }
+      state.filterWithHeaderNav = action.payload;
+    },
   },
 });
 
@@ -93,5 +94,5 @@ export const {
   setFirstSearch,
   resetAllFilters,
   setOneFilterType,
-  setFilterWithHeaderNav
+  setFilterWithHeaderNav,
 } = filtersSlice.actions;

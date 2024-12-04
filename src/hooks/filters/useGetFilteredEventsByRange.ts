@@ -44,5 +44,5 @@ export function useGetFilteredEventsByRange({
     }
   }, [filteredEventsByType, isShownCalendar, rangeDatesArray]);
 
-  return { filteredEventsByRange, setFilteredEventsByRange };
+  return { filteredEventsByRange };
 }
