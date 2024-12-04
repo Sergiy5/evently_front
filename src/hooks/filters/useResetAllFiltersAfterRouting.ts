@@ -9,7 +9,6 @@ export function useResetAllFiltersAfterRouting() {
 
   const dispatch = useAppDispatch();
 
-
   useEffect(() => {
     if (pathname !== '/all_events') {
       dispatch(resetAllFilters());

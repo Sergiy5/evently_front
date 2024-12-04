@@ -10,6 +10,7 @@ const initialState = {
   endDate: undefined as string | undefined,
   filteredEventsId: [] as string[],
   firstSearch: true,
+  filterWithHeaderNav: false,
 };
 
 const filtersSlice = createSlice({
@@ -71,6 +72,9 @@ const filtersSlice = createSlice({
       state.endDate = undefined;
       state.filteredEventsId = [];
       state.firstSearch = true;
+    },
+    setFilterWithHeaderNav(state, action: { payload: boolean }) {
+      state.filterWithHeaderNav = action.payload
     }
   },
 });
@@ -88,5 +92,6 @@ export const {
   setFilteredEventsId,
   setFirstSearch,
   resetAllFilters,
-  setOneFilterType
+  setOneFilterType,
+  setFilterWithHeaderNav
 } = filtersSlice.actions;
