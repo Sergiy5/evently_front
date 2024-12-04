@@ -1,4 +1,12 @@
+import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+
+import { useLazyGetAllEventsQuery } from '@/redux/events/operations';
+import {
+  setFilteredEventsId,
+  setOneFilterType,
+} from '@/redux/filters/filtersSlice';
+import { useAppDispatch } from '@/redux/hooks';
 
 import { cityOptions, eventTypes } from '@/assets/staticData/statickData';
 
@@ -6,6 +14,27 @@ import CustomSelect from '../ui/CustomSelect';
 import { AllEventsSelect } from './AllEventsSelect';
 
 export const Navigation: React.FC = () => {
+  const [trigger, { data: events }] = useLazyGetAllEventsQuery();
+
+  const dispatch = useAppDispatch();
+
+  const handleClick = () => {
+    dispatch(setOneFilterType('Популярні'));
+    if (events && events.length > 0) {
+      dispatch(
+        setFilteredEventsId(
+          events
+            .filter(item => item.category === 'TOP_EVENTS')
+            .map(item => item.id)
+        )
+      );
+    }
+  };
+
+  useEffect(() => {
+    trigger();
+  }, [trigger]);
+
   return (
     <div className="flex pl-12 pr-24 gap-8 items-center">
       <AllEventsSelect
@@ -17,22 +46,19 @@ export const Navigation: React.FC = () => {
       />
       <nav className="flex gap-8">
         <NavLink
-          to="/popular"
-          className={({ isActive }) =>
-            `w-[82px] ${isActive
-              ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
-              : 'text-gray-700 hover:font-bold'
-            }`
-          }
+          onClick={handleClick}
+          to="/all_events"
+          className="w-[82px] text-gray-700 hover:font-bold"
         >
           Популярні
         </NavLink>
         <NavLink
           to="/organizers"
           className={({ isActive }) =>
-            `w-[110px] ${isActive
-              ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
-              : 'text-gray-700 hover:font-bold'
+            `w-[110px] ${
+              isActive
+                ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
+                : 'text-gray-700 hover:font-bold'
             }`
           }
         >
@@ -41,9 +67,10 @@ export const Navigation: React.FC = () => {
         <NavLink
           to="/about"
           className={({ isActive }) =>
-            `w-[63px] ${isActive
-              ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
-              : 'text-gray-700 hover:font-bold'
+            `w-[63px] ${
+              isActive
+                ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
+                : 'text-gray-700 hover:font-bold'
             }`
           }
         >
