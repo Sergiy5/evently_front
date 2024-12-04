@@ -14,5 +14,3 @@ export const getStartDay = (state: RootState) => state.filter.startDate;
 export const getEndDay = (state: RootState) => state.filter.endDate;
 export const getFilteredEventsId = (state: RootState) =>
   state.filter.filteredEventsId;
-export const getFirstSearch = (state: RootState) => state.filter.firstSearch;
-export const getFilterWithHeaderNav = (state: RootState) => state.filter.filterWithHeaderNav;

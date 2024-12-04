@@ -34,8 +34,6 @@ const filterPersistConfig = {
     'startDate',
     'endDate',
     'filteredEventsId',
-    'firstSearch',
-    'filterWithHeaderNav'
   ],
 };
 

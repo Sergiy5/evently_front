@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 
 import { useLazyGetAllEventsQuery } from '@/redux/events/operations';
 import {
-  setFilterWithHeaderNav,
   setFilteredEventsId,
   setOneFilterType,
 } from '@/redux/filters/filtersSlice';
@@ -33,11 +32,8 @@ export const AllEventsSelect: React.FC<AllEventsSelectProps> = ({
 
   const dispatch = useAppDispatch();
 
-  // TODO
   const handleClick = (value: string) => {
     dispatch(setOneFilterType(value));
-    dispatch(setFilterWithHeaderNav(true));
-
     if (events && events.length > 0) {
       if (value === 'Популярні') {
         dispatch(
@@ -57,8 +53,6 @@ export const AllEventsSelect: React.FC<AllEventsSelectProps> = ({
         );
       }
     }
-
-    dispatch(setFilterWithHeaderNav(false));
     setIsOpen(false);
   };
 

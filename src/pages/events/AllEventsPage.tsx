@@ -3,16 +3,9 @@ import { useEffect, useState } from 'react';
 import { useLazyGetAllEventsQuery } from '@/redux/events/operations';
 import {
   resetAllFilters,
-  setFilterWithHeaderNav,
   setFilteredEventsId,
-  setFirstSearch,
 } from '@/redux/filters/filtersSlice';
-import {
-  getFilterWithHeaderNav,
-  getFilteredEventsId,
-  getFirstSearch,
-  getSelectedTypes,
-} from '@/redux/filters/selectors';
+import { getFilteredEventsId } from '@/redux/filters/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 import { filterByPrice } from '@/helpers/filterByPrice';
@@ -26,14 +19,10 @@ import { Main } from '@/components/main/Main';
 
 const AllEventsPage: React.FC = () => {
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
-  const [firstRender, setFirstRender] = useState(true);
 
   const dispatch = useAppDispatch();
 
-  const firstSearch = useAppSelector(getFirstSearch);
   const filteredEventsId = useAppSelector(getFilteredEventsId);
-  const isFilterWithHeaderNav = useAppSelector(getFilterWithHeaderNav);
-  const selectedTypes = useAppSelector(getSelectedTypes);
 
   const [trigger, { data: events, isLoading }] = useLazyGetAllEventsQuery();
 
@@ -52,64 +41,31 @@ const AllEventsPage: React.FC = () => {
     return [];
   };
 
+  const filteredEventsByDateOrRangeResult = filteredEventsByDateOrRange();
+
   const filterEvents = () => {
-    setFilteredEvents(
-      filterByPrice({
-        selectedPrices,
-        filteredEventsByDateOrRange,
-      })
-    );
-    dispatch(setFirstSearch(false));
-    dispatch(setFilterWithHeaderNav(false));
+    const filteredEvents = filterByPrice({
+      selectedPrices,
+      filteredEventsByDateOrRangeResult,
+    });
+    console.log(filteredEvents);
+    dispatch(setFilteredEventsId(filteredEvents.map(item => item.id)));
   };
 
   const resetFilters = () => {
-    dispatch(resetAllFilters());
-
-    setFirstRender(true);
+    if (events) {
+      dispatch(resetAllFilters());
+      dispatch(setFilteredEventsId(events.map(item => item.id)));
+    }
   };
 
   useEffect(() => {
-    if (events && isFilterWithHeaderNav) {
-      if (selectedTypes.includes('Популярні')) {
-        setFilteredEvents(
-          events.filter(item => item.category === 'TOP_EVENTS')
-        );
-        return;
-      }
-      if (selectedTypes.includes('Усі події')) {
-        setFilteredEvents(events);
-        return;
-      } else {
-        setFilteredEvents(
-          events.filter(item => item.type === selectedTypes[0])
-        );
-        return;
-      }
-    }
-    dispatch(setFirstSearch(false));
-    setFirstRender(false);
-  }, [dispatch, events, isFilterWithHeaderNav, selectedTypes]);
-
-  useEffect(() => {
-    if (!firstRender) {
-      dispatch(setFilterWithHeaderNav(false));
-      dispatch(setFilteredEventsId(filteredEvents.map(item => item.id)));
-    }
-  }, [dispatch, filteredEvents, firstRender]);
-
-  useEffect(() => {
-    if (events && firstSearch && firstRender) {
-      setFilteredEvents(events);
-      setFirstRender(false);
-    }
-    if (events && !firstSearch && firstRender) {
+    if (events && events.length > 0) {
       setFilteredEvents(
         events.filter(item => filteredEventsId.includes(item.id))
       );
-      setFirstRender(false);
     }
-  }, [events, filteredEventsId, firstRender, firstSearch]);
+  }, [events, filteredEventsId]);
 
   useScrollToTop();
 
