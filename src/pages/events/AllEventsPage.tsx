@@ -48,7 +48,6 @@ const AllEventsPage: React.FC = () => {
       selectedPrices,
       filteredEventsByDateOrRangeResult,
     });
-    console.log(filteredEvents);
     dispatch(setFilteredEventsId(filteredEvents.map(item => item.id)));
   };
 
