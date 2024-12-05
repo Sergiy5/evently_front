@@ -9,6 +9,7 @@ const initialState = {
   startDate: undefined as string | undefined,
   endDate: undefined as string | undefined,
   filteredEventsId: [] as string[],
+  firstRender: true,
 };
 
 const filtersSlice = createSlice({
@@ -55,6 +56,7 @@ const filtersSlice = createSlice({
       state.startDate = undefined;
       state.endDate = undefined;
       state.filteredEventsId = [];
+      state.firstRender = true;
     },
     setOneFilterType(state, action: { payload: string }) {
       state.selectedTypes = [action.payload];
@@ -65,6 +67,9 @@ const filtersSlice = createSlice({
       state.startDate = undefined;
       state.endDate = undefined;
       state.filteredEventsId = [];
+    },
+    setFirstRender(state, action: { payload: boolean }) {
+      state.firstRender = action.payload;
     },
   },
 });
@@ -82,4 +87,5 @@ export const {
   setFilteredEventsId,
   resetAllFilters,
   setOneFilterType,
+  setFirstRender,
 } = filtersSlice.actions;

@@ -4,8 +4,9 @@ import { useLazyGetAllEventsQuery } from '@/redux/events/operations';
 import {
   resetAllFilters,
   setFilteredEventsId,
+  setFirstRender,
 } from '@/redux/filters/filtersSlice';
-import { getFilteredEventsId } from '@/redux/filters/selectors';
+import { getFilteredEventsId, getFirstRender } from '@/redux/filters/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 import { filterByPrice } from '@/helpers/filterByPrice';
@@ -25,6 +26,7 @@ const AllEventsPage: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const filteredEventsId = useAppSelector(getFilteredEventsId);
+  const firstRender = useAppSelector(getFirstRender);
 
   const [trigger, { data: events, isLoading }] = useLazyGetAllEventsQuery();
 
@@ -54,11 +56,15 @@ const AllEventsPage: React.FC = () => {
   };
 
   const resetFilters = () => {
-    if (events) {
-      dispatch(resetAllFilters());
-      dispatch(setFilteredEventsId(events.map(item => item.id)));
-    }
+    dispatch(resetAllFilters());
   };
+
+  useEffect(() => {
+    if (events && firstRender) {
+      dispatch(setFilteredEventsId(events.map(item => item.id)));
+      dispatch(setFirstRender(false));
+    }
+  }, [dispatch, events, firstRender]);
 
   useEffect(() => {
     if (events && events.length > 0) {
