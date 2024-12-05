@@ -122,7 +122,7 @@ export const EventCard: React.FC<EventCardProps> = ({
       <div
         className={`absolute flex flex-col items-start gap-2 justify-between w-full py-4 px-5 h-[365px]
           rounded-t-[20px] bg-hoverCard transition-all ease-in-out duration-300 -bottom-[101px]
-          ${category === 'TOP_EVENTS' ? 'group-hover:-bottom-0' : 'group-hover:-bottom-10'}
+          ${category === 'TOP_EVENTS' ? 'group-hover:-bottom-0' : status ? '' : 'group-hover:-bottom-10'}
           `}
       >
         <div
@@ -160,20 +160,9 @@ export const EventCard: React.FC<EventCardProps> = ({
           </li>
         </ul>
 
-        {status ? (
-          <div className="w-full flex justify-center gap-4 text-base mt-4">
-            <button className="border border-buttonPurple bg-lightPurple rounded-[10px] w-[110px] h-[33px] focus:outline-0">
-              Схвалити
-            </button>
-            <button className="border border-buttonPurple rounded-[10px] w-[110px] h-[33px] focus:outline-0">
-              Відхилити
-            </button>
-          </div>
-        ) : (
-          <SharedBtn type="button" primary className="w-[230px] h-12 mx-auto">
-            Хочу
-          </SharedBtn>
-        )}
+        <SharedBtn type="button" primary className="w-[230px] h-12 mx-auto">
+          Хочу
+        </SharedBtn>
         <p className="text-error mx-auto">Залишилось 30 квитків</p>
       </div>
     </div>
