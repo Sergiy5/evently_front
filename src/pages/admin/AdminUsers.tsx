@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BiChevronDown } from 'react-icons/bi';
 import { MdOutlineRefresh } from 'react-icons/md';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
@@ -8,6 +7,7 @@ import { fetchUsers } from '@/redux/users/operations';
 import { selectUsers } from '@/redux/users/selectors';
 
 import AdminTable from '@/components/admin/AdminTable';
+import Navigation from '@/components/admin/Navigation';
 
 const AdminUsers = () => {
   const { t } = useTranslation('adminUser');
@@ -47,7 +47,9 @@ const AdminUsers = () => {
     });
   };
 
-  const handleChangeQuantitty = (event: any) => {
+  const handleChangeQuantitty = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setQuanitityUsers(+event?.target.value);
     setPage(1);
   };
@@ -74,21 +76,7 @@ const AdminUsers = () => {
           {minUserPage}-{maxUserPage} з {totalUser}
         </p>
         <p className="mr-4">Кількість користувачів</p>
-        <div className="flex gap-2">
-          <button
-            onClick={() => handleChangePage('down')}
-            className="focus:outline-0"
-          >
-            <BiChevronDown className="rotate-90 w-6 h-6" />
-          </button>
-          <p className="text-base">{page}</p>
-          <button
-            onClick={() => handleChangePage('up')}
-            className="focus:outline-0"
-          >
-            <BiChevronDown className="-rotate-90 w-6 h-6" />
-          </button>
-        </div>
+        <Navigation page={page} changePage={handleChangePage} />
         <select
           className="h-fit w-fit rounded-[10px] border border-buttonPurple bg-background px-1 py-[3px] mr-2"
           onChange={handleChangeQuantitty}
