@@ -9,7 +9,7 @@ const initialState = {
   startDate: undefined as string | undefined,
   endDate: undefined as string | undefined,
   filteredEventsId: [] as string[],
-  firstSearch: true,
+  firstRender: true,
 };
 
 const filtersSlice = createSlice({
@@ -47,9 +47,6 @@ const filtersSlice = createSlice({
     setFilteredEventsId(state, action: { payload: string[] }) {
       state.filteredEventsId = action.payload;
     },
-    setFirstSearch(state, action: { payload: boolean }) {
-      state.firstSearch = action.payload;
-    },
     resetAllFilters(state) {
       state.selectedTypes = [];
       state.selectedDates = [];
@@ -59,7 +56,20 @@ const filtersSlice = createSlice({
       state.startDate = undefined;
       state.endDate = undefined;
       state.filteredEventsId = [];
-      state.firstSearch = true;
+      state.firstRender = true;
+    },
+    setOneFilterType(state, action: { payload: string }) {
+      state.selectedTypes = [action.payload];
+      state.selectedDates = [];
+      state.rangeDatesArray = [];
+      state.selectedPrices = [];
+      state.isCalendarShown = false;
+      state.startDate = undefined;
+      state.endDate = undefined;
+      state.filteredEventsId = [];
+    },
+    setFirstRender(state, action: { payload: boolean }) {
+      state.firstRender = action.payload;
     },
   },
 });
@@ -75,6 +85,7 @@ export const {
   setDateRange,
   clearDateRange,
   setFilteredEventsId,
-  setFirstSearch,
   resetAllFilters,
+  setOneFilterType,
+  setFirstRender,
 } = filtersSlice.actions;

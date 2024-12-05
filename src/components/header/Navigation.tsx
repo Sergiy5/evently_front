@@ -1,30 +1,49 @@
 import { NavLink } from 'react-router-dom';
 
+import {
+  setFilteredEventsId,
+  setOneFilterType,
+} from '@/redux/filters/filtersSlice';
+import { useAppDispatch } from '@/redux/hooks';
+
 import { cityOptions, eventTypes } from '@/assets/staticData/statickData';
+import { useLazyGetAllEventsQueryWithTrigger } from '@/hooks/query/useLazyGetAllEventsQueryWithTrigger';
 
 import CustomSelect from '../ui/CustomSelect';
+import { AllEventsSelect } from './AllEventsSelect';
 
 export const Navigation: React.FC = () => {
+  const { events } = useLazyGetAllEventsQueryWithTrigger();
+
+  const dispatch = useAppDispatch();
+
+  const handleClick = () => {
+    dispatch(setOneFilterType('Популярні'));
+    if (events && events.length > 0) {
+      dispatch(
+        setFilteredEventsId(
+          events
+            .filter(item => item.category === 'TOP_EVENTS')
+            .map(item => item.id)
+        )
+      );
+    }
+  };
+
   return (
     <div className="flex pl-12 pr-24 gap-8 items-center">
-      <CustomSelect
+      <AllEventsSelect
         options={eventTypes}
         label="Події"
-        replaceLabelOnSelect={false}
         className="hover:font-bold"
         dropdownWidth="178px"
         buttonWidth="62px"
       />
       <nav className="flex gap-8">
         <NavLink
-          to="/popular"
-          className={({ isActive }) =>
-            `w-[82px] ${
-              isActive
-                ? 'text-buttonPurple font-bold hover:[text-shadow:_0_0_.65px_rgb(0_0_0_/_0.5)]'
-                : 'text-gray-700 hover:font-bold'
-            }`
-          }
+          onClick={handleClick}
+          to="/all_events"
+          className="w-[82px] text-gray-700 hover:font-bold"
         >
           Популярні
         </NavLink>

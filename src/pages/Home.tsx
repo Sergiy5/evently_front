@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
-
-import { useLazyGetAllEventsQuery } from '@/redux/events/operations';
+import { useLazyGetAllEventsQueryWithTrigger } from '@/hooks/query/useLazyGetAllEventsQueryWithTrigger';
 
 import { AllEvents } from '@/components/allEvents/AllEvents';
 import { Container } from '@/components/container/Container';
@@ -11,9 +9,10 @@ import { Main } from '@/components/main/Main';
 import { Organizers } from '@/components/organizers/Organizers';
 import { TopEvents } from '@/components/topEvents/TopEvents';
 import { ShowAllButton } from '@/components/ui/ShowAllButton';
+import Spinner from '@/components/ui/Spinner';
 
 const Home: React.FC = () => {
-  const [trigger, { data: events, isLoading }] = useLazyGetAllEventsQuery();
+  const { events, isLoading } = useLazyGetAllEventsQueryWithTrigger();
 
   const shownEvents = 16;
   const notTopEvents = events
@@ -21,26 +20,20 @@ const Home: React.FC = () => {
     .slice(0, shownEvents);
   const topEvents = events?.filter(event => event.category === 'TOP_EVENTS');
 
-  useEffect(() => {
-    trigger();
-  }, [trigger]);
+  if (isLoading) return <Spinner />;
 
   return (
     <Main className="flex flex-col gap-16 z-10">
       <Hero />
-      {isLoading ? (
-        <div>loading</div>
-      ) : (
-        <>
-          <TopEvents filteredEvents={topEvents} />
-          {notTopEvents && (
-            <Container>
-              <AllEvents events={notTopEvents} title="Усі події" />
-            </Container>
-          )}
-          <ShowAllButton />
-        </>
-      )}
+      <>
+        <TopEvents filteredEvents={topEvents} />
+        {notTopEvents && (
+          <Container>
+            <AllEvents events={notTopEvents} title="Усі події" />
+          </Container>
+        )}
+        <ShowAllButton />
+      </>
       <Organizers />
       <FAQ />
       <Footer />
