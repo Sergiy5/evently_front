@@ -9,8 +9,7 @@ const initialState = {
   startDate: undefined as string | undefined,
   endDate: undefined as string | undefined,
   filteredEventsId: [] as string[],
-  firstSearch: true,
-  filterWithHeaderNav: false,
+  firstRender: true,
 };
 
 const filtersSlice = createSlice({
@@ -48,9 +47,6 @@ const filtersSlice = createSlice({
     setFilteredEventsId(state, action: { payload: string[] }) {
       state.filteredEventsId = action.payload;
     },
-    setFirstSearch(state, action: { payload: boolean }) {
-      state.firstSearch = action.payload;
-    },
     resetAllFilters(state) {
       state.selectedTypes = [];
       state.selectedDates = [];
@@ -60,7 +56,7 @@ const filtersSlice = createSlice({
       state.startDate = undefined;
       state.endDate = undefined;
       state.filteredEventsId = [];
-      state.firstSearch = true;
+      state.firstRender = true;
     },
     setOneFilterType(state, action: { payload: string }) {
       state.selectedTypes = [action.payload];
@@ -71,11 +67,10 @@ const filtersSlice = createSlice({
       state.startDate = undefined;
       state.endDate = undefined;
       state.filteredEventsId = [];
-      state.firstSearch = true;
     },
-    setFilterWithHeaderNav(state, action: { payload: boolean }) {
-      state.filterWithHeaderNav = action.payload
-    }
+    setFirstRender(state, action: { payload: boolean }) {
+      state.firstRender = action.payload;
+    },
   },
 });
 
@@ -90,8 +85,7 @@ export const {
   setDateRange,
   clearDateRange,
   setFilteredEventsId,
-  setFirstSearch,
   resetAllFilters,
   setOneFilterType,
-  setFilterWithHeaderNav
+  setFirstRender,
 } = filtersSlice.actions;
