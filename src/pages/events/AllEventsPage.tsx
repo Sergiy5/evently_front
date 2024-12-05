@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import { useLazyGetAllEventsQuery } from '@/redux/events/operations';
 import {
   resetAllFilters,
   setFilteredEventsId,
@@ -11,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 import { filterByPrice } from '@/helpers/filterByPrice';
 import { useFilter } from '@/hooks/filters/useFilter';
+import { useLazyGetAllEventsQueryWithTrigger } from '@/hooks/query/useLazyGetAllEventsQueryWithTrigger';
 import { useScrollToTop } from '@/hooks/useScrollToTop';
 
 import { AllEvents } from '@/components/allEvents/AllEvents';
@@ -28,7 +28,7 @@ const AllEventsPage: React.FC = () => {
   const filteredEventsId = useAppSelector(getFilteredEventsId);
   const firstRender = useAppSelector(getFirstRender);
 
-  const [trigger, { data: events, isLoading }] = useLazyGetAllEventsQuery();
+  const { events, isLoading } = useLazyGetAllEventsQueryWithTrigger();
 
   const {
     addTypeFilter,
@@ -76,10 +76,6 @@ const AllEventsPage: React.FC = () => {
   }, [events, filteredEventsId]);
 
   useScrollToTop();
-
-  useEffect(() => {
-    trigger();
-  }, [trigger]);
 
   if (isLoading) return <Spinner />;
 

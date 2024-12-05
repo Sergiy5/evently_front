@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
-
-import { useLazyGetAllEventsQuery } from '@/redux/events/operations';
+import { useLazyGetAllEventsQueryWithTrigger } from '@/hooks/query/useLazyGetAllEventsQueryWithTrigger';
 
 import { AllEvents } from '@/components/allEvents/AllEvents';
 import { ShowAllButton } from '@/components/allEvents/ShowAllButton';
@@ -14,17 +12,13 @@ import { TopEvents } from '@/components/topEvents/TopEvents';
 import Spinner from '@/components/ui/Spinner';
 
 const HomePage: React.FC = () => {
-  const [trigger, { data: events, isLoading }] = useLazyGetAllEventsQuery();
+  const { events, isLoading } = useLazyGetAllEventsQueryWithTrigger();
 
   const shownEvents = 16;
   const notTopEvents = events
     ?.filter(item => item.category !== 'TOP_EVENTS')
     .slice(0, shownEvents);
   const topEvents = events?.filter(event => event.category === 'TOP_EVENTS');
-
-  useEffect(() => {
-    trigger();
-  }, [trigger]);
 
   if (isLoading) return <Spinner />;
 

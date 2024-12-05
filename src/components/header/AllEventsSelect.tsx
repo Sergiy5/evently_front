@@ -2,13 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { NavLink } from 'react-router-dom';
 
-import { useLazyGetAllEventsQuery } from '@/redux/events/operations';
 import {
   setFilteredEventsId,
   setFirstRender,
   setOneFilterType,
 } from '@/redux/filters/filtersSlice';
 import { useAppDispatch } from '@/redux/hooks';
+
+import { useLazyGetAllEventsQueryWithTrigger } from '@/hooks/query/useLazyGetAllEventsQueryWithTrigger';
 
 interface AllEventsSelectProps {
   options: Option[];
@@ -29,7 +30,7 @@ export const AllEventsSelect: React.FC<AllEventsSelectProps> = ({
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const [trigger, { data: events }] = useLazyGetAllEventsQuery();
+  const { events } = useLazyGetAllEventsQueryWithTrigger();
 
   const dispatch = useAppDispatch();
 
@@ -73,10 +74,6 @@ export const AllEventsSelect: React.FC<AllEventsSelectProps> = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
-  useEffect(() => {
-    trigger();
-  }, [trigger]);
 
   return (
     <div
