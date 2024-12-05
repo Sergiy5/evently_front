@@ -1,28 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { RouterProvider } from 'react-router-dom';
 
-import axios from 'axios';
-
+import Spinner from './components/ui/Spinner';
 import { useGetLikedEventsWithSkip } from './hooks/query/useGetLikedEventsWithSkip';
-import { selectIsLoggedIn, selectToken } from './redux/auth/selectors';
-import { EventsApi } from './redux/events/operations';
-import { useAppDispatch, useAppSelector } from './redux/hooks';
+import { useLazyGetAllEventsQueryWithTrigger } from './hooks/query/useLazyGetAllEventsQueryWithTrigger';
+import { useLogOutAfterTokenExpires } from './hooks/useLogOutAfterTokenExpires';
+import { useResetRTKEventsApi } from './hooks/useResetRTKEventsApi';
 import router from './routing';
 
 const App: React.FC = () => {
-  const token = useAppSelector(selectToken);
-  const isLoggedIn = useAppSelector(selectIsLoggedIn);
-
-  const dispatch = useAppDispatch();
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-
+  const { isLoading } = useLazyGetAllEventsQueryWithTrigger();
+  useLogOutAfterTokenExpires();
   useGetLikedEventsWithSkip();
+  useResetRTKEventsApi();
 
-  useEffect(() => {
-    if (!isLoggedIn || !token) {
-      dispatch(EventsApi.util.resetApiState());
-    }
-  }, [dispatch, isLoggedIn, token]);
+  if (isLoading) return <Spinner />;
 
   return <RouterProvider router={router} />;
 };
