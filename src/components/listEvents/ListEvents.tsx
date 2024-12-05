@@ -1,6 +1,6 @@
 import { nanoid } from '@reduxjs/toolkit';
 
-import { EventCard } from './EventCard';
+import { EventCard } from '../ui';
 
 interface ListEventsProps {
   events: Event[];

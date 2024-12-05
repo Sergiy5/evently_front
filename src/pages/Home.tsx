@@ -1,7 +1,8 @@
-import { useLazyGetAllEventsQueryWithTrigger } from '@/hooks/query/useLazyGetAllEventsQueryWithTrigger';
+import { useEffect } from 'react';
+
+import { useLazyGetAllEventsQuery } from '@/redux/events/operations';
 
 import { AllEvents } from '@/components/allEvents/AllEvents';
-import { ShowAllButton } from '@/components/allEvents/ShowAllButton';
 import { Container } from '@/components/container/Container';
 import { FAQ } from '@/components/faq/FAQ';
 import { Footer } from '@/components/footer/footer';
@@ -9,10 +10,10 @@ import { Hero } from '@/components/hero/Hero';
 import { Main } from '@/components/main/Main';
 import { Organizers } from '@/components/organizers/Organizers';
 import { TopEvents } from '@/components/topEvents/TopEvents';
-import Spinner from '@/components/ui/Spinner';
+import { ShowAllButton } from '@/components/ui/ShowAllButton';
 
-const HomePage: React.FC = () => {
-  const { events, isLoading } = useLazyGetAllEventsQueryWithTrigger();
+const Home: React.FC = () => {
+  const [trigger, { data: events, isLoading }] = useLazyGetAllEventsQuery();
 
   const shownEvents = 16;
   const notTopEvents = events
@@ -20,20 +21,26 @@ const HomePage: React.FC = () => {
     .slice(0, shownEvents);
   const topEvents = events?.filter(event => event.category === 'TOP_EVENTS');
 
-  if (isLoading) return <Spinner />;
+  useEffect(() => {
+    trigger();
+  }, [trigger]);
 
   return (
     <Main className="flex flex-col gap-16 z-10">
       <Hero />
-      <>
-        <TopEvents filteredEvents={topEvents} />
-        {notTopEvents && (
-          <Container>
-            <AllEvents events={notTopEvents} title="Усі події" />
-          </Container>
-        )}
-        <ShowAllButton />
-      </>
+      {isLoading ? (
+        <div>loading</div>
+      ) : (
+        <>
+          <TopEvents filteredEvents={topEvents} />
+          {notTopEvents && (
+            <Container>
+              <AllEvents events={notTopEvents} title="Усі події" />
+            </Container>
+          )}
+          <ShowAllButton />
+        </>
+      )}
       <Organizers />
       <FAQ />
       <Footer />
@@ -41,4 +48,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default Home;

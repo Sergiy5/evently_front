@@ -1,18 +1,27 @@
 import { FaInstagram, FaViber } from 'react-icons/fa';
 import { FiFacebook } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Container } from '../container/Container';
-import { MainLogo } from '../ui/Logo';
+import MainLogo from '../ui/Logo';
 
 export const Footer: React.FC = () => {
+  const navigate = useNavigate();
+
   const iconsStyles = 'w-6 h-6 mr-6 hover:[color:#9B8FF3] cursor-pointer';
 
   return (
-    <Container className="flex pl-[130px] pb-[40px]">
-      <div className="pr-[159px] flex flex-col gap-[64px]">
-        <MainLogo />
-        <a href='tel:+380995745676'>+380(99) 574 56 76</a>
+    <Container className="flex pl-[90px] pb-[40px]">
+      <div className="pr-[159px]">
+        <div
+          className="background-background cursor-pointer pb-[64px]"
+          onClick={() => {
+            navigate('/');
+          }}
+        >
+          <MainLogo />
+        </div>
+        <div>+380(99) 574 56 76</div>
       </div>
       <nav className="pr-[140px]">
         <Link to="/about" className="block pb-6 hover:font-bold">

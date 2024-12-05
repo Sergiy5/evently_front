@@ -6,11 +6,11 @@ import { useAppSelector } from '@/redux/hooks';
 
 import { Container } from '../container/Container';
 import { SharedBtn } from '../ui';
+import MainLogo from '../ui/Logo';
 import { HeaderLines } from './HeaderLines';
 import { Navigation } from './Navigation';
 import { UserNavigation } from './UserNavigation';
 import { VerticalLines } from './VerticalLines';
-import { MainLogo } from '../ui/Logo';
 
 export const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,7 +33,9 @@ export const Header: React.FC = () => {
         <HeaderLines />
         <header className="p-4 bg-gray-100">
           <div className="flex justify-center items-center h-[84px]">
-            <MainLogo />
+            <div onClick={() => navigate('/')} className="cursor-pointer">
+              <MainLogo />
+            </div>
             <Navigation />
             <UserNavigation
               handleLinkClick={handleLinkClick}

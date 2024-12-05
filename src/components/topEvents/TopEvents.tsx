@@ -5,8 +5,8 @@ import { nanoid } from '@reduxjs/toolkit';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 
-import { EventCard } from '../allEvents/EventCard';
 import { Container } from '../container/Container';
+import { EventCard } from '../ui';
 import { MySliderBtn } from './MySliderBtn';
 
 interface TopEventsProps {

@@ -15,7 +15,7 @@ import { useAppSelector } from '@/redux/hooks';
 
 import { useGetLikedEventsWithSkip } from '@/hooks/query/useGetLikedEventsWithSkip';
 
-import { SharedBtn } from '../ui';
+import { SharedBtn } from './SharedBtn';
 
 interface EventCardProps {
   event: Event;

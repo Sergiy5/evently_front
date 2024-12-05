@@ -1,43 +1,57 @@
 import { useEffect, useState } from 'react';
 
+import { useLazyGetAllEventsQuery } from '@/redux/events/operations';
 import {
-  resetAllFilters,
+  addSelectedDates,
+  addSelectedPrices,
   setFilteredEventsId,
-  setFirstRender,
+  setFirstSearch,
+  setIsCalendarShown,
 } from '@/redux/filters/filtersSlice';
-import { getFilteredEventsId, getFirstRender } from '@/redux/filters/selectors';
+import { getFilteredEventsId, getFirstSearch } from '@/redux/filters/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 import { filterByPrice } from '@/helpers/filterByPrice';
-import { useFilter } from '@/hooks/filters/useFilter';
-import { useLazyGetAllEventsQueryWithTrigger } from '@/hooks/query/useLazyGetAllEventsQueryWithTrigger';
-import { useScrollToTop } from '@/hooks/useScrollToTop';
+import { useGetEventDateFilter } from '@/hooks/filters/useGetEventDateFilter';
+import { useGetEventDatesRangeFilter } from '@/hooks/filters/useGetEventDatesRangeFilter';
+import { useGetEventPriceFilter } from '@/hooks/filters/useGetEventPriceFilter';
+import { useGetEventTypeFilter } from '@/hooks/filters/useGetEventTypeFilter';
+import { useGetFilteredEventsByDate } from '@/hooks/filters/useGetFilteredEventsByDate';
+import { useGetFilteredEventsByRange } from '@/hooks/filters/useGetFilteredEventsByRange';
+import { useGetFilteredEventsByType } from '@/hooks/filters/useGetFilteredEventsByType';
 
 import { AllEvents } from '@/components/allEvents/AllEvents';
 import { FilterEvents } from '@/components/filters/FilterEvents';
 import { Footer } from '@/components/footer/footer';
 import { Main } from '@/components/main/Main';
-import Spinner from '@/components/ui/Spinner';
 
 const AllEventsPage: React.FC = () => {
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
-  const [eventsLoaded, setEventsLoaded] = useState(false);
+  const [firstRender, setFirstRender] = useState(true);
 
   const dispatch = useAppDispatch();
 
+  const firstSearch = useAppSelector(getFirstSearch);
   const filteredEventsId = useAppSelector(getFilteredEventsId);
-  const firstRender = useAppSelector(getFirstRender);
 
-  const { events, isLoading } = useLazyGetAllEventsQueryWithTrigger();
+  const [trigger, { data: events, isLoading }] = useLazyGetAllEventsQuery();
 
-  const {
-    addTypeFilter,
-    addDateFilter,
-    addPriceFilter,
-    selectedPrices,
-    filteredEventsByDate,
-    filteredEventsByRange,
-  } = useFilter({ events });
+  const { addTypeFilter } = useGetEventTypeFilter();
+  const { addDateFilter } = useGetEventDateFilter();
+  const { rangeDatesArray } = useGetEventDatesRangeFilter();
+  const { addPriceFilter, selectedPrices } = useGetEventPriceFilter();
+
+  const { filteredEventsByType } = useGetFilteredEventsByType({
+    events,
+  });
+  const { filteredEventsByDate } = useGetFilteredEventsByDate({
+    filteredEventsByType,
+  });
+  const { filteredEventsByRange, setFilteredEventsByRange } =
+    useGetFilteredEventsByRange({
+      filteredEventsByType,
+      rangeDatesArray,
+    });
 
   const filteredEventsByDateOrRange = () => {
     if (filteredEventsByDate.length > 0) return filteredEventsByDate;
@@ -45,39 +59,48 @@ const AllEventsPage: React.FC = () => {
     return [];
   };
 
-  const filteredEventsByDateOrRangeResult = filteredEventsByDateOrRange();
-
   const filterEvents = () => {
-    const filteredEvents = filterByPrice({
-      selectedPrices,
-      filteredEventsByDateOrRangeResult,
-    });
-    dispatch(setFilteredEventsId(filteredEvents.map(item => item.id)));
+    setFilteredEvents(
+      filterByPrice({
+        selectedPrices,
+        filteredEventsByDateOrRange,
+      })
+    );
+    dispatch(setFirstSearch(false));
   };
 
   const resetFilters = () => {
-    dispatch(resetAllFilters());
+    addTypeFilter('Усі події');
+    dispatch(addSelectedDates([]));
+    setFilteredEventsByRange([]);
+    dispatch(addSelectedPrices([]));
+    setFirstRender(true);
+    dispatch(setIsCalendarShown(false));
+    dispatch(setFirstSearch(true));
   };
 
   useEffect(() => {
-    if (events && firstRender) {
-      dispatch(setFilteredEventsId(events.map(item => item.id)));
-      dispatch(setFirstRender(false));
-    }
-  }, [dispatch, events, firstRender]);
+    if (!firstRender)
+      dispatch(setFilteredEventsId(filteredEvents.map(item => item.id)));
+  }, [dispatch, filteredEvents, firstRender]);
 
   useEffect(() => {
-    if (events && events.length > 0) {
+    if (events && firstSearch && firstRender) {
+      setFilteredEvents(events);
+      setFirstRender(false);
+    }
+    if (events && !firstSearch && firstRender) {
       setFilteredEvents(
         events.filter(item => filteredEventsId.includes(item.id))
       );
-      setEventsLoaded(true);
+      setFirstRender(false);
     }
-  }, [events, filteredEventsId]);
+  }, [events, filteredEventsId, firstRender, firstSearch]);
 
-  useScrollToTop();
-
-  if (isLoading) return <Spinner />;
+  useEffect(() => {
+    trigger();
+    window.scrollTo(0, 0);
+  }, [trigger]);
 
   return (
     <Main className="flex flex-col gap-16">
@@ -89,10 +112,11 @@ const AllEventsPage: React.FC = () => {
           addDateFilter={addDateFilter}
           addPriceFilter={addPriceFilter}
         />
-        {filteredEvents.length > 0 ? (
+        {isLoading && <div>loading</div>}
+        {filteredEvents.length > 0 && !isLoading ? (
           <AllEvents events={filteredEvents} title={false} />
         ) : (
-          eventsLoaded && <span>Нічого не знайдено</span>
+          <span>Нічого не знайдено</span>
         )}
       </div>
       <Footer />

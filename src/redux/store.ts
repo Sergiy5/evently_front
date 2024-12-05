@@ -34,7 +34,7 @@ const filterPersistConfig = {
     'startDate',
     'endDate',
     'filteredEventsId',
-    'firstRender',
+    'firstSearch',
   ],
 };
 
