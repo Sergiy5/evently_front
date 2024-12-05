@@ -16,9 +16,11 @@ import { AllEvents } from '@/components/allEvents/AllEvents';
 import { FilterEvents } from '@/components/filters/FilterEvents';
 import { Footer } from '@/components/footer/footer';
 import { Main } from '@/components/main/Main';
+import Spinner from '@/components/ui/Spinner';
 
 const AllEventsPage: React.FC = () => {
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
+  const [eventsLoaded, setEventsLoaded] = useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -63,6 +65,7 @@ const AllEventsPage: React.FC = () => {
       setFilteredEvents(
         events.filter(item => filteredEventsId.includes(item.id))
       );
+      setEventsLoaded(true);
     }
   }, [events, filteredEventsId]);
 
@@ -71,6 +74,8 @@ const AllEventsPage: React.FC = () => {
   useEffect(() => {
     trigger();
   }, [trigger]);
+
+  if (isLoading) return <Spinner />;
 
   return (
     <Main className="flex flex-col gap-16">
@@ -82,11 +87,10 @@ const AllEventsPage: React.FC = () => {
           addDateFilter={addDateFilter}
           addPriceFilter={addPriceFilter}
         />
-        {isLoading && <div>loading</div>}
-        {filteredEvents.length > 0 && !isLoading ? (
+        {filteredEvents.length > 0 ? (
           <AllEvents events={filteredEvents} title={false} />
         ) : (
-          <span>Нічого не знайдено</span>
+          eventsLoaded && <span>Нічого не знайдено</span>
         )}
       </div>
       <Footer />
