@@ -1,4 +1,4 @@
-import { ListEvents } from '../listEvents/ListEvents';
+import { ListEvents } from './ListEvents';
 
 interface AllEventsProps {
   events: Event[];

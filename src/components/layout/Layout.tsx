@@ -5,9 +5,11 @@ import { useResetAllFiltersAfterRouting } from '@/hooks/filters/useResetAllFilte
 
 import { Header } from '../header/Header';
 import { MainLines } from '../main/MainLines';
+import { useScrollToTop } from '@/hooks/useScrollToTop';
 
 export const Layout = () => {
   useResetAllFiltersAfterRouting();
+  useScrollToTop();
 
   return (
     <>

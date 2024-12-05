@@ -84,7 +84,7 @@ export const UserNavigation: React.FC<UserNavigationProps> = ({
             <BsSearch className="w-[24px] h-[24px] mr-2" />
             <input
               type="text"
-              placeholder="Поиск..."
+              placeholder="Пошук..."
               className="w-full p-2 bg-transparent text-gray-600 focus:outline-none"
             />
             <RxCross2
@@ -99,7 +99,7 @@ export const UserNavigation: React.FC<UserNavigationProps> = ({
         Icon={AiOutlineHeart}
         onClick={() => handleLinkClick('favourite')}
       >
-        {likedEventsAll && IsLoggedIn && (
+        {likedEventsAll && likedEventsAll.length > 0 && IsLoggedIn && (
           <div className="absolute -right-2 -top-2 w-[20px] h-[20px] rounded-full bg-borderColor flex items-center justify-center">
             <span className="text-background text-[10px]">
               {likedEventsAll.length}

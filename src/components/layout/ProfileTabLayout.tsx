@@ -3,8 +3,11 @@ import { Outlet } from 'react-router-dom';
 
 import { MainLines } from '../main/MainLines';
 import ProfileTab from '../tabProfile/ProfileTab';
+import { useScrollToTop } from '@/hooks/useScrollToTop';
 
 export const ProfileTabLayout = () => {
+  useScrollToTop();
+
   return (
     <main className="flex gap-[25px] relative p-[0px_55px] ">
       <MainLines />
