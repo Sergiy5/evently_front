@@ -7,7 +7,7 @@ export const fetchUsers = createAsyncThunk<User[]>(
     try {
       const response = await axios.get('admin/users');
       return response.data;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
     }

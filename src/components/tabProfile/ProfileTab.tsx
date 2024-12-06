@@ -81,6 +81,7 @@ const ProfileTab = () => {
     if (pathname.includes('admin')) {
       setIsActiveAdmin(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleOpenAdminTab = () => {
