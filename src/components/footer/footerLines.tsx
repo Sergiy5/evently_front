@@ -1,5 +1,5 @@
 import { nanoid } from '@reduxjs/toolkit';
-import { MainLines } from '../main/MainLines';
+
 
 export const FooterLines: React.FC = () => {
   return (
